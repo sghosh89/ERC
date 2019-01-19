@@ -1,0 +1,9 @@
+*.pdf
+*.rds
+*.RDS
+*.msg
+*.jpg
+*.csv
+*.RData
+.Rhistory
+*_cache
