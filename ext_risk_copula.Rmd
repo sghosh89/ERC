@@ -98,7 +98,7 @@ dev.off()
 
 ![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Lewinton-Cohen model : $r=0$, Ricker model : $r\neq0$) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_ricker__risk_global_disp}](./Results/ricker/ricker_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (ricker model with no dispersion : rc=1); numlocs=5, numsteps=25, numsims=10000\label{fig_ricker__risk_global_disp}](./Results/ricker/ricker_extrisk_d0.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (ricker model with no dispersion : rc=1); numlocs=5, numsteps=25, numsims=10000\label{fig_ricker_risk_d0}](./Results/ricker/ricker_extrisk_d0.pdf){ width=40%, height=40% }
 
 
 <!--
@@ -219,7 +219,7 @@ dev.off()
 
 ![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Hassell model : a = 0.5, b = 100, rc = 2.73) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_hassell}](./Results/hassell/hassell_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (hassell model with no dispersion : rc=2.73199); numlocs=5, numsteps=25, numsims=10000\label{fig_ricker__risk_global_disp}](./Results/hassell/hassell_extrisk_d0.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (hassell model with no dispersion : rc=2.73199); numlocs=5, numsteps=25, numsims=10000\label{fig_hassell_risk_d0}](./Results/hassell/hassell_extrisk_d0.pdf){ width=40%, height=40% }
 
 #Maynard Smith Model :
 
@@ -234,27 +234,32 @@ if (!dir.exists(tempo)){
 }
 resloc<-paste(tempo,"/",sep="")
 
-rlist<-seq(from=1.2,to=2.8,by=0.2)
 numsims<-10000
 numsteps<-25
 numlocs<-5
-a<-1
-b<-3
+a<-0.5
+b<-4
 scl<-1
 
-#msmith_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
-#colnames(msmith_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
+rc<-b/(b-1)
+rlist<-sort(c(seq(from=1.2,to=2.8,by=0.2),rc))
+
+msmith_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
+colnames(msmith_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
 
 
 # plot for local dispersal in D matrix 
-pdf(paste(resloc,"msmith_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.2))
-for(r in rlist){
+pdf(paste(resloc,"msmith_ext_risk_local_disp.pdf",sep=""),height=9,width=12)
+op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.2))
+for(i in c(1:length(rlist))){
+    r<-rlist[i]
     K_e<-((r-1)^(1/b))/a
     K<-K_e
     ext_thrs<-K/10
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,r=r,K=K,a=a,b=b,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=F,ploton = F)
+    msmith_extrisk_d0$risk_left_d0[i]<-s$risk_left[1]
+    msmith_extrisk_d0$risk_right_d0[i]<-s$risk_right[1]
     plot(s$d_seq,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
     lines(s$d_seq,s$risk_right,type="b",col="blue")
     legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
@@ -263,9 +268,11 @@ for(r in rlist){
 par(op)
 dev.off()
 
+saveRDS(msmith_extrisk_d0,paste(resloc,"msmith_extrisk_d0.RDS",sep=""))
+
 # plot for global dispersal in D matrix 
-pdf(paste(resloc,"msmith_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.2))
+pdf(paste(resloc,"msmith_ext_risk_global_disp.pdf",sep=""),height=9,width=12)
+op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.2))
 for(r in rlist){
     K_e<-((r-1)^(1/b))/a
     K<-K_e
@@ -281,8 +288,32 @@ par(op)
 dev.off()
 ```
 
+```{r fig_msmith_extrisk_d0, echo=F,results="hide"}
+set.seed(seed)
+numsims<-10000
+msmith_extrisk_d0<-readRDS("./Results/msmith/msmith_extrisk_d0.RDS")
+
+msmith_extrisk_d0$CI0.025left<-qbinom(msmith_extrisk_d0$risk_left_d0,size=numsims,prob=0.025)/numsims
+msmith_extrisk_d0$CI0.975left<-qbinom(msmith_extrisk_d0$risk_left_d0,size=numsims,prob=0.975)/numsims
+
+msmith_extrisk_d0$CI0.025right<-qbinom(msmith_extrisk_d0$risk_right_d0,size=numsims,prob=0.025)/numsims
+msmith_extrisk_d0$CI0.975right<-qbinom(msmith_extrisk_d0$risk_right_d0,size=numsims,prob=0.975)/numsims
+
+pdf("./Results/msmith/msmith_extrisk_d0.pdf",height = 6,width=6)
+plot(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),xlim = c(1.2,2.8),xlab="r",ylab="ext_risk",cex.lab=1.5,pch=1)
+arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025left,x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975left,angle=90,length=0.05,col=rgb(1,0,0,0.5),code=3)
+
+lines(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
+arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025right,x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975right,angle=90,length=0.05,col=rgb(0,0,1,0.5),code=3)
+mtext(paste0("d = 0 , numsims = ",numsims),side=3,line=0.2)
+legend(1.5,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n',cex=1.2)
+
+dev.off()
+```
+
 ![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model : a = 1, b = 3, rc = 1.7) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_msmith_r_vary}](./Results/msmith/msmith_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
 ![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model : a = 1, b = 3, rc = 1.7) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_msmith_r_vary}](./Results/msmith/msmith_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model with no dispersion : rc=1.33); numlocs=5, numsteps=25, numsims=10000\label{fig_msmith_risk_d0}](./Results/msmith/msmith_extrisk_d0.pdf){ width=40%, height=40% }
 

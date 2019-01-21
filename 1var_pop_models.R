@@ -76,9 +76,9 @@ Msmith<-function(r,a,b,p0,lensim){
 }
 
 #call the function
-r<-1.8
-a<-1
-b<-3
+r<-1.2
+a<-0.5
+b<-4
 K_e<-((r-1)^(1/b))/a
 K_e
 Msmith(r=r,a=a,b=b,p0=K_e-0.1,lensim=200) #see changes as r=5,a=0.5 and vary b : 1,1.5,2,4
