@@ -103,23 +103,32 @@ Verhulst<-function(r,p0,lensim){
 }
 
 #call the function
-Verhulst(r=1.2,p0=0.4,lensim=400) # eqm. point =1
+Verhulst(r=1.4,p0=0.4,lensim=400) # eqm. point =1
 
+#-------------------------------------------------------------
+# Exploring pennycuick model
+Pennycuick<-function(r,a,b,p0,lensim){
+  pop<-c(p0)
+  time<-c(0)
+  
+  for(it in c(1:lensim)){
+    pt<-(r*p0)/(1+exp(-a*(1-(p0/b))))
+    time<-c(time,it)
+    pop<-c(pop,pt)
+    p0<-pt
+  }
+  
+  plot(time,pop,type="b")
+  
+}
 
+#call the function
+a<-0.1
+b<-0.1
+r<-2
+K_e<-(b/a)*(a+log(r-1))
+K_e
+Pennycuick(r=r,a=a,b=b,p0=K_e-0.01,lensim=200) 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#-----------------------------------------
 

@@ -223,7 +223,7 @@ dev.off()
 
 #Maynard Smith Model :
 
-```{r fig_msmith_r_vary_localdisp, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r fig_msmith, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 
 model<-"msmith"
@@ -311,9 +311,108 @@ legend(1.5,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=
 dev.off()
 ```
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model : a = 1, b = 3, rc = 1.7) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_msmith_r_vary}](./Results/msmith/msmith_ext_risk_local_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model : a = 1, b = 3, rc = 4/3) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_msmith_r_vary}](./Results/msmith/msmith_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model : a = 1, b = 3, rc = 1.7) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_msmith_r_vary}](./Results/msmith/msmith_ext_risk_global_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model : a = 1, b = 3, rc = 4/3) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_msmith_r_vary}](./Results/msmith/msmith_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
 ![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model with no dispersion : rc=1.33); numlocs=5, numsteps=25, numsims=10000\label{fig_msmith_risk_d0}](./Results/msmith/msmith_extrisk_d0.pdf){ width=40%, height=40% }
+
+# Pennycuick model :
+
+```{r get_rc_pennycuick,echo=F,cache=T,cache.extra=list(seed,mtime("1var_pop_model_bifurcation.R"))}
+source("./1var_pop_model_bifurcation.R")
+a_pennycuick<-0.1
+b_pennycuick<-0.1
+eps<-1e-10 #you can change it upto which decimal point you want it to be exact
+rlist<-seq(from=4.3231657,to=4.3231658,by=eps)
+res_pennycuick<-c() 
+for(r in rlist){
+  ans<-fn_d1_eqm(params=c(r,a,b),model="pennycuick")
+  res_pennycuick<-c(res_pennycuick,ans)
+}
+
+#plot(rlist,res_pennycuick,col="red",type="l",xlab="r",ylab="pennycuick_1st_der_at_eqm")
+#abline(h=0)
+
+rc_pennycuick<-rlist[which.min(abs(res_pennycuick-0))]
+formatC(rc_pennycuick,digits = 10, format="f") # accurate upto 10th decimal
+```
+
+```{r fig_pennycuick, echo=F,  results="hide", cache=T, cache.extra=list(seed,a_pennycuick,b_pennycuick,rc_pennycuick,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+set.seed(seed)
+model<-"pennycuick"
+
+tempo<-paste("./Results/",model,sep="")
+if (!dir.exists(tempo)){
+  dir.create(tempo)
+}
+resloc<-paste(tempo,"/",sep="")
+
+numsims<-10000
+numsteps<-25
+numlocs<-5
+a<-a_pennycuick
+b<-b_pennycuick
+scl<-1
+
+rlist<-sort(c(seq(from=2,to=7,by=0.5),rc_pennycuick))
+
+pennycuick_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) # a dataframe to store ext risk at dispersal d=0 for all r
+colnames(pennycuick_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
+
+
+# plot for local dispersal in D matrix 
+pdf(paste(resloc,"pennycuick_ext_risk_local_disp.pdf",sep=""),height=9,width=12)
+op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.2))
+for(i in c(1:length(rlist))){
+    r<-rlist[i]
+    K_e<-(b/a)*(a+log(r-1))
+    K<-K_e
+    ext_thrs<-K/10
+    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,r=r,K=K,a=a,b=b,ext_thrs=ext_thrs,
+                 scl=scl,model=model,disp_everywhere=F,ploton = F)
+    pennycuick_extrisk_d0$risk_left_d0[i]<-s$risk_left[1]
+    pennycuick_extrisk_d0$risk_right_d0[i]<-s$risk_right[1]
+    plot(s$d_seq,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
+    lines(s$d_seq,s$risk_right,type="b",col="blue")
+    legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+    mtext(paste0("r = ", r))
+}
+par(op)
+dev.off()
+
+saveRDS(pennycuick_extrisk_d0,paste(resloc,"pennycuick_extrisk_d0.RDS",sep=""))
+
+# plot for global dispersal in D matrix 
+pdf(paste(resloc,"pennycuick_ext_risk_global_disp.pdf",sep=""),height=9,width=12)
+op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.2))
+for(r in rlist){
+    K_e<-(b/a)*(a+log(r-1))
+    K<-K_e
+    ext_thrs<-K/10
+    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,r=r,K=K,a=a,b=b,ext_thrs=ext_thrs,
+                 scl=scl,model=model,disp_everywhere=T,ploton = F)
+    plot(s$d_seq,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
+    lines(s$d_seq,s$risk_right,type="b",col="blue")
+    legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+    mtext(paste0("r = ", r))
+}
+par(op)
+dev.off()
+```
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_msmith_r_vary}](./Results/pennycuick/pennycuick_ext_risk_local_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 1, b = 3) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_msmith_r_vary}](./Results/pennycuick/pennycuick_ext_risk_global_disp.pdf){ width=40%, height=40% }
+
+
+
+
+
+
+
+
+
+
+
 

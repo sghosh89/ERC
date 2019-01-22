@@ -74,6 +74,7 @@ popsim_ml_D<-function(p0,ns,D,r,K,a,b,ext_thrs,model){
     lam_verhulst<-1+(r*(1-res[,,tct]))
     lam_hassell<-r/((1+(a*res[,,tct]))^b)
     lam_msmith<-r/(1+((a*res[,,tct])^b))
+    lam_pennycuick<-r/(1+exp(-a*(1-(res[,,tct]/b))))
     
     #growth prior to dispersal
     if(model=="ricker"){
@@ -84,7 +85,9 @@ popsim_ml_D<-function(p0,ns,D,r,K,a,b,ext_thrs,model){
       given_model<-lam_hassell
     }else if(model=="msmith"){
       given_model<-lam_msmith
-    }else{
+    }else if(model=="pennycuick"){
+      given_model<-lam_pennycuick
+    }else{ 
       warning("model not specified",immediate.=T,call.=T)
     }
     
