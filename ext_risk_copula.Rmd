@@ -75,19 +75,19 @@ set.seed(seed)
 
 ricker_extrisk_d0<-readRDS("./Results/ricker/ricker_extrisk_d0.RDS")
 numsims<-10000
-ricker_extrisk_d0$CI0.025left<-qbinom(ricker_extrisk_d0$risk_left_d0,size=numsims,prob=0.025)/numsims
-ricker_extrisk_d0$CI0.975left<-qbinom(ricker_extrisk_d0$risk_left_d0,size=numsims,prob=0.975)/numsims
+ricker_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=ricker_extrisk_d0$risk_left_d0)/numsims
+ricker_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=ricker_extrisk_d0$risk_left_d0)/numsims
 
-ricker_extrisk_d0$CI0.025right<-qbinom(ricker_extrisk_d0$risk_right_d0,size=numsims,prob=0.025)/numsims
-ricker_extrisk_d0$CI0.975right<-qbinom(ricker_extrisk_d0$risk_right_d0,size=numsims,prob=0.975)/numsims
+ricker_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=ricker_extrisk_d0$risk_right_d0)/numsims
+ricker_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=ricker_extrisk_d0$risk_right_d0)/numsims
 
 pdf("./Results/ricker/ricker_extrisk_d0.pdf",height = 6,width=6)
 
 plot(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),xlim = c(0,2),xlab="r",ylab="ext_risk",cex.lab=1.5,pch=1)
-arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025left,x1=ricker_extrisk_d0$r,y1=ricker_extrisk_d0$CI0.975left,angle=90,length=0.05,col=rgb(1,0,0,0.5),code=3)
+arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025left,x1=ricker_extrisk_d0$r,y1=ricker_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
 
 lines(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
-arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025right,x1=ricker_extrisk_d0$r,y1=ricker_extrisk_d0$CI0.975right,angle=90,length=0.05,col=rgb(0,0,1,0.5),code=3)
+arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025right,x1=ricker_extrisk_d0$r,y1=ricker_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
 mtext(paste0("d = 0 , numsims = ",numsims),side=3,line=0.2)
 legend(0.2,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n',cex=1.2)
 
@@ -197,18 +197,18 @@ set.seed(seed)
 numsims<-10000
 hassell_extrisk_d0<-readRDS("./Results/hassell/hassell_extrisk_d0.RDS")
 
-hassell_extrisk_d0$CI0.025left<-qbinom(hassell_extrisk_d0$risk_left_d0,size=numsims,prob=0.025)/numsims
-hassell_extrisk_d0$CI0.975left<-qbinom(hassell_extrisk_d0$risk_left_d0,size=numsims,prob=0.975)/numsims
+hassell_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=hassell_extrisk_d0$risk_left_d0)/numsims
+hassell_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=hassell_extrisk_d0$risk_left_d0)/numsims
 
-hassell_extrisk_d0$CI0.025right<-qbinom(hassell_extrisk_d0$risk_right_d0,size=numsims,prob=0.025)/numsims
-hassell_extrisk_d0$CI0.975right<-qbinom(hassell_extrisk_d0$risk_right_d0,size=numsims,prob=0.975)/numsims
+hassell_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=hassell_extrisk_d0$risk_right_d0)/numsims
+hassell_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=hassell_extrisk_d0$risk_right_d0)/numsims
 
 pdf("./Results/hassell/hassell_extrisk_d0.pdf",height = 6,width=6)
 plot(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),xlim = c(1.4,7.6),xlab="r",ylab="ext_risk",cex.lab=1.5,pch=1)
-arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025left,x1=hassell_extrisk_d0$r,y1=hassell_extrisk_d0$CI0.975left,angle=90,length=0.05,col=rgb(1,0,0,0.5),code=3)
+arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025left,x1=hassell_extrisk_d0$r,y1=hassell_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
 
 lines(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
-arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025right,x1=hassell_extrisk_d0$r,y1=hassell_extrisk_d0$CI0.975right,angle=90,length=0.05,col=rgb(0,0,1,0.5),code=3)
+arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025right,x1=hassell_extrisk_d0$r,y1=hassell_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
 mtext(paste0("d = 0 , numsims = ",numsims),side=3,line=0.2)
 legend(2,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n',cex=1.2)
 
@@ -293,18 +293,18 @@ set.seed(seed)
 numsims<-10000
 msmith_extrisk_d0<-readRDS("./Results/msmith/msmith_extrisk_d0.RDS")
 
-msmith_extrisk_d0$CI0.025left<-qbinom(msmith_extrisk_d0$risk_left_d0,size=numsims,prob=0.025)/numsims
-msmith_extrisk_d0$CI0.975left<-qbinom(msmith_extrisk_d0$risk_left_d0,size=numsims,prob=0.975)/numsims
+msmith_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=msmith_extrisk_d0$risk_left_d0)/numsims
+msmith_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=msmith_extrisk_d0$risk_left_d0)/numsims
 
-msmith_extrisk_d0$CI0.025right<-qbinom(msmith_extrisk_d0$risk_right_d0,size=numsims,prob=0.025)/numsims
-msmith_extrisk_d0$CI0.975right<-qbinom(msmith_extrisk_d0$risk_right_d0,size=numsims,prob=0.975)/numsims
+msmith_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=msmith_extrisk_d0$risk_right_d0)/numsims
+msmith_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=msmith_extrisk_d0$risk_right_d0)/numsims
 
 pdf("./Results/msmith/msmith_extrisk_d0.pdf",height = 6,width=6)
-plot(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),xlim = c(1.2,2.8),xlab="r",ylab="ext_risk",cex.lab=1.5,pch=1)
-arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025left,x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975left,angle=90,length=0.05,col=rgb(1,0,0,0.5),code=3)
+plot(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0.8,1),xlim = c(1.2,2.8),xlab="r",ylab="ext_risk",cex.lab=1.5,pch=1)
+arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025left,x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
 
 lines(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
-arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025right,x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975right,angle=90,length=0.05,col=rgb(0,0,1,0.5),code=3)
+arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025right,x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
 mtext(paste0("d = 0 , numsims = ",numsims),side=3,line=0.2)
 legend(1.5,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n',cex=1.2)
 
@@ -315,7 +315,7 @@ dev.off()
 
 ![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model : a = 1, b = 3, rc = 4/3) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_msmith_r_vary}](./Results/msmith/msmith_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model with no dispersion : rc=1.33); numlocs=5, numsteps=25, numsims=10000\label{fig_msmith_risk_d0}](./Results/msmith/msmith_extrisk_d0.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model with no dispersion : rc=4/3); numlocs=5, numsteps=25, numsims=10000\label{fig_msmith_risk_d0}](./Results/msmith/msmith_extrisk_d0.pdf){ width=40%, height=40% }
 
 # Pennycuick model :
 
@@ -401,10 +401,35 @@ par(op)
 dev.off()
 ```
 
+```{r fig_pennycuick_extrisk_d0, echo=F,results="hide"}
+set.seed(seed)
+numsims<-10000
+pennycuick_extrisk_d0<-readRDS("./Results/pennycuick/pennycuick_extrisk_d0.RDS")
+
+pennycuick_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=pennycuick_extrisk_d0$risk_left_d0)/numsims
+pennycuick_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=pennycuick_extrisk_d0$risk_left_d0)/numsims
+
+pennycuick_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=pennycuick_extrisk_d0$risk_right_d0)/numsims
+pennycuick_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=pennycuick_extrisk_d0$risk_right_d0)/numsims
+
+pdf("./Results/pennycuick/pennycuick_extrisk_d0.pdf",height = 6,width=6)
+plot(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),
+     xlim = c(2,7),xlab="r",ylab="ext_risk",cex.lab=1.5,pch=1)
+arrows(x0=pennycuick_extrisk_d0$r,y0=pennycuick_extrisk_d0$CI0.025left,x1=pennycuick_extrisk_d0$r,y1=pennycuick_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
+
+lines(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
+arrows(x0=pennycuick_extrisk_d0$r,y0=pennycuick_extrisk_d0$CI0.025right,x1=pennycuick_extrisk_d0$r,y1=pennycuick_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
+mtext(paste0("d = 0 , numsims = ",numsims),side=3,line=0.2)
+legend(3,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n',cex=1.2)
+
+dev.off()
+```
+
 ![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_msmith_r_vary}](./Results/pennycuick/pennycuick_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
 ![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 1, b = 3) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_msmith_r_vary}](./Results/pennycuick/pennycuick_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model with no dispersion : rc=4.3231657); numlocs=5, numsteps=25, numsims=10000\label{fig_pennycuick_risk_d0}](./Results/pennycuick/pennycuick_extrisk_d0.pdf){ width=40%, height=40% }
 
 
 
