@@ -19,8 +19,6 @@ rlist<-c(0,0.1,0.3,0.5,0.7,0.9,1.0,1.1,1.3,1.5,1.7,1.9) #rc = 1
 numsims<-10000
 numsteps<-25
 numlocs<-5
-a<-NA
-b<-NA
 K<-50
 scl<-1
 ext_thrs<-K/10
@@ -40,7 +38,8 @@ pdf(paste(resloc,"ricker_ext_risk_local_disp.pdf",sep=""),height=9,width=12)
 op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.2))
 for(i in c(1:length(rlist))){
     r<- rlist[i]
-    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,r=r,K=K,a=a,b=b,ext_thrs=ext_thrs,
+    params<-c(r,K)
+    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=F,ploton = F)
     ricker_extrisk_d0$risk_left_d0[i]<-s$risk_left[1]
     ricker_extrisk_d0$risk_right_d0[i]<-s$risk_right[1]
@@ -59,7 +58,8 @@ pdf(paste(resloc,"ricker_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.2))
 for(r in rlist){
     #cat("r=",r,"\n")
-    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,r=r,K=K,a=a,b=b,ext_thrs=ext_thrs,
+    params<-c(r,K)
+    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=T,ploton = F)
     plot(s$d_seq,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
     lines(s$d_seq,s$risk_right,type="b",col="blue")
@@ -157,9 +157,9 @@ op<-par(mfrow=c(3,5),mar=c(5.2,4.2,1.2,1.2))
 for(i in c(1:length(rlist))){
     r<- rlist[i]
     K_e<-((r^(1/b))-1)/a
-    K<-K_e
-    ext_thrs<-K/10
-    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,r=r,K=K,a=a,b=b,ext_thrs=ext_thrs,
+    ext_thrs<-K_e/10
+    params<-c(r,a,b)
+    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=F,ploton = F)
     hassell_extrisk_d0$risk_left_d0[i]<-s$risk_left[1]
     hassell_extrisk_d0$risk_right_d0[i]<-s$risk_right[1]
@@ -179,9 +179,9 @@ op<-par(mfrow=c(3,5),mar=c(5.2,4.2,1.2,1.2))
 for(r in rlist){
     #cat("r=",r,"\n")
     K_e<-((r^(1/b))-1)/a
-    K<-K_e
-    ext_thrs<-K/10
-    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,r=r,K=K,a=a,b=b,ext_thrs=ext_thrs,
+    ext_thrs<-K_e/10
+    params<-c(r,a,b)
+    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=T,ploton = F)
     plot(s$d_seq,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
     lines(s$d_seq,s$risk_right,type="b",col="blue")
@@ -253,10 +253,10 @@ pdf(paste(resloc,"msmith_ext_risk_local_disp.pdf",sep=""),height=9,width=12)
 op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.2))
 for(i in c(1:length(rlist))){
     r<-rlist[i]
+    params<-c(r,a,b)
     K_e<-((r-1)^(1/b))/a
-    K<-K_e
-    ext_thrs<-K/10
-    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,r=r,K=K,a=a,b=b,ext_thrs=ext_thrs,
+    ext_thrs<-K_e/10
+    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=F,ploton = F)
     msmith_extrisk_d0$risk_left_d0[i]<-s$risk_left[1]
     msmith_extrisk_d0$risk_right_d0[i]<-s$risk_right[1]
@@ -274,10 +274,10 @@ saveRDS(msmith_extrisk_d0,paste(resloc,"msmith_extrisk_d0.RDS",sep=""))
 pdf(paste(resloc,"msmith_ext_risk_global_disp.pdf",sep=""),height=9,width=12)
 op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.2))
 for(r in rlist){
+    params<-c(r,a,b)
     K_e<-((r-1)^(1/b))/a
-    K<-K_e
-    ext_thrs<-K/10
-    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,r=r,K=K,a=a,b=b,ext_thrs=ext_thrs,
+    ext_thrs<-K_e/10
+    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=T,ploton = F)
     plot(s$d_seq,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
     lines(s$d_seq,s$risk_right,type="b",col="blue")
@@ -366,10 +366,10 @@ pdf(paste(resloc,"pennycuick_ext_risk_local_disp.pdf",sep=""),height=9,width=12)
 op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.2))
 for(i in c(1:length(rlist))){
     r<-rlist[i]
+    params<-c(r,a,b)
     K_e<-(b/a)*(a+log(r-1))
-    K<-K_e
-    ext_thrs<-K/10
-    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,r=r,K=K,a=a,b=b,ext_thrs=ext_thrs,
+    ext_thrs<-K_e/10
+    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=F,ploton = F)
     pennycuick_extrisk_d0$risk_left_d0[i]<-s$risk_left[1]
     pennycuick_extrisk_d0$risk_right_d0[i]<-s$risk_right[1]
@@ -387,10 +387,10 @@ saveRDS(pennycuick_extrisk_d0,paste(resloc,"pennycuick_extrisk_d0.RDS",sep=""))
 pdf(paste(resloc,"pennycuick_ext_risk_global_disp.pdf",sep=""),height=9,width=12)
 op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.2))
 for(r in rlist){
+    params<-c(r,a,b)
     K_e<-(b/a)*(a+log(r-1))
-    K<-K_e
-    ext_thrs<-K/10
-    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,r=r,K=K,a=a,b=b,ext_thrs=ext_thrs,
+    ext_thrs<-K_e/10
+    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=T,ploton = F)
     plot(s$d_seq,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
     lines(s$d_seq,s$risk_right,type="b",col="blue")

@@ -131,4 +131,38 @@ K_e
 Pennycuick(r=r,a=a,b=b,p0=K_e-0.01,lensim=200) 
 
 #-----------------------------------------
+# Exploring Malthus model
+Malthus<-function(r,K,L,p0,lensim){
+  pop<-c(p0)
+  time<-c(0)
+  
+  for(it in c(1:lensim)){
+    pt<-r*p0*(K-p0+(L*log(p0)))
+    time<-c(time,it)
+    pop<-c(pop,pt)
+    p0<-pt
+  }
+  
+  plot(time,pop,type="b")
+  
+}
+
+#call the function
+r<-0.0032
+K<-600
+L<-4
+
+Malthus(r=r,K=K,L=L,p0=0.1,lensim=200) 
+
+
+
+
+
+
+
+
+
+
+
+
 

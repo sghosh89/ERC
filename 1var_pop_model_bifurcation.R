@@ -45,6 +45,16 @@ fn_d1_eqm<-function(params,model){
     res<-eval(fn_d1,list(r=r,a=a,b=b,p=p_e))
   }
   
+  if(model=="malthus"){
+    fn<-expression(r*p*(K-p+(L*log(p))))
+    fn_d1<-D(fn,"p")
+    r<-params[1]
+    K<-params[2]
+    L<-params[3]
+    p_e<-params[4]
+    res<-eval(fn_d1,list(r=r,K=K,L=L,p=p_e))
+  }
+  
   return(res)
 }
 
@@ -115,9 +125,33 @@ fn_d1_eqm<-function(params,model){
 #rc_numerics<-rlist[which.min(abs(res_pennycuick-0))]
 #formatC(rc_numerics,digits = 10, format="f") # compare with rc_analytical
 
+#------------------------------------------
+# calling for Malthus
+#library(nleqslv)
+#eqs<-function(z,r,K,L){
+#  x<-z^2
+#  y<-numeric(1)
+#  y[1]<-(L*log(x))-x+K-(1/r)
+#  return(y)
+#}
 
 
+#zstart <- 100
+#eps<-1e-10
+#rlist<-seq(from=0.003230,to=0.003232,by=eps)
+#K<-600
+#L<-4
+#res_malthus<-c()
+#for(r in rlist){
+#  geteqm<-nleqslv(zstart, eqs, method="Newton",r=r,K=K,L=L)
+#  p_e<-(geteqm$x)^2
+#  ans<-fn_d1_eqm(params=c(r,K,L,p_e),model="malthus")
+#  res_malthus<-c(res_malthus,ans)
+#} 
 
+#plot(rlist,res_malthus,col="red",type="l",xlab="r",ylab="malthus_1st_der_at_eqm")
+#abline(h=0)
 
-
+#rc_numerics<-rlist[which.min(abs(res_malthus-0))]
+#formatC(rc_numerics,digits = 10, format="f") # compare with rc_analytical
 
