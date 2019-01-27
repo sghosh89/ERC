@@ -154,6 +154,55 @@ L<-4
 
 Malthus(r=r,K=K,L=L,p0=0.1,lensim=200) 
 
+#-----------------------------------------
+# Exploring Austin-Brewer model
+AustinBrewer<-function(r,K,s,p0,lensim){
+  pop<-c(p0)
+  time<-c(0)
+  
+  for(it in c(1:lensim)){
+    pt<-p0*(1+(r*(K-p0)*(1-exp(-s*p0)))) 
+    time<-c(time,it)
+    pop<-c(pop,pt)
+    p0<-pt
+  }
+  
+  plot(time,pop,type="b")
+  
+}
+
+#call the function
+s<-0.13
+K<-45
+rc<-1/(K*(1-exp(-s*K)))
+rc
+r<-0.01
+AustinBrewer(r=r,K=K,s=s,p0=1,lensim=200) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

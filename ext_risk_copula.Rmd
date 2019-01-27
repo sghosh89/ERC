@@ -427,7 +427,7 @@ dev.off()
 
 ![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_msmith_r_vary}](./Results/pennycuick/pennycuick_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 1, b = 3) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_msmith_r_vary}](./Results/pennycuick/pennycuick_ext_risk_global_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_msmith_r_vary}](./Results/pennycuick/pennycuick_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
 ![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model with no dispersion : rc=4.3231657); numlocs=5, numsteps=25, numsims=10000\label{fig_pennycuick_risk_d0}](./Results/pennycuick/pennycuick_extrisk_d0.pdf){ width=40%, height=40% }
 

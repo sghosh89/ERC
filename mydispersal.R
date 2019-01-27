@@ -104,6 +104,12 @@ popsim_ml_D<-function(p0,ns,D,params,ext_thrs,model){
       L<-params[3]
       lam_malthus<-r*(K-res[,,tct]+(L*log(res[,,tct])))
       given_model<-lam_malthus
+    }else if(model=="austinbrewer"){
+      r<-params[1]
+      K<-params[2]
+      s<-params[3]
+      lam_austin<-(1+(r*(K-res[,,tct])*(1-exp(-s*res[,,tct])))) 
+      given_model<-lam_austin
     }else{ 
       warning("model not specified",immediate.=T,call.=T)
     }
