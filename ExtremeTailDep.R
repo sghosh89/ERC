@@ -11,7 +11,7 @@
 #
 retd<-function(n,d,rl)
 {
-  m<-matrix(rnorm(n*(d+1)),n,d+1)
+  m<-matrix(rnorm(n*(d+1),mean=0,sd=1),n,d+1)
   flag<-(m[,1]>0) #a coin toss
   m<-m[,2:(d+1)] #an n by d matrix of iid standard normals
   

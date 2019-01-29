@@ -74,47 +74,56 @@ popsim_ml_D<-function(p0,ns,D,params,ext_thrs,model){
     if(model=="ricker"){
       r<-params[1]
       K<-params[2]
-      lam_ricker<-exp(r*(1-(res[,,tct]/K)))
-      given_model<-lam_ricker
+      lam_ricker<-exp(r*(1-(res[,,tct]/K)))*res[,,tct]
+      res[,,tct+1]<-lam_ricker*lam_sto #numsims by numlocs matrix
     }else if(model=="verhulst"){
       r<-params[1]
-      lam_verhulst<-1+(r*(1-res[,,tct]))
-      given_model<-lam_verhulst
+      lam_verhulst<-1+(r*(1-res[,,tct]))*res[,,tct]
+      res[,,tct+1]<-lam_verhulst*lam_sto #numsims by numlocs matrix
     }else if(model=="hassell"){
       r<-params[1]
       a<-params[2]
       b<-params[3]
-      lam_hassell<-r/((1+(a*res[,,tct]))^b)
-      given_model<-lam_hassell
+      lam_hassell<-(r*res[,,tct])/((1+(a*res[,,tct]))^b)
+      res[,,tct+1]<-lam_hassell*lam_sto #numsims by numlocs matrix
     }else if(model=="msmith"){
       r<-params[1]
       a<-params[2]
       b<-params[3]
-      lam_msmith<-r/(1+((a*res[,,tct])^b))
-      given_model<-lam_msmith
+      lam_msmith<-(r*res[,,tct])/(1+((a*res[,,tct])^b))
+      res[,,tct+1]<-lam_msmith*lam_sto #numsims by numlocs matrix
     }else if(model=="pennycuick"){
       r<-params[1]
       a<-params[2]
       b<-params[3]
-      lam_pennycuick<-r/(1+exp(-a*(1-(res[,,tct]/b))))
-      given_model<-lam_pennycuick
+      lam_pennycuick<-(r*res[,,tct])/(1+exp(-a*(1-(res[,,tct]/b))))
+      res[,,tct+1]<-lam_pennycuick*lam_sto #numsims by numlocs matrix
     }else if(model=="malthus"){
       r<-params[1]
       K<-params[2]
       L<-params[3]
-      lam_malthus<-r*(K-res[,,tct]+(L*log(res[,,tct])))
-      given_model<-lam_malthus
+      lam_malthus<-r*res[,,tct]*(K-res[,,tct]+(L*log(res[,,tct])))
+      res[,,tct+1]<-lam_malthus*lam_sto #numsims by numlocs matrix
     }else if(model=="austinbrewer"){
       r<-params[1]
       K<-params[2]
       s<-params[3]
-      lam_austin<-(1+(r*(K-res[,,tct])*(1-exp(-s*res[,,tct])))) 
-      given_model<-lam_austin
+      lam_austin<-(1+(r*(K-res[,,tct])*(1-exp(-s*res[,,tct]))))*res[,,tct] 
+      res[,,tct+1]<-lam_austin*lam_sto #numsims by numlocs matrix
+    }else if(model=="varley"){
+      r<-params[1]
+      b<-params[2]
+      C<-params[3]
+      x1<-res[,,tct]
+      x2<-C*matrix(1,nrow(x1),ncol(x1))
+      idl<-which(x1<=x2,arr.ind = T)
+      x1[idl]<-r*x1[idl]
+      idg<-which(x1>x2,arr.ind = T)
+      x1[idg]<-r*(x1[idg])^(1-b)
+      res[,,tct+1]<-x1*lam_sto #numsims by numlocs matrix
     }else{ 
       warning("model not specified",immediate.=T,call.=T)
     }
-    
-    res[,,tct+1]<-given_model*lam_sto*res[,,tct] #numsims by numlocs matrix
     
     #after dispersal
     tres<-t(res[,,tct+1]) # numlocs by numsims matrix after taking transpose

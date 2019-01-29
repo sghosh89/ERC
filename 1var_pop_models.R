@@ -173,14 +173,41 @@ AustinBrewer<-function(r,K,s,p0,lensim){
 
 #call the function
 s<-0.13
-K<-45
+K<-100
 rc<-1/(K*(1-exp(-s*K)))
 rc
-r<-0.01
+r<-0.014
 AustinBrewer(r=r,K=K,s=s,p0=1,lensim=200) 
 
+#----------------------------------------------------
+# Exploring Varley model
 
+Varley<-function(r,b,C,p0,lensim){
+  pop<-c(p0)
+  time<-c(0)
+  
+  for(it in c(1:lensim)){
+    if(p0<=C){
+      pt<-r*p0
+    }else{
+      pt<-r*(p0^(1-b))
+    }
+    time<-c(time,it)
+    pop<-c(pop,pt)
+    p0<-pt
+  }
+  
+  plot(time,pop,type="b")
+  
+}
 
+#call the function
+b<-1.4
+r<-4
+C<-1
+p0<-r^(1/b)
+p0
+Varley(r=r,b=b,C=C,p0=p0-1,lensim=200) 
 
 
 
