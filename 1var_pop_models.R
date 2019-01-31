@@ -172,11 +172,11 @@ AustinBrewer<-function(r,K,s,p0,lensim){
 }
 
 #call the function
-s<-0.13
-K<-100
+s<-0.2
+K<-50
 rc<-1/(K*(1-exp(-s*K)))
 rc
-r<-0.014
+r<-0.026
 AustinBrewer(r=r,K=K,s=s,p0=1,lensim=200) 
 
 #----------------------------------------------------
