@@ -99,11 +99,11 @@ Verhulst<-function(r,p0,lensim){
     p0<-pt
   }
   
-  plot(time,pop,type="b")
+  plot(time,pop,type="l")
 }
 
 #call the function
-Verhulst(r=1.4,p0=0.4,lensim=400) # eqm. point =1
+Verhulst(r=1.8,p0=0.4,lensim=400) # eqm. point =1
 
 #-------------------------------------------------------------
 # Exploring pennycuick model
@@ -202,9 +202,9 @@ Varley<-function(r,b,C,p0,lensim){
 }
 
 #call the function
-b<-1.4
+b<-0.2
 r<-4
-C<-1
+C<-2
 p0<-r^(1/b)
 p0
 Varley(r=r,b=b,C=C,p0=p0-1,lensim=200) 

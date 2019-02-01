@@ -54,8 +54,8 @@ dev.off()
 saveRDS(ricker_extrisk_d0,paste(resloc,"ricker_extrisk_d0.RDS",sep=""))
 
 # plot for local dispersal in D matrix ; r=0 for LC model, r!=0 for Ricker model
-pdf(paste(resloc,"ricker_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.2))
+pdf(paste(resloc,"ricker_ext_risk_global_disp.pdf",sep=""),height=9,width=12)
+op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.2))
 for(r in rlist){
     #cat("r=",r,"\n")
     params<-c(r,K)
@@ -571,7 +571,7 @@ op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.2))
 for(r in rlist){
     params<-c(r,K,s)
     ext_thrs<-p0/10
-    s0<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
+    s0<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=T,ploton = F)
     plot(s0$d_seq,s0$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),
          xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
@@ -591,7 +591,7 @@ abrewer_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=abrewer_extris
 
 pdf(paste(resloc,"abrewer_extrisk_d0.pdf",sep=""),height=6,width=6)
 plot(abrewer_extrisk_d0$r,abrewer_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),
-     xlim = c(1.2,2.8),xlab="r",ylab="ext_risk",cex.lab=1.5,pch=1)
+     xlim = range(abrewer_extrisk_d0$r),xlab="r",ylab="ext_risk",cex.lab=1.5,pch=1)
 arrows(x0=abrewer_extrisk_d0$r,y0=abrewer_extrisk_d0$CI0.025left,x1=abrewer_extrisk_d0$r,
        y1=abrewer_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
 
@@ -599,13 +599,121 @@ lines(abrewer_extrisk_d0$r,abrewer_extrisk_d0$risk_right_d0,col="blue",type="b",
 arrows(x0=abrewer_extrisk_d0$r,y0=abrewer_extrisk_d0$CI0.025right,
        x1=abrewer_extrisk_d0$r,y1=abrewer_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
 mtext(paste0("d = 0 , numsims = ",numsims),side=3,line=0.2)
-legend(1.5,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n',cex=1.2)
+legend(0.005,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n',cex=1.2)
 dev.off()
 ```
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model : K = 50, s = 0.2, rc = 0.02000091, scl=0.8) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_abrewer_r_vary_scl_0.8}](./Results/abrewer_scl_0.8/abrewer_ext_risk_local_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model : K = 50, s = 0.2, rc = 0.02000091, scl=0.8) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_abrewer_r_vary_scl_0.8}](./Results/austinbrewer_scl_0.8/abrewer_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model : K = 50, s = 0.2, rc = 0.02000091, scl=0.8) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_abrewer_r_vary_scl_0.8}](./Results/abrewer_scl_0.8/abrewer_ext_risk_global_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model : K = 50, s = 0.2, rc = 0.02000091, scl=0.8) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_abrewer_r_vary_scl_0.8}](./Results/austinbrewer_scl_0.8/abrewer_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model with no dispersion : rc=0.02000091, scl=0.8); numlocs=5, numsteps=25, numsims=10000\label{fig_abrewer_risk_d0_scl_0.8}](./Results/abrewer_scl_0.8/abrewer_extrisk_d0.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model with no dispersion : rc=0.02000091, scl=0.8); numlocs=5, numsteps=25, numsims=10000\label{fig_abrewer_risk_d0_scl_0.8}](./Results/austinbrewer_scl_0.8/abrewer_extrisk_d0.pdf){ width=40%, height=40% }
+
+# Verhulst model :
+
+```{r fig_verhulst_scl_2, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+set.seed(seed)
+
+model<-"verhulst"
+scl<-2.5
+
+tempo<-paste("./Results/",model,"_scl_",scl,sep="")
+if (!dir.exists(tempo)){
+  dir.create(tempo)
+}
+resloc<-paste(tempo,"/",sep="")
+
+numsims<-10000
+numsteps<-25
+numlocs<-5
+p0<-1
+
+rlist<-seq(from=0.2,to=1.8,by=0.2)
+
+verhulst_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
+colnames(verhulst_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
+
+
+# plot for local dispersal in D matrix 
+pdf(paste(resloc,"verhulst_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.2))
+for(i in c(1:length(rlist))){
+    r<-rlist[i]
+    ext_thrs<-p0/10
+    s0<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=r,ext_thrs=ext_thrs,
+                 scl=scl,model=model,disp_everywhere=F,ploton = F)
+    verhulst_extrisk_d0$risk_left_d0[i]<-s0$risk_left[1]
+    verhulst_extrisk_d0$risk_right_d0[i]<-s0$risk_right[1]
+    plot(s0$d_seq,s0$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),
+         xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
+    lines(s0$d_seq,s0$risk_right,type="b",col="blue")
+    legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+    mtext(paste0("r = ", r))
+}
+par(op)
+dev.off()
+
+saveRDS(verhulst_extrisk_d0,paste(resloc,"verhulst_extrisk_d0.RDS",sep=""))
+
+# plot for global dispersal in D matrix 
+pdf(paste(resloc,"verhulst_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.2))
+for(r in rlist){
+    ext_thrs<-p0/10
+    s0<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=r,ext_thrs=ext_thrs,
+                 scl=scl,model=model,disp_everywhere=T,ploton = F)
+    plot(s0$d_seq,s0$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),
+         xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
+    lines(s0$d_seq,s0$risk_right,type="b",col="blue")
+    legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+    mtext(paste0("r = ", r))
+}
+par(op)
+dev.off()
+
+# Plot ext_risk_d0
+verhulst_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=verhulst_extrisk_d0$risk_left_d0)/numsims
+verhulst_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=verhulst_extrisk_d0$risk_left_d0)/numsims
+
+verhulst_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=verhulst_extrisk_d0$risk_right_d0)/numsims
+verhulst_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=verhulst_extrisk_d0$risk_right_d0)/numsims
+
+pdf(paste(resloc,"verhulst_extrisk_d0.pdf",sep=""),height=6,width=6)
+plot(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),
+     xlim = range(verhulst_extrisk_d0$r),xlab="r",ylab="ext_risk",cex.lab=1.5,pch=1)
+arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025left,x1=verhulst_extrisk_d0$r,
+       y1=verhulst_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
+
+lines(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_right_d0,col="blue",type="b",pch=1)
+arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025right,
+       x1=verhulst_extrisk_d0$r,y1=verhulst_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
+mtext(paste0("d = 0 , numsims = ",numsims),side=3,line=0.2)
+legend(0.5,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n',cex=1.2)
+dev.off()
+```
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=2.5) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_verhulst_r_vary_scl_2.5}](./Results/verhulst_scl_2.5/verhulst_ext_risk_local_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=2.5) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_verhulst_r_vary_scl_2.5}](./Results/verhulst_scl_2.5/verhulst_ext_risk_global_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model with no dispersion : rc = 1, scl=2.5); numlocs=5, numsteps=25, numsims=10000\label{fig_verhulst_risk_d0_scl_2.5}](./Results/verhulst_scl_2.5/verhulst_extrisk_d0.pdf){ width=40%, height=40% }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
