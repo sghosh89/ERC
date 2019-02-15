@@ -147,7 +147,7 @@ extrisk<-function(sims){
 
 # function to calculate average ACF (lag=1) from all numlocs after specified time steps
 # input : 
-#        1) sims : an array (numsims by numlocs by numsteps+1)
+#        1) sims : an array (numsims by numlocs by numsteps)
 #        2) nts : numsteps after which you want the acf; generally equal to numsteps+1 as to compare with extinction risk
 get_avg_acf<-function(sims,nts){
   m<-sims[,,nts]
@@ -160,8 +160,7 @@ get_avg_acf<-function(sims,nts){
   return(ans)
 }
 
-#get_avg_acf(sims=sims,nts=numsteps+1)
-
+# I checked : ACF of noise (right tail) = ACF of noise (left tail)
 
 #-------------------------------------------------------------------------------------------------
 # function to optionally plot extinction risk agsinst time and give you back extinction risk 
@@ -190,12 +189,16 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
   ns1<-scl*ns1
   pops1<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns1,D=D,params=params,ext_thrs=ext_thrs,model=model)
   risk_right<-extrisk(pops1) # a vector
-  acf_right<-get_avg_acf(sims=pops1,nts=numsteps+1) # a number
+  
+  noise_acf_right<-get_avg_acf(sims=ns1,nts=numsteps) # a number
+  pop_acf_right<-get_avg_acf(sims=pops1,nts=numsteps+1) # a number
   
   ns2<-(-ns1)
   pops2<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns2,D=D,params=params,ext_thrs=ext_thrs,model=model)
   risk_left<-extrisk(pops2) # a vector
-  acf_left<-get_avg_acf(sims=pops2,nts=numsteps+1) # a number
+  
+  noise_acf_left<-get_avg_acf(sims=ns2,nts=numsteps) # a number
+  pop_acf_left<-get_avg_acf(sims=pops2,nts=numsteps+1) # a number
   
   if(ploton==T){
     # noise time series plot for last simulation (numsim=numsims) from each patches
@@ -259,8 +262,10 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
   
   return(list(risk_right_after_numsteps=risk_right[numsteps+1],
               risk_left_after_numsteps=risk_left[numsteps+1],
-              avg_acf_right_after_numsteps=acf_right,
-              avg_acf_left_after_numsteps=acf_left))
+              pop_avg_acf_right_after_numsteps=pop_acf_right,
+              pop_avg_acf_left_after_numsteps=pop_acf_left,
+              noise_avg_acf_right_after_numsteps=noise_acf_right,
+              noise_avg_acf_left_after_numsteps=noise_acf_left))
   
 }
 #----------------------------------------------------------------------------------------------------
@@ -284,8 +289,10 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
 varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,model,disp_everywhere,plotteron,resloc){
   risk_right<-c()
   risk_left<-c()
-  avg_acf_right<-c()
-  avg_acf_left<-c()
+  pop_avg_acf_right<-c()
+  pop_avg_acf_left<-c()
+  noise_avg_acf_right<-c()
+  noise_avg_acf_left<-c()
   
   if(disp_everywhere==F){
     tempo2<-paste(resloc,"local_disp_d_",sep="")
@@ -311,12 +318,17 @@ varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,mod
     
     risk_r<-riskrl$risk_right_after_numsteps
     risk_l<-riskrl$risk_left_after_numsteps
-    avg_acf_r<-riskrl$avg_acf_right_after_numsteps
-    avg_acf_l<-riskrl$avg_acf_left_after_numsteps
+    pop_avg_acf_r<-riskrl$pop_avg_acf_right_after_numsteps
+    pop_avg_acf_l<-riskrl$pop_avg_acf_left_after_numsteps
+    noise_avg_acf_r<-riskrl$noise_avg_acf_right_after_numsteps
+    noise_avg_acf_l<-riskrl$noise_avg_acf_left_after_numsteps
+    
     risk_right<-c(risk_right,risk_r)
     risk_left<-c(risk_left,risk_l)
-    avg_acf_right<-c(avg_acf_right,avg_acf_r)
-    avg_acf_left<-c(avg_acf_left,avg_acf_l)
+    pop_avg_acf_right<-c(pop_avg_acf_right,pop_avg_acf_r)
+    pop_avg_acf_left<-c(pop_avg_acf_left,pop_avg_acf_l)
+    noise_avg_acf_right<-c(noise_avg_acf_right,noise_avg_acf_r)
+    noise_avg_acf_left<-c(noise_avg_acf_left,noise_avg_acf_l)
   }
   
   if(plotteron==T){
@@ -341,8 +353,10 @@ varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,mod
   return(data.frame(d_seq=d_seq,
                     risk_left=risk_left,
                     risk_right=risk_right,
-                    avg_acf_left=avg_acf_left,
-                    avg_acf_right=avg_acf_right))
+                    pop_avg_acf_left=pop_avg_acf_left,
+                    pop_avg_acf_right=pop_avg_acf_right,
+                    noise_avg_acf_left=noise_avg_acf_left,
+                    noise_avg_acf_right=noise_avg_acf_right))
   
 
 }
