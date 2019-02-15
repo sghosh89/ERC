@@ -144,6 +144,25 @@ extrisk<-function(sims){
   totpop<-apply(FUN=sum,X=sims,MARGIN=c(1,3))
   return(apply(FUN=sum,X=(totpop==0),MARGIN=2)/dim(sims)[1])
 }
+
+# function to calculate average ACF (lag=1) from all numlocs after specified time steps
+# input : 
+#        1) sims : an array (numsims by numlocs by numsteps+1)
+#        2) nts : numsteps after which you want the acf; generally equal to numsteps+1 as to compare with extinction risk
+get_avg_acf<-function(sims,nts){
+  m<-sims[,,nts]
+  macf<-apply(X=m,MARGIN = 2,FUN=acf,lag.max = 1,type="correlation",plot=F)
+  acfs<-c() # initialize to store acf with lag1 for each col of matrix m
+  for(i in c(1:ncol(m))){
+    acfs<-c(acfs,macf[[i]]$acf[2])
+  }
+  ans<-mean(acfs)
+  return(ans)
+}
+
+#get_avg_acf(sims=sims,nts=numsteps+1)
+
+
 #-------------------------------------------------------------------------------------------------
 # function to optionally plot extinction risk agsinst time and give you back extinction risk 
 #                                                            after specified numsteps 
@@ -158,8 +177,9 @@ extrisk<-function(sims){
 #       8) scl : a scaling factor which is multiplied with noise generated
 #       9) model : a character specifying model name
 #       10) ploton : logical(T or F) to get optional plot
+#       11) resloc : location to save plots
 
-plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,model,ploton){
+plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,model,ploton,resloc){
  
   ns1<-retd(n=numsteps*numsims,d=numlocs,rl=1)# a righttail dep matrix(numpoints by numlocs,     
   #                                                      numpoints=numsteps*numsims)
@@ -169,23 +189,78 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
   
   ns1<-scl*ns1
   pops1<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns1,D=D,params=params,ext_thrs=ext_thrs,model=model)
-  risk_right<-extrisk(pops1)
+  risk_right<-extrisk(pops1) # a vector
+  acf_right<-get_avg_acf(sims=pops1,nts=numsteps+1) # a number
   
   ns2<-(-ns1)
   pops2<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns2,D=D,params=params,ext_thrs=ext_thrs,model=model)
-  risk_left<-extrisk(pops2)
+  risk_left<-extrisk(pops2) # a vector
+  acf_left<-get_avg_acf(sims=pops2,nts=numsteps+1) # a number
   
   if(ploton==T){
-    par(mfrow=c(2,1))
-    plot(0:(length(risk_right)-1),risk_right,type='l',
+    # noise time series plot for last simulation (numsim=numsims) from each patches
+    pdf(paste0(resloc,"params_",params,"_noise_lastsim_timeseries_all_locs.pdf",sep=""),height=5,width=10)
+    op<-par(mfrow=c(1,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
+    
+    ns_sim1<-ns1[numsims,,]
+    ylm<-max(c(abs(min(ns_sim1)),abs(max(ns_sim1))))
+    plot(0,0,xlim = c(1,numsteps),ylim = c(-ylm,ylm),type = "n",xlab="time",ylab="noise_right_tail")
+    cl <- rainbow(numlocs)
+    for(i in 1:numlocs){
+      lines(c(1:numsteps),ns_sim1[i,],col=cl[i],type="l")
+    }
+    
+    ns_sim1<-ns2[numsims,,]
+    ylm<-max(c(abs(min(ns_sim1)),abs(max(ns_sim1))))
+    plot(0,0,xlim = c(1,numsteps),ylim = c(-ylm,ylm),type = "n",xlab="time",ylab="noise_left_tail")
+    cl <- rainbow(numlocs)
+    for(i in 1:numlocs){
+      lines(c(1:numsteps),ns_sim1[i,],col=cl[i],type="l")
+    }
+    
+    par(op)
+    dev.off()
+    
+    pdf(paste0(resloc,"params_",params,"_pops_lastsim_timeseries_all_locs.pdf",sep=""),height=5,width=10)
+    op<-par(mfrow=c(1,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
+    
+    pop_sim1<-pops1[numsims,,]
+    ylm<-max(c(abs(min(pop_sim1)),abs(max(pop_sim1))))
+    plot(0,0,xlim = c(1,numsteps+1),ylim = c(-ylm,ylm),type = "n",xlab="time",ylab="pops_with_noise_right_tail")
+    cl <- rainbow(numlocs)
+    for(i in 1:numlocs){
+      lines(c(1:c(numsteps+1)),pop_sim1[i,],col=cl[i],type="l")
+    }
+    
+    pop_sim2<-pops2[numsims,,]
+    ylm<-max(c(abs(min(pop_sim2)),abs(max(pop_sim2))))
+    plot(0,0,xlim = c(1,numsteps+1),ylim = c(-ylm,ylm),type = "n",xlab="time",ylab="pops_with_noise_left_tail")
+    cl <- rainbow(numlocs)
+    for(i in 1:numlocs){
+      lines(c(1:c(numsteps+1)),pop_sim2[i,],col=cl[i],type="l")
+    }
+    
+    par(op)
+    dev.off()
+    
+    pdf(paste0(resloc,"params_",params,"_extrisk_vs_time.pdf",sep=""),height=5,width=10)
+    op<-par(mfrow=c(1,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
+    plot(1:length(risk_right),risk_right,type='b',
          xlab='Time',ylab='Risk',col='blue',panel.first = grid())
-    mtext("blue : right tail-dep")
-    plot(0:(length(risk_left)-1),risk_left,type='l',xlab='Time',ylab='Risk',col='red',panel.first = grid())
-    mtext("red : left tail-dep")
+    mtext("Right tail-dep")
+    
+    plot(1:length(risk_left),risk_left,type='b',xlab='Time',ylab='Risk',col='red',panel.first = grid())
+    mtext("Left tail-dep")
+    
+    par(op)
+    dev.off()  
+    
   }
   
   return(list(risk_right_after_numsteps=risk_right[numsteps+1],
-              risk_left_after_numsteps=risk_left[numsteps+1]))
+              risk_left_after_numsteps=risk_left[numsteps+1],
+              avg_acf_right_after_numsteps=acf_right,
+              avg_acf_left_after_numsteps=acf_left))
   
 }
 #----------------------------------------------------------------------------------------------------
@@ -204,32 +279,70 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
 #       9) disp_everywhere :logical:
 #             if T : gives D for linear chain model with equal dispersal everywhere
 #             if F : gives D for linear chain model with equal dispersal only to nearest neighbor location
-#       10) ploton : logical to get optional plot
+#       10) plotteron : logical to get optional plot
 
-varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,model,disp_everywhere,ploton){
+varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,model,disp_everywhere,plotteron,resloc){
   risk_right<-c()
   risk_left<-c()
-  d_seq<-seq(from=0,to=1,by=0.1)
-  for(d in d_seq){
-    D_mat<-Dispersal_mat(numlocs=numlocs,d=d,disp_everywhere=disp_everywhere)
-    riskrl<- plotter_ext_risk(numsims=numsims,numsteps=numsteps,numlocs=numlocs,D=D_mat,p0=p0,params=params,ext_thrs=ext_thrs,scl=scl,model=model,ploton=F)
-    risk_r<-riskrl$risk_right_after_numsteps
-    risk_l<-riskrl$risk_left_after_numsteps
-    risk_right<-c(risk_right,risk_r)
-    risk_left<-c(risk_left,risk_l)
+  avg_acf_right<-c()
+  avg_acf_left<-c()
+  
+  if(disp_everywhere==F){
+    tempo2<-paste(resloc,"local_disp_d_",sep="")
+  }else{
+    tempo2<-paste(resloc,"global_disp_d_",sep="")
   }
   
-  if(ploton==T){
-    op<-par(mfrow=c(1,2))
-    plot(d_seq,risk_left,xlab='d',ylab='Risk_left',xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid())
-    plot(d_seq,risk_right,xlab='d',ylab='Risk_right',xlim=c(0,1),ylim=c(0,1),type="b",col="blue",panel.first = grid())
+  d_seq<-seq(from=0,to=1,by=0.1)
+  
+  for(d in d_seq){
+    
+    D_mat<-Dispersal_mat(numlocs=numlocs,d=d,disp_everywhere=disp_everywhere)
+    
+    tempo3<-paste(tempo2,d,sep="")
+    
+    if (!dir.exists(tempo3)){
+      dir.create(tempo3)
+    }
+    resloc2<-paste(tempo3,"/",sep="")
+    
+    riskrl<- plotter_ext_risk(numsims=numsims,numsteps=numsteps,numlocs=numlocs,D=D_mat,p0=p0,params=params,
+                              ext_thrs=ext_thrs,scl=scl,model=model,ploton=T,resloc=resloc2)
+    
+    risk_r<-riskrl$risk_right_after_numsteps
+    risk_l<-riskrl$risk_left_after_numsteps
+    avg_acf_r<-riskrl$avg_acf_right_after_numsteps
+    avg_acf_l<-riskrl$avg_acf_left_after_numsteps
+    risk_right<-c(risk_right,risk_r)
+    risk_left<-c(risk_left,risk_l)
+    avg_acf_right<-c(avg_acf_right,avg_acf_r)
+    avg_acf_left<-c(avg_acf_left,avg_acf_l)
+  }
+  
+  if(plotteron==T){
+    op<-par(mfrow=c(2,1), mar=c(5.2,4.2,1,1.2))
+    plot(d_seq,risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),
+         xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
+    lines(d_seq,risk_right,type="b",col="blue")
+    legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+           col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+    mtext(paste0("r = ", r))
+    
+    plot(d_seq,avg_acf_left,xlim=c(0,1),ylim=c(-0.1,0.1),type="b",col="red",panel.first = grid(),pch=16,
+         xlab="d",ylab="avg. ACF",cex.lab=1.5,cex.axis=1.5)
+    lines(d_seq,avg_acf_right,type="b",col="blue",pch=16)
+    legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(16,16), 
+           col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+    #mtext(paste0("r = ", r))
+    
     par(op)
-    mtext(paste0("r = ", r," , numlocs = ",numlocs," , numsims = ",numsims," , numsteps = ",numsteps),side=3,line=0.2,col="navyblue")
   }
   
   return(data.frame(d_seq=d_seq,
                     risk_left=risk_left,
-                    risk_right=risk_right))
+                    risk_right=risk_right,
+                    avg_acf_left=avg_acf_left,
+                    avg_acf_right=avg_acf_right))
   
 
 }

@@ -202,9 +202,9 @@ Varley<-function(r,b,C,p0,lensim){
 }
 
 #call the function
-b<-0.2
+b<-1.2
 r<-4
-C<-2
+C<-1
 p0<-r^(1/b)
 p0
 Varley(r=r,b=b,C=C,p0=p0-1,lensim=200) 
