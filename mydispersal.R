@@ -148,18 +148,23 @@ extrisk<-function(sims){
 # function to calculate average ACF (lag=1) from all numlocs after specified time steps
 # input : 
 #        1) sims : an array (numsims by numlocs by numsteps)
-#        2) nts : numsteps after which you want the acf; generally equal to numsteps+1 as to compare with extinction risk
-get_avg_acf<-function(sims,nts){
-  m<-sims[,,nts]
-  macf<-apply(X=m,MARGIN = 2,FUN=acf,lag.max = 1,type="correlation",plot=F)
-  acfs<-c() # initialize to store acf with lag1 for each col of matrix m
-  for(i in c(1:ncol(m))){
-    acfs<-c(acfs,macf[[i]]$acf[2])
+
+get_avg_acf<-function(sims){
+  #x<-sims[,,-1] # to get rid off the initial p0 values
+  x<-sims # dim(x) = numsims x numlocs x numsteps
+  acfs<-c() # to store acf from timeseries of each location for each simulation
+  
+  for(i in c(1:dim(x)[1])){ # loop for each numsim
+    m<-x[i,,] # matrix of dim = numlocs by numsteps
+    macf<-apply(X=m,MARGIN = 1,FUN=acf,lag.max = 1,type="correlation",plot=F) # along row : time series from each location
+    s<-unlist(macf)
+    id<-which(names(s)=="acf2")
+    sl1<-as.numeric(s[id])
+    acfs<-c(acfs,sl1)
   }
   ans<-mean(acfs)
   return(ans)
 }
-
 # I checked : ACF of noise (right tail) = ACF of noise (left tail)
 
 #-------------------------------------------------------------------------------------------------
@@ -190,15 +195,20 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
   pops1<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns1,D=D,params=params,ext_thrs=ext_thrs,model=model)
   risk_right<-extrisk(pops1) # a vector
   
-  noise_acf_right<-get_avg_acf(sims=ns1,nts=numsteps) # a number
-  pop_acf_right<-get_avg_acf(sims=pops1,nts=numsteps+1) # a number
+  
+  pop_acf_right<-get_avg_acf(sims=pops1[,,-1]) # a number
   
   ns2<-(-ns1)
   pops2<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns2,D=D,params=params,ext_thrs=ext_thrs,model=model)
   risk_left<-extrisk(pops2) # a vector
   
-  noise_acf_left<-get_avg_acf(sims=ns2,nts=numsteps) # a number
-  pop_acf_left<-get_avg_acf(sims=pops2,nts=numsteps+1) # a number
+  #------------------------------------------------------
+  # This two number must be same and I checked that
+  #noise_acf_right<-get_avg_acf(sims=ns1) # a number
+  #noise_acf_left<-get_avg_acf(sims=ns2) # a number
+  #--------------------------------------------------------
+  
+  pop_acf_left<-get_avg_acf(sims=pops2[,,-1]) # a number
   
   if(ploton==T){
     # noise time series plot for last simulation (numsim=numsims) from each patches
@@ -263,9 +273,8 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
   return(list(risk_right_after_numsteps=risk_right[numsteps+1],
               risk_left_after_numsteps=risk_left[numsteps+1],
               pop_avg_acf_right_after_numsteps=pop_acf_right,
-              pop_avg_acf_left_after_numsteps=pop_acf_left,
-              noise_avg_acf_right_after_numsteps=noise_acf_right,
-              noise_avg_acf_left_after_numsteps=noise_acf_left))
+              pop_avg_acf_left_after_numsteps=pop_acf_left
+             ))
   
 }
 #----------------------------------------------------------------------------------------------------
@@ -320,15 +329,15 @@ varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,mod
     risk_l<-riskrl$risk_left_after_numsteps
     pop_avg_acf_r<-riskrl$pop_avg_acf_right_after_numsteps
     pop_avg_acf_l<-riskrl$pop_avg_acf_left_after_numsteps
-    noise_avg_acf_r<-riskrl$noise_avg_acf_right_after_numsteps
-    noise_avg_acf_l<-riskrl$noise_avg_acf_left_after_numsteps
+    #noise_avg_acf_r<-riskrl$noise_avg_acf_right_after_numsteps
+    #noise_avg_acf_l<-riskrl$noise_avg_acf_left_after_numsteps
     
     risk_right<-c(risk_right,risk_r)
     risk_left<-c(risk_left,risk_l)
     pop_avg_acf_right<-c(pop_avg_acf_right,pop_avg_acf_r)
     pop_avg_acf_left<-c(pop_avg_acf_left,pop_avg_acf_l)
-    noise_avg_acf_right<-c(noise_avg_acf_right,noise_avg_acf_r)
-    noise_avg_acf_left<-c(noise_avg_acf_left,noise_avg_acf_l)
+    #noise_avg_acf_right<-c(noise_avg_acf_right,noise_avg_acf_r)
+    #noise_avg_acf_left<-c(noise_avg_acf_left,noise_avg_acf_l)
   }
   
   if(plotteron==T){
@@ -354,9 +363,8 @@ varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,mod
                     risk_left=risk_left,
                     risk_right=risk_right,
                     pop_avg_acf_left=pop_avg_acf_left,
-                    pop_avg_acf_right=pop_avg_acf_right,
-                    noise_avg_acf_left=noise_avg_acf_left,
-                    noise_avg_acf_right=noise_avg_acf_right))
+                    pop_avg_acf_right=pop_avg_acf_right
+                    ))
   
 
 }

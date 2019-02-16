@@ -7,14 +7,14 @@ output: pdf_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 seed<-101
+library(abind)
 source("mtime.R")
-source("mydispersal.R")
 ```
 
 #Ricker model :
 ```{r sim_ricker, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
-library(abind)
+source("mydispersal.R")
 rlist<-c(0,0.1,0.3,0.5,0.7,0.9,1.0,1.1,1.3,1.5,1.7,1.9) #rc = 1
 numsims<-10000
 numsteps<-25
@@ -42,7 +42,7 @@ for(i in c(1:length(rlist))){
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc)
     
-    temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right,s$noise_avg_acf_left,s$noise_avg_acf_right)
+    temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
     res_ricker_local<-abind(res_ricker_local,temp_mat,along = 3)
       
     ricker_extrisk_d0$risk_left_d0[i]<-s$risk_left[1]
@@ -50,7 +50,7 @@ for(i in c(1:length(rlist))){
 }
 
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right","noise_avg_acf_left","noise_avg_acf_right")
+cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
 dimnames(res_ricker_local)<-list(NULL,cnm,anm)
 
 saveRDS(ricker_extrisk_d0,paste(resloc,"ricker_extrisk_d0.RDS",sep=""))
@@ -58,17 +58,19 @@ saveRDS(res_ricker_local,paste(resloc,"res_ricker_local.RDS",sep=""))
 
 # For global dispersion
 res_ricker_global<-c()
+
 for(r in rlist){
     #cat("r=",r,"\n")
     params<-c(r,K)
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc)
     
-    temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right,s$noise_avg_acf_left,s$noise_avg_acf_right)
+    temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
     res_ricker_global<-abind(res_ricker_global,temp_mat,along = 3)
 }
+
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right","noise_avg_acf_left","noise_avg_acf_right")
+cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
 dimnames(res_ricker_global)<-list(NULL,cnm,anm)
 saveRDS(res_ricker_global,paste(resloc,"res_ricker_global.RDS",sep=""))
 ```
@@ -97,8 +99,6 @@ for(i in 1:dim(res_ricker_local)[3]){
        #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
        axes=FALSE, type="l", col="orange")
   lines(s$d, s$pop_avg_acf_right, col="skyblue")
-  
-  lines(s$d, s$noise_avg_acf_left, col="green")
   
   ## a little farther out (line=3.2) to make room for labels
   mtext("Avg. ACF",side=4,line=3.2,col="green4") 
@@ -132,8 +132,6 @@ for(i in 1:dim(res_ricker_global)[3]){
        axes=FALSE, type="l", col="orange")
   lines(s$d, s$pop_avg_acf_right, pch=16, col="skyblue")
    
-  lines(s$d, s$noise_avg_acf_left, col="green")
-  
   ## a little farther out (line=3.2) to make room for labels
   mtext("Avg. ACF",side=4,line=3.2,col="green4") 
   axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
@@ -180,6 +178,7 @@ dev.off()
 
 ```{r sim_hassell, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
+source("mydispersal.R")
 
 model<-"hassell"
 
@@ -212,7 +211,7 @@ for(i in c(1:length(rlist))){
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc)
     
-    temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right,s$noise_avg_acf_left,s$noise_avg_acf_right)
+    temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
     res_hassell_local<-abind(res_hassell_local,temp_mat,along = 3)
       
     hassell_extrisk_d0$risk_left_d0[i]<-s$risk_left[1]
@@ -220,7 +219,7 @@ for(i in c(1:length(rlist))){
 }
 
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right","noise_avg_acf_left","noise_avg_acf_right")
+cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
 dimnames(res_hassell_local)<-list(NULL,cnm,anm)
 
 saveRDS(hassell_extrisk_d0,paste(resloc,"hassell_extrisk_d0.RDS",sep=""))
@@ -236,11 +235,11 @@ for(r in rlist){
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc)
     
-    temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right,s$noise_avg_acf_left,s$noise_avg_acf_right)
+    temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
     res_hassell_global<-abind(res_hassell_global,temp_mat,along = 3)
 }
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right","noise_avg_acf_left","noise_avg_acf_right")
+cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
 dimnames(res_hassell_global)<-list(NULL,cnm,anm)
 saveRDS(res_hassell_global,paste(resloc,"res_hassell_global.RDS",sep=""))
 ```
@@ -269,8 +268,6 @@ for(i in 1:dim(res_hassell_local)[3]){
        #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
        axes=FALSE, type="l", col="orange")
   lines(s$d, s$pop_avg_acf_right, col="skyblue")
-  
-  lines(s$d, s$noise_avg_acf_left, col="green")
   
   ## a little farther out (line=3.2) to make room for labels
   mtext("Avg. ACF",side=4,line=3.2,col="green4") 
@@ -303,8 +300,6 @@ for(i in 1:dim(res_hassell_global)[3]){
        #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
        axes=FALSE, type="l", col="orange")
   lines(s$d, s$pop_avg_acf_right, col="skyblue")
-  
-  lines(s$d, s$noise_avg_acf_left, col="green")
   
   ## a little farther out (line=3.2) to make room for labels
   mtext("Avg. ACF",side=4,line=3.2,col="green4") 
@@ -346,8 +341,9 @@ dev.off()
 
 #Maynard Smith Model :
 
-```{r fig_msmith_scl_0.8, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_msmith, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
+source("mydispersal.R")
 
 model<-"msmith"
 scl<-0.8
@@ -364,53 +360,126 @@ numlocs<-5
 a<-0.5
 b<-4
 
-rc<-b/(b-1)
-rlist<-sort(c(seq(from=1.2,to=2.8,by=0.2),rc))
+rc_msmith<-b/(b-1)
+rlist<-sort(c(seq(from=1.2,to=2.8,by=0.2),rc_msmith))
 
 msmith_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
 colnames(msmith_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
 
+#for local dispersal in D matrix 
+res_msmith_local<-c()
 
-# plot for local dispersal in D matrix 
-pdf(paste(resloc,"msmith_ext_risk_local_disp.pdf",sep=""),height=9,width=12)
-op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.2))
 for(i in c(1:length(rlist))){
-    r<-rlist[i]
+    r<- rlist[i]
     params<-c(r,a,b)
     K_e<-((r-1)^(1/b))/a
     ext_thrs<-K_e/10
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=F,ploton = F)
+                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc)
+    
+    temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
+    res_msmith_local<-abind(res_msmith_local,temp_mat,along = 3)
+      
     msmith_extrisk_d0$risk_left_d0[i]<-s$risk_left[1]
     msmith_extrisk_d0$risk_right_d0[i]<-s$risk_right[1]
-    plot(s$d_seq,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
-    lines(s$d_seq,s$risk_right,type="b",col="blue")
-    legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-    mtext(paste0("r = ", r))
 }
-par(op)
-dev.off()
+
+anm<-paste("r_",rlist,sep="")
+cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+dimnames(res_msmith_local)<-list(NULL,cnm,anm)
 
 saveRDS(msmith_extrisk_d0,paste(resloc,"msmith_extrisk_d0.RDS",sep=""))
+saveRDS(res_msmith_local,paste(resloc,"res_msmith_local.RDS",sep=""))
 
-# plot for global dispersal in D matrix 
-pdf(paste(resloc,"msmith_ext_risk_global_disp.pdf",sep=""),height=9,width=12)
-op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.2))
+# For global dispersal in D matrix 
+res_msmith_global<-c()
 for(r in rlist){
+    #cat("r=",r,"\n")
     params<-c(r,a,b)
     K_e<-((r-1)^(1/b))/a
     ext_thrs<-K_e/10
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=T,ploton = F)
-    plot(s$d_seq,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
-    lines(s$d_seq,s$risk_right,type="b",col="blue")
-    legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-    mtext(paste0("r = ", r))
+                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc)
+    
+    temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
+    res_msmith_global<-abind(res_msmith_global,temp_mat,along = 3)
+}
+anm<-paste("r_",rlist,sep="")
+cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+dimnames(res_msmith_global)<-list(NULL,cnm,anm)
+saveRDS(res_msmith_global,paste(resloc,"res_msmith_global.RDS",sep=""))
+```
+
+```{r fig_msmith, echo=F, results="hide",cache=T, cache.extra=list(seed,res_msmith_local,res_msmith_global)}
+pdf(paste(resloc,"msmith_ext_risk_local_disp.pdf",sep=""),height=9,width=15)
+op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,6.2))
+
+for(i in 1:dim(res_msmith_local)[3]){
+  s<-res_msmith_local[,,i]
+  s<-as.data.frame(s)
+  
+  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),
+       xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
+  lines(s$d,s$risk_right,type="b",col="blue")
+  legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+         col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  mtext(paste0("r = ", rlist[i]))
+  
+  ## Allow a second plot on the same graph
+  par(new=TRUE)
+  
+  ylm2<-c(-0.04,0.04)
+  ## Plot the second plot and put axis scale on right
+  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
+       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
+       axes=FALSE, type="l", col="orange")
+  lines(s$d, s$pop_avg_acf_right, col="skyblue")
+  
+  ## a little farther out (line=3.2) to make room for labels
+  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
+  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
 }
 par(op)
 dev.off()
 
-# Plot ext_risk_d0
+
+pdf(paste(resloc,"ricker_ext_risk_global_disp.pdf",sep=""),height=9,width=15)
+op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,6.2))
+
+for(i in 1:dim(res_msmith_global)[3]){
+  s<-res_msmith_global[,,i]
+  s<-as.data.frame(s)
+  
+  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),
+       xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
+  lines(s$d,s$risk_right,type="b",col="blue")
+  legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+         col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  mtext(paste0("r = ", rlist[i]))
+  
+  ## Allow a second plot on the same graph
+  par(new=TRUE)
+  
+  ylm2<-c(-0.04,0.04)
+  ## Plot the second plot and put axis scale on right
+  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
+       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
+       axes=FALSE, type="l", col="orange")
+  lines(s$d, s$pop_avg_acf_right, pch=16, col="skyblue")
+   
+  ## a little farther out (line=3.2) to make room for labels
+  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
+  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
+}
+par(op)
+dev.off()
+```
+
+```{r fig_msmith_extrisk_d0, echo=F,results="hide"}
+set.seed(seed)
+
+msmith_extrisk_d0<-readRDS(paste(resloc,"msmith_extrisk_d0.RDS",sep=""))
+numsims<-10000
 msmith_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=msmith_extrisk_d0$risk_left_d0)/numsims
 msmith_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=msmith_extrisk_d0$risk_left_d0)/numsims
 
@@ -420,6 +489,7 @@ msmith_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=msmith_extrisk_
 pdf(paste(resloc,"msmith_extrisk_d0.pdf",sep=""),height=6,width=6)
 plot(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),xlim = c(1.2,2.8),xlab="r",ylab="ext_risk",cex.lab=1.5,pch=1)
 arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025left,x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
+abline(v=rc_msmith,lty="dotted")
 
 lines(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_right_d0,col="blue",type="b",pch=1)
 arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025right,x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
