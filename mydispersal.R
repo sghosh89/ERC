@@ -212,7 +212,7 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
   
   if(ploton==T){
     # noise time series plot for last simulation (numsim=numsims) from each patches
-    pdf(paste0(resloc,"params_",params,"_noise_lastsim_timeseries_all_locs.pdf",sep=""),height=5,width=10)
+    pdf(paste0(resloc,"r_",params[1],"_noise_lastsim_timeseries_all_locs.pdf",sep=""),height=5,width=10)
     op<-par(mfrow=c(1,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
     
     ns_sim1<-ns1[numsims,,]
@@ -234,7 +234,7 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
     par(op)
     dev.off()
     
-    pdf(paste0(resloc,"params_",params,"_pops_lastsim_timeseries_all_locs.pdf",sep=""),height=5,width=10)
+    pdf(paste0(resloc,"r_",params[1],"_pops_lastsim_timeseries_all_locs.pdf",sep=""),height=5,width=10)
     op<-par(mfrow=c(1,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
     
     pop_sim1<-pops1[numsims,,]
@@ -256,7 +256,7 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
     par(op)
     dev.off()
     
-    pdf(paste0(resloc,"params_",params,"_extrisk_vs_time.pdf",sep=""),height=5,width=10)
+    pdf(paste0(resloc,"r_",params[1],"_extrisk_vs_time.pdf",sep=""),height=5,width=10)
     op<-par(mfrow=c(1,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
     plot(1:length(risk_right),risk_right,type='b',
          xlab='Time',ylab='Risk',col='blue',panel.first = grid())
