@@ -53,7 +53,7 @@ Dispersal_mat<-function(numlocs,d,disp_everywhere){
 #--------Output------------------------------------------------------
 #A numsims by numlocs by numsteps+1 array of populations
 #----------------------------------------------------------------------
-popsim_ml_D<-function(p0,ns,D,params,ext_thrs,model){
+popsim_ml_D<-function(p0,ns,D,params,ext_thrs,model,checkon){
   numsims<-dim(ns)[1]
   numlocs<-dim(ns)[2]
   numsteps<-dim(ns)[3]
@@ -108,7 +108,16 @@ popsim_ml_D<-function(p0,ns,D,params,ext_thrs,model){
       r<-params[1]
       K<-params[2]
       s<-params[3]
-      lam_austin<-(1+(r*(K-res[,,tct])*(1-exp(-s*res[,,tct]))))*res[,,tct] 
+      
+      xx<-res[,,tct]
+      
+      if(checkon==T){
+        cat("tct=",tct,"\n")
+        saveRDS(xx,"./res_tct_abrewer.RDS")
+        saveRDS(lam_sto,"./lam_sto_abrewer.RDS")
+      }
+      
+      lam_austin<-xx*(1+(r*(K-xx)*(1-exp(-(s*xx)))))
       res[,,tct+1]<-lam_austin*lam_sto #numsims by numlocs matrix
     }else if(model=="varley"){
       r<-params[1]
@@ -162,7 +171,9 @@ get_avg_acf<-function(sims){
     sl1<-as.numeric(s[id])
     acfs<-c(acfs,sl1)
   }
-  ans<-mean(acfs)
+  # which(is.na(acfs))
+  ans<-mean(acfs,na.rm=T) # This line to remove NaN which is produced due to pop = 0 throughout the time at any patch
+                          # you can see that in the row of matrix m (for a given i)
   return(ans)
 }
 # I checked : ACF of noise (right tail) = ACF of noise (left tail)
@@ -183,7 +194,7 @@ get_avg_acf<-function(sims){
 #       10) ploton : logical(T or F) to get optional plot
 #       11) resloc : location to save plots
 
-plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,model,ploton,resloc){
+plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,model,ploton,resloc,checkon){
  
   ns1<-retd(n=numsteps*numsims,d=numlocs,rl=1)# a righttail dep matrix(numpoints by numlocs,     
   #                                                      numpoints=numsteps*numsims)
@@ -192,14 +203,13 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
   ns1<-aperm(ns1,c(2,3,1)) # convert to an array (numsims by numlocs by numsteps)
   
   ns1<-scl*ns1
-  pops1<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns1,D=D,params=params,ext_thrs=ext_thrs,model=model)
+  pops1<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns1,D=D,params=params,ext_thrs=ext_thrs,model=model,checkon=checkon)
   risk_right<-extrisk(pops1) # a vector
   
-  
-  pop_acf_right<-get_avg_acf(sims=pops1[,,-1]) # a number
+  pop_acf_right<-get_avg_acf(sims=pops1) # a number
   
   ns2<-(-ns1)
-  pops2<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns2,D=D,params=params,ext_thrs=ext_thrs,model=model)
+  pops2<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns2,D=D,params=params,ext_thrs=ext_thrs,model=model,checkon=checkon)
   risk_left<-extrisk(pops2) # a vector
   
   #------------------------------------------------------
@@ -208,7 +218,7 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
   #noise_acf_left<-get_avg_acf(sims=ns2) # a number
   #--------------------------------------------------------
   
-  pop_acf_left<-get_avg_acf(sims=pops2[,,-1]) # a number
+  pop_acf_left<-get_avg_acf(sims=pops2) # a number
   
   if(ploton==T){
     # noise time series plot for last simulation (numsim=numsims) from each patches
@@ -295,7 +305,7 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
 #             if F : gives D for linear chain model with equal dispersal only to nearest neighbor location
 #       10) plotteron : logical to get optional plot
 
-varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,model,disp_everywhere,plotteron,resloc){
+varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,model,disp_everywhere,plotteron,resloc,checkon){
   risk_right<-c()
   risk_left<-c()
   pop_avg_acf_right<-c()
@@ -313,6 +323,10 @@ varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,mod
   
   for(d in d_seq){
     
+    if(checkon==T){
+      cat("---d = ",d,"-----\n")
+    }
+    
     D_mat<-Dispersal_mat(numlocs=numlocs,d=d,disp_everywhere=disp_everywhere)
     
     tempo3<-paste(tempo2,d,sep="")
@@ -323,7 +337,7 @@ varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,mod
     resloc2<-paste(tempo3,"/",sep="")
     
     riskrl<- plotter_ext_risk(numsims=numsims,numsteps=numsteps,numlocs=numlocs,D=D_mat,p0=p0,params=params,
-                              ext_thrs=ext_thrs,scl=scl,model=model,ploton=T,resloc=resloc2)
+                              ext_thrs=ext_thrs,scl=scl,model=model,ploton=T,resloc=resloc2,checkon=checkon)
     
     risk_r<-riskrl$risk_right_after_numsteps
     risk_l<-riskrl$risk_left_after_numsteps
