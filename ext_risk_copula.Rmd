@@ -880,3 +880,196 @@ dev.off()
 
 ![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model with no dispersion : rc = 1, scl=2.5); numlocs=5, numsteps=25, numsims=10000\label{fig_verhulst_risk_d0_scl_2.5}](./Results/verhulst_scl_2.5/verhulst_extrisk_d0.pdf){ width=40%, height=40% }
 
+# Austin Brewer model :
+  
+```{r sim_abrewer, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+set.seed(seed)
+source("mydispersal.R")
+
+model<-"austinbrewer"
+scl<-0.8
+
+tempo<-paste("./Results/",model,"_scl_",scl,sep="")
+if (!dir.exists(tempo)){
+  dir.create(tempo)
+}
+resloc<-paste(tempo,"/",sep="")
+
+numsims<-10000
+numsteps<-25
+numlocs<-5
+s<-0.2
+K<-50
+
+rc_abrewer<-1/(K*(1-exp(-s*K)))
+
+rlist<-sort(c(0.002,0.004,0.006,0.008,0.01,0.015,rc_abrewer,0.022,0.026))
+
+abrewer_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
+colnames(abrewer_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
+
+#for local dispersal in D matrix 
+res_abrewer_local<-c()
+
+for(i in c(1:length(rlist))){
+  r<- rlist[i]
+  K<-50
+  s<-0.2
+  p0<-K
+  params<-c(r,K,s)
+  ext_thrs<-p0/10
+  
+  s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
+               scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc,checkon=F)
+  
+  temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
+  res_abrewer_local<-abind(res_abrewer_local,temp_mat,along = 3)
+  
+  abrewer_extrisk_d0$risk_left_d0[i]<-s$risk_left[1]
+  abrewer_extrisk_d0$risk_right_d0[i]<-s$risk_right[1]
+}
+
+anm<-paste("r_",rlist,sep="")
+cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+dimnames(res_abrewer_local)<-list(NULL,cnm,anm)
+
+saveRDS(abrewer_extrisk_d0,paste(resloc,"abrewer_extrisk_d0.RDS",sep=""))
+saveRDS(res_abrewer_local,paste(resloc,"res_abrewer_local.RDS",sep=""))
+
+# For global dispersal in D matrix 
+res_abrewer_global<-c()
+for(r in rlist){
+  #cat("r=",r,"\n")
+  K<-50
+  s<-0.2
+  p0<-K
+  params<-c(r,K,s)
+  ext_thrs<-p0/10
+  
+  s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
+               scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc,checkon=F)
+  
+  temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
+  res_abrewer_global<-abind(res_abrewer_global,temp_mat,along = 3)
+}
+anm<-paste("r_",rlist,sep="")
+cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+dimnames(res_abrewer_global)<-list(NULL,cnm,anm)
+saveRDS(res_abrewer_global,paste(resloc,"res_abrewer_global.RDS",sep=""))
+```
+
+```{r fig_abrewer, echo=F, results="hide",cache=T, cache.extra=list(seed,res_abrewer_local,res_abrewer_global)}
+pdf(paste(resloc,"abrewer_ext_risk_local_disp.pdf",sep=""),height=9,width=12)
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
+
+for(i in 1:dim(res_abrewer_local)[3]){
+  s<-res_abrewer_local[,,i]
+  s<-as.data.frame(s)
+  
+  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+       #panel.first = grid(),
+       xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
+  lines(s$d,s$risk_right,type="b",col="blue")
+  legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+         col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  mtext(paste0("r = ", rlist[i]))
+  
+  ## Allow a second plot on the same graph
+  par(new=TRUE)
+  
+  ylm2<-c(-0.2,0.6)
+  ## Plot the second plot and put axis scale on right
+  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
+       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
+       axes=FALSE, type="l", col="orange")
+  abline(h=0,lty="dotted",col="grey")
+  lines(s$d, s$pop_avg_acf_right, col="skyblue")
+  
+  ## a little farther out (line=3.2) to make room for labels
+  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
+  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
+}
+par(op)
+dev.off()
+
+
+pdf(paste(resloc,"abrewer_ext_risk_global_disp.pdf",sep=""),height=9,width=12)
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
+
+for(i in 1:dim(res_abrewer_global)[3]){
+  s<-res_abrewer_global[,,i]
+  s<-as.data.frame(s)
+  
+  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+       #panel.first = grid(),
+       xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
+  lines(s$d,s$risk_right,type="b",col="blue")
+  legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+         col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  mtext(paste0("r = ", rlist[i]))
+  
+  ## Allow a second plot on the same graph
+  par(new=TRUE)
+  
+  ylm2<-c(-0.2,0.6)
+  ## Plot the second plot and put axis scale on right
+  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
+       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
+       axes=FALSE, type="l", col="orange")
+  abline(h=0,lty="dotted",col="grey")
+  lines(s$d, s$pop_avg_acf_right, pch=16, col="skyblue")
+  
+  ## a little farther out (line=3.2) to make room for labels
+  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
+  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
+}
+par(op)
+dev.off()
+```
+
+```{r fig_abrewer_extrisk_d0, echo=F,results="hide"}
+set.seed(seed)
+numsims<-10000
+abrewer_extrisk_d0<-readRDS(paste(resloc,"abrewer_extrisk_d0.RDS",sep=""))
+
+abrewer_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=abrewer_extrisk_d0$risk_left_d0)/numsims
+abrewer_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=abrewer_extrisk_d0$risk_left_d0)/numsims
+abrewer_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=abrewer_extrisk_d0$risk_right_d0)/numsims
+abrewer_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=abrewer_extrisk_d0$risk_right_d0)/numsims
+pdf(paste(resloc,"abrewer_extrisk_d0.pdf",sep=""),height=6,width=6)
+plot(abrewer_extrisk_d0$r,abrewer_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),
+     xlim = range(abrewer_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=1.5,pch=1)
+arrows(x0=abrewer_extrisk_d0$r,y0=abrewer_extrisk_d0$CI0.025left,x1=abrewer_extrisk_d0$r,
+       y1=abrewer_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
+abline(v=rc_abrewer,lty="dotted")
+
+lines(abrewer_extrisk_d0$r,abrewer_extrisk_d0$risk_right_d0,col="blue",type="b",pch=1)
+arrows(x0=abrewer_extrisk_d0$r,y0=abrewer_extrisk_d0$CI0.025right,
+       x1=abrewer_extrisk_d0$r,y1=abrewer_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
+mtext(paste0("d = 0 , numsims = ",numsims),side=3,line=0.2)
+legend(0.005,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n',cex=1.2)
+dev.off()
+```
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model : K = 50, s = 0.2, rc = 0.02000091, scl=0.8) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_abrewer_r_vary_scl_0.8}](./Results/austinbrewer_scl_0.8/abrewer_ext_risk_local_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model : K = 50, s = 0.2, rc = 0.02000091, scl=0.8) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_abrewer_r_vary_scl_0.8}](./Results/austinbrewer_scl_0.8/abrewer_ext_risk_global_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model with no dispersion : rc=0.02000091, scl=0.8); numlocs=5, numsteps=25, numsims=10000\label{fig_abrewer_risk_d0_scl_0.8}](./Results/austinbrewer_scl_0.8/abrewer_extrisk_d0.pdf){ width=40%, height=40% }
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
