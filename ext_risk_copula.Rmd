@@ -522,7 +522,7 @@ a<-a_pennycuick
 b<-b_pennycuick
 scl<-1
 
-qrng<-runif(10000,min=0,max=r_bf_pennycuick)
+qrng<-runif(10000,min=1,max=r_bf_pennycuick) # r must be > 1
 qr<-quantile(qrng,probs=c(.025,.975))
 
 rlist<-unique(c(seq(from=range(qr)[1],to=rc_pennycuick,length.out = 5),c(seq(from=rc_pennycuick,to=range(qr)[2],length.out = 5))))
