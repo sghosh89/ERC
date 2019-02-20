@@ -85,7 +85,8 @@ saveRDS(res_ricker_global,paste(resloc,"res_ricker_global.RDS",sep=""))
 
 ```{r fig_ricker, echo=F, results="hide",cache=T, cache.extra=list(seed,res_ricker_local,res_ricker_global)}
 pdf(paste(resloc,"ricker_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
+#op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_ricker_local)[3]){
   s<-res_ricker_local[,,i]
@@ -97,7 +98,7 @@ for(i in 1:dim(res_ricker_local)[3]){
   lines(s$d,s$risk_right,type="b",col="blue")
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-  mtext(paste0("r = ", rlist[i]))
+  mtext(paste0("r = ", round(rlist[i],5)))
   
   #---------------------------------------------------
   ## Allow a second plot on the same graph
@@ -121,7 +122,7 @@ dev.off()
 
 
 pdf(paste(resloc,"ricker_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_ricker_global)[3]){
   s<-res_ricker_global[,,i]
@@ -133,7 +134,7 @@ for(i in 1:dim(res_ricker_global)[3]){
   lines(s$d,s$risk_right,type="b",col="blue")
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-  mtext(paste0("r = ", rlist[i]))
+  mtext(paste0("r = ", round(rlist[i],5)))
 }
 par(op)
 dev.off()
@@ -196,7 +197,7 @@ scl<-1
 rc_hassell<-((b/(b-1)))^b # transition from under to overcompensatory dynamics
 r_bf_hassell<- ((b/(b-2)))^b # bifurcation parameter stable to unstable eqm
 
-qrng<-runif(10000,min=0,max=r_bf_hussell)
+qrng<-runif(10000,min=0,max=r_bf_hassell)
 qr<-quantile(qrng,probs=c(.025,.975))
 
 rlist<-unique(c(seq(from=range(qr)[1],to=rc_hassell,length.out = 5),c(seq(from=rc_hassell,to=range(qr)[2],length.out = 5))))
@@ -249,7 +250,7 @@ saveRDS(res_hassell_global,paste(resloc,"res_hassell_global.RDS",sep=""))
 
 ```{r fig_hassell, echo=F, results="hide",cache=T, cache.extra=list(seed,res_hassell_local,res_hassell_global)}
 pdf(paste(resloc,"hassell_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_hassell_local)[3]){
   s<-res_hassell_local[,,i]
@@ -261,14 +262,14 @@ for(i in 1:dim(res_hassell_local)[3]){
   lines(s$d,s$risk_right,type="b",col="blue")
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-  mtext(paste0("r = ", rlist[i]))
+  mtext(paste0("r = ", round(rlist[i],5)))
 }
 par(op)
 dev.off()
 
 
 pdf(paste(resloc,"hassell_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_hassell_global)[3]){
   s<-res_hassell_global[,,i]
@@ -280,7 +281,7 @@ for(i in 1:dim(res_hassell_global)[3]){
   lines(s$d,s$risk_right,type="b",col="blue")
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-  mtext(paste0("r = ", rlist[i]))
+  mtext(paste0("r = ", round(rlist[i],5)))
 }
 par(op)
 dev.off()
@@ -396,7 +397,7 @@ saveRDS(res_msmith_global,paste(resloc,"res_msmith_global.RDS",sep=""))
 
 ```{r fig_msmith, echo=F, results="hide",cache=T, cache.extra=list(seed,res_msmith_local,res_msmith_global)}
 pdf(paste(resloc,"msmith_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,6.2))
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_msmith_local)[3]){
   s<-res_msmith_local[,,i]
@@ -408,14 +409,14 @@ for(i in 1:dim(res_msmith_local)[3]){
   lines(s$d,s$risk_right,type="b",col="blue")
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-  mtext(paste0("r = ", rlist[i]))
+  mtext(paste0("r = ", round(rlist[i],5)))
 }
 par(op)
 dev.off()
 
 
 pdf(paste(resloc,"msmith_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,6.2))
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_msmith_global)[3]){
   s<-res_msmith_global[,,i]
@@ -427,7 +428,7 @@ for(i in 1:dim(res_msmith_global)[3]){
   lines(s$d,s$risk_right,type="b",col="blue")
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-  mtext(paste0("r = ", rlist[i]))
+  mtext(paste0("r = ", round(rlist[i],5)))
 }
 par(op)
 dev.off()
@@ -575,7 +576,7 @@ saveRDS(res_pennycuick_global,paste(resloc,"res_pennycuick_global.RDS",sep=""))
 
 ```{r fig_pennycuick, echo=F, results="hide",cache=T, cache.extra=list(seed,res_pennycuick_local,res_pennycuick_global)}
 pdf(paste(resloc,"pennycuick_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,6.2))
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_pennycuick_local)[3]){
   s<-res_pennycuick_local[,,i]
@@ -587,14 +588,14 @@ for(i in 1:dim(res_pennycuick_local)[3]){
   lines(s$d,s$risk_right,type="b",col="blue")
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-  mtext(paste0("r = ", rlist[i]))
+  mtext(paste0("r = ", round(rlist[i],5)))
 }
 par(op)
 dev.off()
 
 
 pdf(paste(resloc,"pennycuick_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,6.2))
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_pennycuick_global)[3]){
   s<-res_pennycuick_global[,,i]
@@ -606,7 +607,7 @@ for(i in 1:dim(res_pennycuick_global)[3]){
   lines(s$d,s$risk_right,type="b",col="blue")
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-  mtext(paste0("r = ", rlist[i]))
+  mtext(paste0("r = ", round(rlist[i],5)))
 }
 par(op)
 dev.off()
@@ -720,7 +721,7 @@ saveRDS(res_verhulst_global,paste(resloc,"res_verhulst_global.RDS",sep=""))
 
 ```{r fig_verhulst, echo=F, results="hide",cache=T, cache.extra=list(seed,res_verhulst_local,res_verhulst_global)}
 pdf(paste(resloc,"verhulst_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_verhulst_local)[3]){
   s<-res_verhulst_local[,,i]
@@ -732,14 +733,14 @@ for(i in 1:dim(res_verhulst_local)[3]){
   lines(s$d,s$risk_right,type="b",col="blue")
   legend("topleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-  mtext(paste0("r = ", rlist[i]))
+  mtext(paste0("r = ", round(rlist[i],5)))
 }
 par(op)
 dev.off()
 
 
 pdf(paste(resloc,"verhulst_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_verhulst_global)[3]){
   s<-res_verhulst_global[,,i]
@@ -751,7 +752,7 @@ for(i in 1:dim(res_verhulst_global)[3]){
   lines(s$d,s$risk_right,type="b",col="blue")
   legend("topleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-  mtext(paste0("r = ", rlist[i]))
+  mtext(paste0("r = ", round(rlist[i],5)))
 }
 par(op)
 dev.off()
@@ -874,7 +875,7 @@ saveRDS(res_abrewer_global,paste(resloc,"res_abrewer_global.RDS",sep=""))
 
 ```{r fig_abrewer, echo=F, results="hide",cache=T, cache.extra=list(seed,res_abrewer_local,res_abrewer_global)}
 pdf(paste(resloc,"abrewer_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_abrewer_local)[3]){
   s<-res_abrewer_local[,,i]
@@ -886,14 +887,14 @@ for(i in 1:dim(res_abrewer_local)[3]){
   lines(s$d,s$risk_right,type="b",col="blue")
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-  mtext(paste0("r = ", rlist[i]))
+  mtext(paste0("r = ", round(rlist[i],5)))
 }
 par(op)
 dev.off()
 
 
 pdf(paste(resloc,"abrewer_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_abrewer_global)[3]){
   s<-res_abrewer_global[,,i]
@@ -905,7 +906,7 @@ for(i in 1:dim(res_abrewer_global)[3]){
   lines(s$d,s$risk_right,type="b",col="blue")
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-  mtext(paste0("r = ", rlist[i]))
+  mtext(paste0("r = ", round(rlist[i],5)))
 }
 par(op)
 dev.off()
