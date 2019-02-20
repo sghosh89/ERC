@@ -118,14 +118,14 @@ Pennycuick<-function(r,a,b,p0,lensim){
     p0<-pt
   }
   
-  plot(time,pop,type="b")
+  plot(time,pop,type="l")
   
 }
 
 #call the function
 a<-0.1
 b<-0.1
-r<-2
+r<-10
 K_e<-(b/a)*(a+log(r-1))
 K_e
 Pennycuick(r=r,a=a,b=b,p0=K_e-0.01,lensim=200) 
@@ -176,7 +176,7 @@ s<-0.2
 K<-50
 rc<-1/(K*(1-exp(-s*K)))
 rc
-r<-0.026
+r<-0.004
 AustinBrewer(r=r,K=K,s=s,p0=1,lensim=200) 
 
 #----------------------------------------------------

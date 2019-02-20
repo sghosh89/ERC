@@ -109,15 +109,13 @@ popsim_ml_D<-function(p0,ns,D,params,ext_thrs,model,checkon){
       K<-params[2]
       s<-params[3]
       
-      xx<-res[,,tct]
-      
       if(checkon==T){
         cat("tct=",tct,"\n")
-        saveRDS(xx,"./res_tct_abrewer.RDS")
+        saveRDS(res[,,tct],"./res_tct_abrewer.RDS")
         saveRDS(lam_sto,"./lam_sto_abrewer.RDS")
       }
       
-      lam_austin<-xx*(1+(r*(K-xx)*(1-exp(-(s*xx)))))
+      lam_austin<-(1+(r*(K-res[,,tct])*(1-exp(-(s*res[,,tct])))))*res[,,tct]
       res[,,tct+1]<-lam_austin*lam_sto #numsims by numlocs matrix
     }else if(model=="varley"){
       r<-params[1]
@@ -193,8 +191,9 @@ get_avg_acf<-function(sims){
 #       9) model : a character specifying model name
 #       10) ploton : logical(T or F) to get optional plot
 #       11) resloc : location to save plots
+#       checkon, getacf : these are tags
 
-plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,model,ploton,resloc,checkon){
+plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,model,ploton,resloc,checkon,getacf){
  
   ns1<-retd(n=numsteps*numsims,d=numlocs,rl=1)# a righttail dep matrix(numpoints by numlocs,     
   #                                                      numpoints=numsteps*numsims)
@@ -206,8 +205,6 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
   pops1<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns1,D=D,params=params,ext_thrs=ext_thrs,model=model,checkon=checkon)
   risk_right<-extrisk(pops1) # a vector
   
-  pop_acf_right<-get_avg_acf(sims=pops1) # a number
-  
   ns2<-(-ns1)
   pops2<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns2,D=D,params=params,ext_thrs=ext_thrs,model=model,checkon=checkon)
   risk_left<-extrisk(pops2) # a vector
@@ -217,8 +214,13 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
   #noise_acf_right<-get_avg_acf(sims=ns1) # a number
   #noise_acf_left<-get_avg_acf(sims=ns2) # a number
   #--------------------------------------------------------
-  
-  pop_acf_left<-get_avg_acf(sims=pops2) # a number
+  if(getacf==T){
+    pop_acf_right<-get_avg_acf(sims=pops1) # a number
+    pop_acf_left<-get_avg_acf(sims=pops2) # a number
+  }else{
+    pop_acf_right<-NA # a number
+    pop_acf_left<-NA
+  }
   
   if(ploton==T){
     # noise time series plot for last simulation (numsim=numsims) from each patches
@@ -304,8 +306,10 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
 #             if T : gives D for linear chain model with equal dispersal everywhere
 #             if F : gives D for linear chain model with equal dispersal only to nearest neighbor location
 #       10) plotteron : logical to get optional plot
+#       11) resloc : location to save plots
+#       checkon, getacf : these are tags
 
-varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,model,disp_everywhere,plotteron,resloc,checkon){
+varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,model,disp_everywhere,plotteron,resloc,checkon,getacf){
   risk_right<-c()
   risk_left<-c()
   pop_avg_acf_right<-c()
@@ -337,7 +341,7 @@ varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,mod
     resloc2<-paste(tempo3,"/",sep="")
     
     riskrl<- plotter_ext_risk(numsims=numsims,numsteps=numsteps,numlocs=numlocs,D=D_mat,p0=p0,params=params,
-                              ext_thrs=ext_thrs,scl=scl,model=model,ploton=T,resloc=resloc2,checkon=checkon)
+                              ext_thrs=ext_thrs,scl=scl,model=model,ploton=T,resloc=resloc2,checkon=checkon,getacf=getacf)
     
     risk_r<-riskrl$risk_right_after_numsteps
     risk_l<-riskrl$risk_left_after_numsteps

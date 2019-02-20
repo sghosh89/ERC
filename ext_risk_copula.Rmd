@@ -15,7 +15,15 @@ source("mtime.R")
 ```{r sim_ricker, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
-rlist<-c(0,0.1,0.3,0.5,0.7,0.9,1.0,1.1,1.3,1.5,1.7,1.9) #rc = 1
+
+rc_ricker<-1 # transition from under to overcompensatory dynamics
+r_bf_ricker<-2 # bifurcation parameter stable to unstable eqm
+
+qrng<-runif(10000,min=0,max=r_bf_ricker)
+qr<-quantile(qrng,probs=c(.025,.975))
+
+rlist<-unique(c(seq(from=range(qr)[1],to=rc_ricker,length.out = 5),c(seq(from=rc_ricker,to=range(qr)[2],length.out = 5))))
+
 numsims<-10000
 numsteps<-25
 numlocs<-5
@@ -40,7 +48,7 @@ for(i in c(1:length(rlist))){
     r<- rlist[i]
     params<-c(r,K)
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc,checkon=F)
+                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc,checkon=F,getacf=F)
     
     temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
     res_ricker_local<-abind(res_ricker_local,temp_mat,along = 3)
@@ -63,7 +71,7 @@ for(r in rlist){
     #cat("r=",r,"\n")
     params<-c(r,K)
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc,checkon=F)
+                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc,checkon=F,getacf=F)
     
     temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
     res_ricker_global<-abind(res_ricker_global,temp_mat,along = 3)
@@ -76,8 +84,8 @@ saveRDS(res_ricker_global,paste(resloc,"res_ricker_global.RDS",sep=""))
 ```
 
 ```{r fig_ricker, echo=F, results="hide",cache=T, cache.extra=list(seed,res_ricker_local,res_ricker_global)}
-pdf(paste(resloc,"ricker_ext_risk_local_disp.pdf",sep=""),height=9,width=15)
-op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,6.2))
+pdf(paste(resloc,"ricker_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
 
 for(i in 1:dim(res_ricker_local)[3]){
   s<-res_ricker_local[,,i]
@@ -91,27 +99,29 @@ for(i in 1:dim(res_ricker_local)[3]){
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", rlist[i]))
   
+  #---------------------------------------------------
   ## Allow a second plot on the same graph
-  par(new=TRUE)
+  #par(new=TRUE)
   
-  ylm2<-c(-0.2,0.6)
+  #ylm2<-c(-0.2,0.6)
   ## Plot the second plot and put axis scale on right
-  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
+  #plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
        #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
-       axes=FALSE, type="l", col="orange")
-  abline(h=0,lty="dotted",col="grey")
-  lines(s$d, s$pop_avg_acf_right, col="skyblue")
+  #     axes=FALSE, type="l", col="orange")
+ # abline(h=0,lty="dotted",col="grey")
+ # lines(s$d, s$pop_avg_acf_right, col="skyblue")
   
   ## a little farther out (line=3.2) to make room for labels
-  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
-  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
+ # mtext("Avg. ACF",side=4,line=3.2,col="green4") 
+ # axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
+  #---------------------------------------------------------
 }
 par(op)
 dev.off()
 
 
-pdf(paste(resloc,"ricker_ext_risk_global_disp.pdf",sep=""),height=9,width=15)
-op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,6.2))
+pdf(paste(resloc,"ricker_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
 
 for(i in 1:dim(res_ricker_global)[3]){
   s<-res_ricker_global[,,i]
@@ -124,21 +134,6 @@ for(i in 1:dim(res_ricker_global)[3]){
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", rlist[i]))
-  
-  ## Allow a second plot on the same graph
-  par(new=TRUE)
-  
-  ylm2<-c(-0.2,0.6)
-  ## Plot the second plot and put axis scale on right
-  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
-       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
-       axes=FALSE, type="l", col="orange")
-  abline(h=0,lty="dotted",col="grey")
-  lines(s$d, s$pop_avg_acf_right, pch=16, col="skyblue")
-   
-  ## a little farther out (line=3.2) to make room for labels
-  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
-  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
 }
 par(op)
 dev.off()
@@ -161,7 +156,7 @@ plot(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_left_d0,col="red",type="b",
      ylim=c(0,1),xlim = c(0,2),xlab="r",ylab="Extinction risk",cex.lab=1.5,pch=1)
 arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025left,x1=ricker_extrisk_d0$r,y1=ricker_extrisk_d0$CI0.975left,
        angle=90,length=0.1,col="red",code=3)
-abline(v=1,lty="dotted") #rc=1
+abline(v=rc_ricker,lty="dotted") #rc=1
 
 lines(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
 arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025right,x1=ricker_extrisk_d0$r,y1=ricker_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
@@ -192,15 +187,19 @@ if (!dir.exists(tempo)){
 }
 resloc<-paste(tempo,"/",sep="")
 
-rlist<-seq(from=1.5,to=7.5,by=0.5)
 numsims<-10000
 numsteps<-25
 numlocs<-5
 a<-0.5
 b<-100
 scl<-1
-rc_hassell<-((b/(b-1)))^b # critical value of r from monotonic to osc steady state approach transition 
-rlist<-sort(c(rlist,rc_hassell))
+rc_hassell<-((b/(b-1)))^b # transition from under to overcompensatory dynamics
+r_bf_hassell<- ((b/(b-2)))^b # bifurcation parameter stable to unstable eqm
+
+qrng<-runif(10000,min=0,max=r_bf_hussell)
+qr<-quantile(qrng,probs=c(.025,.975))
+
+rlist<-unique(c(seq(from=range(qr)[1],to=rc_hassell,length.out = 5),c(seq(from=rc_hassell,to=range(qr)[2],length.out = 5))))
 
 hassell_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
 colnames(hassell_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
@@ -213,7 +212,7 @@ for(i in c(1:length(rlist))){
     ext_thrs<-K_e/10
     params<-c(r,a,b)
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc,checkon=F)
+                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc,checkon=F,getacf=F)
     
     temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
     res_hassell_local<-abind(res_hassell_local,temp_mat,along = 3)
@@ -237,7 +236,7 @@ for(r in rlist){
     ext_thrs<-K_e/10
     params<-c(r,a,b)
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc,checkon=F)
+                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc,checkon=F,getacf=F)
     
     temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
     res_hassell_global<-abind(res_hassell_global,temp_mat,along = 3)
@@ -249,8 +248,8 @@ saveRDS(res_hassell_global,paste(resloc,"res_hassell_global.RDS",sep=""))
 ```
 
 ```{r fig_hassell, echo=F, results="hide",cache=T, cache.extra=list(seed,res_hassell_local,res_hassell_global)}
-pdf(paste(resloc,"hassell_ext_risk_local_disp.pdf",sep=""),height=9,width=18)
-op<-par(mfrow=c(3,5),mar=c(5.2,4.2,1.2,6.2))
+pdf(paste(resloc,"hassell_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
 
 for(i in 1:dim(res_hassell_local)[3]){
   s<-res_hassell_local[,,i]
@@ -263,28 +262,13 @@ for(i in 1:dim(res_hassell_local)[3]){
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", rlist[i]))
-  
-  ## Allow a second plot on the same graph
-  par(new=TRUE)
-  
-  ylm2<-c(-0.2,0.6)
-  ## Plot the second plot and put axis scale on right
-  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
-       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
-       axes=FALSE, type="l", col="orange")
-  abline(h=0,lty="dotted",col="grey")
-  lines(s$d, s$pop_avg_acf_right, col="skyblue")
-  
-  ## a little farther out (line=3.2) to make room for labels
-  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
-  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
 }
 par(op)
 dev.off()
 
 
-pdf(paste(resloc,"hassell_ext_risk_global_disp.pdf",sep=""),height=9,width=18)
-op<-par(mfrow=c(3,5),mar=c(5.2,4.2,1.2,6.2))
+pdf(paste(resloc,"hassell_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
+op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
 
 for(i in 1:dim(res_hassell_global)[3]){
   s<-res_hassell_global[,,i]
@@ -297,21 +281,6 @@ for(i in 1:dim(res_hassell_global)[3]){
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", rlist[i]))
-  
-  ## Allow a second plot on the same graph
-  par(new=TRUE)
-  
-  ylm2<-c(-0.2,0.6)
-  ## Plot the second plot and put axis scale on right
-  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
-       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
-       axes=FALSE, type="l", col="orange")
-  abline(h=0,lty="dotted",col="grey")
-  lines(s$d, s$pop_avg_acf_right, col="skyblue")
-  
-  ## a little farther out (line=3.2) to make room for labels
-  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
-  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
 }
 par(op)
 dev.off()
@@ -371,7 +340,12 @@ a<-0.5
 b<-4
 
 rc_msmith<-b/(b-1)
-rlist<-sort(c(seq(from=1.2,to=2.8,by=0.2),rc_msmith))
+r_bf_msmith<-b/(b-2) # bifurcation parameter stable to unstable eqm
+
+qrng<-runif(10000,min=0,max=r_bf_msmith)
+qr<-quantile(qrng,probs=c(.025,.975))
+
+rlist<-unique(c(seq(from=range(qr)[1],to=rc_msmith,length.out = 5),c(seq(from=rc_msmith,to=range(qr)[2],length.out = 5))))
 
 msmith_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
 colnames(msmith_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
@@ -385,7 +359,7 @@ for(i in c(1:length(rlist))){
     K_e<-((r-1)^(1/b))/a
     ext_thrs<-K_e/10
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc,checkon=F)
+                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc,checkon=F,getacf=F)
     
     temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
     res_msmith_local<-abind(res_msmith_local,temp_mat,along = 3)
@@ -409,7 +383,7 @@ for(r in rlist){
     K_e<-((r-1)^(1/b))/a
     ext_thrs<-K_e/10
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc,checkon=F)
+                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc,checkon=F,getacf=F)
     
     temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
     res_msmith_global<-abind(res_msmith_global,temp_mat,along = 3)
@@ -421,7 +395,7 @@ saveRDS(res_msmith_global,paste(resloc,"res_msmith_global.RDS",sep=""))
 ```
 
 ```{r fig_msmith, echo=F, results="hide",cache=T, cache.extra=list(seed,res_msmith_local,res_msmith_global)}
-pdf(paste(resloc,"msmith_ext_risk_local_disp.pdf",sep=""),height=9,width=15)
+pdf(paste(resloc,"msmith_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,6.2))
 
 for(i in 1:dim(res_msmith_local)[3]){
@@ -435,27 +409,12 @@ for(i in 1:dim(res_msmith_local)[3]){
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", rlist[i]))
-  
-  ## Allow a second plot on the same graph
-  par(new=TRUE)
-  
-  ylm2<-c(-0.2,0.6)
-  ## Plot the second plot and put axis scale on right
-  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
-       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
-       axes=FALSE, type="l", col="orange")
-  abline(h=0,lty="dotted",col="grey")
-  lines(s$d, s$pop_avg_acf_right, col="skyblue")
-  
-  ## a little farther out (line=3.2) to make room for labels
-  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
-  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
 }
 par(op)
 dev.off()
 
 
-pdf(paste(resloc,"msmith_ext_risk_global_disp.pdf",sep=""),height=9,width=15)
+pdf(paste(resloc,"msmith_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,6.2))
 
 for(i in 1:dim(res_msmith_global)[3]){
@@ -469,21 +428,6 @@ for(i in 1:dim(res_msmith_global)[3]){
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", rlist[i]))
-  
-  ## Allow a second plot on the same graph
-  par(new=TRUE)
-  
-  ylm2<-c(-0.2,0.6)
-  ## Plot the second plot and put axis scale on right
-  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
-       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
-       axes=FALSE, type="l", col="orange")
-  abline(h=0,lty="dotted",col="grey")
-  lines(s$d, s$pop_avg_acf_right, pch=16, col="skyblue")
-   
-  ## a little farther out (line=3.2) to make room for labels
-  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
-  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
 }
 par(op)
 dev.off()
@@ -527,10 +471,10 @@ source("./1var_pop_model_bifurcation.R")
 a_pennycuick<-0.1
 b_pennycuick<-0.1
 eps<-1e-10 #you can change it upto which decimal point you want it to be exact
-rlist<-seq(from=4.3231657,to=4.3231658,by=eps)
+rlist<-seq(from=4.3231657,to=4.3231659,by=eps)
 res_pennycuick<-c() 
 for(r in rlist){
-  ans<-fn_d1_eqm(params=c(r,a,b),model="pennycuick")
+  ans<-fn_d1_eqm(params=c(r,a_pennycuick,b_pennycuick),model="pennycuick")
   res_pennycuick<-c(res_pennycuick,ans)
 }
 
@@ -539,9 +483,26 @@ for(r in rlist){
 
 rc_pennycuick<-rlist[which.min(abs(res_pennycuick-0))]
 formatC(rc_pennycuick,digits = 10, format="f") # accurate upto 10th decimal
+
+# This is to find the critical r value where stable to unstable eqm occurs
+rlist<-seq(from=9.4672389,to=9.46724,by=eps)
+#formatC(rlist,digits = 14, format="f") 
+
+res_pennycuick<-c() 
+for(r in rlist){
+  ans<-fn_d1_eqm(params=c(r=r,a_pennycuick,b_pennycuick),model="pennycuick")
+  res_pennycuick<-c(res_pennycuick,ans)
+}
+
+#plot(rlist,res_pennycuick,col="red",type="l",xlab="r",ylab="pennycuick_1st_der_at_eqm")
+#abline(h=0)
+#fp<-0
+fp<--1
+r_bf_pennycuick<-rlist[which.min(abs(res_pennycuick-fp))]
+#formatC(rc_pen_uns,digits = 14, format="f") 
 ```
 
-```{r sim_pennycuick, echo=F,  results="hide", cache=T, cache.extra=list(seed,a_pennycuick,b_pennycuick,rc_pennycuick,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_pennycuick, echo=F,  results="hide", cache=T, cache.extra=list(seed,a_pennycuick,b_pennycuick,rc_pennycuick,r_bf_pennycuick,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
@@ -560,7 +521,10 @@ a<-a_pennycuick
 b<-b_pennycuick
 scl<-1
 
-rlist<-sort(c(seq(from=2,to=7,by=0.5),rc_pennycuick))
+qrng<-runif(10000,min=0,max=r_bf_pennycuick)
+qr<-quantile(qrng,probs=c(.025,.975))
+
+rlist<-unique(c(seq(from=range(qr)[1],to=rc_pennycuick,length.out = 5),c(seq(from=rc_pennycuick,to=range(qr)[2],length.out = 5))))
 
 pennycuick_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) # a dataframe to store ext risk at dispersal d=0 for all r
 colnames(pennycuick_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
@@ -574,7 +538,7 @@ for(i in c(1:length(rlist))){
     K_e<-(b/a)*(a+log(r-1))
     ext_thrs<-K_e/10
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc,checkon=F)
+                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc,checkon=F,getacf=F)
     
     temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
     res_pennycuick_local<-abind(res_pennycuick_local,temp_mat,along = 3)
@@ -598,7 +562,7 @@ for(r in rlist){
     K_e<-(b/a)*(a+log(r-1))
     ext_thrs<-K_e/10
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc,checkon=F)
+                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc,checkon=F,getacf=F)
     
     temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
     res_pennycuick_global<-abind(res_pennycuick_global,temp_mat,along = 3)
@@ -610,7 +574,7 @@ saveRDS(res_pennycuick_global,paste(resloc,"res_pennycuick_global.RDS",sep=""))
 ```
 
 ```{r fig_pennycuick, echo=F, results="hide",cache=T, cache.extra=list(seed,res_pennycuick_local,res_pennycuick_global)}
-pdf(paste(resloc,"pennycuick_ext_risk_local_disp.pdf",sep=""),height=9,width=15)
+pdf(paste(resloc,"pennycuick_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,6.2))
 
 for(i in 1:dim(res_pennycuick_local)[3]){
@@ -624,27 +588,12 @@ for(i in 1:dim(res_pennycuick_local)[3]){
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", rlist[i]))
-  
-  ## Allow a second plot on the same graph
-  par(new=TRUE)
-  
-  ylm2<-c(-0.2,0.6)
-  ## Plot the second plot and put axis scale on right
-  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
-       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
-       axes=FALSE, type="l", col="orange")
-  abline(h=0,lty="dotted",col="grey")
-  lines(s$d, s$pop_avg_acf_right, col="skyblue")
-  
-  ## a little farther out (line=3.2) to make room for labels
-  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
-  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
 }
 par(op)
 dev.off()
 
 
-pdf(paste(resloc,"pennycuick_ext_risk_global_disp.pdf",sep=""),height=9,width=15)
+pdf(paste(resloc,"pennycuick_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,6.2))
 
 for(i in 1:dim(res_pennycuick_global)[3]){
@@ -658,21 +607,6 @@ for(i in 1:dim(res_pennycuick_global)[3]){
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", rlist[i]))
-  
-  ## Allow a second plot on the same graph
-  par(new=TRUE)
-  
-  ylm2<-c(-0.2,0.6)
-  ## Plot the second plot and put axis scale on right
-  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
-       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
-       axes=FALSE, type="l", col="orange")
-  abline(h=0,lty="dotted",col="grey")
-  lines(s$d, s$pop_avg_acf_right, pch=16, col="skyblue")
-   
-  ## a little farther out (line=3.2) to make room for labels
-  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
-  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
 }
 par(op)
 dev.off()
@@ -730,7 +664,13 @@ numsteps<-25
 numlocs<-5
 p0<-1
 
-rlist<-seq(from=0.2,to=1.8,by=0.2) #rc=1
+rc_verhulst<-1 # transition from under to overcompensatory dynamics
+r_bf_verhulst<-2 # bifurcation parameter stable to unstable eqm
+
+qrng<-runif(10000,min=0,max=r_bf_verhulst)
+qr<-quantile(qrng,probs=c(.025,.975))
+
+rlist<-unique(c(seq(from=range(qr)[1],to=rc_verhulst,length.out = 5),c(seq(from=rc_verhulst,to=range(qr)[2],length.out = 5))))
 
 verhulst_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
 colnames(verhulst_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
@@ -744,7 +684,7 @@ for(i in c(1:length(rlist))){
     ext_thrs<-p0/10
     
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc,checkon=F)
+                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc,checkon=F,getacf=F)
     
     temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
     res_verhulst_local<-abind(res_verhulst_local,temp_mat,along = 3)
@@ -767,7 +707,7 @@ for(r in rlist){
     ext_thrs<-p0/10
     
     s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc,checkon=F)
+                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc,checkon=F,getacf=F)
     
     temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
     res_verhulst_global<-abind(res_verhulst_global,temp_mat,along = 3)
@@ -779,7 +719,7 @@ saveRDS(res_verhulst_global,paste(resloc,"res_verhulst_global.RDS",sep=""))
 ```
 
 ```{r fig_verhulst, echo=F, results="hide",cache=T, cache.extra=list(seed,res_verhulst_local,res_verhulst_global)}
-pdf(paste(resloc,"verhulst_ext_risk_local_disp.pdf",sep=""),height=9,width=12)
+pdf(paste(resloc,"verhulst_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
 
 for(i in 1:dim(res_verhulst_local)[3]){
@@ -793,27 +733,12 @@ for(i in 1:dim(res_verhulst_local)[3]){
   legend("topleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", rlist[i]))
-  
-  ## Allow a second plot on the same graph
-  par(new=TRUE)
-  
-  ylm2<-c(-0.2,0.6)
-  ## Plot the second plot and put axis scale on right
-  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
-       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
-       axes=FALSE, type="l", col="orange")
-  abline(h=0,lty="dotted",col="grey")
-  lines(s$d, s$pop_avg_acf_right, col="skyblue")
-  
-  ## a little farther out (line=3.2) to make room for labels
-  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
-  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
 }
 par(op)
 dev.off()
 
 
-pdf(paste(resloc,"verhulst_ext_risk_global_disp.pdf",sep=""),height=9,width=12)
+pdf(paste(resloc,"verhulst_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
 
 for(i in 1:dim(res_verhulst_global)[3]){
@@ -827,21 +752,6 @@ for(i in 1:dim(res_verhulst_global)[3]){
   legend("topleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", rlist[i]))
-  
-  ## Allow a second plot on the same graph
-  par(new=TRUE)
-  
-  ylm2<-c(-0.2,0.6)
-  ## Plot the second plot and put axis scale on right
-  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
-       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
-       axes=FALSE, type="l", col="orange")
-  abline(h=0,lty="dotted",col="grey")
-  lines(s$d, s$pop_avg_acf_right, pch=16, col="skyblue")
-   
-  ## a little farther out (line=3.2) to make room for labels
-  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
-  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
 }
 par(op)
 dev.off()
@@ -863,7 +773,7 @@ plot(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_left_d0,col="red",type="b",y
      xlim = range(verhulst_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=1.5,pch=1)
 arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025left,x1=verhulst_extrisk_d0$r,
        y1=verhulst_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
-abline(v=1,lty="dotted")
+abline(v=rc_verhulst,lty="dotted")
 
 lines(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_right_d0,col="blue",type="b",pch=1)
 arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025right,
@@ -901,9 +811,13 @@ numlocs<-5
 s<-0.2
 K<-50
 
-rc_abrewer<-1/(K*(1-exp(-s*K)))
+rc_abrewer<-1/(K*(1-exp(-s*K))) # transition from under to overcompensatory dynamics
+r_bf_abrewer<-2*rc_abrewer # bifurcation parameter stable to unstable eqm
 
-rlist<-sort(c(0.002,0.004,0.006,0.008,0.01,0.015,rc_abrewer,0.022,0.026))
+qrng<-runif(10000,min=0,max=r_bf_abrewer)
+qr<-quantile(qrng,probs=c(.025,.975))
+
+rlist<-unique(c(seq(from=range(qr)[1],to=rc_abrewer,length.out = 5),c(seq(from=rc_abrewer,to=range(qr)[2],length.out = 5))))
 
 abrewer_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
 colnames(abrewer_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
@@ -920,7 +834,7 @@ for(i in c(1:length(rlist))){
   ext_thrs<-p0/10
   
   s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
-               scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc,checkon=F)
+               scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc,checkon=F,getacf=F)
   
   temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
   res_abrewer_local<-abind(res_abrewer_local,temp_mat,along = 3)
@@ -947,7 +861,7 @@ for(r in rlist){
   ext_thrs<-p0/10
   
   s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
-               scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc,checkon=F)
+               scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc,checkon=F,getacf=F)
   
   temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
   res_abrewer_global<-abind(res_abrewer_global,temp_mat,along = 3)
@@ -959,7 +873,7 @@ saveRDS(res_abrewer_global,paste(resloc,"res_abrewer_global.RDS",sep=""))
 ```
 
 ```{r fig_abrewer, echo=F, results="hide",cache=T, cache.extra=list(seed,res_abrewer_local,res_abrewer_global)}
-pdf(paste(resloc,"abrewer_ext_risk_local_disp.pdf",sep=""),height=9,width=12)
+pdf(paste(resloc,"abrewer_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
 
 for(i in 1:dim(res_abrewer_local)[3]){
@@ -973,27 +887,12 @@ for(i in 1:dim(res_abrewer_local)[3]){
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", rlist[i]))
-  
-  ## Allow a second plot on the same graph
-  par(new=TRUE)
-  
-  ylm2<-c(-0.2,0.6)
-  ## Plot the second plot and put axis scale on right
-  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
-       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
-       axes=FALSE, type="l", col="orange")
-  abline(h=0,lty="dotted",col="grey")
-  lines(s$d, s$pop_avg_acf_right, col="skyblue")
-  
-  ## a little farther out (line=3.2) to make room for labels
-  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
-  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
 }
 par(op)
 dev.off()
 
 
-pdf(paste(resloc,"abrewer_ext_risk_global_disp.pdf",sep=""),height=9,width=12)
+pdf(paste(resloc,"abrewer_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
 
 for(i in 1:dim(res_abrewer_global)[3]){
@@ -1007,21 +906,6 @@ for(i in 1:dim(res_abrewer_global)[3]){
   legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", rlist[i]))
-  
-  ## Allow a second plot on the same graph
-  par(new=TRUE)
-  
-  ylm2<-c(-0.2,0.6)
-  ## Plot the second plot and put axis scale on right
-  plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
-       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
-       axes=FALSE, type="l", col="orange")
-  abline(h=0,lty="dotted",col="grey")
-  lines(s$d, s$pop_avg_acf_right, pch=16, col="skyblue")
-  
-  ## a little farther out (line=3.2) to make room for labels
-  mtext("Avg. ACF",side=4,line=3.2,col="green4") 
-  axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
 }
 par(op)
 dev.off()
