@@ -19,10 +19,22 @@ source("mydispersal.R")
 rc_ricker<-1 # transition from under to overcompensatory dynamics
 r_bf_ricker<-2 # bifurcation parameter stable to unstable eqm
 
-qrng<-runif(10000,min=0,max=r_bf_ricker)
-qr<-quantile(qrng,probs=c(.025,.975))
+rng1<-runif(10000,min=0,max=r_bf_ricker)
+qr1<-quantile(rng1,probs=c(.025,.975))
+q1<-abs(unname(qr1[1])-rc_ricker)
+q2<-abs(unname(qr1[2])-rc_ricker)
+qs<-c(q1,q2)
+iqmin<-which.min(qs)
+iqmax<-which.max(qs)
 
-rlist<-unique(c(seq(from=range(qr)[1],to=rc_ricker,length.out = 5),c(seq(from=rc_ricker,to=range(qr)[2],length.out = 5))))
+rlist<-seq(from=range(qr1)[iqmin],to=range(qr1)[iqmax], by = qs[iqmin]/4)
+
+xx<-diff(rlist)
+vxx<-var(xx)
+
+if(vxx>1e-10){
+  warning("Not equal spacing in rlist : Ricker model !!!",immediate.=T,call.=T)
+}
 
 numsims<-10000
 numsteps<-25
@@ -197,10 +209,22 @@ scl<-1
 rc_hassell<-((b/(b-1)))^b # transition from under to overcompensatory dynamics
 r_bf_hassell<- ((b/(b-2)))^b # bifurcation parameter stable to unstable eqm
 
-qrng<-runif(10000,min=1,max=r_bf_hassell) # r must be > 1
-qr<-quantile(qrng,probs=c(.025,.975))
+rng1<-runif(10000,min=1,max=r_bf_hassell) # r must be > 1
+qr1<-quantile(rng1,probs=c(.025,.975))
+q1<-abs(unname(qr1[1])-rc_hassell)
+q2<-abs(unname(qr1[2])-rc_hassell)
+qs<-c(q1,q2)
+iqmin<-which.min(qs)
+iqmax<-which.max(qs)
 
-rlist<-unique(c(seq(from=range(qr)[1],to=rc_hassell,length.out = 5),c(seq(from=rc_hassell,to=range(qr)[2],length.out = 5))))
+rlist<-seq(from=range(qr1)[iqmin],to=range(qr1)[iqmax], by = qs[iqmin]/4)
+
+xx<-diff(rlist)
+vxx<-var(xx)
+
+if(vxx>1e-10){
+  warning("Not equal spacing in rlist : Hassell model !!!",immediate.=T,call.=T)
+}
 
 hassell_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
 colnames(hassell_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
@@ -343,10 +367,22 @@ b<-4
 rc_msmith<-b/(b-1)
 r_bf_msmith<-b/(b-2) # bifurcation parameter stable to unstable eqm
 
-qrng<-runif(10000,min=1,max=r_bf_msmith) #r must be > 1 for +ve eqm pt.
-qr<-quantile(qrng,probs=c(.025,.975))
+rng1<-runif(10000,min=1,max=r_bf_msmith) #r must be > 1 for +ve eqm pt.
+qr1<-quantile(rng1,probs=c(.025,.975))
+q1<-abs(unname(qr1[1])-rc_msmith)
+q2<-abs(unname(qr1[2])-rc_msmith)
+qs<-c(q1,q2)
+iqmin<-which.min(qs)
+iqmax<-which.max(qs)
 
-rlist<-unique(c(seq(from=range(qr)[1],to=rc_msmith,length.out = 5),c(seq(from=rc_msmith,to=range(qr)[2],length.out = 5))))
+rlist<-seq(from=range(qr1)[iqmin],to=range(qr1)[iqmax], by = qs[iqmin]/4)
+
+xx<-diff(rlist)
+vxx<-var(xx)
+
+if(vxx>1e-10){
+  warning("Not equal spacing in rlist : Maynard-smith model !!!",immediate.=T,call.=T)
+}
 
 msmith_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
 colnames(msmith_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
@@ -522,10 +558,22 @@ a<-a_pennycuick
 b<-b_pennycuick
 scl<-1
 
-qrng<-runif(10000,min=1,max=r_bf_pennycuick) # r must be > 1
-qr<-quantile(qrng,probs=c(.025,.975))
+rng1<-runif(10000,min=1,max=r_bf_pennycuick) #r must be > 1 for +ve eqm pt.
+qr1<-quantile(rng1,probs=c(.025,.975))
+q1<-abs(unname(qr1[1])-rc_pennycuick)
+q2<-abs(unname(qr1[2])-rc_pennycuick)
+qs<-c(q1,q2)
+iqmin<-which.min(qs)
+iqmax<-which.max(qs)
 
-rlist<-unique(c(seq(from=range(qr)[1],to=rc_pennycuick,length.out = 5),c(seq(from=rc_pennycuick,to=range(qr)[2],length.out = 5))))
+rlist<-seq(from=range(qr1)[iqmin],to=range(qr1)[iqmax], by = qs[iqmin]/4)
+
+xx<-diff(rlist)
+vxx<-var(xx)
+
+if(vxx>1e-10){
+  warning("Not equal spacing in rlist : Pennycuick model !!!",immediate.=T,call.=T)
+}
 
 pennycuick_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) # a dataframe to store ext risk at dispersal d=0 for all r
 colnames(pennycuick_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
@@ -668,10 +716,22 @@ p0<-1
 rc_verhulst<-1 # transition from under to overcompensatory dynamics
 r_bf_verhulst<-2 # bifurcation parameter stable to unstable eqm
 
-qrng<-runif(10000,min=0,max=r_bf_verhulst)
-qr<-quantile(qrng,probs=c(.025,.975))
+rng1<-runif(10000,min=0,max=r_bf_verhulst)
+qr1<-quantile(rng1,probs=c(.025,.975))
+q1<-abs(unname(qr1[1])-rc_verhulst)
+q2<-abs(unname(qr1[2])-rc_verhulst)
+qs<-c(q1,q2)
+iqmin<-which.min(qs)
+iqmax<-which.max(qs)
 
-rlist<-unique(c(seq(from=range(qr)[1],to=rc_verhulst,length.out = 5),c(seq(from=rc_verhulst,to=range(qr)[2],length.out = 5))))
+rlist<-seq(from=range(qr1)[iqmin],to=range(qr1)[iqmax], by = qs[iqmin]/4)
+
+xx<-diff(rlist)
+vxx<-var(xx)
+
+if(vxx>1e-10){
+  warning("Not equal spacing in rlist : Verhulst model !!!",immediate.=T,call.=T)
+}
 
 verhulst_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
 colnames(verhulst_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
@@ -815,10 +875,22 @@ K<-50
 rc_abrewer<-1/(K*(1-exp(-s*K))) # transition from under to overcompensatory dynamics
 r_bf_abrewer<-2*rc_abrewer # bifurcation parameter stable to unstable eqm
 
-qrng<-runif(10000,min=0,max=r_bf_abrewer)
-qr<-quantile(qrng,probs=c(.025,.975))
+rng1<-runif(10000,min=0,max=r_bf_abrewer)
+qr1<-quantile(rng1,probs=c(.025,.975))
+q1<-abs(unname(qr1[1])-rc_abrewer)
+q2<-abs(unname(qr1[2])-rc_abrewer)
+qs<-c(q1,q2)
+iqmin<-which.min(qs)
+iqmax<-which.max(qs)
 
-rlist<-unique(c(seq(from=range(qr)[1],to=rc_abrewer,length.out = 5),c(seq(from=rc_abrewer,to=range(qr)[2],length.out = 5))))
+rlist<-seq(from=range(qr1)[iqmin],to=range(qr1)[iqmax], by = qs[iqmin]/4)
+
+xx<-diff(rlist)
+vxx<-var(xx)
+
+if(vxx>1e-10){
+  warning("Not equal spacing in rlist : Austin-Brewer model !!!",immediate.=T,call.=T)
+}
 
 abrewer_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
 colnames(abrewer_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
