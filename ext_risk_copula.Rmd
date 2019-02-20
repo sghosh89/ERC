@@ -197,7 +197,7 @@ scl<-1
 rc_hassell<-((b/(b-1)))^b # transition from under to overcompensatory dynamics
 r_bf_hassell<- ((b/(b-2)))^b # bifurcation parameter stable to unstable eqm
 
-qrng<-runif(10000,min=0,max=r_bf_hassell)
+qrng<-runif(10000,min=1,max=r_bf_hassell) # r must be > 1
 qr<-quantile(qrng,probs=c(.025,.975))
 
 rlist<-unique(c(seq(from=range(qr)[1],to=rc_hassell,length.out = 5),c(seq(from=rc_hassell,to=range(qr)[2],length.out = 5))))
@@ -299,7 +299,7 @@ hassell_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=hassell_extris
 hassell_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=hassell_extrisk_d0$risk_right_d0)/numsims
 
 pdf("./Results/hassell/hassell_extrisk_d0.pdf",height = 6,width=6)
-plot(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),xlim = c(1.4,7.6),
+plot(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),xlim = range(rlist),
      xlab="r",ylab="Extinction risk",cex.lab=1.5,pch=1)
 arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025left,
        x1=hassell_extrisk_d0$r,y1=hassell_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
@@ -343,7 +343,7 @@ b<-4
 rc_msmith<-b/(b-1)
 r_bf_msmith<-b/(b-2) # bifurcation parameter stable to unstable eqm
 
-qrng<-runif(10000,min=0,max=r_bf_msmith)
+qrng<-runif(10000,min=1,max=r_bf_msmith) #r must be > 1 for +ve eqm pt.
 qr<-quantile(qrng,probs=c(.025,.975))
 
 rlist<-unique(c(seq(from=range(qr)[1],to=rc_msmith,length.out = 5),c(seq(from=rc_msmith,to=range(qr)[2],length.out = 5))))
