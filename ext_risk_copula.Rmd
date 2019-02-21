@@ -12,7 +12,7 @@ source("mtime.R")
 ```
 
 #Ricker model :
-```{r sim_ricker, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_ricker, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
@@ -27,7 +27,16 @@ qs<-c(q1,q2)
 iqmin<-which.min(qs)
 iqmax<-which.max(qs)
 
-rlist<-seq(from=range(qr1)[iqmin],to=range(qr1)[iqmax], by = qs[iqmin]/4)
+fromr<-range(qr1)[iqmin]
+tor<-range(qr1)[iqmax]
+
+if(fromr>tor){
+  byr<--qs[iqmin]/4
+}else{
+  byr<-qs[iqmin]/4
+}
+
+rlist<-sort(seq(from=fromr,to=tor, by = byr))
 
 xx<-diff(rlist)
 vxx<-var(xx)
@@ -188,7 +197,7 @@ dev.off()
 
 #Hassell Model :
 
-```{r sim_hassell, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_hassell, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
@@ -217,7 +226,16 @@ qs<-c(q1,q2)
 iqmin<-which.min(qs)
 iqmax<-which.max(qs)
 
-rlist<-seq(from=range(qr1)[iqmin],to=range(qr1)[iqmax], by = qs[iqmin]/4)
+fromr<-range(qr1)[iqmin]
+tor<-range(qr1)[iqmax]
+
+if(fromr>tor){
+  byr<--qs[iqmin]/4
+}else{
+  byr<-qs[iqmin]/4
+}
+
+rlist<-sort(seq(from=fromr,to=tor, by = byr))
 
 xx<-diff(rlist)
 vxx<-var(xx)
@@ -345,7 +363,7 @@ dev.off()
 
 #Maynard Smith Model :
 
-```{r sim_msmith, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_msmith, echo=F, cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
@@ -375,7 +393,16 @@ qs<-c(q1,q2)
 iqmin<-which.min(qs)
 iqmax<-which.max(qs)
 
-rlist<-seq(from=range(qr1)[iqmin],to=range(qr1)[iqmax], by = qs[iqmin]/4)
+fromr<-range(qr1)[iqmin]
+tor<-range(qr1)[iqmax]
+
+if(fromr>tor){
+  byr<--qs[iqmin]/4
+}else{
+  byr<-qs[iqmin]/4
+}
+
+rlist<-sort(seq(from=fromr,to=tor, by = byr))
 
 xx<-diff(rlist)
 vxx<-var(xx)
@@ -539,7 +566,7 @@ r_bf_pennycuick<-rlist[which.min(abs(res_pennycuick-fp))]
 #formatC(rc_pen_uns,digits = 14, format="f") 
 ```
 
-```{r sim_pennycuick, echo=F,  results="hide", cache=T, cache.extra=list(seed,a_pennycuick,b_pennycuick,rc_pennycuick,r_bf_pennycuick,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_pennycuick, echo=F, cache=T, cache.extra=list(seed,a_pennycuick,b_pennycuick,rc_pennycuick,r_bf_pennycuick,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
@@ -566,7 +593,16 @@ qs<-c(q1,q2)
 iqmin<-which.min(qs)
 iqmax<-which.max(qs)
 
-rlist<-seq(from=range(qr1)[iqmin],to=range(qr1)[iqmax], by = qs[iqmin]/4)
+fromr<-range(qr1)[iqmin]
+tor<-range(qr1)[iqmax]
+
+if(fromr>tor){
+  byr<--qs[iqmin]/4
+}else{
+  byr<-qs[iqmin]/4
+}
+
+rlist<-sort(seq(from=fromr,to=tor, by = byr))
 
 xx<-diff(rlist)
 vxx<-var(xx)
@@ -695,7 +731,7 @@ dev.off()
 
 # Verhulst model :
 
-```{r sim_verhulst, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_verhulst, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
@@ -724,7 +760,16 @@ qs<-c(q1,q2)
 iqmin<-which.min(qs)
 iqmax<-which.max(qs)
 
-rlist<-seq(from=range(qr1)[iqmin],to=range(qr1)[iqmax], by = qs[iqmin]/4)
+fromr<-range(qr1)[iqmin]
+tor<-range(qr1)[iqmax]
+
+if(fromr>tor){
+  byr<--qs[iqmin]/4
+}else{
+  byr<-qs[iqmin]/4
+}
+
+rlist<-sort(seq(from=fromr,to=tor, by = byr))
 
 xx<-diff(rlist)
 vxx<-var(xx)
@@ -853,7 +898,7 @@ dev.off()
 
 # Austin Brewer model :
   
-```{r sim_abrewer, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_abrewer, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
@@ -883,7 +928,16 @@ qs<-c(q1,q2)
 iqmin<-which.min(qs)
 iqmax<-which.max(qs)
 
-rlist<-seq(from=range(qr1)[iqmin],to=range(qr1)[iqmax], by = qs[iqmin]/4)
+fromr<-range(qr1)[iqmin]
+tor<-range(qr1)[iqmax]
+
+if(fromr>tor){
+  byr<--qs[iqmin]/4
+}else{
+  byr<-qs[iqmin]/4
+}
+
+rlist<-sort(seq(from=fromr,to=tor, by = byr))
 
 xx<-diff(rlist)
 vxx<-var(xx)
