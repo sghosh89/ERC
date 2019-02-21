@@ -16,7 +16,7 @@ library(mvtnorm)
 
 # Output :
 #       A list of three : resE, resA : each is a numsims by numsteps+1 matrix for Egg and Adult stage
-#                         erA : a vector of length numsteps+1 : extinction risk for adult
+#                         extdf : a dataframe (nrow= numsteps+1, ncol=3) : extinction risk for adult and its 95% CI
 
 sim_age_str<-function(p0,ext_thrs,cop,par_dist,numsims,numsteps,ploton,resloc){
   
@@ -81,16 +81,18 @@ sim_age_str<-function(p0,ext_thrs,cop,par_dist,numsims,numsteps,ploton,resloc){
   if(ploton==ploton){
   pdf(paste(resloc,BiCopName(family = fam),"_ext_riskA_vs_time.pdf",sep=""),height=5,width=5)
   op<-par(mar=c(4,4,2,2),mgp=c(2.5,0.5,0))
-  plot(c(0:numsteps),erA,xlab="time",ylab="Extinction risk",cex.lab=1.5,cex=0.5,pch=16,col="black",ylim=c(0,1),panel.first = grid())
+  plot(c(0:numsteps),erA,xlab="time",ylab="Extinction risk",cex.lab=1.5,cex=0.3,pch=16,col="black",ylim=c(0,1),panel.first = grid())
   arrows(x0=c(1:numsteps),y0=CI0.025[2:(numsteps+1)],x1=c(1:numsteps),y1=CI0.975[2:(numsteps+1)],
-         angle=90,length=0.1,col="grey",code=3)
+         angle=90,length=0.01,col="grey",code=3)
   par(op)
   dev.off()
   }
   
+  extdf<-as.data.frame(cbind(CI0.025,erA,CI0.975))
+  
   return(list(resE=resE,
               resA=resA,
-              erA=erA))
+              extdf=extdf))
 }
 #----------------------------------------------------------------------------
 # function to calculate extinction risk
@@ -100,50 +102,13 @@ get_er<-function(mat){
 }
 
 #--------------------------------
-# Now calling the functions
-set.seed(seed=101)
-numsims<-10000
-numsteps<-25
-p0<-c(5,10)
-ext_thrs<-2
-fam<-14
-par<-4
-gshape<-2
-gscale<-1
-bshape1<-3
-bshape2<-1.5
-par_dist<-c(gshape,gscale,bshape1,bshape2)
-cop<-BiCopSim(N=(numsteps*numsims), family = fam, par = par)
 
-tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),sep="")
-if (!dir.exists(tempo)){
-  dir.create(tempo)
-}
+#copC<-claytonCopula(par)
+#tC<-tau(copC)
+#tC
 
-resloc<-paste(tempo,"/",sep="")
-
-s<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,
-            numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
-saveRDS(s,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
-#---------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-copC<-claytonCopula(par)
-tC<-tau(copC)
-tC
-
-rC  <- rotCopula(claytonCopula(2), flip = T)
-tau(rC)
-iTau(rC,tau=tC) # This should be the same parameter as of clayton
+#rC  <- rotCopula(claytonCopula(2), flip = T)
+#tau(rC)
+#iTau(rC,tau=0.6) # This should be the same parameter as of clayton
 #-------------------------------------------------------------------------
-
-
 
