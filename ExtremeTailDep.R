@@ -5,13 +5,15 @@
 #n        Number of points to get
 #d        Dimension
 #rl       1 for right tail dependence, -1 for left tail dependence
+#mn       mean and 
+#sdev     standard deviation
 #
 #Output
 #A matrix of dimension n by d, marginals are standard normal.
 #
-retd<-function(n,d,rl)
+retd<-function(n,d,rl,mn,sdev)
 {
-  m<-matrix(rnorm(n*(d+1),mean=0,sd=1),n,d+1)
+  m<-matrix(rnorm(n*(d+1),mean=mn,sd=sdev),n,d+1)
   flag<-(m[,1]>0) #a coin toss
   m<-m[,2:(d+1)] #an n by d matrix of iid standard normals
   

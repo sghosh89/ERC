@@ -79,7 +79,7 @@ sim_age_str<-function(p0,ext_thrs,cop,par_dist,numsims,numsteps,ploton,resloc){
   CI0.975<-qbinom(p=0.975,size=numsims,prob=erA)/numsims
   
   if(ploton==ploton){
-  pdf(paste(resloc,BiCopName(family = fam),"_ext_riskA_vs_time.pdf",sep=""),height=5,width=5)
+  pdf(paste(resloc,"ext_riskA_vs_time.pdf",sep=""),height=5,width=5)
   op<-par(mar=c(4,4,2,2),mgp=c(2.5,0.5,0))
   plot(c(0:numsteps),erA,xlab="time",ylab="Extinction risk",cex.lab=1.5,cex=0.3,pch=16,col="black",ylim=c(0,1),panel.first = grid())
   arrows(x0=c(1:numsteps),y0=CI0.025[2:(numsteps+1)],x1=c(1:numsteps),y1=CI0.975[2:(numsteps+1)],

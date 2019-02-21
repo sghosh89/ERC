@@ -195,7 +195,7 @@ get_avg_acf<-function(sims){
 
 plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,model,ploton,resloc,checkon,getacf){
  
-  ns1<-retd(n=numsteps*numsims,d=numlocs,rl=1)# a righttail dep matrix(numpoints by numlocs,     
+  ns1<-retd(n=numsteps*numsims,d=numlocs,rl=1,mn=0,sdev=1)# a righttail dep matrix(numpoints by numlocs,     
   #                                                      numpoints=numsteps*numsims)
   
   ns1<-array(ns1,c(numsteps,numsims,numlocs))# convert to an array (numsteps by numsims by numlocs)
