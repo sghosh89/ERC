@@ -1,0 +1,42 @@
+---
+title: "makefile, compiliation notes"
+author: "Daniel Reuman"
+date: ""
+output: pdf_document
+---
+
+<!--checkpoint package-->
+```{r checkpoint_chunk, echo=F, warning=F, message=F, results="hide"}
+library(checkpoint)
+if (!dir.exists("./.checkpoint/")){
+  dir.create("./.checkpoint/")
+}
+checkpoint("2019-01-13",checkpointLocation = "./")
+```
+
+# Get tex files and pdf files for the supp mat, but the pdf files 
+#are missing the external references 
+
+```{r tex_for_supp_mat}
+library(rmarkdown)
+rmarkdown::render(input="SuppMat.Rmd") 
+```
+
+# Get tex files and pdf files for the main text, but the pdf files 
+#are missing the external references 
+
+```{r tex_for_main_text}
+rmarkdown::render(input="MainText.Rmd") 
+```
+
+# Now recompile the latex
+
+```{r recompile_latex}
+#do it once
+system2(command="pdflatex",args="SuppMat.tex",stdout=TRUE,stderr=TRUE)
+system2(command="pdflatex",args="MainText.tex",stdout=TRUE,stderr=TRUE)
+
+#do it again to make sure to get the external references right
+system2(command="pdflatex",args="SuppMat.tex",stdout=TRUE,stderr=TRUE)
+system2(command="pdflatex",args="MainText.tex",stdout=TRUE,stderr=TRUE)
+```
