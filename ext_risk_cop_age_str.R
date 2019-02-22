@@ -9,6 +9,7 @@ library(mvtnorm)
 #       ext_thrs : extinction threshold, generally = 1
 #       cop : a bivariate copula matrix
 #       par_dist : a vector containing 4 numbers for gamma and beta distribution parameters: gshape, gscale, bshape1, bshape2
+#       omg : a number : if infinity then linear model, if finite nonlinear stage structured model
 #       numsims : number of simulations
 #       numsteps : number of time steps
 #       ploton : logical to get optional plot
@@ -18,7 +19,7 @@ library(mvtnorm)
 #       A list of three : resE, resA : each is a numsims by numsteps+1 matrix for Egg and Adult stage
 #                         extdf : a dataframe (nrow= numsteps+1, ncol=3) : extinction risk for adult and its 95% CI
 
-sim_age_str<-function(p0,ext_thrs,cop,par_dist,numsims,numsteps,ploton,resloc){
+sim_age_str<-function(p0,ext_thrs,cop,par_dist,omg,numsims,numsteps,ploton,resloc){
   
   gshape<-par_dist[1]
   gscale<-par_dist[2]
@@ -58,12 +59,12 @@ sim_age_str<-function(p0,ext_thrs,cop,par_dist,numsims,numsteps,ploton,resloc){
   
   #step the populations forward
   for (tct in 1:numsteps){
-   
+    
     L<-as.matrix(Ls[[tct]]) # this is the Leslie matrix (dim = numsims by numsims)
     fA<-L[,1]
     sE<-L[,2]
     
-    resE[,tct+1]<-fA * resA[,tct] 
+    resE[,tct+1]<-fA * resA[,tct] * exp(-(resA[,tct]/omg))
     resA[,tct+1]<-sE * resE[,tct] 
     
     #see if there is extinction on total Adult and Egg population
@@ -79,13 +80,13 @@ sim_age_str<-function(p0,ext_thrs,cop,par_dist,numsims,numsteps,ploton,resloc){
   CI0.975<-qbinom(p=0.975,size=numsims,prob=erA)/numsims
   
   if(ploton==ploton){
-  pdf(paste(resloc,"ext_riskA_vs_time.pdf",sep=""),height=5,width=5)
-  op<-par(mar=c(4,4,2,2),mgp=c(2.5,0.5,0))
-  plot(c(0:numsteps),erA,xlab="time",ylab="Extinction risk",cex.lab=1.5,cex=0.3,pch=16,col="black",ylim=c(0,1),panel.first = grid())
-  arrows(x0=c(1:numsteps),y0=CI0.025[2:(numsteps+1)],x1=c(1:numsteps),y1=CI0.975[2:(numsteps+1)],
-         angle=90,length=0.01,col="grey",code=3)
-  par(op)
-  dev.off()
+    pdf(paste(resloc,"ext_riskA_vs_time_omg_",omg,".pdf",sep=""),height=5,width=5)
+    op<-par(mar=c(4,4,2,2),mgp=c(2.5,0.5,0))
+    plot(c(0:numsteps),erA,xlab="time",ylab="Extinction risk",cex.lab=1.5,cex=0.3,pch=16,col="black",ylim=c(0,1),panel.first = grid())
+    arrows(x0=c(1:numsteps),y0=CI0.025[2:(numsteps+1)],x1=c(1:numsteps),y1=CI0.975[2:(numsteps+1)],
+           angle=90,length=0.01,col="grey",code=3)
+    par(op)
+    dev.off()
   }
   
   extdf<-as.data.frame(cbind(CI0.025,erA,CI0.975))
