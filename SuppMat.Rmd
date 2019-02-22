@@ -1,8 +1,33 @@
 ---
-title: "ext_risk_copula"
+title: "Supporting Information : Effect of copula on extinction risk"
 author: "Shyamolina Ghosh"
-output: pdf_document
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+geometry: "left=1cm,right=1cm,top=2.2cm,bottom=2.2cm"
+
+output: 
+  pdf_document:
+    number_sections: yes
+    keep_tex: yes
+    fig_caption: yes
+    includes:
+      in_header: head_suppmat.sty
+      
+tables: True
+link-citations: True
+urlcolor : blue
+indent : True
+
+csl: TheAmericanNaturalist.csl
+bibliography: Ref_extrisk.bib
 ---
+
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\pagebreak
+\pagenumbering{arabic}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -11,7 +36,108 @@ library(abind)
 source("mtime.R")
 ```
 
+# Age structure model :
+
+```{r sim_linear_C_SC_G_SG, echo=F,  cache=T, cache.extra=list(seed,mtime("ext_risk_cop_age_str.R"))}
+set.seed(seed)
+source("ext_risk_cop_age_str.R")
+
+numsims<-10000
+numsteps<-100
+p0<-c(5,10)
+ext_thrs<-2
+gshape<-2
+gscale<-1
+bshape1<-3
+bshape2<-2
+par_dist<-c(gshape,gscale,bshape1,bshape2)
+omg<-Inf
+
+ktau<-0.6  # kendall's tau
+
+# for clayton
+copC<-claytonCopula(3)
+parC<-iTau(copC,tau=ktau)
+par<-parC
+fam<-3
+
+cop<-BiCopSim(N=(numsteps*numsims), family = fam, par = par)
+
+tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_ktau_",ktau,"_linear",sep="")
+if (!dir.exists(tempo)){
+  dir.create(tempo)
+}
+
+resloc<-paste(tempo,"/",sep="")
+
+C_age<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg,
+            numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
+saveRDS(C_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
+#---------------------------------------------------------------------------------
+
+# Now for survival clayton : should be the same parameter as of clayton if kendall's tau is the same 
+
+fam<-13
+par<-parC
+
+cop<-BiCopSim(N=(numsteps*numsims), family = fam, par = par)
+
+tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_ktau_",ktau,"_linear",sep="")
+if (!dir.exists(tempo)){
+  dir.create(tempo)
+}
+
+resloc<-paste(tempo,"/",sep="")
+
+SC_age<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg,
+            numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
+saveRDS(SC_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
+#---------------------------------------------------------------------------------
+
+# Now for gumbel 
+
+fam<-4
+copG<-gumbelCopula(2)
+parG<-iTau(copG,tau = ktau)
+par<-parG
+
+cop<-BiCopSim(N=(numsteps*numsims), family = fam, par = par)
+
+tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_ktau_",ktau,"_linear",sep="")
+if (!dir.exists(tempo)){
+  dir.create(tempo)
+}
+
+resloc<-paste(tempo,"/",sep="")
+
+G_age<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg,
+            numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
+saveRDS(G_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
+
+#---------------------------------------------------------------------------------
+
+# Now for survival gumbel : should be the same parameter as of gumbel if kendall's tau is the same 
+
+fam<-14
+par<-parG
+
+cop<-BiCopSim(N=(numsteps*numsims), family = fam, par = par)
+
+tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_ktau_",ktau,"_linear",sep="")
+if (!dir.exists(tempo)){
+  dir.create(tempo)
+}
+
+resloc<-paste(tempo,"/",sep="")
+
+SG_age<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg,
+            numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
+saveRDS(SG_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
+#---------------------------------------------------------------------------------
+```
+
 #Ricker model :
+
 ```{r sim_ricker, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
