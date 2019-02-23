@@ -21,6 +21,7 @@ bibliography: Ref_extrisk.bib
 
 
 ```{r setup_MainText, echo=F}
+library(rmarkdown)
 knitr::opts_chunk$set(echo = TRUE, fig.pos = "H")
 options(scipen = 1, digits = 5) #This option round all numbers appeared in the inline r code upto 5th digit
 seed<-101

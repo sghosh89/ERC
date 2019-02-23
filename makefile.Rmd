@@ -18,7 +18,6 @@ checkpoint("2019-01-13",checkpointLocation = "./")
 #are missing the external references 
 
 ```{r tex_for_supp_mat}
-library(rmarkdown)
 rmarkdown::render(input="SuppMat.Rmd") 
 ```
 
