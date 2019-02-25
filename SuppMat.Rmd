@@ -1016,11 +1016,11 @@ dev.off()
 ```
 
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=2.5) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_verhulst_r_vary_scl_2.5}](./Results/verhulst_scl_2.5/verhulst_ext_risk_local_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=3) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_verhulst_r_vary_scl_2.5}](./Results/verhulst_scl_3/verhulst_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=2.5) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_verhulst_r_vary_scl_2.5}](./Results/verhulst_scl_2.5/verhulst_ext_risk_global_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=3) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_verhulst_r_vary_scl_2.5}](./Results/verhulst_scl_3/verhulst_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model with no dispersion : rc = 1, scl=2.5); numlocs=5, numsteps=25, numsims=10000\label{fig_verhulst_risk_d0_scl_2.5}](./Results/verhulst_scl_2.5/verhulst_extrisk_d0.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model with no dispersion : rc = 1, scl=3); numlocs=5, numsteps=25, numsims=10000\label{fig_verhulst_risk_d0_scl_2.5}](./Results/verhulst_scl_3/verhulst_extrisk_d0.pdf){ width=40%, height=40% }
 
 # Austin Brewer model :
   
