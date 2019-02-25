@@ -7,3 +7,10 @@
 *.RData
 .Rhistory
 *_cache
+*.aux
+*.log
+*.out
+*.tex
+*.toc
+*.fff
+*.lof
