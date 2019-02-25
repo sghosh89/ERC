@@ -445,11 +445,11 @@ legend(0.2,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=
 dev.off()
 ```
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years; Ricker model with local dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_local_disp}](./Results/ricker_scl_1/ricker_ext_risk_local_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years; Ricker model with local dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_local_disp_scl_1}](./Results/ricker_scl_1/ricker_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years ; Ricker model with global dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker__risk_global_disp}](./Results/ricker_scl_1/ricker_ext_risk_global_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years ; Ricker model with global dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_global_disp_scl_1}](./Results/ricker_scl_1/ricker_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (ricker model with no dispersion : rc=1); numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_d0}](./Results/ricker_scl_1/ricker_extrisk_d0.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (ricker model with no dispersion : rc=1); numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_d0_scl_1}](./Results/ricker_scl_1/ricker_extrisk_d0.pdf){ width=40%, height=40% }
 
 
 #Hassell Model :
@@ -613,11 +613,11 @@ legend(2,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c(
 dev.off()
 ```
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Hassell model : a = 0.5, b = 100, rc = 2.73, scl=1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_hassell}](./Results/hassell_scl_1/hassell_ext_risk_local_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Hassell model : a = 0.5, b = 100, rc = 2.73, scl=1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_hassell_scl_1}](./Results/hassell_scl_1/hassell_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Hassell model : a = 0.5, b = 100, rc = 2.73, scl=1) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_hassell}](./Results/hassell_scl_1/hassell_ext_risk_global_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Hassell model : a = 0.5, b = 100, rc = 2.73, scl=1) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_hassell_scl_1}](./Results/hassell_scl_1/hassell_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (hassell model with no dispersion : rc=2.73199, scl=1); numlocs=5, numsteps=25, numsims=10000\label{fig_hassell_risk_d0}](./Results/hassell_scl_1/hassell_extrisk_d0.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (hassell model with no dispersion : rc=2.73199, scl=1); numlocs=5, numsteps=25, numsims=10000\label{fig_hassell_risk_d0_scl_1}](./Results/hassell_scl_1/hassell_extrisk_d0.pdf){ width=40%, height=40% }
 
 #Maynard Smith Model :
 
@@ -916,8 +916,8 @@ saveRDS(res_pennycuick_global,paste(resloc,"res_pennycuick_global.RDS",sep=""))
 ```
 
 ```{r fig_pennycuick_scl_1, echo=F, results="hide",cache=T, cache.extra=list(seed,res_pennycuick_local,res_pennycuick_global)}
-pdf(paste(resloc,"pennycuick_ext_risk_local_disp.pdf",sep=""),height=9,width=12)
-op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.5))
+pdf(paste(resloc,"pennycuick_ext_risk_local_disp.pdf",sep=""),height=12,width=12)
+op<-par(mfrow=c(4,4),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_pennycuick_local)[3]){
   s<-res_pennycuick_local[,,i]
@@ -935,8 +935,8 @@ par(op)
 dev.off()
 
 
-pdf(paste(resloc,"pennycuick_ext_risk_global_disp.pdf",sep=""),height=9,width=12)
-op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.5))
+pdf(paste(resloc,"pennycuick_ext_risk_global_disp.pdf",sep=""),height=12,width=12)
+op<-par(mfrow=c(4,4),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_pennycuick_global)[3]){
   s<-res_pennycuick_global[,,i]
@@ -980,13 +980,11 @@ legend(3,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c(
 dev.off()
 ```
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1, scl=1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_msmith_r_vary}](./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1, scl=1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_pennycuick_r_vary_scl_1}](./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1, scl=1) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_msmith_r_vary}](./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1, scl=1) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_pennycuick_r_vary_scl_1}](./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model with no dispersion : rc=4.3231657); numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_pennycuick_risk_d0}](./Results/pennycuick_scl_1/pennycuick_extrisk_d0.pdf){ width=40%, height=40% }
-
-
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model with no dispersion : rc=4.3231657); numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_pennycuick_risk_d0_scl_1}](./Results/pennycuick_scl_1/pennycuick_extrisk_d0.pdf){ width=40%, height=40% }
 
 
 # Verhulst model :
