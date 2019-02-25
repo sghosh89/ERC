@@ -251,7 +251,7 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
     
     pop_sim1<-pops1[numsims,,]
     ylm<-max(c(abs(min(pop_sim1)),abs(max(pop_sim1))))
-    plot(0,0,xlim = c(1,numsteps+1),ylim = c(-ylm,ylm),type = "n",xlab="time",ylab="pops_with_noise_right_tail")
+    plot(0,0,xlim = c(1,numsteps+1),ylim = c(0,ylm),type = "n",xlab="time",ylab="pops_with_noise_right_tail")
     cl <- rainbow(numlocs)
     for(i in 1:numlocs){
       lines(c(1:c(numsteps+1)),pop_sim1[i,],col=cl[i],type="l")
@@ -259,7 +259,7 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
     
     pop_sim2<-pops2[numsims,,]
     ylm<-max(c(abs(min(pop_sim2)),abs(max(pop_sim2))))
-    plot(0,0,xlim = c(1,numsteps+1),ylim = c(-ylm,ylm),type = "n",xlab="time",ylab="pops_with_noise_left_tail")
+    plot(0,0,xlim = c(1,numsteps+1),ylim = c(0,ylm),type = "n",xlab="time",ylab="pops_with_noise_left_tail")
     cl <- rainbow(numlocs)
     for(i in 1:numlocs){
       lines(c(1:c(numsteps+1)),pop_sim2[i,],col=cl[i],type="l")

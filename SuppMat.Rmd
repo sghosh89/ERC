@@ -367,10 +367,11 @@ pdf(paste(resloc,"ricker_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_ricker_local)[3]){
-  s<-res_ricker_local[,,i]
+  #s<-res_ricker_local[,,i]
+  s<-res_ricker_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   s<-as.data.frame(s)
   
-  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+  plot(s$d,s$risk_left,xlim=range(s$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
   lines(s$d,s$risk_right,type="b",col="blue")
@@ -403,10 +404,11 @@ pdf(paste(resloc,"ricker_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_ricker_global)[3]){
-  s<-res_ricker_global[,,i]
+  #s<-res_ricker_global
+  s<-res_ricker_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   s<-as.data.frame(s)
   
-  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+  plot(s$d,s$risk_left,xlim=range(s$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
   lines(s$d,s$risk_right,type="b",col="blue")
@@ -553,10 +555,10 @@ pdf(paste(resloc,"hassell_ext_risk_local_disp.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_hassell_local)[3]){
-  s<-res_hassell_local[,,i]
+  s<-res_hassell_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   s<-as.data.frame(s)
   
-  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+  plot(s$d,s$risk_left,xlim=range(s$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
   lines(s$d,s$risk_right,type="b",col="blue")
@@ -572,10 +574,10 @@ pdf(paste(resloc,"hassell_ext_risk_global_disp.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_hassell_global)[3]){
-  s<-res_hassell_global[,,i]
+  s<-res_hassell_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   s<-as.data.frame(s)
   
-  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+  plot(s$d,s$risk_left,xlim=range(s$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
   lines(s$d,s$risk_right,type="b",col="blue")
@@ -721,10 +723,10 @@ pdf(paste(resloc,"msmith_ext_risk_local_disp.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_msmith_local)[3]){
-  s<-res_msmith_local[,,i]
+  s<-res_msmith_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   s<-as.data.frame(s)
   
-  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+  plot(s$d,s$risk_left,xlim=range(s$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
   lines(s$d,s$risk_right,type="b",col="blue")
@@ -740,10 +742,10 @@ pdf(paste(resloc,"msmith_ext_risk_global_disp.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_msmith_global)[3]){
-  s<-res_msmith_global[,,i]
+  s<-res_msmith_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   s<-as.data.frame(s)
   
-  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+  plot(s$d,s$risk_left,xlim=range(s$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
   lines(s$d,s$risk_right,type="b",col="blue")
@@ -920,10 +922,10 @@ pdf(paste(resloc,"pennycuick_ext_risk_local_disp.pdf",sep=""),height=12,width=12
 op<-par(mfrow=c(4,4),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_pennycuick_local)[3]){
-  s<-res_pennycuick_local[,,i]
+  s<-res_pennycuick_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   s<-as.data.frame(s)
   
-  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+  plot(s$d,s$risk_left,xlim=range(s$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
   lines(s$d,s$risk_right,type="b",col="blue")
@@ -939,10 +941,10 @@ pdf(paste(resloc,"pennycuick_ext_risk_global_disp.pdf",sep=""),height=12,width=1
 op<-par(mfrow=c(4,4),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_pennycuick_global)[3]){
-  s<-res_pennycuick_global[,,i]
+  s<-res_pennycuick_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   s<-as.data.frame(s)
   
-  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+  plot(s$d,s$risk_left,xlim=range(s$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
   lines(s$d,s$risk_right,type="b",col="blue")
@@ -1087,10 +1089,10 @@ pdf(paste(resloc,"verhulst_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_verhulst_local)[3]){
-  s<-res_verhulst_local[,,i]
+  s<-res_verhulst_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   s<-as.data.frame(s)
   
-  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+  plot(s$d,s$risk_left,xlim=range(s$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
   lines(s$d,s$risk_right,type="b",col="blue")
@@ -1106,10 +1108,10 @@ pdf(paste(resloc,"verhulst_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_verhulst_global)[3]){
-  s<-res_verhulst_global[,,i]
+  s<-res_verhulst_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   s<-as.data.frame(s)
   
-  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+  plot(s$d,s$risk_left,xlim=range(s$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
   lines(s$d,s$risk_right,type="b",col="blue")
@@ -1262,10 +1264,10 @@ pdf(paste(resloc,"abrewer_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_abrewer_local)[3]){
-  s<-res_abrewer_local[,,i]
+  s<-res_abrewer_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   s<-as.data.frame(s)
   
-  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+  plot(s$d,s$risk_left,xlim=range(s$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
   lines(s$d,s$risk_right,type="b",col="blue")
@@ -1281,10 +1283,10 @@ pdf(paste(resloc,"abrewer_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_abrewer_global)[3]){
-  s<-res_abrewer_global[,,i]
+  s<-res_abrewer_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   s<-as.data.frame(s)
   
-  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+  plot(s$d,s$risk_left,xlim=range(s$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
   lines(s$d,s$risk_right,type="b",col="blue")
