@@ -862,7 +862,7 @@ set.seed(seed)
 source("mydispersal.R")
 
 model<-"verhulst"
-scl<-2.5
+scl<-3
 
 tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){

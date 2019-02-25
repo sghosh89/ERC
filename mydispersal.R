@@ -359,6 +359,8 @@ varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,mod
   }
   
   if(plotteron==T){
+    
+    if(getacf==T){
     op<-par(mfrow=c(2,1), mar=c(5.2,4.2,1,1.2))
     plot(d_seq,risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),
          xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
@@ -367,14 +369,24 @@ varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,mod
            col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
     mtext(paste0("r = ", r))
     
-    plot(d_seq,avg_acf_left,xlim=c(0,1),ylim=c(-0.1,0.1),type="b",col="red",panel.first = grid(),pch=16,
+    plot(d_seq,pop_avg_acf_left,xlim=c(0,1),ylim=c(-0.1,0.1),type="b",col="red",panel.first = grid(),pch=16,
          xlab="d",ylab="avg. ACF",cex.lab=1.5,cex.axis=1.5)
-    lines(d_seq,avg_acf_right,type="b",col="blue",pch=16)
+    lines(d_seq,pop_avg_acf_right,type="b",col="blue",pch=16)
     legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(16,16), 
            col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
     #mtext(paste0("r = ", r))
     
     par(op)
+    }else{
+      op<-par(mar=c(5.2,4.2,1,1.2))
+      plot(d_seq,risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),
+           xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
+      lines(d_seq,risk_right,type="b",col="blue")
+      legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+             col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+      mtext(paste0("r = ", r))
+      par(op)
+    }
   }
   
   return(data.frame(d_seq=d_seq,
