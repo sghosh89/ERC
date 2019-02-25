@@ -52,7 +52,6 @@ bshape1<-3
 bshape2<-2
 par_dist<-c(gshape,gscale,bshape1,bshape2)
 omg<-Inf
-
 ktau<-0.6  # kendall's tau
 
 # for clayton
@@ -136,9 +135,141 @@ saveRDS(SG_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
 #---------------------------------------------------------------------------------
 ```
 
+```{r sim_agestr_with_extremetail_linear, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("ext_risk_cop_age_str.R"),mtime("ExtremeTailDep.R"))}
+set.seed(seed)
+source("ext_risk_cop_age_str.R")
+source("ExtremeTailDep.R")
+numsims<-10000
+numsteps<-100
+p0<-c(5,10)
+ext_thrs<-2
+gshape<-2
+gscale<-1
+bshape1<-3
+bshape2<-2
+par_dist<-c(gshape,gscale,bshape1,bshape2)
+omg<-Inf
+
+# For extreme right tail dep.
+mr<-retd(n = (numsteps*numsims),d = 2,rl =1,mn=0,sdev=1)
+cop<-pnorm(mr) # to make normal to uniformly distributed
+ tempo<-paste("./Results/age_str_results/extreme_right_taildep_linear")
+if (!dir.exists(tempo)){
+  dir.create(tempo)
+}
+resloc<-paste(tempo,"/",sep="")
+pdf(paste(resloc,"extreme_right_tail_cop.pdf",sep=""),height = 5,width=5)
+plot(cop[,1],cop[,2])
+dev.off()
+las_exR<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg,
+            numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
+saveRDS(las_exR,paste(resloc,"sim_age_str_extreme_right_taildep.RDS",sep=""))
+
+# For extreme left tail dep.
+ml<-retd(n = (numsteps*numsims),d = 2,rl =-1,mn=0,sdev=1)
+cop<-pnorm(ml) # to make normal to uniformly distributed
+ tempo<-paste("./Results/age_str_results/extreme_left_taildep_linear")
+if (!dir.exists(tempo)){
+  dir.create(tempo)
+}
+resloc<-paste(tempo,"/",sep="")
+pdf(paste(resloc,"extreme_left_tail_cop.pdf",sep=""),height = 5,width=5)
+plot(cop[,1],cop[,2])
+dev.off()
+ las_exL<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg,
+            numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
+saveRDS(las_exL,paste(resloc,"sim_age_str_extreme_left_taildep.RDS",sep=""))
+```
+
+```{r fig_agestr_with_extremetail_linear, echo=F,results="hide"}
+xL<-las_exL$extdf
+xR<-las_exR$extdf
+t<-c(0:(nrow(xL)-1))
+pdf(paste("./Results/age_str_results/extrisk_age_str_extremetail_linear.pdf",sep=""),height=6,width=6)
+op<-par(mar=c(4,4,2,2),mgp=c(2.5,0.5,0))
+plot(0,-1,ylim=c(0,1),xlim=range(t),ylab="Extinction risk",xlab="time",cex.lab=1.5,panel.first=grid())
+x<-xL
+polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(1,0,0,0.3), border = NA)
+lines(t,x$erA,col="red",type="l")
+x<-xR
+polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(0,0,1,0.3), border = NA)
+lines(t,x$erA,col="blue",type="l")
+legend("topleft", c("Left tail","Right tail"), lty=c(1,1),  
+       col=c('red', 'blue'), horiz=F, bty='n', cex=1.2)
+par(op)
+dev.off()
+```
+
+![Extinction risk from one patch linear age structured model (omg=Infinity), fecundity of adults and survival of eggs have either extreme left or extreme right tail dep. copula structure, numsims=10000.\label{fig_extrisk_lagestr_extremetail}](./Results/age_str_results/extrisk_age_str_extremetail_linear.pdf){ width=40%, height=40% }
+
+```{r sim_agestr_with_extremetail_nonlinear, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("ext_risk_cop_age_str.R"),mtime("ExtremeTailDep.R"))}
+set.seed(seed)
+source("ext_risk_cop_age_str.R")
+source("ExtremeTailDep.R")
+numsims<-10000
+numsteps<-100
+p0<-c(5,10)
+ext_thrs<-2
+gshape<-2
+gscale<-1
+bshape1<-3
+bshape2<-2
+par_dist<-c(gshape,gscale,bshape1,bshape2)
+omg<-100
+# For extreme right tail dep.
+mr<-retd(n = (numsteps*numsims),d = 2,rl =1,mn=0,sdev=1)
+cop<-pnorm(mr) # to make normal to uniformly distributed
+ tempo<-paste("./Results/age_str_results/extreme_right_taildep_nonlinear")
+if (!dir.exists(tempo)){
+  dir.create(tempo)
+}
+resloc<-paste(tempo,"/",sep="")
+pdf(paste(resloc,"extreme_right_tail_cop_omg_",omg,".pdf",sep=""),height = 5,width=5)
+plot(cop[,1],cop[,2])
+dev.off()
+nlas_exR<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg,
+            numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
+saveRDS(nlas_exR,paste(resloc,"sim_age_str_extreme_right_taildep.RDS",sep=""))
+ # For extreme left tail dep.
+ml<-retd(n = (numsteps*numsims),d = 2,rl =-1,mn=0,sdev=1)
+cop<-pnorm(ml) # to make normal to uniformly distributed
+ tempo<-paste("./Results/age_str_results/extreme_left_taildep_nonlinear")
+if (!dir.exists(tempo)){
+  dir.create(tempo)
+}
+resloc<-paste(tempo,"/",sep="")
+pdf(paste(resloc,"extreme_right_tail_cop_omg_",omg,".pdf",sep=""),height = 5,width=5)
+plot(cop[,1],cop[,2])
+dev.off()
+nlas_exL<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg,
+            numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
+saveRDS(nlas_exL,paste(resloc,"sim_age_str_extreme_left_taildep.RDS",sep=""))
+```
+
+```{r fig_agestr_with_extremetail_nonlinear, echo=F,results="hide"}
+xL<-nlas_exL$extdf
+xR<-nlas_exR$extdf
+t<-c(0:(nrow(xL)-1))
+pdf(paste("./Results/age_str_results/extrisk_age_str_extremetail_nonlinear_omg_",omg,".pdf",sep=""),height=6,width=6)
+op<-par(mar=c(4,4,2,2),mgp=c(2.5,0.5,0))
+plot(0,-1,ylim=c(0,1),xlim=range(t),ylab="Extinction risk",xlab="time",cex.lab=1.5,panel.first=grid())
+x<-xL
+polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(1,0,0,0.3), border = NA)
+lines(t,x$erA,col="red",type="l")
+x<-xR
+polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(0,0,1,0.3), border = NA)
+lines(t,x$erA,col="blue",type="l")
+legend("topleft", c("Left tail","Right tail"), lty=c(1,1),  
+       col=c('red', 'blue'), horiz=F, bty='n', cex=1.2)
+par(op)
+dev.off()
+```
+
+![Extinction risk from one patch non-linear age structured model (omg=100), fecundity of adults and survival of eggs have either extreme left or extreme right tail dep. copula structure, numsims=10000.\label{fig_extrisk_nlagestr_extremetail}](./Results/age_str_results/extrisk_age_str_extremetail_nonlinear_omg_100.pdf){ width=40%, height=40% }
+
 #Ricker model :
 
-```{r sim_ricker, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_ricker_scl_1, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
@@ -179,7 +310,7 @@ scl<-1
 ext_thrs<-K/10
 model<-"ricker"
 
-tempo<-paste("./Results/",model,sep="")
+tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
   dir.create(tempo)
 }
@@ -230,7 +361,7 @@ dimnames(res_ricker_global)<-list(NULL,cnm,anm)
 saveRDS(res_ricker_global,paste(resloc,"res_ricker_global.RDS",sep=""))
 ```
 
-```{r fig_ricker, echo=F, results="hide",cache=T, cache.extra=list(seed,res_ricker_local,res_ricker_global)}
+```{r fig_ricker_scl_1, echo=F, results="hide",cache=T, cache.extra=list(seed,res_ricker_local,res_ricker_global)}
 pdf(paste(resloc,"ricker_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
 #op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
@@ -287,10 +418,10 @@ par(op)
 dev.off()
 ```
 
-```{r fig_ricker_extrisk_d0, echo=F,results="hide"}
+```{r fig_ricker_extrisk_d0_scl_1, echo=F,results="hide"}
 set.seed(seed)
 
-ricker_extrisk_d0<-readRDS("./Results/ricker/ricker_extrisk_d0.RDS")
+ricker_extrisk_d0<-readRDS(paste(resloc,"ricker_extrisk_d0.RDS",sep=""))
 numsims<-10000
 ricker_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=ricker_extrisk_d0$risk_left_d0)/numsims
 ricker_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=ricker_extrisk_d0$risk_left_d0)/numsims
@@ -298,7 +429,7 @@ ricker_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=ricker_extrisk_d
 ricker_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=ricker_extrisk_d0$risk_right_d0)/numsims
 ricker_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=ricker_extrisk_d0$risk_right_d0)/numsims
 
-pdf("./Results/ricker/ricker_extrisk_d0.pdf",height = 6,width=6)
+pdf(paste(resloc,"ricker_extrisk_d0.pdf",sep=""),height=6,width=6)
 
 plot(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_left_d0,col="red",type="b",
      ylim=c(0,1),xlim = range(ricker_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=1.5,pch=1)
@@ -314,26 +445,20 @@ legend(0.2,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=
 dev.off()
 ```
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years; Ricker model with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_ricker_risk_local_disp}](./Results/ricker/ricker_ext_risk_local_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years; Ricker model with local dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_local_disp}](./Results/ricker_scl_1/ricker_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years ; Ricker model with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_ricker__risk_global_disp}](./Results/ricker/ricker_ext_risk_global_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years ; Ricker model with global dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker__risk_global_disp}](./Results/ricker_scl_1/ricker_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (ricker model with no dispersion : rc=1); numlocs=5, numsteps=25, numsims=10000\label{fig_ricker_risk_d0}](./Results/ricker/ricker_extrisk_d0.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (ricker model with no dispersion : rc=1); numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_d0}](./Results/ricker_scl_1/ricker_extrisk_d0.pdf){ width=40%, height=40% }
 
 
 #Hassell Model :
 
-```{r sim_hassell, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_hassell_scl_1, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
 model<-"hassell"
-
-tempo<-paste("./Results/",model,sep="")
-if (!dir.exists(tempo)){
-  dir.create(tempo)
-}
-resloc<-paste(tempo,"/",sep="")
 
 numsims<-10000
 numsteps<-25
@@ -341,6 +466,13 @@ numlocs<-5
 a<-0.5
 b<-100
 scl<-1
+
+tempo<-paste("./Results/",model,"_scl_",scl,sep="")
+if (!dir.exists(tempo)){
+  dir.create(tempo)
+}
+resloc<-paste(tempo,"/",sep="")
+
 rc_hassell<-((b/(b-1)))^b # transition from under to overcompensatory dynamics
 r_bf_hassell<- ((b/(b-2)))^b # bifurcation parameter stable to unstable eqm
 
@@ -416,9 +548,9 @@ dimnames(res_hassell_global)<-list(NULL,cnm,anm)
 saveRDS(res_hassell_global,paste(resloc,"res_hassell_global.RDS",sep=""))
 ```
 
-```{r fig_hassell, echo=F, results="hide",cache=T, cache.extra=list(seed,res_hassell_local,res_hassell_global)}
-pdf(paste(resloc,"hassell_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
+```{r fig_hassell_scl_1, echo=F, results="hide",cache=T, cache.extra=list(seed,res_hassell_local,res_hassell_global)}
+pdf(paste(resloc,"hassell_ext_risk_local_disp.pdf",sep=""),height=12,width=12)
+op<-par(mfrow=c(4,4),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_hassell_local)[3]){
   s<-res_hassell_local[,,i]
@@ -436,8 +568,8 @@ par(op)
 dev.off()
 
 
-pdf(paste(resloc,"hassell_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
+pdf(paste(resloc,"hassell_ext_risk_global_disp.pdf",sep=""),height=12,width=12)
+op<-par(mfrow=c(4,4),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_hassell_global)[3]){
   s<-res_hassell_global[,,i]
@@ -455,10 +587,10 @@ par(op)
 dev.off()
 ```
 
-```{r fig_hassell_extrisk_d0, echo=F,results="hide"}
+```{r fig_hassell_extrisk_d0_scl_1, echo=F,results="hide"}
 set.seed(seed)
 numsims<-10000
-hassell_extrisk_d0<-readRDS("./Results/hassell/hassell_extrisk_d0.RDS")
+hassell_extrisk_d0<-readRDS(paste(resloc,"hassell_extrisk_d0.RDS",sep=""))
 
 hassell_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=hassell_extrisk_d0$risk_left_d0)/numsims
 hassell_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=hassell_extrisk_d0$risk_left_d0)/numsims
@@ -466,7 +598,7 @@ hassell_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=hassell_extrisk
 hassell_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=hassell_extrisk_d0$risk_right_d0)/numsims
 hassell_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=hassell_extrisk_d0$risk_right_d0)/numsims
 
-pdf("./Results/hassell/hassell_extrisk_d0.pdf",height = 6,width=6)
+pdf(paste(resloc,"hassell_extrisk_d0.pdf",sep=""),height=6,width=6)
 plot(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),xlim = range(hassell_extrisk_d0$r),
      xlab="r",ylab="Extinction risk",cex.lab=1.5,pch=1)
 arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025left,
@@ -481,15 +613,15 @@ legend(2,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c(
 dev.off()
 ```
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Hassell model : a = 0.5, b = 100, rc = 2.73) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_hassell}](./Results/hassell/hassell_ext_risk_local_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Hassell model : a = 0.5, b = 100, rc = 2.73, scl=1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_hassell}](./Results/hassell_scl_1/hassell_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Hassell model : a = 0.5, b = 100, rc = 2.73) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_hassell}](./Results/hassell/hassell_ext_risk_global_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Hassell model : a = 0.5, b = 100, rc = 2.73, scl=1) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_hassell}](./Results/hassell_scl_1/hassell_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (hassell model with no dispersion : rc=2.73199); numlocs=5, numsteps=25, numsims=10000\label{fig_hassell_risk_d0}](./Results/hassell/hassell_extrisk_d0.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (hassell model with no dispersion : rc=2.73199, scl=1); numlocs=5, numsteps=25, numsims=10000\label{fig_hassell_risk_d0}](./Results/hassell_scl_1/hassell_extrisk_d0.pdf){ width=40%, height=40% }
 
 #Maynard Smith Model :
 
-```{r sim_msmith, echo=F, cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_msmith_scl_0.8, echo=F, cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
@@ -584,9 +716,9 @@ dimnames(res_msmith_global)<-list(NULL,cnm,anm)
 saveRDS(res_msmith_global,paste(resloc,"res_msmith_global.RDS",sep=""))
 ```
 
-```{r fig_msmith, echo=F, results="hide",cache=T, cache.extra=list(seed,res_msmith_local,res_msmith_global)}
-pdf(paste(resloc,"msmith_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
+```{r fig_msmith_scl_0.8, echo=F, results="hide",cache=T, cache.extra=list(seed,res_msmith_local,res_msmith_global)}
+pdf(paste(resloc,"msmith_ext_risk_local_disp.pdf",sep=""),height=12,width=12)
+op<-par(mfrow=c(4,4),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_msmith_local)[3]){
   s<-res_msmith_local[,,i]
@@ -604,8 +736,8 @@ par(op)
 dev.off()
 
 
-pdf(paste(resloc,"msmith_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
+pdf(paste(resloc,"msmith_ext_risk_global_disp.pdf",sep=""),height=12,width=12)
+op<-par(mfrow=c(4,4),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_msmith_global)[3]){
   s<-res_msmith_global[,,i]
@@ -623,7 +755,7 @@ par(op)
 dev.off()
 ```
 
-```{r fig_msmith_extrisk_d0, echo=F,results="hide"}
+```{r fig_msmith_extrisk_d0_scl_0.8, echo=F,results="hide"}
 set.seed(seed)
 
 msmith_extrisk_d0<-readRDS(paste(resloc,"msmith_extrisk_d0.RDS",sep=""))
@@ -657,6 +789,7 @@ dev.off()
 # Pennycuick model :
 
 ```{r get_rc_pennycuick,echo=F,results="hide",cache=T,cache.extra=list(seed,mtime("1var_pop_model_bifurcation.R"))}
+set.seed(seed)
 source("./1var_pop_model_bifurcation.R")
 a_pennycuick<-0.1
 b_pennycuick<-0.1
@@ -692,13 +825,14 @@ r_bf_pennycuick<-rlist[which.min(abs(res_pennycuick-fp))]
 #formatC(rc_pen_uns,digits = 14, format="f") 
 ```
 
-```{r sim_pennycuick, echo=F, cache=T, cache.extra=list(seed,a_pennycuick,b_pennycuick,rc_pennycuick,r_bf_pennycuick,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_pennycuick_scl_1, echo=F, cache=T, cache.extra=list(seed,a_pennycuick,b_pennycuick,rc_pennycuick,r_bf_pennycuick,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
 model<-"pennycuick"
+scl<-1
 
-tempo<-paste("./Results/",model,sep="")
+tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
   dir.create(tempo)
 }
@@ -709,7 +843,169 @@ numsteps<-25
 numlocs<-5
 a<-a_pennycuick
 b<-b_pennycuick
-scl<-1
+
+rng1<-runif(10000,min=1,max=r_bf_pennycuick) #r must be > 1 for +ve eqm pt.
+qr1<-quantile(rng1,probs=c(.025,.975))
+q1<-abs(unname(qr1[1])-rc_pennycuick)
+q2<-abs(unname(qr1[2])-rc_pennycuick)
+qs<-c(q1,q2)
+iqmin<-which.min(qs)
+iqmax<-which.max(qs)
+
+fromr<-range(qr1)[iqmin]
+tor<-range(qr1)[iqmax]
+
+if(fromr>tor){
+  byr<--qs[iqmin]/4
+}else{
+  byr<-qs[iqmin]/4
+}
+
+rlist<-sort(seq(from=fromr,to=tor, by = byr))
+
+xx<-diff(rlist)
+vxx<-var(xx)
+if(vxx>1e-10){
+  warning("Not equal spacing in rlist : Pennycuick model !!!",immediate.=T,call.=T)
+}
+
+pennycuick_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) # a dataframe to store ext risk at dispersal d=0 for all r
+colnames(pennycuick_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
+
+#for local dispersal in D matrix 
+res_pennycuick_local<-c()
+
+for(i in c(1:length(rlist))){
+    r<- rlist[i]
+    params<-c(r,a,b)
+    K_e<-(b/a)*(a+log(r-1))
+    ext_thrs<-K_e/10
+    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
+                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc,checkon=F,getacf=F)
+    
+    temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
+    res_pennycuick_local<-abind(res_pennycuick_local,temp_mat,along = 3)
+      
+    pennycuick_extrisk_d0$risk_left_d0[i]<-s$risk_left[1]
+    pennycuick_extrisk_d0$risk_right_d0[i]<-s$risk_right[1]
+}
+
+anm<-paste("r_",rlist,sep="")
+cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+dimnames(res_pennycuick_local)<-list(NULL,cnm,anm)
+
+saveRDS(pennycuick_extrisk_d0,paste(resloc,"pennycuick_extrisk_d0.RDS",sep=""))
+saveRDS(res_pennycuick_local,paste(resloc,"res_pennycuick_local.RDS",sep=""))
+
+# For global dispersal in D matrix 
+res_pennycuick_global<-c()
+for(r in rlist){
+    #cat("r=",r,"\n")
+    params<-c(r,a,b)
+    K_e<-(b/a)*(a+log(r-1))
+    ext_thrs<-K_e/10
+    s<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
+                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc,checkon=F,getacf=F)
+    
+    temp_mat<-cbind(s$d_seq,s$risk_left,s$risk_right,s$pop_avg_acf_left,s$pop_avg_acf_right)
+    res_pennycuick_global<-abind(res_pennycuick_global,temp_mat,along = 3)
+}
+anm<-paste("r_",rlist,sep="")
+cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+dimnames(res_pennycuick_global)<-list(NULL,cnm,anm)
+saveRDS(res_pennycuick_global,paste(resloc,"res_pennycuick_global.RDS",sep=""))
+```
+
+```{r fig_pennycuick_scl_1, echo=F, results="hide",cache=T, cache.extra=list(seed,res_pennycuick_local,res_pennycuick_global)}
+pdf(paste(resloc,"pennycuick_ext_risk_local_disp.pdf",sep=""),height=9,width=12)
+op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.5))
+
+for(i in 1:dim(res_pennycuick_local)[3]){
+  s<-res_pennycuick_local[,,i]
+  s<-as.data.frame(s)
+  
+  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+       #panel.first = grid(),
+       xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
+  lines(s$d,s$risk_right,type="b",col="blue")
+  legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+         col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  mtext(paste0("r = ", round(rlist[i],5)))
+}
+par(op)
+dev.off()
+
+
+pdf(paste(resloc,"pennycuick_ext_risk_global_disp.pdf",sep=""),height=9,width=12)
+op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.5))
+
+for(i in 1:dim(res_pennycuick_global)[3]){
+  s<-res_pennycuick_global[,,i]
+  s<-as.data.frame(s)
+  
+  plot(s$d,s$risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",
+       #panel.first = grid(),
+       xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
+  lines(s$d,s$risk_right,type="b",col="blue")
+  legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+         col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  mtext(paste0("r = ", round(rlist[i],5)))
+}
+par(op)
+dev.off()
+```
+
+```{r fig_pennycuick_extrisk_d0_scl_1, echo=F,results="hide"}
+set.seed(seed)
+numsims<-10000
+pennycuick_extrisk_d0<-readRDS(paste(resloc,"pennycuick_extrisk_d0.RDS",sep=""))
+
+pennycuick_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=pennycuick_extrisk_d0$risk_left_d0)/numsims
+pennycuick_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=pennycuick_extrisk_d0$risk_left_d0)/numsims
+
+pennycuick_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=pennycuick_extrisk_d0$risk_right_d0)/numsims
+pennycuick_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=pennycuick_extrisk_d0$risk_right_d0)/numsims
+
+pdf(paste(resloc,"pennycuick_extrisk_d0.pdf",sep=""),height=6,width=6)
+plot(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),
+     xlim = range(pennycuick_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=1.5,pch=1)
+arrows(x0=pennycuick_extrisk_d0$r,y0=pennycuick_extrisk_d0$CI0.025left,
+       x1=pennycuick_extrisk_d0$r,y1=pennycuick_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
+abline(v=rc_pennycuick,lty="dotted")
+
+lines(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
+arrows(x0=pennycuick_extrisk_d0$r,y0=pennycuick_extrisk_d0$CI0.025right,x1=pennycuick_extrisk_d0$r,y1=pennycuick_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
+mtext(paste0("d = 0 , numsims = ",numsims),side=3,line=0.2)
+legend(3,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n',cex=1.2)
+
+dev.off()
+```
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1, scl=1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_msmith_r_vary}](./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1, scl=1) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_msmith_r_vary}](./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model with no dispersion : rc=4.3231657); numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_pennycuick_risk_d0}](./Results/pennycuick_scl_1/pennycuick_extrisk_d0.pdf){ width=40%, height=40% }
+
+
+
+```{r sim_pennycuick_scl_0.6, echo=F, cache=T, cache.extra=list(seed,a_pennycuick,b_pennycuick,rc_pennycuick,r_bf_pennycuick,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+set.seed(seed)
+source("mydispersal.R")
+
+model<-"pennycuick"
+numsims<-10000
+numsteps<-25
+numlocs<-5
+a<-a_pennycuick
+b<-b_pennycuick
+scl<-0.6
+
+tempo<-paste("./Results/",model,"_scl_",scl,sep="")
+if (!dir.exists(tempo)){
+  dir.create(tempo)
+}
+resloc<-paste(tempo,"/",sep="")
 
 rng1<-runif(10000,min=1,max=r_bf_pennycuick) #r must be > 1 for +ve eqm pt.
 qr1<-quantile(rng1,probs=c(.025,.975))
@@ -784,9 +1080,9 @@ dimnames(res_pennycuick_global)<-list(NULL,cnm,anm)
 saveRDS(res_pennycuick_global,paste(resloc,"res_pennycuick_global.RDS",sep=""))
 ```
 
-```{r fig_pennycuick, echo=F, results="hide",cache=T, cache.extra=list(seed,res_pennycuick_local,res_pennycuick_global)}
-pdf(paste(resloc,"pennycuick_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
+```{r fig_pennycuick_scl_0.6, echo=F, results="hide",cache=T, cache.extra=list(seed,res_pennycuick_local,res_pennycuick_global)}
+pdf(paste(resloc,"pennycuick_ext_risk_local_disp.pdf",sep=""),height=9,width=12)
+op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_pennycuick_local)[3]){
   s<-res_pennycuick_local[,,i]
@@ -804,8 +1100,8 @@ par(op)
 dev.off()
 
 
-pdf(paste(resloc,"pennycuick_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
-op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
+pdf(paste(resloc,"pennycuick_ext_risk_global_disp.pdf",sep=""),height=9,width=12)
+op<-par(mfrow=c(3,4),mar=c(5.2,4.2,1.2,1.5))
 
 for(i in 1:dim(res_pennycuick_global)[3]){
   s<-res_pennycuick_global[,,i]
@@ -823,10 +1119,10 @@ par(op)
 dev.off()
 ```
 
-```{r fig_pennycuick_extrisk_d0, echo=F,results="hide"}
+```{r fig_pennycuick_extrisk_d0_scl_0.6, echo=F,results="hide"}
 set.seed(seed)
 numsims<-10000
-pennycuick_extrisk_d0<-readRDS("./Results/pennycuick/pennycuick_extrisk_d0.RDS")
+pennycuick_extrisk_d0<-readRDS(paste(resloc,"pennycuick_extrisk_d0.RDS",sep=""))
 
 pennycuick_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=pennycuick_extrisk_d0$risk_left_d0)/numsims
 pennycuick_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=pennycuick_extrisk_d0$risk_left_d0)/numsims
@@ -834,7 +1130,7 @@ pennycuick_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=pennycuick_e
 pennycuick_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=pennycuick_extrisk_d0$risk_right_d0)/numsims
 pennycuick_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=pennycuick_extrisk_d0$risk_right_d0)/numsims
 
-pdf("./Results/pennycuick/pennycuick_extrisk_d0.pdf",height = 6,width=6)
+pdf(paste(resloc,"pennycuick_extrisk_d0.pdf",sep=""),height=6,width=6)
 plot(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),
      xlim = range(pennycuick_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=1.5,pch=1)
 arrows(x0=pennycuick_extrisk_d0$r,y0=pennycuick_extrisk_d0$CI0.025left,
@@ -849,20 +1145,22 @@ legend(3,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c(
 dev.off()
 ```
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_msmith_r_vary}](./Results/pennycuick/pennycuick_ext_risk_local_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1, scl=0.6) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_msmith_r_vary}](./Results/pennycuick_scl_0.6/pennycuick_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_msmith_r_vary}](./Results/pennycuick/pennycuick_ext_risk_global_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1, scl=0.6) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_msmith_r_vary}](./Results/pennycuick_scl_0.6/pennycuick_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model with no dispersion : rc=4.3231657); numlocs=5, numsteps=25, numsims=10000\label{fig_pennycuick_risk_d0}](./Results/pennycuick/pennycuick_extrisk_d0.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model with no dispersion : rc=4.3231657); numlocs=5, numsteps=25, numsims=10000, scl=0.6\label{fig_pennycuick_risk_d0}](./Results/pennycuick_scl_0.6/pennycuick_extrisk_d0.pdf){ width=40%, height=40% }
+
+
 
 # Verhulst model :
 
-```{r sim_verhulst, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_verhulst_scl_1, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
 model<-"verhulst"
-scl<-3
+scl<-1
 
 tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
@@ -950,7 +1248,7 @@ dimnames(res_verhulst_global)<-list(NULL,cnm,anm)
 saveRDS(res_verhulst_global,paste(resloc,"res_verhulst_global.RDS",sep=""))
 ```
 
-```{r fig_verhulst, echo=F, results="hide",cache=T, cache.extra=list(seed,res_verhulst_local,res_verhulst_global)}
+```{r fig_verhulst_scl_1, echo=F, results="hide",cache=T, cache.extra=list(seed,res_verhulst_local,res_verhulst_global)}
 pdf(paste(resloc,"verhulst_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
@@ -962,7 +1260,7 @@ for(i in 1:dim(res_verhulst_local)[3]){
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
   lines(s$d,s$risk_right,type="b",col="blue")
-  legend("topleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+  legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", round(rlist[i],5)))
 }
@@ -981,7 +1279,7 @@ for(i in 1:dim(res_verhulst_global)[3]){
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
   lines(s$d,s$risk_right,type="b",col="blue")
-  legend("topleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+  legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", round(rlist[i],5)))
 }
@@ -989,7 +1287,7 @@ par(op)
 dev.off()
 ```
 
-```{r fig_verhulst_extrisk_d0, echo=F,results="hide"}
+```{r fig_verhulst_extrisk_d0_scl_1, echo=F,results="hide"}
 set.seed(seed)
 numsims<-10000
 verhulst_extrisk_d0<-readRDS(paste(resloc,"verhulst_extrisk_d0.RDS",sep=""))
@@ -1011,20 +1309,20 @@ lines(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_right_d0,col="blue",type="b
 arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025right,
        x1=verhulst_extrisk_d0$r,y1=verhulst_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
 mtext(paste0("d = 0 , numsims = ",numsims),side=3,line=0.2)
-legend(0.5,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n',cex=1.2)
+legend(0.4,0.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=T, bty='n',cex=1.2)
 dev.off()
 ```
 
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=3) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_verhulst_r_vary_scl_2.5}](./Results/verhulst_scl_3/verhulst_ext_risk_local_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_verhulst_r_vary_scl_1}](./Results/verhulst_scl_1/verhulst_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=3) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_verhulst_r_vary_scl_2.5}](./Results/verhulst_scl_3/verhulst_ext_risk_global_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=1) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_verhulst_r_vary_scl_1}](./Results/verhulst_scl_1/verhulst_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model with no dispersion : rc = 1, scl=3); numlocs=5, numsteps=25, numsims=10000\label{fig_verhulst_risk_d0_scl_2.5}](./Results/verhulst_scl_3/verhulst_extrisk_d0.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model with no dispersion : rc = 1, scl=1); numlocs=5, numsteps=25, numsims=10000\label{fig_verhulst_risk_d0_scl_1}](./Results/verhulst_scl_1/verhulst_extrisk_d0.pdf){ width=40%, height=40% }
 
 # Austin Brewer model :
   
-```{r sim_abrewer, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_abrewer_scl_0.8, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
@@ -1125,7 +1423,7 @@ dimnames(res_abrewer_global)<-list(NULL,cnm,anm)
 saveRDS(res_abrewer_global,paste(resloc,"res_abrewer_global.RDS",sep=""))
 ```
 
-```{r fig_abrewer, echo=F, results="hide",cache=T, cache.extra=list(seed,res_abrewer_local,res_abrewer_global)}
+```{r fig_abrewer_scl_0.8, echo=F, results="hide",cache=T, cache.extra=list(seed,res_abrewer_local,res_abrewer_global)}
 pdf(paste(resloc,"abrewer_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
@@ -1164,7 +1462,7 @@ par(op)
 dev.off()
 ```
 
-```{r fig_abrewer_extrisk_d0, echo=F,results="hide"}
+```{r fig_abrewer_extrisk_d0_scl_0.8, echo=F,results="hide"}
 set.seed(seed)
 numsims<-10000
 abrewer_extrisk_d0<-readRDS(paste(resloc,"abrewer_extrisk_d0.RDS",sep=""))
