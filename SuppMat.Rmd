@@ -991,12 +991,12 @@ dev.off()
 
 # Verhulst model :
 
-```{r sim_verhulst_scl_1, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_verhulst_scl_0.6, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
 model<-"verhulst"
-scl<-1
+scl<-0.6
 
 tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
@@ -1084,7 +1084,7 @@ dimnames(res_verhulst_global)<-list(NULL,cnm,anm)
 saveRDS(res_verhulst_global,paste(resloc,"res_verhulst_global.RDS",sep=""))
 ```
 
-```{r fig_verhulst_scl_1, echo=F, results="hide",cache=T, cache.extra=list(seed,res_verhulst_local,res_verhulst_global)}
+```{r fig_verhulst_scl_0.6, echo=F, results="hide",cache=T, cache.extra=list(seed,res_verhulst_local,res_verhulst_global)}
 pdf(paste(resloc,"verhulst_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
@@ -1123,7 +1123,7 @@ par(op)
 dev.off()
 ```
 
-```{r fig_verhulst_extrisk_d0_scl_1, echo=F,results="hide"}
+```{r fig_verhulst_extrisk_d0_scl_0.6, echo=F,results="hide"}
 set.seed(seed)
 numsims<-10000
 verhulst_extrisk_d0<-readRDS(paste(resloc,"verhulst_extrisk_d0.RDS",sep=""))
@@ -1150,20 +1150,20 @@ dev.off()
 ```
 
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_verhulst_r_vary_scl_1}](./Results/verhulst_scl_1/verhulst_ext_risk_local_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=0.6) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}](./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=1) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_verhulst_r_vary_scl_1}](./Results/verhulst_scl_1/verhulst_ext_risk_global_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=0.6) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_verhulst_r_vary_scl_0.6}](./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model with no dispersion : rc = 1, scl=1); numlocs=5, numsteps=25, numsims=10000\label{fig_verhulst_risk_d0_scl_1}](./Results/verhulst_scl_1/verhulst_extrisk_d0.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model with no dispersion : rc = 1, scl=0.6); numlocs=5, numsteps=25, numsims=10000\label{fig_verhulst_risk_d0_scl_0.6}](./Results/verhulst_scl_0.6/verhulst_extrisk_d0.pdf){ width=40%, height=40% }
 
 # Austin Brewer model :
   
-```{r sim_abrewer_scl_0.8, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_abrewer_scl_0.6, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
 model<-"austinbrewer"
-scl<-0.8
+scl<-0.6
 
 tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
@@ -1259,7 +1259,7 @@ dimnames(res_abrewer_global)<-list(NULL,cnm,anm)
 saveRDS(res_abrewer_global,paste(resloc,"res_abrewer_global.RDS",sep=""))
 ```
 
-```{r fig_abrewer_scl_0.8, echo=F, results="hide",cache=T, cache.extra=list(seed,res_abrewer_local,res_abrewer_global)}
+```{r fig_abrewer_scl_0.6, echo=F, results="hide",cache=T, cache.extra=list(seed,res_abrewer_local,res_abrewer_global)}
 pdf(paste(resloc,"abrewer_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,1.5))
 
@@ -1298,7 +1298,7 @@ par(op)
 dev.off()
 ```
 
-```{r fig_abrewer_extrisk_d0_scl_0.8, echo=F,results="hide"}
+```{r fig_abrewer_extrisk_d0_scl_0.6, echo=F,results="hide"}
 set.seed(seed)
 numsims<-10000
 abrewer_extrisk_d0<-readRDS(paste(resloc,"abrewer_extrisk_d0.RDS",sep=""))
@@ -1322,11 +1322,11 @@ legend(0.005,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), co
 dev.off()
 ```
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model : K = 50, s = 0.2, rc = 0.02000091, scl=0.8) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_abrewer_r_vary_scl_0.8}](./Results/austinbrewer_scl_0.8/abrewer_ext_risk_local_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model : K = 50, s = 0.2, rc = 0.02000091, scl=0.6) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}](./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model : K = 50, s = 0.2, rc = 0.02000091, scl=0.8) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_abrewer_r_vary_scl_0.8}](./Results/austinbrewer_scl_0.8/abrewer_ext_risk_global_disp.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model : K = 50, s = 0.2, rc = 0.02000091, scl=0.6) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}](./Results/austinbrewer_scl_0.6/abrewer_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model with no dispersion : rc=0.02000091, scl=0.8); numlocs=5, numsteps=25, numsims=10000\label{fig_abrewer_risk_d0_scl_0.8}](./Results/austinbrewer_scl_0.8/abrewer_extrisk_d0.pdf){ width=40%, height=40% }
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model with no dispersion : rc=0.02000091, scl=0.6); numlocs=5, numsteps=25, numsims=10000\label{fig_abrewer_risk_d0_scl_0.6}](./Results/austinbrewer_scl_0.6/abrewer_extrisk_d0.pdf){ width=40%, height=40% }
 
   
   
