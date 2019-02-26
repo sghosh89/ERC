@@ -182,8 +182,8 @@ saveRDS(las_exL,paste(resloc,"sim_age_str_extreme_left_taildep.RDS",sep=""))
 ```
 
 ```{r fig_agestr_with_extremetail_linear, echo=F,results="hide"}
-xL<-las_exL$extdf
-xR<-las_exR$extdf
+xL<-las_exL$extdf[1:26,]
+xR<-las_exR$extdf[1:26,]
 t<-c(0:(nrow(xL)-1))
 pdf(paste("./Results/age_str_results/extrisk_age_str_extremetail_linear.pdf",sep=""),height=6,width=6)
 op<-par(mar=c(4,4,2,2),mgp=c(2.5,0.5,0))
@@ -247,8 +247,8 @@ saveRDS(nlas_exL,paste(resloc,"sim_age_str_extreme_left_taildep.RDS",sep=""))
 ```
 
 ```{r fig_agestr_with_extremetail_nonlinear, echo=F,results="hide"}
-xL<-nlas_exL$extdf
-xR<-nlas_exR$extdf
+xL<-nlas_exL$extdf[1:26,]
+xR<-nlas_exR$extdf[1:26,]
 t<-c(0:(nrow(xL)-1))
 pdf(paste("./Results/age_str_results/extrisk_age_str_extremetail_nonlinear_omg_",omg,".pdf",sep=""),height=6,width=6)
 op<-par(mar=c(4,4,2,2),mgp=c(2.5,0.5,0))
