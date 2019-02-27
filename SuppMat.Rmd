@@ -323,8 +323,8 @@ for(i in c(1:length(rlist))){
     temp_mat<-cbind(ss$d_seq,ss$risk_left,ss$risk_right,ss$pop_avg_acf_left,ss$pop_avg_acf_right)
     res_ricker_local<-abind(res_ricker_local,temp_mat,along = 3)
       
-    ricker_extrisk_d0$risk_left_d0[i]<-s$risk_left[1]
-    ricker_extrisk_d0$risk_right_d0[i]<-s$risk_right[1]
+    ricker_extrisk_d0$risk_left_d0[i]<-ss$risk_left[1]
+    ricker_extrisk_d0$risk_right_d0[i]<-ss$risk_right[1]
 }
 
 anm<-paste("r_",rlist,sep="")
@@ -374,7 +374,7 @@ for(i in 1:dim(res_ricker_local)[3]){
   ss<-res_ricker_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,s$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
   liness(s$d,ss$risk_right,type="b",col="blue")
