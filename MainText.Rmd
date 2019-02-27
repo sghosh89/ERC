@@ -50,7 +50,7 @@ seed<-101
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=15 cm]{./Results/allmodel_ext_risk_local_disp.pdf}
-\caption{For each of six nonlinear density-dependence models presented in Table \ref{tab_model_info} extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$ for local dispersion. Last two columns represent extinction risk calculated for bifurcation parameter $(r)$ taken from under-compensatory and over-compensatory regime in deterministic model analog.\label{fig_extrisk_allmodel_localdisp}}
+\caption{For each of six nonlinear density-dependence models presented in Table \ref{tab_model_summary}, extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$ for local dispersal. Last two columns represent extinction risk calculated for bifurcation parameter $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog.\label{fig_extrisk_allmodel_localdisp}}
 \end{center}
 \end{figure}
 
@@ -72,10 +72,17 @@ seed<-101
 \end{figure}
  
 
- 
-
-
-
+```{r read_tab_model_summary,echo=F, results='asis',message=F}
+library(kableExtra)
+library(dplyr)
+dt<-readRDS("./Results/tab_model_summary.RDS")
+knitr::kable(dt, escape=F,
+             format="latex",digits=4, align="l",
+             caption = "Summary of models.\\label{tab_model_summary}",
+             booktabs=T, linesep = "\\addlinespace"
+             )%>%column_spec(c(1,3,5,6),width="1.4cm")%>%kable_styling(latex_options = "basic",position = "center")
+             #column_spec(1, width = "8.5cm")%>%kable_styling(latex_options = "basic",position = "center")
+```
 
 
 
