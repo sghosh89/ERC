@@ -377,7 +377,7 @@ for(i in 1:dim(res_ricker_local)[3]){
   plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
-  liness(ss$d,ss$risk_right,type="b",col="blue")
+  lines(ss$d,ss$risk_right,type="b",col="blue")
   #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
   #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
@@ -387,11 +387,11 @@ for(i in 1:dim(res_ricker_local)[3]){
   
   #ylm2<-c(-0.2,0.6)
   ## Plot the second plot and put axis scale on right
-  #plot(s$d, s$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
+  #plot(ss$d, ss$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
        #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
   #     axes=FALSE, type="l", col="orange")
  # abline(h=0,lty="dotted",col="grey")
- # lines(s$d, s$pop_avg_acf_right, col="skyblue")
+ # lines(ss$d, ss$pop_avg_acf_right, col="skyblue")
   
   ## a little farther out (line=3.2) to make room for labels
  # mtext("Avg. ACF",side=4,line=3.2,col="green4") 
@@ -406,7 +406,7 @@ pdf(paste(resloc,"ricker_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_ricker_global)[3]){
-  #s<-res_ricker_global
+  #ss<-res_ricker_global
   ss<-res_ricker_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
