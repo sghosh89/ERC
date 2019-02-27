@@ -45,13 +45,34 @@ seed<-101
 \caption{Extinction risk from single patch age structured model $(A)$ linear ($\Omega = \infty$) and $(B)$ nonlinear ($\Omega = 100$), fecundity of adults and survival of eggs have either extreme left or extreme right tail dependence, numsims=10000. \label{fig_extrisk_agestr}}
 \end{center}
 \end{figure}
-  
+
+<!--FIG :  summary : all nonlinear model results for local dispersion : extrisk vs. d-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=15 cm]{./Results/allmodel_ext_risk_local_disp.pdf}
+\caption{For each of six nonlinear density-dependence models presented in Table \ref{tab_model_info} extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$ for local dispersion. Last two columns represent extinction risk calculated for bifurcation parameter $(r)$ taken from under-compensatory and over-compensatory regime in deterministic model analog.\label{fig_extrisk_allmodel_localdisp}}
+\end{center}
+\end{figure}
 
 
+ <!--FIG : all nonlinear model results with d=0, extrisk vs. r-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=10 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=5 cm]{./Results/ricker_scl_1/ricker_extrisk_d0.pdf}
+\includegraphics[width=5 cm]{./Results/hassell_scl_1/hassell_extrisk_d0.pdf}\\
+\vspace{-0.6 cm}
+\includegraphics[width=5 cm]{./Results/msmith_scl_0.8/msmith_extrisk_d0.pdf}
+\includegraphics[width=5 cm]{./Results/pennycuick_scl_1/pennycuick_extrisk_d0.pdf}\\
+\vspace{-0.6 cm}
+\includegraphics[width=5 cm]{./Results/verhulst_scl_0.6/verhulst_extrisk_d0.pdf}
+\includegraphics[width=5 cm]{./Results/austinbrewer_scl_0.6/abrewer_extrisk_d0.pdf}\\
+\caption{Extinction risk varies with bifurcation parameter $(r)$ for all nonlinear density-dependence models without dispersal, numsims=10000. \label{fig_extrisk_d0}}
+\end{center}
+\end{figure}
+ 
 
-
-
-
+ 
 
 
 
