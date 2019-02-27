@@ -377,7 +377,7 @@ for(i in 1:dim(res_ricker_local)[3]){
   plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
-  liness(s$d,ss$risk_right,type="b",col="blue")
+  liness(ss$d,ss$risk_right,type="b",col="blue")
   #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
   #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
