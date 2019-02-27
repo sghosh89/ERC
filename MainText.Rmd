@@ -19,6 +19,9 @@ csl: TheAmericanNaturalist.csl
 bibliography: Ref_extrisk.bib
 ---
 
+\listoffigures
+\listoftables
+
 
 ```{r setup_MainText, echo=F}
 library(rmarkdown)
@@ -30,7 +33,19 @@ seed<-101
 
 
 
-
+ <!--Generating maintext figures--> 
+ 
+ <!--FIG : age structure model results : linear, nonlinear-->
+\begin{figure}[!h]
+\textbf{ \hspace{5.4 cm} (A) \hspace{4 cm} (B)} \\
+\vspace{-0.9 cm}
+\begin{center}
+\includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_extremetail_linear.pdf}
+\includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_extremetail_nonlinear_omg_100.pdf}\\
+\caption{Extinction risk from single patch age structured model $(A)$ linear ($\Omega = \infty$) and $(B)$ nonlinear ($\Omega = 100$), fecundity of adults and survival of eggs have either extreme left or extreme right tail dependence, numsims=10000. \label{fig_extrisk_agestr}}
+\end{center}
+\end{figure}
+  
 
 
 

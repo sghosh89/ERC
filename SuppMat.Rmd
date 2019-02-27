@@ -36,8 +36,6 @@ library(abind)
 source("mtime.R")
 ```
 
-# Age structure model :
-
 ```{r sim_linear_C_SC_G_SG, echo=F,  cache=T, cache.extra=list(seed,mtime("ext_risk_cop_age_str.R"))}
 set.seed(seed)
 source("ext_risk_cop_age_str.R")
@@ -187,7 +185,7 @@ xR<-las_exR$extdf[1:26,]
 t<-c(0:(nrow(xL)-1))
 pdf(paste("./Results/age_str_results/extrisk_age_str_extremetail_linear.pdf",sep=""),height=6,width=6)
 op<-par(mar=c(4,4,2,2),mgp=c(2.5,0.5,0))
-plot(0,-1,ylim=c(0,1),xlim=range(t),ylab="Extinction risk",xlab="time",cex.lab=1.5,panel.first=grid())
+plot(0,-1,ylim=c(0,1),xlim=range(t),ylab="Extinction risk",xlab="time",cex.lab=1.5)
 x<-xL
 polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(1,0,0,0.3), border = NA)
 lines(t,x$erA,col="red",type="l")
@@ -199,8 +197,6 @@ legend("topleft", c("Left tail","Right tail"), lty=c(1,1),
 par(op)
 dev.off()
 ```
-
-![Extinction risk from one patch linear age structured model (omg=Infinity), fecundity of adults and survival of eggs have either extreme left or extreme right tail dep. copula structure, numsims=10000.\label{fig_extrisk_lagestr_extremetail}](./Results/age_str_results/extrisk_age_str_extremetail_linear.pdf){ width=40%, height=40% }
 
 ```{r sim_agestr_with_extremetail_nonlinear, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("ext_risk_cop_age_str.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
@@ -252,7 +248,7 @@ xR<-nlas_exR$extdf[1:26,]
 t<-c(0:(nrow(xL)-1))
 pdf(paste("./Results/age_str_results/extrisk_age_str_extremetail_nonlinear_omg_",omg,".pdf",sep=""),height=6,width=6)
 op<-par(mar=c(4,4,2,2),mgp=c(2.5,0.5,0))
-plot(0,-1,ylim=c(0,1),xlim=range(t),ylab="Extinction risk",xlab="time",cex.lab=1.5,panel.first=grid())
+plot(0,-1,ylim=c(0,1),xlim=range(t),ylab="Extinction risk",xlab="time",cex.lab=1.5)
 x<-xL
 polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(1,0,0,0.3), border = NA)
 lines(t,x$erA,col="red",type="l")
@@ -264,10 +260,6 @@ legend("topleft", c("Left tail","Right tail"), lty=c(1,1),
 par(op)
 dev.off()
 ```
-
-![Extinction risk from one patch non-linear age structured model (omg=100), fecundity of adults and survival of eggs have either extreme left or extreme right tail dep. copula structure, numsims=10000.\label{fig_extrisk_nlagestr_extremetail}](./Results/age_str_results/extrisk_age_str_extremetail_nonlinear_omg_100.pdf){ width=40%, height=40% }
-
-#Ricker model :
 
 ```{r sim_ricker_scl_1, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
@@ -447,15 +439,6 @@ legend(0.2,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=
 dev.off()
 ```
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years; Ricker model with local dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_local_disp_scl_1}](./Results/ricker_scl_1/ricker_ext_risk_local_disp.pdf){ width=40%, height=40% }
-
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years ; Ricker model with global dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_global_disp_scl_1}](./Results/ricker_scl_1/ricker_ext_risk_global_disp.pdf){ width=40%, height=40% }
-
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (ricker model with no dispersion : rc=1); numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_d0_scl_1}](./Results/ricker_scl_1/ricker_extrisk_d0.pdf){ width=40%, height=40% }
-
-
-#Hassell Model :
-
 ```{r sim_hassell_scl_1, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
@@ -615,13 +598,6 @@ legend(2,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c(
 dev.off()
 ```
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Hassell model : a = 0.5, b = 100, rc = 2.73, scl=1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_hassell_scl_1}](./Results/hassell_scl_1/hassell_ext_risk_local_disp.pdf){ width=40%, height=40% }
-
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Hassell model : a = 0.5, b = 100, rc = 2.73, scl=1) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_hassell_scl_1}](./Results/hassell_scl_1/hassell_ext_risk_global_disp.pdf){ width=40%, height=40% }
-
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (hassell model with no dispersion : rc=2.73199, scl=1); numlocs=5, numsteps=25, numsims=10000\label{fig_hassell_risk_d0_scl_1}](./Results/hassell_scl_1/hassell_extrisk_d0.pdf){ width=40%, height=40% }
-
-#Maynard Smith Model :
 
 ```{r sim_msmith_scl_0.8, echo=F, cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
@@ -782,13 +758,7 @@ legend(1.2,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=
 dev.off()
 ```
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model : a = 1, b = 3, rc = 4/3, scl=0.8) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_msmith_r_vary_scl_0.8}](./Results/msmith_scl_0.8/msmith_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model : a = 1, b = 3, rc = 4/3, scl=0.8) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_msmith_r_vary_scl_0.8}](./Results/msmith_scl_0.8/msmith_ext_risk_global_disp.pdf){ width=40%, height=40% }
-
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model with no dispersion : rc=4/3, scl=0.8); numlocs=5, numsteps=25, numsims=10000\label{fig_msmith_risk_d0_scl_0.8}](./Results/msmith_scl_0.8/msmith_extrisk_d0.pdf){ width=40%, height=40% }
-
-# Pennycuick model :
 
 ```{r get_rc_pennycuick,echo=F,results="hide",cache=T,cache.extra=list(seed,mtime("1var_pop_model_bifurcation.R"))}
 set.seed(seed)
@@ -982,15 +952,6 @@ legend(3,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), col=c(
 dev.off()
 ```
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1, scl=1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_pennycuick_r_vary_scl_1}](./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp.pdf){ width=40%, height=40% }
-
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1, scl=1) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_pennycuick_r_vary_scl_1}](./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp.pdf){ width=40%, height=40% }
-
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model with no dispersion : rc=4.3231657); numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_pennycuick_risk_d0_scl_1}](./Results/pennycuick_scl_1/pennycuick_extrisk_d0.pdf){ width=40%, height=40% }
-
-
-# Verhulst model :
-
 ```{r sim_verhulst_scl_0.6, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
@@ -1150,14 +1111,6 @@ dev.off()
 ```
 
 
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=0.6) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}](./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp.pdf){ width=40%, height=40% }
-
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : rc = 1, scl=0.6) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_verhulst_r_vary_scl_0.6}](./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp.pdf){ width=40%, height=40% }
-
-![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model with no dispersion : rc = 1, scl=0.6); numlocs=5, numsteps=25, numsims=10000\label{fig_verhulst_risk_d0_scl_0.6}](./Results/verhulst_scl_0.6/verhulst_extrisk_d0.pdf){ width=40%, height=40% }
-
-# Austin Brewer model :
-  
 ```{r sim_abrewer_scl_0.6, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
@@ -1322,15 +1275,124 @@ legend(0.005,1.08, c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), co
 dev.off()
 ```
 
+<!--Ricker model-->
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years; Ricker model with local dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_local_disp_scl_1}](./Results/ricker_scl_1/ricker_ext_risk_local_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years ; Ricker model with global dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_global_disp_scl_1}](./Results/ricker_scl_1/ricker_ext_risk_global_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (ricker model with no dispersion : rc=1); numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_d0_scl_1}](./Results/ricker_scl_1/ricker_extrisk_d0.pdf){ width=40%, height=40% }
+
+<!--Hassell model-->
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Hassell model : a = 0.5, b = 100, rc = 2.73, scl=1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_hassell_scl_1}](./Results/hassell_scl_1/hassell_ext_risk_local_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Hassell model : a = 0.5, b = 100, rc = 2.73, scl=1) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_hassell_scl_1}](./Results/hassell_scl_1/hassell_ext_risk_global_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (hassell model with no dispersion : rc=2.73199, scl=1); numlocs=5, numsteps=25, numsims=10000\label{fig_hassell_risk_d0_scl_1}](./Results/hassell_scl_1/hassell_extrisk_d0.pdf){ width=40%, height=40% }
+
+<!--Maynard smith model-->
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model : a = 1, b = 3, rc = 4/3, scl=0.8) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_msmith_r_vary_scl_0.8}](./Results/msmith_scl_0.8/msmith_ext_risk_local_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model : a = 1, b = 3, rc = 4/3, scl=0.8) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_msmith_r_vary_scl_0.8}](./Results/msmith_scl_0.8/msmith_ext_risk_global_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Maynard Smith model with no dispersion : rc=4/3, scl=0.8); numlocs=5, numsteps=25, numsims=10000\label{fig_msmith_risk_d0_scl_0.8}](./Results/msmith_scl_0.8/msmith_extrisk_d0.pdf){ width=40%, height=40% }
+
+<!--Pennycuick model-->
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1, scl=1) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_pennycuick_r_vary_scl_1}](./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model : a = 0.1, b = 0.1, scl=1) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_pennycuick_r_vary_scl_1}](./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model with no dispersion : rc=4.3231657); numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_pennycuick_risk_d0_scl_1}](./Results/pennycuick_scl_1/pennycuick_extrisk_d0.pdf){ width=40%, height=40% }
+
+<!--Verhulst model-->
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : scl=0.6) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_pennycuick_r_vary_scl_1}](./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Verhulst model : scl=0.6) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_pennycuick_r_vary_scl_1}](./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp.pdf){ width=40%, height=40% }
+
+![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Pennycuick model with no dispersion : rc=4.3231657); numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_pennycuick_risk_d0_scl_1}](./Results/pennycuick_scl_1/pennycuick_extrisk_d0.pdf){ width=40%, height=40% }
+
+<!--Austin brewer model-->
 ![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model : K = 50, s = 0.2, rc = 0.02000091, scl=0.6) with local dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}](./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp.pdf){ width=40%, height=40% }
 
 ![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model : K = 50, s = 0.2, rc = 0.02000091, scl=0.6) with global dispersion; numlocs=5, numsteps=25, numsims=10000\label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}](./Results/austinbrewer_scl_0.6/abrewer_ext_risk_global_disp.pdf){ width=40%, height=40% }
 
 ![Effect of non-Normal environmental noise copula on extinction risk after 25 years (Austin Brewer model with no dispersion : rc=0.02000091, scl=0.6); numlocs=5, numsteps=25, numsims=10000\label{fig_abrewer_risk_d0_scl_0.6}](./Results/austinbrewer_scl_0.6/abrewer_extrisk_d0.pdf){ width=40%, height=40% }
 
-  
-  
-  
+
+```{r create_maintext_fig3,echo=F,results="hide"}
+
+getplot<-function(x,rlist){
+lasta<-dim(x)[3]
+Af<-as.data.frame(x[,,1][1:6,])
+Al<-as.data.frame(x[,,lasta][1:6,])
+
+plot(Af$d,Af$risk_left,xlim=range(Af$d),ylim=c(0,1),type="b",col="red",
+       #panel.first = grid(),
+     xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
+lines(Af$d,Af$risk_right,type="b",col="blue")
+
+mtext(paste0("r = ", round(rlist[1],5)))
+
+plot(Al$d,Al$risk_left,xlim=range(Al$d),ylim=c(0,1),type="b",col="red",
+       #panel.first = grid(),
+     xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
+lines(Al$d,Al$risk_right,type="b",col="blue")
+mtext(paste0("r = ", round(rlist[lasta],5)))
+
+}
+
+pdf("./Results/allmodel_ext_risk_local_disp.pdf",height=12,width=9)
+
+op<-par(mfrow=c(6,3),mar=c(5.2,4.2,1.2,1.5))
+
+x<-res_ricker_local
+rlist<-ricker_extrisk_d0$r
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+legend(x=0.6,y=1.05, c("noise : LTdep.","noise : RTdep."), lty=c(1,1), pch=c(1,1), 
+       col=c('red', 'blue'), horiz=F, bty='o', cex=1.5, adj=0)
+mtext(paste("Ricker model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("(K = 50, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+getplot(x=x,rlist = rlist)
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Hassell model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("(a = 0.5, b = 100, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+x<-res_hassell_local
+rlist<-hassell_extrisk_d0$r
+getplot(x=x,rlist = rlist)
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Maynard Smith model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("(a = 1, b = 3, sd = 0.8)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+x<-res_msmith_local
+rlist<-msmith_extrisk_d0$r
+getplot(x=x,rlist = rlist)
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Pennycuick model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("(a = 0.1, b = 0.1, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+x<-res_pennycuick_local
+rlist<-pennycuick_extrisk_d0$r
+getplot(x=x,rlist = rlist)
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Verhulst model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("(sd = 0.6)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+x<-res_verhulst_local
+rlist<-verhulst_extrisk_d0$r
+getplot(x=x,rlist = rlist)
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Austin-Brewer model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("(sd = 0.6)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+x<-res_abrewer_local
+rlist<-abrewer_extrisk_d0$r
+getplot(x=x,rlist = rlist)
+
+par(op)
+dev.off()
+```
+ 
   
   
   
