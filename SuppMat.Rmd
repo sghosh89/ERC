@@ -390,7 +390,7 @@ for(i in 1:dim(res_ricker_local)[3]){
   #plot(ss$d, ss$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
        #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
   #     axes=FALSE, type="l", col="orange")
- # abline(h=0,lty="dotted",col="grey")
+ # abline(h=0,lty="dotted",col="darkgrey")
  # lines(ss$d, ss$pop_avg_acf_right, col="skyblue")
   
   ## a little farther out (line=3.2) to make room for labels
@@ -439,7 +439,7 @@ plot(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_left_d0,col="red",type="b",
      ylim=c(0,1),xlim = range(ricker_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
 arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025left,x1=ricker_extrisk_d0$r,y1=ricker_extrisk_d0$CI0.975left,
        angle=90,length=0.1,col="red",code=3)
-abline(v=rc_ricker,lty="dotted") #rc=1
+abline(v=rc_ricker,lty="dotted",col="darkgrey") #rc=1
 
 lines(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
 arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025right,x1=ricker_extrisk_d0$r,y1=ricker_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
@@ -599,7 +599,7 @@ plot(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_left_d0,col="red",type="b",yli
      xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
 arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025left,
        x1=hassell_extrisk_d0$r,y1=hassell_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
-abline(v=rc_hassell,lty="dotted")
+abline(v=rc_hassell,lty="dotted",col="darkgrey")
 
 lines(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
 arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025right,x1=hassell_extrisk_d0$r,y1=hassell_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
@@ -760,7 +760,7 @@ plot(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_left_d0,col="red",type="b",ylim=
      xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
 arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025left,
        x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
-abline(v=rc_msmith,lty="dotted")
+abline(v=rc_msmith,lty="dotted",col="darkgrey")
 
 lines(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_right_d0,col="blue",type="b",pch=1)
 arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025right,x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
@@ -952,7 +952,7 @@ plot(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_left_d0,col="red",type="
      xlim = range(pennycuick_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
 arrows(x0=pennycuick_extrisk_d0$r,y0=pennycuick_extrisk_d0$CI0.025left,
        x1=pennycuick_extrisk_d0$r,y1=pennycuick_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
-abline(v=rc_pennycuick,lty="dotted")
+abline(v=rc_pennycuick,lty="dotted",col="darkgrey")
 
 lines(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
 arrows(x0=pennycuick_extrisk_d0$r,y0=pennycuick_extrisk_d0$CI0.025right,x1=pennycuick_extrisk_d0$r,y1=pennycuick_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
@@ -1110,7 +1110,7 @@ plot(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_left_d0,col="red",type="b",y
      xlim = range(verhulst_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
 arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025left,x1=verhulst_extrisk_d0$r,
        y1=verhulst_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
-abline(v=rc_verhulst,lty="dotted")
+abline(v=rc_verhulst,lty="dotted",col="darkgrey")
 
 lines(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_right_d0,col="blue",type="b",pch=1)
 arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025right,
@@ -1271,7 +1271,7 @@ plot(abrewer_extrisk_d0$r,abrewer_extrisk_d0$risk_left_d0,col="red",type="b",yli
      xlim = range(abrewer_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
 arrows(x0=abrewer_extrisk_d0$r,y0=abrewer_extrisk_d0$CI0.025left,x1=abrewer_extrisk_d0$r,
        y1=abrewer_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
-abline(v=rc_abrewer,lty="dotted")
+abline(v=rc_abrewer,lty="dotted",col="darkgrey")
 
 lines(abrewer_extrisk_d0$r,abrewer_extrisk_d0$risk_right_d0,col="blue",type="b",pch=1)
 arrows(x0=abrewer_extrisk_d0$r,y0=abrewer_extrisk_d0$CI0.025right,
