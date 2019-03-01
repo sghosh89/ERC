@@ -1281,114 +1281,6 @@ par(op)
 dev.off()
 ```
 
-<!--Ricker model, local dispersal-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_local_disp.pdf}\\
-\caption{Effect of non-Normal environmental noise copula on extinction risk after 25 years; Ricker model with local dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_local_disp_scl_1}}
-\end{center}
-\end{figure}
-
-<!--Ricker model, global dispersal-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_global_disp.pdf}\\
-\caption{Effect of non-Normal environmental noise copula on extinction risk after 25 years; Ricker model with global dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_ricker_risk_global_disp_scl_1}}
-\end{center}
-\end{figure}
-
-<!--Hassell model, local dispersal-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_local_disp.pdf}\\
-\caption{Effect of non-Normal environmental noise copula on extinction risk after 25 years; Hassell model with local dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_hassell_risk_local_disp_scl_1}}
-\end{center}
-\end{figure}
-
-<!--Hassell model, global dispersal-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_global_disp.pdf}\\
-\caption{Effect of non-Normal environmental noise copula on extinction risk after 25 years; Hassell model with global dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1 \label{fig_hassell_risk_global_disp_scl_1}}
-\end{center}
-\end{figure}
-
-<!--Maynard smith model, local dispersal-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_local_disp.pdf}\\
-\caption{Effect of non-Normal environmental noise copula on extinction risk after 25 years; Maynard Smith model with local dispersion; numlocs=5, numsteps=25, numsims=10000, scl=0.8. \label{fig_msmith_risk_local_disp_scl_0.8}}
-\end{center}
-\end{figure}
-
-<!--Maynard smith model, global dispersal-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_global_disp.pdf}\\
-\caption{Effect of non-Normal environmental noise copula on extinction risk after 25 years; Maynard Smith model with global dispersion; numlocs=5, numsteps=25, numsims=10000, scl=0.8. \label{fig_msmith_risk_global_disp_scl_0.8}}
-\end{center}
-\end{figure}
-
-<!--Pennycuick model, local dispersal-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp.pdf}\\
-\caption{Effect of non-Normal environmental noise copula on extinction risk after 25 years; Pennycuick model with local dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
-\end{center}
-\end{figure}
-
-<!--Pennycuick model, global dispersal-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp.pdf}\\
-\caption{Effect of non-Normal environmental noise copula on extinction risk after 25 years; Pennycuick model with global dispersion; numlocs=5, numsteps=25, numsims=10000, scl=1. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1}}
-\end{center}
-\end{figure}
-
-<!--Verhulst model, local dispersal-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp.pdf}\\
-\caption{Effect of non-Normal environmental noise copula on extinction risk after 25 years; Verhulst model with local dispersion; numlocs=5, numsteps=25, numsims=10000, scl=0.6. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
-\end{center}
-\end{figure}
-
-<!--Verhulst model, global dispersal-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp.pdf}\\
-\caption{Effect of non-Normal environmental noise copula on extinction risk after 25 years; Verhulst model with global dispersion; numlocs=5, numsteps=25, numsims=10000, scl=0.6. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6}}
-\end{center}
-\end{figure}
-
-<!--Austin brewer model, local dispersal-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp.pdf}\\
-\caption{Effect of non-Normal environmental noise copula on extinction risk after 25 years; Austin-Brewer model with local dispersion; numlocs=5, numsteps=25, numsims=10000, scl=0.6. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
-\end{center}
-\end{figure}
-
-<!--Austin brewer model, global dispersal-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_global_disp.pdf}\\
-\caption{Effect of non-Normal environmental noise copula on extinction risk after 25 years; Austin-Brewer model with global dispersion; numlocs=5, numsteps=25, numsims=10000, scl=0.6. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}}
-\end{center}
-\end{figure}
-
 ```{r create_maintext_fig_localdisp_summary,echo=F,results="hide"}
 
 getplot<-function(x,rlist){
@@ -1573,7 +1465,145 @@ dt<-cbind(dt1,dt2,dt3,dt4,dt5,dt6)
 saveRDS(dt,"./Results/tab_model_summary.RDS")
 ```
 
+<!--Supp. FIG :  summary : all nonlinear model results for global dispersion : extrisk vs. d-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=15 cm]{./Results/allmodel_ext_risk_global_disp.pdf}
+\caption{For each of six nonlinear density-dependence models presented in Table \ref{tab_model_summary} with global dispersal, extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two columns represent extinction risk calculated for bifurcation parameter $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog, respectively.\label{fig_extrisk_allmodel_globaldisp}}
+\end{center}
+\end{figure}
 
+<!--Supp. FIG : Ricker model, local dispersal-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_local_disp.pdf}\\
+\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+for $5$ metapopulation patches which followed Ricker dynamics with local dispersal; 
+numsims=10000, sd=1. \label{fig_ricker_risk_local_disp_scl_1}}
+\end{center}
+\end{figure}
+
+<!--Supp. FIG : Ricker model, global dispersal-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_global_disp.pdf}\\
+\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+for $5$ metapopulation patches which followed Ricker dynamics with global dispersal; 
+numsims=10000, sd=1. \label{fig_ricker_risk_global_disp_scl_1}}
+\end{center}
+\end{figure}
+
+<!--Supp. FIG : Hassell model, local dispersal-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_local_disp.pdf}\\
+\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+for $5$ metapopulation patches which followed Hassell dynamics with local dispersal; 
+numsims=10000, sd=1. \label{fig_hassell_risk_local_disp_scl_1}}
+\end{center}
+\end{figure}
+
+<!--Supp. FIG : Hassell model, global dispersal-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_global_disp.pdf}\\
+\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+for $5$ metapopulation patches which followed Hassell dynamics with global dispersal; 
+numsims=10000, sd=1. \label{fig_hassell_risk_global_disp_scl_1}}
+\end{center}
+\end{figure}
+
+<!--Supp. FIG : Maynard smith model, local dispersal-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_local_disp.pdf}\\
+\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+for $5$ metapopulation patches which followed Maynard Smith dynamics with local dispersal; 
+numsims=10000, sd=0.8. \label{fig_msmith_risk_local_disp_scl_0.8}}
+\end{center}
+\end{figure}
+
+<!--Supp. FIG : Maynard smith model, global dispersal-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_global_disp.pdf}\\
+\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+for $5$ metapopulation patches which followed Maynard Smith dynamics with global dispersal; 
+numsims=10000, sd=0.8. \label{fig_msmith_risk_global_disp_scl_0.8}}
+\end{center}
+\end{figure}
+
+<!--Supp. FIG : Pennycuick model, local dispersal-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp.pdf}\\
+\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+for $5$ metapopulation patches which followed Pennycuick dynamics with local dispersal; 
+numsims=10000, sd=1. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
+\end{center}
+\end{figure}
+
+<!--Supp. FIG : Pennycuick model, global dispersal-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp.pdf}\\
+\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+for $5$ metapopulation patches which followed Pennycuick dynamics with global dispersal; 
+numsims=10000, sd=1. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1}}
+\end{center}
+\end{figure}
+
+<!--Supp. FIG : Verhulst model, local dispersal-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp.pdf}\\
+\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+for $5$ metapopulation patches which followed Verhulst dynamics with local dispersal; 
+numsims=10000, sd=0.6. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
+\end{center}
+\end{figure}
+
+<!--Supp. FIG : Verhulst model, global dispersal-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp.pdf}\\
+\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+for $5$ metapopulation patches which followed Verhulst dynamics with global dispersal; 
+numsims=10000, sd=0.6. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6}}
+\end{center}
+\end{figure}
+
+<!--Supp. FIG : Austin brewer model, local dispersal-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp.pdf}\\
+\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+for $5$ metapopulation patches which followed Austin-Brewer dynamics with local dispersal; 
+numsims=10000, sd=0.6. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
+\end{center}
+\end{figure}
+
+<!--Supp. FIG : Austin brewer model, global dispersal-->
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_global_disp.pdf}\\
+\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+for $5$ metapopulation patches which followed Austin-Brewer dynamics with global dispersal; 
+numsims=10000, sd=0.6. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}}
+\end{center}
+\end{figure}
 
 
 
