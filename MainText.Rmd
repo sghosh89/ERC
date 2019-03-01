@@ -36,7 +36,7 @@ objectives:
        - Age structure stochastic matrix model : extrisk of left tail dep. > extrisk of right tail dep.
          (This difference is small, could be explained by Tuljapurkar's approx. for linear model, see discussion)
         
-       - 6 Density-dependence models with extreme tail dep. in noise (local/ global dispersal)
+       - 6 Density-dependent models with extreme tail dep. in noise (local/ global dispersal)
            - extrisk depends on tail dependnece as well as on model parameters (under-compensatory, over-compensatory)
            - Rescue effect ??
            - H0 : switching occurs near rc (without dispersal)
@@ -99,10 +99,11 @@ objectives:
 \caption{Transition of higher to lower extinction risk (calculated after $25$ years) for 
 the metapopulations affected by extreme left tail dependent noise across
 $5$ multiple patches without dispersal ($d=0$), as intrinsic 
-growth rate ($r$) goes from under to over-compensatory regime. Opposite trends
+growth rate ($r$) goes from under to over-compensatory regime. Opposite trend
 was observed with extreme right tail dependent noise.
 Error bars represent the standard errors associated with $10000$
-simulations for extinction risk computed at each $r$.
+simulations for extinction risk computed at each $r$. Dotted line represents the value of $r$
+for each model where their deterministic analog switches from under- to over-compensatory dynamics.
 \label{fig_extrisk_d0}}
 \end{center}
 \end{figure*}
