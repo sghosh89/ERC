@@ -133,6 +133,43 @@ saveRDS(SG_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
 #---------------------------------------------------------------------------------
 ```
 
+```{r fig_agestr_C_SC_G_SG_linear, echo=F,results="hide"}
+xL<-C_age$extdf[1:26,]
+xR<-SC_age$extdf[1:26,]
+t<-c(0:(nrow(xL)-1))
+pdf(paste("./Results/age_str_results/extrisk_age_str_C_SC_linear.pdf",sep=""),height=5,width=5)
+op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
+plot(0,-1,ylim=c(0,1),xlim=range(t),ylab="Extinction risk",xlab="time",cex.lab=2,cex.axis=1.5)
+x<-xL
+polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(1,0,0,0.3), border = NA)
+lines(t,x$erA,col="red",type="l")
+x<-xR
+polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(0,0,1,0.3), border = NA)
+lines(t,x$erA,col="blue",type="l")
+legend("topleft", c("vital rates : LTdep., C","vital rates : RTdep., SC"), lty=c(1,1),  
+       col=c('red', 'blue'), horiz=F, bty='n', cex=1.5)
+par(op)
+dev.off()
+
+xL<-SG_age$extdf[1:26,]
+xR<-G_age$extdf[1:26,]
+t<-c(0:(nrow(xL)-1))
+pdf(paste("./Results/age_str_results/extrisk_age_str_SG_G_linear.pdf",sep=""),height=5,width=5)
+op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
+plot(0,-1,ylim=c(0,1),xlim=range(t),ylab="Extinction risk",xlab="time",cex.lab=2,cex.axis=1.5)
+x<-xL
+polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(1,0,0,0.3), border = NA)
+lines(t,x$erA,col="red",type="l")
+x<-xR
+polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(0,0,1,0.3), border = NA)
+lines(t,x$erA,col="blue",type="l")
+legend("topleft", c("vital rates : LTdep., SG","vital rates : RTdep., G"), lty=c(1,1),  
+       col=c('red', 'blue'), horiz=F, bty='n', cex=1.5)
+par(op)
+dev.off()
+```
+
+
 ```{r sim_agestr_with_extremetail_linear, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("ext_risk_cop_age_str.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("ext_risk_cop_age_str.R")
@@ -1465,11 +1502,23 @@ dt<-cbind(dt1,dt2,dt3,dt4,dt5,dt6)
 saveRDS(dt,"./Results/tab_model_summary.RDS")
 ```
 
+
+<!--Supp. FIG :  age structure model results for C, SC, G, SG with linear model (\Omega = infinity)-->
+\begin{figure}[!h]
+\textbf{ \hspace{6.8 cm} (A) \hspace{4.4 cm} (B)} \\
+\vspace{-0.9 cm}
+\begin{center}
+\includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_C_SC_linear.pdf}
+\includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_SG_G_linear.pdf}\\
+\caption{Extinction risk from single patch age structured linear ($\Omega = \infty$) models, fecundity of adults and survival of eggs have either left or right tail dependence in their corresponding copula structure $(A)$ Clayton and Survival Clayton (parameter = 3), $(B)$ Survival Gumbel and Gumbel (parameter = 2.5), numsims=10000. All copula has same Kendall correlation $\tau = 0.6$. \label{fig_extrisk_agestr_C_SC_G_SG_linear}}
+\end{center}
+\end{figure}
+
 <!--Supp. FIG :  summary : all nonlinear model results for global dispersion : extrisk vs. d-->
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=15 cm]{./Results/allmodel_ext_risk_global_disp.pdf}
-\caption{For each of six nonlinear density-dependence models presented in Table \ref{tab_model_summary} with global dispersal, extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two columns represent extinction risk calculated for bifurcation parameter $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog, respectively.\label{fig_extrisk_allmodel_globaldisp}}
+\caption{For each of six nonlinear density-dependence models presented in Table \ref{MT-tab_model_summary} with global dispersal, extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two columns represent extinction risk calculated for bifurcation parameter $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog, respectively.\label{fig_extrisk_allmodel_globaldisp}}
 \end{center}
 \end{figure}
 

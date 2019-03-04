@@ -65,6 +65,7 @@ objectives:
 
  
  <!--FIG : age structure model results : linear, nonlinear-->
+
 \begin{figure*}[!h]
 \textbf{ \hspace{5.4 cm} (A) \hspace{4 cm} (B)} \\
 \vspace{-0.9 cm}
