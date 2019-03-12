@@ -44,23 +44,54 @@ objectives:
 
 # Methods
 
+<!--stochastic matrix model : age structured-->
+To investigate how copula structure in noisy environment affect the extinction risk of
+populations in a single patch age-structured model,
+we considered a simple stochastic age-structured model (Eq. \ref{eq_age_str}) 
+with two age classes: 
+one is egg ($E$) and the other is adult ($A$). We assumed
+the population was semelperous, i.e., adult ($A$) went through the
+reproductive episode only once before death. Eggs and adults in the 
+next generation depend upon the fecundity of adult ($f_a \geq 0$) 
+and survival of eggs ($0 \leq s_e \leq 1$) from present generation, respectively.
+The environmental stochasticity in the model was embedded in 
+the fluctuating vital rates ($f_a$ and $s_e$). We considered the fecundity ($f_a$)
+and survival ($s_e$) rates were random draw from a gamma ($\Gamma(k,\theta)$) and
+a beta ($\mathcal{B}(\alpha,\beta)$) distribution, respectively,
+which were generated from a specific tail-dependent copula
+(for details see Appendix \ref{SM-age_str_vitalrates}).
+Eq. \ref{eq_vitalrates} represent the stochasticity in the vital rates.
+Demographic stochasticity was also taken into consideration when we included the 
+density dependence effect in one of the vital rate, namely, fecundity ($f_a$).
+If $\Omega = \infty$ in Eq. \ref{eq_vitalrates}, the projection matrix was independent
+of populations from any age-class and the model was then called to be "linear", whereas
+its "nonlinear" version had finite $\Omega$. 
+
+\begin{equation}
+\left({\begin{array}{cc} E \\ A \end{array}}\right)_{t+1} = 
+\left(\begin{array}{cc} 0 & f_a\\ s_e & 0 \end{array}\right)
+\left(\begin{array}{c} E \\ A \end{array}\right)_{t} \label{eq_age_str}
+\end{equation}
+
+\begin{equation}
+f_a = \Gamma (k, \theta)\exp(-A/\Omega), \hspace{0.2 cm} s_e = \mathcal{B}(\alpha,\beta) \label{eq_vitalrates}
+\end{equation}
+
+
+<!--calculation of ext risk with age-structured model-->
+
+
+<!--density-dependence metapopulation model-->
+
+<!--calculation of ext risk with density-dependence metapopulation model-->
+
+
+
+
+
 # Results
 
 # Discussion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
  
