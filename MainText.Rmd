@@ -48,8 +48,7 @@ objectives:
 To investigate how copula structure in noisy environment affect the extinction risk of
 populations in a single patch age-structured model,
 we considered a simple stochastic age-structured model (Eq. \ref{eq_age_str}) 
-with two age classes: 
-one is egg ($E$) and the other is adult ($A$). We assumed
+with two age classes(egg $E$ and adult $A$). We assumed
 the population was semelperous, i.e., adult ($A$) went through the
 reproductive episode only once before death. Eggs and adults in the 
 next generation depend upon the fecundity of adult ($f_a \geq 0$) 
@@ -60,9 +59,9 @@ and survival ($s_e$) rates were random draw from a gamma ($\Gamma(k,\theta)$) an
 a beta ($\mathcal{B}(\alpha,\beta)$) distribution, respectively. These distribution 
 could be generated from iid noises showing specific tail-dependence (left or right tail)
 between fecundity and survival rates. Eq. \ref{eq_vitalrates} represent the stochasticity 
-in the vital rates. Demographic stochasticity was also taken into consideration when 
-we included the density dependence effect in one of the vital rate, namely, fecundity ($f_a$).
-If $\Omega = \infty$ in Eq. \ref{eq_vitalrates}, the projection matrix was independent
+in the vital rates. We included the density dependence effect in one of the vital rate,
+namely, fecundity ($f_a$). If $\Omega = \infty$ in Eq. \ref{eq_vitalrates}, 
+the projection matrix would be independent
 of populations from any age-class and the model was then called to be "linear", whereas
 its "nonlinear" version had finite $\Omega$. 
 
@@ -85,16 +84,46 @@ considered population went extinct for that simulation. We also calculated $2.5^
 of $10000$ simulations with the probability of computed extinction risk at each time step.
 
 We repeated the above analysis considering the vital rates coming from a 
-an asymmetric copula (Appendix \ref{SM-age_str_vitalrates}) with specific 
+an asymmetric copula with specific 
 left (Clayton, Survival Gumbel)
 or right (Survival Clayton, Gumbel) tail dependence
-or from an extreme tail-depentdent one, when vital rates were considered to be affected
-by extreme climatic events.
+or from an extreme tail-depentdent one, 
+when vital rates were considered to be affected
+by extreme climatic events. A $N \times 2$ matrix, M, was generated
+using `BiCopSim` function
+from `VineCopula` package 
+for each of the left 
+(Clayton, Survival Gumbel) and right 
+(Survival Clayton, Gumbel) tail-dependent bivariate copulas, 
+where $N = numsteps(=25) \times numsims(=10000)$.
+We kept the same Kendall's correlation ($\tau = 0.6$) for 
+each bivariate copula from one parameter family which used its parameter accordingly
+(see `iTau` function from `copula` package). Entries within each clumn of
+matrix $M$, were thus 
+independent of each others but 
+the two columns of $M$ had a specified Kendall's 
+correlation ($\tau = 0.6$) and underlying tail-dependence. 
+Similarly, for extreme-tail dependence
+(either left or right tail) a matrix M with two column was generated as described in 
+Appendix \ref{SM-extr_tail_dep}. 
 
-
-
-
-
+We made the first column of matrix 
+$M$ as gamma ($\Gamma(k,\theta)$) distributed. 
+$k = 2$ and $\theta = 1$ were shape and scale parameters, 
+respectively. This column represented the distribution of fecundity of the adult population, $f_a$.
+For a given $\theta$, increasing 
+$k$ indicates distribution will shift towards higher fecundity which might 
+reduce the extinction risk if the other parameters
+remain unchanged. We took the second column of $M$ and applied a 
+beta ($\mathcal{B}(\alpha,\beta)$) transformation. $\alpha =3$ and
+$\beta = 2$ were the shape parameters which could control the distribution 
+of the survival rates of eggs, $s_e$. 
+For each $25$ timesteps from each of $10000$ simulations,
+the vital rates (fecundity $f_a$ and survival rates $s_e$) 
+of the stochastic projrction matrix in model (\ref{eq_age_str})
+were drawn pairwise from each row of matrix $M$.
+[`sim_age_str`](https://github.com/sghosh89/ERC/blob/master/ext_risk_cop_age_str.R) 
+is the function we used to calculate extinction risk for age structured model.
 
 <!--density-dependence metapopulation model-->
 
