@@ -46,10 +46,11 @@ sim_age_str<-function(p0,ext_thrs,cop,par_dist,omg,numsims,numsteps,ploton,reslo
   if(ploton==ploton){
     pdf(paste(resloc,"fA_sE_gshape_",gshape,"_gscale_",gscale,"_bshape1_",bshape1,"_bshape2_",bshape2,".pdf",sep=""),height=5,width=10)
     op<-par(mfrow=c(1,2))
-    hist(x,100,main="fecundity_adult : gamma dist.",col="grey",border=F,xlab="")
+    hist(x,100,main="",col="grey",border=F,xlab="Fecundity of adults")
+    #hist(x,100,main="fecundity of adult : gamma dist.",col="grey",border=F,xlab="")
     #mtext(paste0("gshape = ",gshape," , gscale = ", gscale),line=-1) 
     
-    hist(y,100,main="survival_egg : beta dist.",col="grey",border=F,xlab="")
+    hist(y,100,main="",col="grey",border=F,xlab="Survival of eggs")
     #mtext(paste0("bshape1 = ",bshape1," , bshape2 = ", bshape2),line=-1) 
     par(op)
     dev.off()

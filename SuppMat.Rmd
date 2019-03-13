@@ -41,7 +41,7 @@ set.seed(seed)
 source("ext_risk_cop_age_str.R")
 
 numsims<-10000
-numsteps<-100
+numsteps<-25
 p0<-c(5,10)
 ext_thrs<-2
 gshape<-2
@@ -134,8 +134,8 @@ saveRDS(SG_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
 ```
 
 ```{r fig_agestr_C_SC_G_SG_linear, echo=F,results="hide"}
-xL<-C_age$extdf[1:26,]
-xR<-SC_age$extdf[1:26,]
+xL<-C_age$extdf
+xR<-SC_age$extdf
 t<-c(0:(nrow(xL)-1))
 pdf(paste("./Results/age_str_results/extrisk_age_str_C_SC_linear.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
@@ -151,8 +151,8 @@ legend("topleft", c("vital rates : LTdep., C","vital rates : RTdep., SC"), lty=c
 par(op)
 dev.off()
 
-xL<-SG_age$extdf[1:26,]
-xR<-G_age$extdf[1:26,]
+xL<-SG_age$extdf
+xR<-G_age$extdf
 t<-c(0:(nrow(xL)-1))
 pdf(paste("./Results/age_str_results/extrisk_age_str_SG_G_linear.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
@@ -174,7 +174,7 @@ set.seed(seed)
 source("ext_risk_cop_age_str.R")
 
 numsims<-10000
-numsteps<-100
+numsteps<-25
 p0<-c(5,10)
 ext_thrs<-2
 gshape<-2
@@ -267,8 +267,8 @@ saveRDS(SG_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
 ```
 
 ```{r fig_agestr_C_SC_G_SG_nonlinear, echo=F,results="hide"}
-xL<-C_age$extdf[1:26,]
-xR<-SC_age$extdf[1:26,]
+xL<-C_age$extdf
+xR<-SC_age$extdf
 t<-c(0:(nrow(xL)-1))
 pdf(paste("./Results/age_str_results/extrisk_age_str_C_SC_nonlinear_omg_",omg,".pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
@@ -307,7 +307,7 @@ set.seed(seed)
 source("ext_risk_cop_age_str.R")
 source("ExtremeTailDep.R")
 numsims<-10000
-numsteps<-100
+numsteps<-25
 p0<-c(5,10)
 ext_thrs<-2
 gshape<-2
@@ -349,8 +349,8 @@ saveRDS(las_exL,paste(resloc,"sim_age_str_extreme_left_taildep.RDS",sep=""))
 ```
 
 ```{r fig_agestr_with_extremetail_linear, echo=F,results="hide"}
-xL<-las_exL$extdf[1:26,]
-xR<-las_exR$extdf[1:26,]
+xL<-las_exL$extdf
+xR<-las_exR$extdf
 t<-c(0:(nrow(xL)-1))
 pdf(paste("./Results/age_str_results/extrisk_age_str_extremetail_linear.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
@@ -372,7 +372,7 @@ set.seed(seed)
 source("ext_risk_cop_age_str.R")
 source("ExtremeTailDep.R")
 numsims<-10000
-numsteps<-100
+numsteps<-25
 p0<-c(5,10)
 ext_thrs<-2
 gshape<-2
@@ -412,8 +412,8 @@ saveRDS(nlas_exL,paste(resloc,"sim_age_str_extreme_left_taildep.RDS",sep=""))
 ```
 
 ```{r fig_agestr_with_extremetail_nonlinear, echo=F,results="hide"}
-xL<-nlas_exL$extdf[1:26,]
-xR<-nlas_exR$extdf[1:26,]
+xL<-nlas_exL$extdf
+xR<-nlas_exR$extdf
 t<-c(0:(nrow(xL)-1))
 pdf(paste("./Results/age_str_results/extrisk_age_str_extremetail_nonlinear_omg_",omg,".pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
@@ -1790,10 +1790,25 @@ numsims=10000, sd=0.6. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
-# Vital rates in a stochastic age-structured model \label{age_str_vitalrates}
+# Vital rates in a stochastic age-structured model having specific tail-dependence \label{age_str_vitalrates}
 
+A $N \times 2$ matrix, M, was generated for each of the left (Clayton, Survival Gumbel) and right 
+(Survival Clayton, Gumbel) tail-dependent bivariate copulas, where $N = numsteps(=25) \times numsims(=10000)$.
+We kept the same Kendall's correlation ($\tau = 0.6$) for each bivariate copula which used parameter accordingly
+(see `iTau` function from `copula` package). For fecundity of adults, we transformed the first column of matrix 
+$M$ as gamma ($\Gamma(k,\theta)$) distributed, $k = 2$ and $\theta = 1$ were shape and scale parameters, 
+respectively. For a given $\theta$, increasing 
+$k$ indicates distribution will shift towards higher fecundity which might 
+reduce the extinction risk if the other parameters
+remain unchanged. For survival rates of eggs, we took the second column of $M$ and applied a 
+beta ($\mathcal{B}(\alpha,\beta)$) transformation, $\alpha =3$ and
+$\beta = 2$ were the shape parameters which could control the distribution 
+of the survival rates of eggs. Entries within each clumn of matrix $M$, were thus independent of each others but 
+the two columns of $M$ had a specified Kendall's correlation ($\tau = 0.6$) and underlying tail-dependence. 
+For each $25$ timesteps from each of $10000$ simulations, the vital rates (fecundity and survival rates) 
+of the stochastic projrction matrix in model (\ref{MT-eq_age_str}) were drawn pairwise from each row of matrix $M$.
 
-
+For extreme tail-dependence algorithm, 
 
 
 
