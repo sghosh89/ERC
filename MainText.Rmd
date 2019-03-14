@@ -54,7 +54,7 @@ left-tail dependent than the one if noise came from right-tail dependent) holds 
 the under-compensatory regime, but should be reverse if the model shows over-compensatory dynamics. 
 (Q3) We further hypothesize that when there is no dispersal, the above-said switching should occur
 near the critical parameter value where the deterministic model shows transition from 
-under-compensatory to over-compensatory regime.
+under-compensatory to over-compensatory dynamics.
 
 
 
@@ -171,12 +171,12 @@ the two or one nearest neighbors in case of local dispersal. For global dispersa
 $d$ that dispersed
 from each patch was divided up equally among all other patches. We called $d$ as dispersal
 rate with $d$ being zero there was no dispersal, and threby no chance to rescue an extinct 
-patch through migration of nearby metapopulation patches.
+patch through migration from nearby metapopulation patches.
 
 The environmental noises from any two patch, say, 
 $(\epsilon_t^i, \epsilon_t^j)$ were normally 
 distributed within each patch with mean $m=0$ and standard deviation $sd$, 
-(see the specified $sd$ for each model in 3$^{rd}$ 
+(see the specified value $sd$ for each model in 3$^{rd}$ 
 column of Table \ref{tab_model_summary}), were 
 independent through time, and showed the same 
 spatial correlations between patches (to within sampling error) for every simulation. 
@@ -189,7 +189,12 @@ for each of the specified model in Table \ref{tab_model_summary} for $numsteps =
 and $numsims = 10000$ simulations.  
 
 <!--say how you set ext. threshold = Pe/10-->
-
+To estimate extinction risk, we started with 
+initial population $P_{t=0}^i = P_e^i$ for all patches ($i = 1,2,...,n$) where 
+$P_e^i$ was the equilibrium value (or similar to carrying capacity concept) 
+for each density-dependence model (see 4$^{th}$ column of Table \ref{tab_model_summary}).
+We assumed population went extinct after each time step if it was below a certain threshold.
+This extinction threshold was set to 10\% of initial population $P_e$ for individual model. 
 
 
 <!--test hypothesis from Q2 : ext risk with density-dependence metapopulation model with r from different regime-->

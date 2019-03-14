@@ -220,42 +220,41 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
     pdf(paste0(resloc,"r_",params[1],"_noise_lastsim_timeseries_all_locs.pdf",sep=""),height=5,width=10)
     op<-par(mfrow=c(1,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
     
-    ns_sim1<-ns1[numsims,,]
-    ylm<-max(c(abs(min(ns_sim1)),abs(max(ns_sim1))))
-    plot(0,0,xlim = c(1,numsteps),ylim = c(-ylm,ylm),type = "n",xlab="time",ylab="noise_right_tail")
-    cl <- rainbow(numlocs)
-    for(i in 1:numlocs){
-      lines(c(1:numsteps),ns_sim1[i,],col=cl[i],type="l")
-    }
-    
     ns_sim1<-ns2[numsims,,]
     ylm<-max(c(abs(min(ns_sim1)),abs(max(ns_sim1))))
-    plot(0,0,xlim = c(1,numsteps),ylim = c(-ylm,ylm),type = "n",xlab="time",ylab="noise_left_tail")
+    plot(0,0,xlim = c(0,numsteps),ylim = c(-ylm,ylm),type = "n",xlab="Time",ylab="Noise : LTdep.")
     cl <- rainbow(numlocs)
     for(i in 1:numlocs){
-      lines(c(1:numsteps),ns_sim1[i,],col=cl[i],type="l")
+      lines(c(0:numsteps),c(0,ns_sim1[i,]),col=cl[i],type="l") # at t=0 noise was also 0, for t>0 , there was finite noise in each time step
     }
     
+    ns_sim1<-ns1[numsims,,]
+    ylm<-max(c(abs(min(ns_sim1)),abs(max(ns_sim1))))
+    plot(0,0,xlim = c(0,numsteps),ylim = c(-ylm,ylm),type = "n",xlab="Time",ylab="Noise : RTdep.")
+    cl <- rainbow(numlocs)
+    for(i in 1:numlocs){
+      lines(c(0:numsteps),c(0,ns_sim1[i,]),col=cl[i],type="l") # at t=0 noise was also 0, for t>0 , there was finite noise in each time step
+    }
     par(op)
     dev.off()
     
     pdf(paste0(resloc,"r_",params[1],"_pops_lastsim_timeseries_all_locs.pdf",sep=""),height=5,width=10)
     op<-par(mfrow=c(1,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
     
-    pop_sim1<-pops1[numsims,,]
-    ylm<-max(c(abs(min(pop_sim1)),abs(max(pop_sim1))))
-    plot(0,0,xlim = c(1,numsteps+1),ylim = c(0,ylm),type = "n",xlab="time",ylab="pops_with_noise_right_tail")
-    cl <- rainbow(numlocs)
-    for(i in 1:numlocs){
-      lines(c(1:c(numsteps+1)),pop_sim1[i,],col=cl[i],type="l")
-    }
-    
     pop_sim2<-pops2[numsims,,]
     ylm<-max(c(abs(min(pop_sim2)),abs(max(pop_sim2))))
-    plot(0,0,xlim = c(1,numsteps+1),ylim = c(0,ylm),type = "n",xlab="time",ylab="pops_with_noise_left_tail")
+    plot(0,0,xlim = c(0,numsteps),ylim = c(0,ylm),type = "n",xlab="Time",ylab="Population for LTdep. in noise")
     cl <- rainbow(numlocs)
     for(i in 1:numlocs){
-      lines(c(1:c(numsteps+1)),pop_sim2[i,],col=cl[i],type="l")
+      lines(c(0:numsteps),pop_sim2[i,],col=cl[i],type="l")
+    }
+    
+    pop_sim1<-pops1[numsims,,]
+    ylm<-max(c(abs(min(pop_sim1)),abs(max(pop_sim1))))
+    plot(0,0,xlim = c(0,numsteps),ylim = c(0,ylm),type = "n",xlab="Time",ylab="Population for RTdep. in noise")
+    cl <- rainbow(numlocs)
+    for(i in 1:numlocs){
+      lines(c(0:numsteps),pop_sim1[i,],col=cl[i],type="l")
     }
     
     par(op)
@@ -263,12 +262,13 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
     
     pdf(paste0(resloc,"r_",params[1],"_extrisk_vs_time.pdf",sep=""),height=5,width=10)
     op<-par(mfrow=c(1,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
-    plot(1:length(risk_right),risk_right,type='b',
-         xlab='Time',ylab='Risk',col='blue',panel.first = grid())
-    mtext("Right tail-dep")
     
-    plot(1:length(risk_left),risk_left,type='b',xlab='Time',ylab='Risk',col='red',panel.first = grid())
-    mtext("Left tail-dep")
+    plot(c(0:numsteps),risk_left,type='b',xlab='Time',ylab='Extinction risk',col='red',panel.first = grid())
+    mtext("Noise : LTdep.")
+    
+    plot(c(0:numsteps),risk_right,type='b',
+         xlab='Time',ylab='Extinction risk',col='blue',panel.first = grid())
+    mtext("Noise : RTdep.")
     
     par(op)
     dev.off()  
