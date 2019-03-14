@@ -1582,7 +1582,7 @@ dev.off()
 ```{r make_tab_model_summary,echo=F}
 library(tibble)
 
-dt1 <- tibble(Models = c("Ricker",
+dt1 <- tibble("Models $(P_{t+1}^{i} = \\lambda_t^{i} P_t^{i})$"= c("Ricker",
            "Hassell",
            "Maynard Smith",
            "Pennycuick",
@@ -1590,12 +1590,12 @@ dt1 <- tibble(Models = c("Ricker",
            "Austin-Brewer")
 )
 
-dt2<-tibble(Equations = c("$P_{t+1} = \\exp(\\epsilon_t) \\hspace{0.1 cm} P_t \\exp[r (1-P_t/K)$]",
-                          "$P_{t+1} = \\exp(\\epsilon_t) \\hspace{0.1 cm} rP_t/(1+aP_t)^b$",
-                          "$P_{t+1} = \\exp(\\epsilon_t) \\hspace{0.1 cm} rP_t/[1+(aP_t)^b]$",
-                          "$P_{t+1} = \\exp(\\epsilon_t) \\hspace{0.1 cm} rP_t/[1+\\exp \\{-a(1-P_t/b)\\}]$",
-                          "$P_{t+1} = \\exp(\\epsilon_t) \\hspace{0.1 cm} P_t [1+r(1-P_t)]$",
-                          "$P_{t+1} = \\exp(\\epsilon_t) \\hspace{0.1 cm} P_t [1+r(K-P_t)\\{1-\\exp(-sP_t)\\}]$"
+dt2<-tibble("Density dependence $(\\lambda_t^{i})$ with noise" = c("$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} \\exp[r (1-P_t^{i}/K)$]",
+                          "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} r/(1+aP_t^{i})^b$",
+                          "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} r/[1+(aP_t^{i})^b]$",
+                          "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} r/[1+\\exp \\{-a(1-P_t^{i}/b)\\}]$",
+                          "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} [1+r(1-P_t^{i})]$",
+                          "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} [1+r(K-P_t^{i})\\{1-\\exp(-sP_t^{i})\\}]$"
 ))
 
 dt3<-tibble("\\hspace{-0.1 cm} Parameters used" = c("K = 50, sd = 1",
@@ -1606,7 +1606,7 @@ dt3<-tibble("\\hspace{-0.1 cm} Parameters used" = c("K = 50, sd = 1",
                            "s = 0.2, K = 50, sd = 0.6"
 ))
 
-dt4<-tibble("$P_e$" = c("K",
+dt4<-tibble("$P_e^{i}$" = c("K",
                         "$(r^{1/b}-1)/a$",
                         "$[(r-1)^{1/b}]/a$",
                         "$[b\\{a+ln(r-1)\\}]/a$",
@@ -1614,7 +1614,7 @@ dt4<-tibble("$P_e$" = c("K",
                         "K"
 ))
 
-dt5<-tibble("$r_c$" = c(rc_ricker,
+dt5<-tibble("$r_c^{i}$" = c(rc_ricker,
                         rc_hassell,
                         rc_msmith,
                         rc_pennycuick,
@@ -1622,7 +1622,7 @@ dt5<-tibble("$r_c$" = c(rc_ricker,
                         rc_abrewer
 ))
 
-dt6<-tibble("$r_{bf}$" = c(r_bf_ricker,
+dt6<-tibble("$r_{bf}^{i}$" = c(r_bf_ricker,
                            r_bf_hassell,
                            r_bf_msmith,
                            r_bf_pennycuick,
@@ -1815,6 +1815,7 @@ generating extreme tail dependence matrix is flexible enough, so that
 matrix M can be generated initially with independent random draws from a normal 
 distribution with a specified mean ($m$) and standard deviation $(sd)$.
 
+# Stability analysis of deterministic metapopulation models  \label{model_stability}
 
 
 

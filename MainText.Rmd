@@ -28,11 +28,10 @@ seed<-101
 ```
 
 
-# Introduction
+# Introduction\label{intro}
 
-objectives:
-
-1) Nature of tail dependence in environmental noise (or in vital rates) affects extinction risk of a population differently.
+<!--
+Nature of tail dependence in environmental noise (or in vital rates) affects extinction risk of a population differently.
        - Age structure stochastic matrix model : extrisk of left tail dep. > extrisk of right tail dep.
          (This difference is small, could be explained by Tuljapurkar's approx. for linear model, see discussion)
         
@@ -40,15 +39,35 @@ objectives:
            - extrisk depends on tail dependnece as well as on model parameters (under-compensatory, over-compensatory)
            - Rescue effect ??
            - H0 : switching occurs near rc (without dispersal)
+-->
+
+
+We explored the potential of asymmetric tail-dependence in copula 
+for understanding the extinction risk of populations towards extreme climatic event in ecology
+by addressing the following specific questions: (Q1) Does nature of tail dependence in vital rates
+of a single-patch age-structured population model affect extinction risk of that population differently?
+We hypothesized population might have higher extinction risk if vital rates are left-tail dependent.
+(Q2) How does asymmetric tail-dependent noise across multiple patches influence extinction 
+risk of a nonlinear metapopulation model having density dependence? We hypothesized the general finding 
+from density-independent metapopulation model (higher extinction risk if noise across patches were 
+left-tail dependent than the one if noise came from right-tail dependent) holds true only in
+the under-compensatory regime, but should be reverse if the model shows over-compensatory dynamics. 
+(Q3) We further hypothesize that when there is no dispersal, the above-said switching should occur
+near the critical parameter value where the deterministic model shows transition from 
+under-compensatory to over-compensatory regime.
+
+
+
 
 
 # Methods
 
 <!--stochastic matrix model : age structured-->
-To investigate how copula structure in noisy environment affect the extinction risk of
+To investigate (Q1) from \nameref{intro} that how copula structure in noisy 
+environment affect the extinction risk of
 populations in a single patch age-structured model,
 we considered a simple stochastic age-structured model (Eq. \ref{eq_age_str}) 
-with two age classes(egg $E$ and adult $A$). We assumed
+with two age classes (egg $E$ and adult $A$). We assumed
 the population was semelperous, i.e., adult ($A$) went through the
 reproductive episode only once before death. Eggs and adults in the 
 next generation depend upon the fecundity of adult ($f_a \geq 0$) 
@@ -83,7 +102,8 @@ was below a certain extinction threshold (we set it as $2$) or not. If it was be
 considered population went extinct for that simulation. We also calculated $2.5^{th}$ and $97.5^{th}$ quantiles
 of $10000$ simulations with the probability of computed extinction risk at each time step.
 
-We repeated the above analysis considering the vital rates coming from a 
+To test our hypothesis from (Q1), we repeated the above analysis 
+considering the vital rates coming from a 
 an asymmetric copula with specific 
 left (Clayton, Survival Gumbel)
 or right (Survival Clayton, Gumbel) tail dependence
@@ -126,10 +146,56 @@ were drawn pairwise from each row of matrix $M$.
 is the function we used to calculate extinction risk for age structured model.
 
 <!--density-dependence metapopulation model-->
+We explored (Q2) by examining how nature of the tail dependence of an
+environmental variable across space could influence the extinction risk of a 
+metapopulation model with density-dependence feedback. We considered six density-dependent 
+population-growth models (Ricker, Hassell, Maynard Smith, Pennycuick, Verhulst, Austin-Brewer)
+in noisy environment (see Table \ref{tab_model_summary}) 
+from a metapopulation context.
+Models were adapted from earlier work
+by @cohen1995unexpected, excluding only two : Varley model (this is not a continuous one) 
+and Malthus-Condorcet-Mill model (terms containing logarithm of extinct population does not make sense). 
+All the models could be represented via 
+a generalized form : $\vec{P_{t+1}} = D \lambda_t \vec{P_t}$,
+where $\vec{P_t}$ was a vector of population densities, 
+the $i^{th}$ component $P_t^i$ representing
+the density in the $i^{th}$ habitat patch ($i=1,\ldots,n$) at time $t$. 
+The $n \times n$ matrix $\lambda(t)$ was diagonal with $i^{th}$ diagonal entry 
+of stochastic density dependence form $\lambda_i(t)$ (see second column 
+of Table \ref{tab_model_summary}). For simplicity, 
+we considered $n$ patches in each model were arranged, evenly spaced, in a line
+with the provision of "local" or "global" dispersal among patches. A n $\times$ n dispersal
+matrix, $D$ was constructed assuming that a fraction $d$ of 
+each population patch dispersed during any given time step, equally distributed to
+the two or one nearest neighbors in case of local dispersal. For global dispersal, the fraction
+$d$ that dispersed
+from each patch was divided up equally among all other patches. We called $d$ as dispersal
+rate with $d$ being zero there was no dispersal, and threby no chance to rescue an extinct 
+patch through migration of nearby metapopulation patches.
 
-<!--calculation of ext risk with density-dependence metapopulation model-->
+The environmental noises from any two patch, say, 
+$(\epsilon_t^i, \epsilon_t^j)$ were normally 
+distributed within each patch with mean $m=0$ and standard deviation $sd$, 
+(see the specified $sd$ for each model in 3$^{rd}$ 
+column of Table \ref{tab_model_summary}), were 
+independent through time, and showed the same 
+spatial correlations between patches (to within sampling error) for every simulation. 
+But they were made to exhibit right- or left-tail dependence between patches in
+different simulations. A three dimensional array, numsims $\times$ n $\times$ numsteps, 
+$\epsilon$, was made from these extreme tail-dependence noise 
+matrix generated via algorithm stated in 
+Appendix \ref{SM-extr_tail_dep} and used to calculate extinction risk 
+for each of the specified model in Table \ref{tab_model_summary} for $numsteps = 25$ years, $n =$ 5 patches
+and $numsims = 10000$ simulations.  
+
+<!--say how you set ext. threshold = Pe/10-->
 
 
+
+<!--test hypothesis from Q2 : ext risk with density-dependence metapopulation model with r from different regime-->
+
+
+<!--test hypothesis from Q3 : switching of ext risk with density-dependence metapopulation model with d=0-->
 
 
 
@@ -155,7 +221,9 @@ is the function we used to calculate extinction risk for age structured model.
 \begin{figure*}[!h]
 \begin{center}
 \includegraphics[width=15 cm]{./Results/allmodel_ext_risk_local_disp.pdf}
-\caption{For each of six nonlinear density-dependence models presented in Table \ref{tab_model_summary} with local dispersal, extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two columns represent extinction risk calculated for bifurcation parameter $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog, respectively.\label{fig_extrisk_allmodel_localdisp}}
+\caption{For each of six nonlinear density-dependence models presented in Table \ref{tab_model_summary} with local dispersal
+among $n=5$ patches, extinction risk after $numsteps = 25$ years for $numsims = 10000$ simulations were calculated.
+Extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two columns represent extinction risk calculated for intrinsic growth rate $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog, respectively.\label{fig_extrisk_allmodel_localdisp}}
 \end{center}
 \end{figure*}
 
@@ -191,12 +259,14 @@ library(dplyr)
 dt<-readRDS("./Results/tab_model_summary.RDS")
 knitr::kable(dt, escape=F,
              format="latex",digits=3, align="c",table.env='table*',
-             caption = "Summary of six density dependence models considered for each metapopulation patch with local or global dispersal; last three columns indicated equilibrium population value ($P_e$), critical growth rate ($r_c$) where deterministic analog of models showed transition from under- to over-compensatory dynamics and bifurcation parameter ($r_{bf}$) where $P_e$ became unstable from stable steady state, respectively.\\label{tab_model_summary}",
+             caption = "Summary of six density dependence metapopulation models considered; last three columns indicated equilibrium population value ($P_e^{i}$), critical growth rate ($r_c^{i}$) where deterministic analog of models showed transition from under- to over-compensatory dynamics and bifurcation parameter ($r_{bf}^{i}$) where $P_e^{i}$ became unstable from stable steady state, respectively. Superscript $i=1,2,...,n$ indicates states for $i^{th}$ patch.\\label{tab_model_summary}",
              booktabs=T, linesep = "\\addlinespace"
-             )%>%column_spec(c(1,3,5,6),width="1.4cm")%>%kable_styling(latex_options = "basic",position = "center")%>%column_spec(2, width = "3.5 cm")
+             )%>%column_spec(c(1,3,5,6),width="1.5 cm")%>%kable_styling(latex_options = "basic",position = "center")%>%column_spec(2, width = "3.8 cm")
 ```
 
 
+\clearpage
 
+# Literature cited
 
 
