@@ -1,5 +1,5 @@
 ---
-title: "Main text : Effect of copula on extinction risk"
+title: "Impact of asymmetric tail-dependence in extreme climatic events on extinction risk in population ecology"
 author: "Shyamolina Ghosh"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
@@ -27,6 +27,20 @@ options(scipen = 1, digits = 5) #This option round all numbers appeared in the i
 seed<-101
 ```
 
+\noindent\makebox[\linewidth]{\rule{\columnwidth}{1pt}}
+
+\scriptsize
+
+\textbf{ABSTRACT:}  \small write abstract here
+
+
+
+\textbf{\textit{Keywords:}}
+
+
+\noindent\makebox[\linewidth]{\rule{\columnwidth}{1pt}}
+
+\normalsize
 
 # Introduction\label{intro}
 
@@ -156,10 +170,10 @@ Models were adapted from earlier work
 by @cohen1995unexpected, excluding only two : Varley model (this is not a continuous one) 
 and Malthus-Condorcet-Mill model (terms containing logarithm of extinct population does not make sense). 
 All the models could be represented via 
-a generalized form : $\vec{P_{t+1}} = D \lambda_t \vec{P_t}$,
+a generalized form : $\vec{P}_{t+1} = D \lambda_t \vec{P_t}$,
 where $\vec{P_t}$ was a vector of population densities, 
 the $i^{th}$ component $P_t^i$ representing
-the density in the $i^{th}$ habitat patch ($i=1,\ldots,n$) at time $t$. 
+the density in the $i^{th}$ habitat patch ($i=1,2,\ldots,n$) at time $t$. 
 The $n \times n$ matrix $\lambda(t)$ was diagonal with $i^{th}$ diagonal entry 
 of stochastic density dependence form $\lambda_i(t)$ (see second column 
 of Table \ref{tab_model_summary}). For simplicity, 
@@ -180,7 +194,7 @@ distributed within each patch with mean $m=0$ and standard deviation $sd$,
 column of Table \ref{tab_model_summary}), were 
 independent through time, and showed the same 
 spatial correlations between patches (to within sampling error) for every simulation. 
-But they were made to exhibit right- or left-tail dependence between patches in
+But they were made to exhibit extreme right- or extreme left-tail dependence between patches in
 different simulations. A three dimensional array, numsims $\times$ n $\times$ numsteps, 
 $\epsilon$, was made from these extreme tail-dependence noise 
 matrix generated via algorithm stated in 
@@ -188,20 +202,62 @@ Appendix \ref{SM-extr_tail_dep} and used to calculate extinction risk
 for each of the specified model in Table \ref{tab_model_summary} for $numsteps = 25$ years, $n =$ 5 patches
 and $numsims = 10000$ simulations.  
 
+The models stated in Table \ref{tab_model_summary} had one thing in 
+common that they showed undercompensatory
+dynamics (monotonic approach towards stable steady state $P_e$) when
+growth parameter $r$ remained below a critical 
+level, say, $r_c$. If $r$ was beyond $r_c$, model showed 
+overcompensatory dynamics with oscillatory approach 
+towards stable equilibrium $P_e$. But if $r$ became too high and went
+beyond $r_{bf}$, the parameter value responsible for Hopf-bifurcation,
+model equilibrium $P_e$ became unstable and model could show sustained
+oscillation and eventually led to chaos. Appendix \ref{SM-model_stability}
+summarizes the stability analysis of each model in their deterministic form.
+
 <!--say how you set ext. threshold = Pe/10-->
-To estimate extinction risk, we started with 
-initial population $P_{t=0}^i = P_e^i$ for all patches ($i = 1,2,...,n$) where 
+We started with $n$ patches of initial population $P_{t=0}^i = P_e^i, (i = 1,2,\ldots,n)$ where 
 $P_e^i$ was the equilibrium value (or similar to carrying capacity concept) 
 for each density-dependence model (see 4$^{th}$ column of Table \ref{tab_model_summary}).
 We assumed population went extinct after each time step if it was below a certain threshold.
-This extinction threshold was set to 10\% of initial population $P_e$ for individual model. 
-
+That extinction threshold was set to 10\% of initial population $P_e$ for individual model. 
 
 <!--test hypothesis from Q2 : ext risk with density-dependence metapopulation model with r from different regime-->
-
+To test our hypothesis from (Q2) of \nameref{intro} for each metapopulation model,
+we estimated extinction risk for a wide range of parameter $r$ 
+which covered the undercompensatory and overcompensatory regime. We 
+chose equispaced values of $r$ from the 95\% quantiles 
+of possible range ($r_{min},r_{bf}$), where $r_{min}$ was the minimum value of $r$ 
+for which the model equilibrium $P_e$ had always a finite, positive initial 
+population (for details, see Appendix \ref{SM-model_stability}). For each chosen $r$ of each 
+model where metapopulation could disperse locally with varying dispersal 
+rate $d= 0,0.1,0.2,..0.5$, we calculated extinction risk with left 
+tail dependent and right tail dependent environmental noise 
+in different simulations, respectively. We also repeated the analysis 
+for global dispersal for each metapopulation model. Script 
+[`mydispersal.R`](https://github.com/sghosh89/ERC/blob/master/mydispersal.R) was used for this 
+analysis.
 
 <!--test hypothesis from Q3 : switching of ext risk with density-dependence metapopulation model with d=0-->
-
+Given hypothesis from (Q2) was valid which scrutinized that whereas 
+left tail dependence in noise made extinction risk 
+higher in undercompensatory regime ($r < r_c$), it was the 
+right tail dependent noise
+which appeared to evoke higher extinction risk for metapopulations
+in overcompensatory regime ($r > r_c$), we tested our third hypothesis for (Q3).
+We considered
+the switching to take place near $r_c$, not exactly at $r = r_c$ because the transition point $r_c$
+from under to overcompensatory dynamics was expected to differ in stochastic environment than its 
+deterministic analog depending on the underlying nonlinearity of the model.
+We generated plots with extinction risk along y-axis
+for both left tail and right tail dependent noises 
+against the varying range of $r$ when no dispersal ($d=0$) was considered.
+We excluded the possibility of dispersal in this case to avoid any rescue effect among patches. 
+For each model with extreme left and extreme right tail dependent noises, we calculated 
+2.5$^{th}$ and 97.5$^{th}$ quantiles
+of 10000 simulations with the probability of computed
+extinction risk at each $r$. We compared $r_c$ and the value of $r$ at which 
+95\% CI of extinction risk from both noises overlapped
+with each other. This could give us an idea for supporting our hypothesis.
 
 
 # Results

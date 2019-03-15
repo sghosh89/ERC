@@ -1,5 +1,5 @@
 ---
-title: "Supporting Information : Effect of copula on extinction risk"
+title: "Supporting Information : Impact of asymmetric tail-dependence in extreme climatic events on extinction risk in population ecology"
 author: "Shyamolina Ghosh"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 geometry: "left=1cm,right=1cm,top=2.2cm,bottom=2.2cm"
