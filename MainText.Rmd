@@ -44,17 +44,6 @@ seed<-101
 
 # Introduction\label{intro}
 
-<!--
-Nature of tail dependence in environmental noise (or in vital rates) affects extinction risk of a population differently.
-       - Age structure stochastic matrix model : extrisk of left tail dep. > extrisk of right tail dep.
-         (This difference is small, could be explained by Tuljapurkar's approx. for linear model, see discussion)
-        
-       - 6 Density-dependent models with extreme tail dep. in noise (local/ global dispersal)
-           - extrisk depends on tail dependnece as well as on model parameters (under-compensatory, over-compensatory)
-           - Rescue effect ??
-           - H0 : switching occurs near rc (without dispersal)
--->
-
 
 We explored the potential of asymmetric tail-dependence in copula 
 for understanding the extinction risk of populations towards extreme climatic event in ecology
@@ -63,15 +52,13 @@ of a single-patch age-structured population model affect extinction risk of that
 We hypothesized population might have higher extinction risk if vital rates are left-tail dependent.
 (Q2) How does asymmetric tail-dependent noise across multiple patches influence extinction 
 risk of a nonlinear metapopulation model having density dependence? We hypothesized the general finding 
-from density-independent metapopulation model (higher extinction risk if noise across patches were 
+from density-independent metapopulation model [BIVAN paper results of Lewinton-Cohen model]
+(higher extinction risk if noise across patches were 
 left-tail dependent than the one if noise came from right-tail dependent) holds true only in
 the under-compensatory regime, but should be reverse if the model shows over-compensatory dynamics. 
 (Q3) We further hypothesize that when there is no dispersal, the above-said switching should occur
 near the critical parameter value where the deterministic model shows transition from 
 under-compensatory to over-compensatory dynamics.
-
-
-
 
 
 # Methods

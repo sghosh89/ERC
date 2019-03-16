@@ -1590,7 +1590,7 @@ dt1 <- tibble("Models $(P_{t+1}^{i} = \\lambda_t^{i} P_t^{i})$"= c("Ricker",
            "Austin-Brewer")
 )
 
-dt2<-tibble("Density dependence $(\\lambda_t^{i})$ with noise" = c("$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} \\exp[r (1-P_t^{i}/K)$]",
+dt2<-tibble("Density dependence $(\\lambda_t^{i})$ with noise $(\\epsilon_t^{i})$" = c("$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} \\exp[r (1-P_t^{i}/K)$]",
                           "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} r/(1+aP_t^{i})^b$",
                           "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} r/[1+(aP_t^{i})^b]$",
                           "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} r/[1+\\exp \\{-a(1-P_t^{i}/b)\\}]$",
@@ -1633,6 +1633,115 @@ dt6<-tibble("$r_{bf}^{i}$" = c(r_bf_ricker,
 dt<-cbind(dt1,dt2,dt3,dt4,dt5,dt6)
 saveRDS(dt,"./Results/tab_model_summary.RDS")
 ```
+
+
+
+<!--
+# Vital rates in a stochastic age-structured model having specific tail-dependence \label{age_str_vitalrates}
+A $N \times 2$ matrix, M, was generated for each of the left (Clayton, Survival Gumbel) and right 
+(Survival Clayton, Gumbel) tail-dependent bivariate copulas, where $N = numsteps(=25) \times numsims(=10000)$.
+We kept the same Kendall's correlation ($\tau = 0.6$) for each bivariate copula which used parameter accordingly
+(see `iTau` function from `copula` package).-->
+
+# Generating matrix with extreme tail dependence  \label{extr_tail_dep}
+
+For extreme tail-dependence algorithm, a $N \times n$ matrix, M was generated of independent 
+standard-normal random draws (in general), where $N = numsteps(=25) \times numsims(=10000)$.
+Then, each row of
+M was identified for a first set of modifications
+randomly and independently with a 50\% chance; for those rows identified, every
+element of the row was replaced with the absolute
+value of the first element of the row (including the first element itself).
+For other rows, every element in the row was replaced by the negative of 
+its own absolute value. This produces right-tail dependent
+matrix, normally distributed for each column. If left-tail 
+dependent noise is desired, take the negative of the entire matrix.
+Our [code](https://github.com/sghosh89/ERC/blob/master/ExtremeTailDep.R) for
+generating extreme tail dependence matrix is flexible enough, so that 
+matrix M can be generated initially with independent random draws from a normal 
+distribution with a specified mean ($m$) and standard deviation $(sd)$.
+
+# Stability analysis of deterministic metapopulation models  \label{model_stability}
+
+First, we will briefly discuss about the stability analysis for a difference 
+equation which is frequently found in population ecology model. Let's say, $P_{t+1} = F(P_t)$
+represents the model dynamics of a single population $P$ which progress recursively via 
+density-dependence function $F$ with discrete time variable $t$. Fixed-point analysis can
+be used to get information about this type of nonlinear difference equation. The idea is to
+employ the concept that the system at fixed point (or equilibrium $P_e$) does not change with time 
+(i.e. $P_{t+1} = P_t$). Given a tiny perturbation from its equilibrium $P_e$, if the system 
+returns to its original state, then $P_e$ is called to be a stable equilibrium, otherwise unstable.
+Mathematically, from standard linear stability analysis we can say an equilibrium is locally 
+asymptotically stable if $| {F}' | < 1$, where ${F}' = \left( \frac{\mathrm{d}F }{\mathrm{d} P} \right) _{P_t=P_e}$.
+If the approach towards its equilibrium is monotonic (when $0<{F}'<1$), the dynamics is said to be
+in under-compensatory regime. An over-compensatory dynamics means the approach towards its stable equlibrium
+is oscillatory ($-1<{F}'<0$). Following we will describe stability condition of the model dynamics considered for each 
+patch of metapopulation models in the maintext (see Table \ref{MT-tab_model_summary}).
+
+**Ricker model** [@ricker1954stock], originally introduced in the context of modelling
+stock and recruitment of salmon populations, is a classic 
+discrete population model 
+and frequently used in fisheries management problem. The model dynamics
+is represented as 
+$P_{t+1}=P_t \exp[r(1-P_t/K)]$, where $P$ is the population density, $r>0$ is the intrinsic 
+growth rate and $K>0$ is the carrying capacity. There are two equilibrium states ($P_e = 0, K$).
+The equilibrium at ($P_e = 0$) is unstable as ${F}' = \exp(r) > 1$ and considered 
+as the extinction equilibrium 
+in population ecology context. Depending on parameter $r$, 
+the other equilibrium $P_e = K$ can be stable or unstable as ${F}' = (1-r)$. Following generalized
+concept, the model can show monotonic approach to its stable equilibrium $P_e = K$ if $0<r<1$ 
+or can approach $P_e = K$ in an oscillating fashion if $1<r<2$. When 
+$r>2$, system shows sustained oscillation and the equilibrium becomes unstable. We called $r=1$ 
+as $r_c$, the critical point where system goes from under- to over-compensatory regime and 
+$r=2$ as $r_{bf}$ where bifurcation (transition from stable to unstable equilibrium) occurs.
+
+**Hassell model** [@hassell1975density], motivated for modelling insect populations,
+can be represented as $P_{t+1} = rP_t/(1+aP_t)^b$, where $r>0$ is the intrinsic growth rate 
+of population density $(P)$. $a$ and $b$ are the other positive parameters. If $b=1$, it reduces to
+Beverton-Holt model [@beverton2012dynamics] used in fisheries. In general, if $b \sim 1$,
+then we say that there is contest and $F$ will saturate eventually at a finite
+level for large populations, which indicates that the population stabilizes by
+rejecting too many newborns. For scramble, $b$ is large and $F$ tends to
+zero for large populations which indicates that the resources are over-utilized
+leading to eventual extinction. Like Ricker, Hassel model too has two equilibrim:
+$P_e =0$ (trivial extinction equilibrium) and $P_e = P^\star =(r^{1/b}-1)/a$. 
+For $P_e = P^\star$, model remains in under-compensatory regime if $1<r<[b/(b-1)]^b$ 
+and in over-compensatory regime if $[b/(b-1)]^b<r<[b/(b-2)]^b$ with $r_c = [b/(b-1)]^b$.
+Hopf bifurcation occurs at $r_{bf} = [b/(b-2)]^b$, so if $r>r_{bf}$, $P_e=P^\star$
+becomes unstable equilibrium.
+
+**Maynard Smith model** 
+
+**Pennycuick model** 
+
+**Verhulst model** 
+
+**Austin-Brewer model** 
+
+
+
+
+
+
+
+
+
+
+
+
+
+# References 
+
+
+
+
+
+
+
+
+
+
+\clearpage
 
 
 <!--Supp. FIG :  age structure model results for C, SC, G, SG with linear model (\Omega = infinity)-->
@@ -1789,41 +1898,6 @@ for $5$ metapopulation patches which followed Austin-Brewer dynamics with global
 numsims=10000, sd=0.6. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
-
-<!--
-# Vital rates in a stochastic age-structured model having specific tail-dependence \label{age_str_vitalrates}
-A $N \times 2$ matrix, M, was generated for each of the left (Clayton, Survival Gumbel) and right 
-(Survival Clayton, Gumbel) tail-dependent bivariate copulas, where $N = numsteps(=25) \times numsims(=10000)$.
-We kept the same Kendall's correlation ($\tau = 0.6$) for each bivariate copula which used parameter accordingly
-(see `iTau` function from `copula` package).-->
-
-# Generating matrix with extreme tail dependence  \label{extr_tail_dep}
-
-For extreme tail-dependence algorithm, a $N \times n$ matrix, M was generated of independent 
-standard-normal random draws (in general), where $N = numsteps(=25) \times numsims(=10000)$.
-Then, each row of
-M was identified for a first set of modifications
-randomly and independently with a 50\% chance; for those rows identified, every
-element of the row was replaced with the absolute
-value of the first element of the row (including the first element itself).
-For other rows, every element in the row was replaced by the negative of 
-its own absolute value. This produces right-tail dependent
-matrix, normally distributed for each column. If left-tail 
-dependent noise is desired, take the negative of the entire matrix.
-Our [code](https://github.com/sghosh89/ERC/blob/master/ExtremeTailDep.R) for
-generating extreme tail dependence matrix is flexible enough, so that 
-matrix M can be generated initially with independent random draws from a normal 
-distribution with a specified mean ($m$) and standard deviation $(sd)$.
-
-# Stability analysis of deterministic metapopulation models  \label{model_stability}
-
-
-
-
-
-
-
-
 
 
 
