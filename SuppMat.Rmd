@@ -1664,9 +1664,10 @@ distribution with a specified mean ($m$) and standard deviation $(sd)$.
 # Stability analysis of deterministic metapopulation models  \label{model_stability}
 
 First, we will briefly discuss about the stability analysis for a difference 
-equation which is frequently found in population ecology model. Let's say, $P_{t+1} = F(P_t)$
+equation which is frequently used in population ecology model. Let's say, $P_{t+1} = F(P_t,r)$
 represents the model dynamics of a single population $P$ which progress recursively via 
-density-dependence function $F$ with discrete time variable $t$. Fixed-point analysis can
+a nonlinear density-dependence function $F$ with discrete time variable $t$. $r$ is the model parameter 
+which plays major role in assessing the model's dynamical stability. Fixed-point analysis can
 be used to get information about this type of nonlinear difference equation. The idea is to
 employ the concept that the system at fixed point (or equilibrium $P_e$) does not change with time 
 (i.e. $P_{t+1} = P_t$). Given a tiny perturbation from its equilibrium $P_e$, if the system 
@@ -1678,25 +1679,25 @@ in under-compensatory regime. An over-compensatory dynamics means the approach t
 is oscillatory ($-1<{F}'<0$). Following we will describe stability condition of the model dynamics considered for each 
 patch of metapopulation models in the maintext (see Table \ref{MT-tab_model_summary}).
 
-**Ricker model** [@ricker1954stock], originally introduced in the context of modelling
+**Ricker model** [@ricker1954stock; @may1976bifurcations], originally introduced in the context of modelling
 stock and recruitment of salmon populations, is a classic 
 discrete population model 
 and frequently used in fisheries management problem. The model dynamics
 is represented as 
-$P_{t+1}=P_t \exp[r(1-P_t/K)]$, where $P$ is the population density, $r>0$ is the intrinsic 
+$P_{t+1}=F(P_t,r,K)=P_t \exp[r(1-P_t/K)]$, where $P$ is the population density, $r>0$ is the intrinsic 
 growth rate and $K>0$ is the carrying capacity. There are two equilibrium states ($P_e = 0, K$).
-The equilibrium at ($P_e = 0$) is unstable as ${F}' = \exp(r) > 1$ and considered 
+The equilibrium at ($P_e = 0$) is unstable as ${F}' = \exp(r) > 1$ for a positive $r$ and considered 
 as the extinction equilibrium 
 in population ecology context. Depending on parameter $r$, 
 the other equilibrium $P_e = K$ can be stable or unstable as ${F}' = (1-r)$. Following generalized
 concept, the model can show monotonic approach to its stable equilibrium $P_e = K$ if $0<r<1$ 
 or can approach $P_e = K$ in an oscillating fashion if $1<r<2$. When 
-$r>2$, system shows sustained oscillation and the equilibrium becomes unstable. We called $r=1$ 
+$r>2$ (i.e., ${F}'<-1$), system shows sustained oscillation and the equilibrium becomes unstable. We called $r=1$ 
 as $r_c$, the critical point where system goes from under- to over-compensatory regime and 
 $r=2$ as $r_{bf}$ where bifurcation (transition from stable to unstable equilibrium) occurs.
 
-**Hassell model** [@hassell1975density], motivated for modelling insect populations,
-can be represented as $P_{t+1} = rP_t/(1+aP_t)^b$, where $r>0$ is the intrinsic growth rate 
+**Hassell model** [@hassell1975density; @may1976bifurcations], motivated for modelling insect populations,
+can be represented as $P_{t+1} = F(P_t,r,a,b)=rP_t/(1+aP_t)^b$, where $r>0$ is the intrinsic growth rate 
 of population density $(P)$. $a$ and $b$ are the other positive parameters. If $b=1$, it reduces to
 Beverton-Holt model [@beverton2012dynamics] used in fisheries. In general, if $b \sim 1$,
 then we say that there is contest and $F$ will saturate eventually at a finite
@@ -1710,9 +1711,32 @@ and in over-compensatory regime if $[b/(b-1)]^b<r<[b/(b-2)]^b$ with $r_c = [b/(b
 Hopf bifurcation occurs at $r_{bf} = [b/(b-2)]^b$, so if $r>r_{bf}$, $P_e=P^\star$
 becomes unstable equilibrium.
 
-**Maynard Smith model** 
+**Maynard Smith model** [@cohen1995unexpected; @maynard1978models; @may1976bifurcations] follows the dynamics 
+$P_{t+1}=F(P_t,r,a,b)=rP_t/[1+(aP_t)^b]$. $r$ is the growth rate, $a, b$ are the parameters with positive values.
+Equilibriums are: $P_e=0$(as expected extinction equilibrium) and $P_e = P^\star=\frac{1}{a}(r-1)^{1/b}$.
+For a positive equilibrium value of $P^\star$, $r$ must be greater than $1$. This $P^\star$ will be stable
+in under-compensatory regime for $1<r<r_c(=b/(b-1))$ and in over-compensatory regime for $r_c<r<b/(b-2)$.
+$P^\star$ will become unstable when $r>r_{bf}(=b/(b-2))$. 
 
-**Pennycuick model** 
+**Pennycuick model** [@pennycuick1968computer; @may1976bifurcations] was 
+initially developed
+to follow change in age-structured total population
+level which assumed
+to have a constant sex 
+ratio and therefore change in female population was 
+expected through the change 
+in total population density. 
+A two population variant could also be possible
+in prey-predator perspective as indicated in [@pennycuick1968computer].
+In general, model dynamics is expressed as $P_{t+1}=F(P_t,r,a,b)=rP_t/[1+\exp \left\{-a(1-P_t/b)\right\}]$, where 
+$r$ is the intrinsic growth rate and $a>0,b>0$ are the model parameters. Model
+equilibriums are 
+$P_e=0$ (extinction equilibrium) and $P_e=P^\star=\frac{b}{a}[a+\ln{(r-1)}]$. For 
+a finite equilibrium population 
+$r$ must be greater than $r_{min}$, where 
+$r_{min} = 1+\exp(-a)$. The critical transition point $r_c$ (from under- to 
+over-compensatory dynamics) and Hopf-bifurcation point $r_{bf}$ can be obtained
+by numerical solution of ${F}'=0$ and ${F}'=-1$ at $P_e=P^{\star}$, respectively.
 
 **Verhulst model** 
 
