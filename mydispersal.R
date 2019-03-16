@@ -78,7 +78,8 @@ popsim_ml_D<-function(p0,ns,D,params,ext_thrs,model){
       res[,,tct+1]<-lam_ricker*lam_sto #numsims by numlocs matrix
     }else if(model=="verhulst"){
       r<-params[1]
-      lam_verhulst<-(1+(r*(1-res[,,tct])))*res[,,tct]
+      K<-params[2]
+      lam_verhulst<-(1+(r*(1-(res[,,tct]/K))))*res[,,tct]
       res[,,tct+1]<-lam_verhulst*lam_sto #numsims by numlocs matrix
     }else if(model=="hassell"){
       r<-params[1]

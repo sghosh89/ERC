@@ -1146,8 +1146,10 @@ resloc<-paste(tempo,"/",sep="")
 numsims<-10000
 numsteps<-25
 numlocs<-5
-p0<-1
-
+K<-1
+p0<-K
+ext_thrs<-p0/10
+    
 rc_verhulst<-1 # transition from under to overcompensatory dynamics
 r_bf_verhulst<-2 # bifurcation parameter stable to unstable eqm
 
@@ -1185,8 +1187,7 @@ res_verhulst_local<-c()
 
 for(i in c(1:length(rlist))){
     r<-rlist[i]
-    params<-r
-    ext_thrs<-p0/10
+    params<-c(r,K)
     
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
@@ -1208,8 +1209,7 @@ saveRDS(res_verhulst_local,paste(resloc,"res_verhulst_local.RDS",sep=""))
 # For global dispersal in D matrix 
 res_verhulst_global<-c()
 for(r in rlist){
-    params<-r
-    ext_thrs<-p0/10
+    params<-c(r,K)
     
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
@@ -1224,6 +1224,7 @@ saveRDS(res_verhulst_global,paste(resloc,"res_verhulst_global.RDS",sep=""))
 ```
 
 ```{r fig_verhulst_scl_0.6, echo=F, results="hide",cache=T, cache.extra=list(seed,res_verhulst_local,res_verhulst_global)}
+
 pdf(paste(resloc,"verhulst_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
@@ -1263,6 +1264,7 @@ dev.off()
 ```
 
 ```{r fig_verhulst_extrisk_d0_scl_0.6, echo=F,results="hide"}
+
 set.seed(seed)
 numsims<-10000
 verhulst_extrisk_d0<-readRDS(paste(resloc,"verhulst_extrisk_d0.RDS",sep=""))
@@ -1284,7 +1286,7 @@ abline(v=rc_verhulst,lty="dotted",col="darkgrey")
 lines(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_right_d0,col="blue",type="b",pch=1)
 arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025right,
        x1=verhulst_extrisk_d0$r,y1=verhulst_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
-legend("bottomright", c("Verhulst",paste0("sd =",scl)), horiz=F, bty='n',cex=1.8)
+legend("bottomright", c("Verhulst",paste0("K =1, sd =",scl)), horiz=F, bty='n',cex=1.8)
 par(op)
 dev.off()
 ```
@@ -1509,7 +1511,7 @@ getplot(x=x,rlist = rlist)
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Verhulst model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
-mtext(paste("(sd = 0.6)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(paste("(K = 1, sd = 0.6)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
 x<-res_verhulst_local
 rlist<-verhulst_extrisk_d0$r
 getplot(x=x,rlist = rlist)
@@ -1563,7 +1565,7 @@ getplot(x=x,rlist = rlist)
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Verhulst model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
-mtext(paste("(sd = 0.6)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(paste("(K = 1, sd = 0.6)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
 x<-res_verhulst_global
 rlist<-verhulst_extrisk_d0$r
 getplot(x=x,rlist = rlist)
@@ -1594,7 +1596,7 @@ dt2<-tibble("Density dependence $(\\lambda_t^{i})$ with noise $(\\epsilon_t^{i})
                           "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} r/(1+aP_t^{i})^b$",
                           "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} r/[1+(aP_t^{i})^b]$",
                           "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} r/[1+\\exp \\{-a(1-P_t^{i}/b)\\}]$",
-                          "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} [1+r(1-P_t^{i})]$",
+                          "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} [1+r(1-P_t^{i}/K)]$",
                           "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} [1+r(K-P_t^{i})\\{1-\\exp(-sP_t^{i})\\}]$"
 ))
 
@@ -1602,7 +1604,7 @@ dt3<-tibble("\\hspace{-0.1 cm} Parameters used" = c("K = 50, sd = 1",
                             "a = 0.5, b = 100, sd = 1",
                             "a = 0.5, b = 4, sd = 0.8",
                            "a = 0.1, b= 0.1, sd = 1",
-                           "sd = 0.6",
+                           "K = 1, sd = 0.6",
                            "s = 0.2, K = 50, sd = 0.6"
 ))
 
@@ -1610,7 +1612,7 @@ dt4<-tibble("$P_e^{i}$" = c("K",
                         "$(r^{1/b}-1)/a$",
                         "$[(r-1)^{1/b}]/a$",
                         "$[b\\{a+ln(r-1)\\}]/a$",
-                        "1",
+                        "K",
                         "K"
 ))
 
@@ -1634,138 +1636,6 @@ dt<-cbind(dt1,dt2,dt3,dt4,dt5,dt6)
 saveRDS(dt,"./Results/tab_model_summary.RDS")
 ```
 
-
-
-<!--
-# Vital rates in a stochastic age-structured model having specific tail-dependence \label{age_str_vitalrates}
-A $N \times 2$ matrix, M, was generated for each of the left (Clayton, Survival Gumbel) and right 
-(Survival Clayton, Gumbel) tail-dependent bivariate copulas, where $N = numsteps(=25) \times numsims(=10000)$.
-We kept the same Kendall's correlation ($\tau = 0.6$) for each bivariate copula which used parameter accordingly
-(see `iTau` function from `copula` package).-->
-
-# Generating matrix with extreme tail dependence  \label{extr_tail_dep}
-
-For extreme tail-dependence algorithm, a $N \times n$ matrix, M was generated of independent 
-standard-normal random draws (in general), where $N = numsteps(=25) \times numsims(=10000)$.
-Then, each row of
-M was identified for a first set of modifications
-randomly and independently with a 50\% chance; for those rows identified, every
-element of the row was replaced with the absolute
-value of the first element of the row (including the first element itself).
-For other rows, every element in the row was replaced by the negative of 
-its own absolute value. This produces right-tail dependent
-matrix, normally distributed for each column. If left-tail 
-dependent noise is desired, take the negative of the entire matrix.
-Our [code](https://github.com/sghosh89/ERC/blob/master/ExtremeTailDep.R) for
-generating extreme tail dependence matrix is flexible enough, so that 
-matrix M can be generated initially with independent random draws from a normal 
-distribution with a specified mean ($m$) and standard deviation $(sd)$.
-
-# Stability analysis of deterministic metapopulation models  \label{model_stability}
-
-First, we will briefly discuss about the stability analysis for a difference 
-equation which is frequently used in population ecology model. Let's say, $P_{t+1} = F(P_t,r)$
-represents the model dynamics of a single population $P$ which progress recursively via 
-a nonlinear density-dependence function $F$ with discrete time variable $t$. $r$ is the model parameter 
-which plays major role in assessing the model's dynamical stability. Fixed-point analysis can
-be used to get information about this type of nonlinear difference equation. The idea is to
-employ the concept that the system at fixed point (or equilibrium $P_e$) does not change with time 
-(i.e. $P_{t+1} = P_t$). Given a tiny perturbation from its equilibrium $P_e$, if the system 
-returns to its original state, then $P_e$ is called to be a stable equilibrium, otherwise unstable.
-Mathematically, from standard linear stability analysis we can say an equilibrium is locally 
-asymptotically stable if $| {F}' | < 1$, where ${F}' = \left( \frac{\mathrm{d}F }{\mathrm{d} P} \right) _{P_t=P_e}$.
-If the approach towards its equilibrium is monotonic (when $0<{F}'<1$), the dynamics is said to be
-in under-compensatory regime. An over-compensatory dynamics means the approach towards its stable equlibrium
-is oscillatory ($-1<{F}'<0$). Following we will describe stability condition of the model dynamics considered for each 
-patch of metapopulation models in the maintext (see Table \ref{MT-tab_model_summary}).
-
-**Ricker model** [@ricker1954stock; @may1976bifurcations], originally introduced in the context of modelling
-stock and recruitment of salmon populations, is a classic 
-discrete population model 
-and frequently used in fisheries management problem. The model dynamics
-is represented as 
-$P_{t+1}=F(P_t,r,K)=P_t \exp[r(1-P_t/K)]$, where $P$ is the population density, $r>0$ is the intrinsic 
-growth rate and $K>0$ is the carrying capacity. There are two equilibrium states ($P_e = 0, K$).
-The equilibrium at ($P_e = 0$) is unstable as ${F}' = \exp(r) > 1$ for a positive $r$ and considered 
-as the extinction equilibrium 
-in population ecology context. Depending on parameter $r$, 
-the other equilibrium $P_e = K$ can be stable or unstable as ${F}' = (1-r)$. Following generalized
-concept, the model can show monotonic approach to its stable equilibrium $P_e = K$ if $0<r<1$ 
-or can approach $P_e = K$ in an oscillating fashion if $1<r<2$. When 
-$r>2$ (i.e., ${F}'<-1$), system shows sustained oscillation and the equilibrium becomes unstable. We called $r=1$ 
-as $r_c$, the critical point where system goes from under- to over-compensatory regime and 
-$r=2$ as $r_{bf}$ where bifurcation (transition from stable to unstable equilibrium) occurs.
-
-**Hassell model** [@hassell1975density; @may1976bifurcations], motivated for modelling insect populations,
-can be represented as $P_{t+1} = F(P_t,r,a,b)=rP_t/(1+aP_t)^b$, where $r>0$ is the intrinsic growth rate 
-of population density $(P)$. $a$ and $b$ are the other positive parameters. If $b=1$, it reduces to
-Beverton-Holt model [@beverton2012dynamics] used in fisheries. In general, if $b \sim 1$,
-then we say that there is contest and $F$ will saturate eventually at a finite
-level for large populations, which indicates that the population stabilizes by
-rejecting too many newborns. For scramble, $b$ is large and $F$ tends to
-zero for large populations which indicates that the resources are over-utilized
-leading to eventual extinction. Like Ricker, Hassel model too has two equilibrim:
-$P_e =0$ (trivial extinction equilibrium) and $P_e = P^\star =(r^{1/b}-1)/a$. 
-For $P_e = P^\star$, model remains in under-compensatory regime if $1<r<[b/(b-1)]^b$ 
-and in over-compensatory regime if $[b/(b-1)]^b<r<[b/(b-2)]^b$ with $r_c = [b/(b-1)]^b$.
-Hopf bifurcation occurs at $r_{bf} = [b/(b-2)]^b$, so if $r>r_{bf}$, $P_e=P^\star$
-becomes unstable equilibrium.
-
-**Maynard Smith model** [@cohen1995unexpected; @maynard1978models; @may1976bifurcations] follows the dynamics 
-$P_{t+1}=F(P_t,r,a,b)=rP_t/[1+(aP_t)^b]$. $r$ is the growth rate, $a, b$ are the parameters with positive values.
-Equilibriums are: $P_e=0$(as expected extinction equilibrium) and $P_e = P^\star=\frac{1}{a}(r-1)^{1/b}$.
-For a positive equilibrium value of $P^\star$, $r$ must be greater than $1$. This $P^\star$ will be stable
-in under-compensatory regime for $1<r<r_c(=b/(b-1))$ and in over-compensatory regime for $r_c<r<b/(b-2)$.
-$P^\star$ will become unstable when $r>r_{bf}(=b/(b-2))$. 
-
-**Pennycuick model** [@pennycuick1968computer; @may1976bifurcations] was 
-initially developed
-to follow change in age-structured total population
-level which assumed
-to have a constant sex 
-ratio and therefore change in female population was 
-expected through the change 
-in total population density. 
-A two population variant could also be possible
-in prey-predator perspective as indicated in [@pennycuick1968computer].
-In general, model dynamics is expressed as $P_{t+1}=F(P_t,r,a,b)=rP_t/[1+\exp \left\{-a(1-P_t/b)\right\}]$, where 
-$r$ is the intrinsic growth rate and $a>0,b>0$ are the model parameters. Model
-equilibriums are 
-$P_e=0$ (extinction equilibrium) and $P_e=P^\star=\frac{b}{a}[a+\ln{(r-1)}]$. For 
-a finite equilibrium population 
-$r$ must be greater than $r_{min}$, where 
-$r_{min} = 1+\exp(-a)$. The critical transition point $r_c$ (from under- to 
-over-compensatory dynamics) and Hopf-bifurcation point $r_{bf}$ can be obtained
-by numerical solution of ${F}'=0$ and ${F}'=-1$ at $P_e=P^{\star}$, respectively.
-
-**Verhulst model** 
-
-**Austin-Brewer model** 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# References 
-
-
-
-
-
-
-
-
-
-
-\clearpage
 
 
 <!--Supp. FIG :  age structure model results for C, SC, G, SG with linear model (\Omega = infinity)-->
@@ -1924,9 +1794,122 @@ numsims=10000, sd=0.6. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}}
 \end{figure}
 
 
+# Generating matrix with extreme tail dependence  \label{extr_tail_dep}
+
+For extreme tail-dependence algorithm, a $N \times n$ matrix, M was generated of independent 
+standard-normal random draws (in general), where $N = numsteps(=25) \times numsims(=10000)$.
+Then, each row of
+M was identified for a first set of modifications
+randomly and independently with a 50\% chance; for those rows identified, every
+element of the row was replaced with the absolute
+value of the first element of the row (including the first element itself).
+For other rows, every element in the row was replaced by the negative of 
+its own absolute value. This produces right-tail dependent
+matrix, normally distributed for each column. If left-tail 
+dependent noise is desired, take the negative of the entire matrix.
+Our [code](https://github.com/sghosh89/ERC/blob/master/ExtremeTailDep.R) for
+generating extreme tail dependence matrix is flexible enough, so that 
+matrix M can be generated initially with independent random draws from a normal 
+distribution with a specified mean ($m$) and standard deviation $(sd)$.
+
+# Stability analysis of deterministic metapopulation models  \label{model_stability}
+
+First, we will briefly discuss about the stability analysis for a difference 
+equation which is frequently used in population ecology model. Let's say, $P_{t+1} = F(P_t,r)$
+represents the model dynamics of a single population $P$ which progress recursively via 
+a nonlinear density-dependence function $F$ with discrete time variable $t$. $r$ is the model parameter 
+which plays major role in assessing the model's dynamical stability. Fixed-point analysis can
+be used to get information about this type of nonlinear difference equation. The idea is to
+employ the concept that the system at fixed point (or equilibrium $P_e$) does not change with time 
+(i.e. $P_{t+1} = P_t$). Given a tiny perturbation from its equilibrium $P_e$, if the system 
+returns to its original state, then $P_e$ is called to be a stable equilibrium, otherwise unstable.
+Mathematically, from standard linear stability analysis we can say an equilibrium is locally 
+asymptotically stable if $| {F}' | < 1$, where ${F}' = \left( \frac{\mathrm{d}F }{\mathrm{d} P} \right) _{P_t=P_e}$.
+If the approach towards its equilibrium is monotonic (when $0<{F}'<1$), the dynamics is said to be
+in under-compensatory regime. An over-compensatory dynamics means the approach towards its stable equlibrium
+is oscillatory ($-1<{F}'<0$). Following we will describe stability condition of the model dynamics considered for each 
+patch of metapopulation models in the maintext (see Table \ref{MT-tab_model_summary}).
+
+**Ricker model** [@ricker1954stock; @may1976bifurcations], originally introduced in the context of modelling
+stock and recruitment of salmon populations, is a classic 
+discrete population model 
+and frequently used in fisheries management problem. The model dynamics
+is represented as 
+$P_{t+1}=F(P_t,r,K)=P_t \exp[r(1-P_t/K)]$, where $P$ is the population density, $r>0$ is the intrinsic 
+growth rate and $K>0$ is the carrying capacity. There are two equilibrium states ($P_e = 0, K$).
+The equilibrium at ($P_e = 0$) is unstable as ${F}' = \exp(r) > 1$ for a positive $r$ and considered 
+as the extinction equilibrium 
+in population ecology context. Depending on parameter $r$, 
+the other equilibrium $P_e = K$ can be stable or unstable as ${F}' = (1-r)$. Following generalized
+concept, the model can show monotonic approach to its stable equilibrium $P_e = K$ if $0<r<1$ 
+or can approach $P_e = K$ in an oscillating fashion if $1<r<2$. When 
+$r>2$ (i.e., ${F}'<-1$), system shows sustained oscillation and the equilibrium becomes unstable. We called $r=1$ 
+as $r_c$, the critical point where system goes from under- to over-compensatory regime and 
+$r=2$ as $r_{bf}$ where bifurcation (transition from stable to unstable equilibrium) occurs.
+
+**Hassell model** [@hassell1975density; @may1976bifurcations], motivated for modelling insect populations,
+can be represented as $P_{t+1} = F(P_t,r,a,b)=rP_t/(1+aP_t)^b$, where $r>0$ is the intrinsic growth rate 
+of population density $(P)$. $a$ and $b$ are the other positive parameters. If $b=1$, it reduces to
+Beverton-Holt model [@beverton2012dynamics] used in fisheries. In general, if $b \sim 1$,
+then we say that there is contest and $F$ will saturate eventually at a finite
+level for large populations, which indicates that the population stabilizes by
+rejecting too many newborns. For scramble, $b$ is large and $F$ tends to
+zero for large populations which indicates that the resources are over-utilized
+leading to eventual extinction. Like Ricker, Hassel model too has two equilibrim:
+$P_e =0$ (trivial extinction equilibrium) and $P_e = P^\star =(r^{1/b}-1)/a$. 
+For $P_e = P^\star$, model remains in under-compensatory regime if $1<r<[b/(b-1)]^b$ 
+and in over-compensatory regime if $[b/(b-1)]^b<r<[b/(b-2)]^b$ with $r_c = [b/(b-1)]^b$.
+Hopf bifurcation occurs at $r_{bf} = [b/(b-2)]^b$, so if $r>r_{bf}$, $P_e=P^\star$
+becomes unstable equilibrium.
+
+**Maynard Smith model** [@cohen1995unexpected; @maynard1978models; @may1976bifurcations] follows the dynamics 
+$P_{t+1}=F(P_t,r,a,b)=rP_t/[1+(aP_t)^b]$. $r$ is the growth rate, $a, b$ are the parameters with positive values.
+Equilibriums are: $P_e=0$(as expected extinction equilibrium) and $P_e = P^\star=\frac{1}{a}(r-1)^{1/b}$.
+For a positive equilibrium value of $P^\star$, $r$ must be greater than $1$. This $P^\star$ will be stable
+in under-compensatory regime for $1<r<r_c(=b/(b-1))$ and in over-compensatory regime for $r_c<r<b/(b-2)$.
+$P^\star$ will become unstable when $r>r_{bf}(=b/(b-2))$. 
+
+**Pennycuick model** [@pennycuick1968computer; @may1976bifurcations] was 
+initially developed
+to follow change in age-structured total population
+level which assumed
+to have a constant sex 
+ratio and therefore change in female population was 
+expected through the change 
+in total population density. 
+A two population variant could also be possible
+in prey-predator perspective as indicated in [@pennycuick1968computer].
+In general, model dynamics is expressed as $P_{t+1}=F(P_t,r,a,b)=rP_t/[1+\exp \left\{-a(1-P_t/b)\right\}]$, where 
+$r$ is the intrinsic growth rate and $a>0,b>0$ are the model parameters. Model
+equilibriums are 
+$P_e=0$ (extinction equilibrium) and $P_e=P^\star=\frac{b}{a}[a+\ln{(r-1)}]$. For 
+a finite equilibrium population 
+$r$ must be greater than $r_{min}$, where 
+$r_{min} = 1+\exp(-a)$. The critical transition point $r_c$ (from under- to 
+over-compensatory dynamics) and Hopf-bifurcation point $r_{bf}$ can be obtained
+by numerical solution of ${F}'=0$ and ${F}'=-1$ at $P_e=P^{\star}$, respectively.
+
+**Verhulst model** 
+
+**Austin-Brewer model** 
 
 
 
+
+
+
+
+
+
+
+
+
+
+# References 
+
+
+
+\clearpage
 
 
 

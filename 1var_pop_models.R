@@ -86,24 +86,27 @@ Msmith(r=r,a=a,b=b,p0=K_e-0.1,lensim=200) #see changes as r=5,a=0.5 and vary b :
 #--------------------------------------------------------------------------------------------------
 
 # Exploring Verhulst model
-Verhulst<-function(r,p0,lensim){
+Verhulst<-function(r,K,p0,lensim){
   pop<-c(p0)
   time<-c(0)
   # po<-rep(K,r)
   # print(po)
   
   for(it in c(1:lensim)){
-    pt<-p0*(1+r*(1-p0))
+    pt<-p0*(1+r*(1-(p0/K))) 
     time<-c(time,it)
     pop<-c(pop,pt)
     p0<-pt
   }
   
-  plot(time,pop,type="l")
+  plot(time,pop,type="b")
 }
 
 #call the function
-Verhulst(r=1.8,p0=0.4,lensim=400) # eqm. point =1
+K<-2
+r<-1.5
+p0<-K-0.1
+Verhulst(r=r,K=K,p0=p0,lensim=100) # eqm. point =1
 
 #-------------------------------------------------------------
 # Exploring pennycuick model
