@@ -35,7 +35,7 @@ seed<-101
 
 
 
-\textbf{\textit{Keywords:}}
+\textbf{\textit{Keywords:}} extinction risk, extreme events, tail dependence, copula, density-dependence model
 
 
 \noindent\makebox[\linewidth]{\rule{\columnwidth}{1pt}}
