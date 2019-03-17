@@ -1889,28 +1889,34 @@ $r_{min} = 1+\exp(-a)$. The critical transition point $r_c$ (from under- to
 over-compensatory dynamics) and Hopf-bifurcation point $r_{bf}$ can be obtained
 by numerical solution of ${F}'=0$ and ${F}'=-1$ at $P_e=P^{\star}$, respectively.
 
-**Verhulst model** 
+**Verhulst model** [@cohen1995unexpected; @may1976bifurcations] is a discrete time difference 
+representation of logistic growth of non-human biological population and can be written 
+as $P_{t+1} = F(P_t,r,K) =P_t[1+r(1-P_t/K)]$, wirh $r>0$ and $K>0$ being growth rate and carrying capacity, respectively. 
+Model equilibrium $P_e=0$ is always unstable whereas $P_e=K$ is stable below Hopf-bifurcation 
+point $r_{bf}(=2)$. Model at stable equilibrium ($P_e=K$) lies in the under-compensatory regime when $0<r<r_c$
+and in over-compensatory regime when $rc<r<r_{bf}$ with $r_c$ being equal to 1.
 
-**Austin-Brewer model** 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# References 
-
-
+**Austin-Brewer model** [@austin1971world; @cohen1995unexpected], unlike from the first
+five models we considered,
+is used to model growth of human population. It follows the
+discrete dynamics : $P_{t+1} = F(P_t,r,K,s)= P_t[1+r(K-P_t) \left\{ 1-\exp (-sP_t)\right\}]$, where
+$r, K, s$ are positive, representing growth rate, carrying capacity 
+and model parameter, respectively.
+Usual extinction equilibrium is $P_e=0$. The other
+finite, positive equilibrium is $P_e=P^\star=1-rK\left\{ 1-\exp (-sK)\right\}$. The equilibrium $P^\star$
+is stable when $r<r_{bf}$ and unstable beyond the bifurcatio point $r_{bf} = \frac{2}{K[1-\exp (-sK)]}$.
+After perturbation, model can return back monotonically to its stable equilibrium if parameter $r$ lies in the 
+under-compensatory regime ($0<r<r_c$), where $r_c = \frac{1}{K[1-\exp (-sK)]}$. In the 
+over-compensatory regime ($r_c<r<r_{bf}$), model approaches to stable equilibrium $P^\star$
+in oscillatory fashion.
 
 \clearpage
 
+# References 
+\setlength{\parindent}{-0.2in}
+\setlength{\leftskip}{0.2in}
+\setlength{\parskip}{1pt}
+\noindent
 
 
 

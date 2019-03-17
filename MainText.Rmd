@@ -215,7 +215,7 @@ which covered the undercompensatory and overcompensatory regime. We
 chose equispaced values of $r$ from the 95\% quantiles 
 of possible range ($r_{min},r_{bf}$), where $r_{min}$ was the minimum value of $r$ 
 for which the model equilibrium $P_e$ had always a finite, positive initial 
-population (for details, see Appendix \ref{SM-model_stability}). For each chosen $r$ of each 
+population (for details, see Appendix \ref{SM-model_stability}). For each chosen $r$ from each 
 model where metapopulation could disperse locally with varying dispersal 
 rate $d= 0,0.1,0.2,..0.5$, we calculated extinction risk with left 
 tail dependent and right tail dependent environmental noise 
@@ -245,7 +245,6 @@ of 10000 simulations with the probability of computed
 extinction risk at each $r$. We compared $r_c$ and the value of $r$ at which 
 95\% CI of extinction risk from both noises overlapped
 with each other. This could give us an idea for supporting our hypothesis.
-
 
 # Results
 
@@ -316,5 +315,11 @@ knitr::kable(dt, escape=F,
 \clearpage
 
 # Literature cited
+
+\setlength{\parindent}{-0.2in}
+\setlength{\leftskip}{0.2in}
+\setlength{\parskip}{1pt}
+\noindent
+
 
 
