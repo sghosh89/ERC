@@ -124,8 +124,8 @@ matrix $M$, were thus
 independent of each others but 
 the two columns of $M$ had a specified Kendall's 
 correlation ($\tau = 0.6$) and underlying tail-dependence. 
-Similarly, for extreme-tail dependence
-(either left or right tail) a matrix M with two column was generated as described in 
+Similarly, for extreme-tail dependent bivariant copula
+(either left or right tail) a matrix M was generated from standard iid as described in 
 Appendix \ref{SM-extr_tail_dep}. 
 
 We made the first column of matrix 
@@ -174,14 +174,14 @@ from each patch was divided up equally among all other patches. We called $d$ as
 rate with $d$ being zero there was no dispersal, and threby no chance to rescue an extinct 
 patch through migration from nearby metapopulation patches.
 
-The environmental noises from any two patch, say, 
+The environmental noises from any two out of $n$ patches, say, 
 $(\epsilon_t^i, \epsilon_t^j)$ were normally 
-distributed within each patch with mean $m=0$ and standard deviation $sd$, 
-(see the specified value $sd$ for each model in 3$^{rd}$ 
-column of Table \ref{tab_model_summary}), were 
+distributed within each patch with mean $m=0$ and standard deviation $\sigma$ 
+(see the specified value $\sigma$ for each model in 3$^{rd}$ 
+column of Table \ref{tab_model_summary}). Noises were 
 independent through time, and showed the same 
-spatial correlations between patches (to within sampling error) for every simulation. 
-But they were made to exhibit extreme right- or extreme left-tail dependence between patches in
+spatial correlations between patches (to within sampling error) for every simulation, 
+but they were made to exhibit extreme right- or extreme left-tail dependence between patches in
 different simulations. A three dimensional array, numsims $\times$ n $\times$ numsteps, 
 $\epsilon$, was made from these extreme tail-dependence noise 
 matrix generated via algorithm stated in 
@@ -210,7 +210,7 @@ That extinction threshold was set to 10\% of initial population $P_e$ for indivi
 
 <!--test hypothesis from Q2 : ext risk with density-dependence metapopulation model with r from different regime-->
 To test our hypothesis from (Q2) of \nameref{intro} for each metapopulation model,
-we estimated extinction risk for a wide range of parameter $r$ 
+we estimated extinction risk for a wide range of parameter $r$, 
 which covered the undercompensatory and overcompensatory regime. We 
 chose equispaced values of $r$ from the 95\% quantiles 
 of possible range ($r_{min},r_{bf}$), where $r_{min}$ was the minimum value of $r$ 
@@ -306,9 +306,9 @@ library(dplyr)
 dt<-readRDS("./Results/tab_model_summary.RDS")
 knitr::kable(dt, escape=F,
              format="latex",digits=3, align="c",table.env='table*',
-             caption = "Summary of six density dependence metapopulation models considered; last three columns indicated equilibrium population value ($P_e^{i}$), critical growth rate ($r_c^{i}$) where deterministic analog of models showed transition from under- to over-compensatory dynamics and bifurcation parameter ($r_{bf}^{i}$) where $P_e^{i}$ became unstable from stable steady state, respectively. Superscript $i=1,2,...,n$ indicates states for $i^{th}$ patch.\\label{tab_model_summary}",
+             caption = "Summary of six density dependence metapopulation models considered at each patch; last three columns indicated equilibrium population value ($P_e^{i}$), critical growth rate ($r_c^{i}$ : transition point from under- to over-compensatory dynamics of deterministic models) and bifurcation parameter ($r_{bf}^{i}$ : transition point from stable to unstable equilibrium of deterministic models), respectively. Superscript $i=1,2,...,n$ indicates states for $i^{th}$ patch.\\label{tab_model_summary}",
              booktabs=T, linesep = "\\addlinespace"
-             )%>%column_spec(c(1,3,5,6),width="1.5 cm")%>%kable_styling(latex_options = "basic",position = "center")%>%column_spec(2, width = "3.8 cm")
+             )%>%column_spec(c(1,3,5,6),width="1.4 cm")%>%kable_styling(latex_options = "basic",position = "center")%>%column_spec(2, width = "3.8 cm")
 ```
 
 

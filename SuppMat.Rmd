@@ -612,8 +612,10 @@ abline(v=rc_ricker,lty="dotted",col="darkgrey") #rc=1
 
 lines(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
 arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025right,x1=ricker_extrisk_d0$r,y1=ricker_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
-legend("bottomright", c("Ricker",paste0("K = ",K),paste0("sd =",scl)), horiz=F, bty='n',cex=1.8)
-#legend("bottomright", c("noise : LTdep.","noise : RTdep."), lty=c(1,1), pch=c(1,1), col=c('red', 'blue'), horiz=F, bty='n',cex=1.5)
+legend("topleft", legend=c("Ricker"), horiz=F, bty='n',cex=1.8)  
+mtext(paste0("K = ",K),side = 3, line=-16, adj=0.95, cex=1.8, col="black")
+legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
+#legend("bottomright", legend=c("Ricker",paste0("K = ",K)), horiz=F, bty='n',cex=1.8)
 par(op)
 dev.off()
 ```
@@ -772,7 +774,10 @@ abline(v=rc_hassell,lty="dotted",col="darkgrey")
 
 lines(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
 arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025right,x1=hassell_extrisk_d0$r,y1=hassell_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
-legend("bottomright", c("Hassell",paste0("a = ",a," ,b = ",b),paste0("sd =",scl)), horiz=F, bty='n',cex=1.8)
+legend("topleft", legend=c("Hassell"), horiz=F, bty='n',cex=1.8)  
+mtext(paste0("a = ",a,", b = ",b),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
+legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
+#legend("bottomright", c("Hassell",paste0("a = ",a," ,b = ",b),paste0("sd =",scl)), horiz=F, bty='n',cex=1.8)
 par(op)
 dev.off()
 ```
@@ -933,7 +938,9 @@ abline(v=rc_msmith,lty="dotted",col="darkgrey")
 
 lines(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_right_d0,col="blue",type="b",pch=1)
 arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025right,x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
-legend("bottomright", c("Maynard Smith",paste0("a = ",a," ,b = ",b),paste0("sd =",scl)), horiz=F, bty='n',cex=1.8)
+legend("topleft", legend=c("Maynard Smith"), horiz=F, bty='n',cex=1.8)  
+mtext(paste0("a = ",a,", b = ",b),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
+legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
 par(op)
 dev.off()
 ```
@@ -1125,7 +1132,10 @@ abline(v=rc_pennycuick,lty="dotted",col="darkgrey")
 
 lines(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
 arrows(x0=pennycuick_extrisk_d0$r,y0=pennycuick_extrisk_d0$CI0.025right,x1=pennycuick_extrisk_d0$r,y1=pennycuick_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
-legend("bottomright", c("Pennycuick",paste0("a = ",a," ,b = ",b),paste0("sd =",scl)), horiz=F, bty='n',cex=1.8)
+legend("topleft", legend=c("Pennycuick"), horiz=F, bty='n',cex=1.8)  
+mtext(paste0("a = ",a,", b = ",b),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
+legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
+#legend("bottomright", c("Pennycuick",paste0("a = ",a," ,b = ",b),paste0("sd =",scl)), horiz=F, bty='n',cex=1.8)
 par(op)
 dev.off()
 ```
@@ -1286,7 +1296,10 @@ abline(v=rc_verhulst,lty="dotted",col="darkgrey")
 lines(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_right_d0,col="blue",type="b",pch=1)
 arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025right,
        x1=verhulst_extrisk_d0$r,y1=verhulst_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
-legend("bottomright", c("Verhulst",paste0("K =1, sd =",scl)), horiz=F, bty='n',cex=1.8)
+legend("topleft", legend=c("Verhulst"), horiz=F, bty='n',cex=1.8)  
+mtext(paste0("K = ",K),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
+legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
+#legend("bottomright", c("Verhulst",paste0("K =1, sd =",scl)), horiz=F, bty='n',cex=1.8)
 par(op)
 dev.off()
 ```
@@ -1447,7 +1460,10 @@ abline(v=rc_abrewer,lty="dotted",col="darkgrey")
 lines(abrewer_extrisk_d0$r,abrewer_extrisk_d0$risk_right_d0,col="blue",type="b",pch=1)
 arrows(x0=abrewer_extrisk_d0$r,y0=abrewer_extrisk_d0$CI0.025right,
        x1=abrewer_extrisk_d0$r,y1=abrewer_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
-legend("bottomright", c("Austin-Brewer",paste0("s = ",s," , K = ",K),paste0(" sd =",scl)), horiz=F, bty='n',cex=1.8)
+legend("topleft", legend=c("Austin-Brewer"), horiz=F, bty='n',cex=1.8)  
+mtext(paste0("s = ",s,", K = ",K),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
+legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
+#legend("bottomright", c("Austin-Brewer",paste0("s = ",s," , K = ",K),paste0(" sd =",scl)), horiz=F, bty='n',cex=1.8)
 par(op)
 dev.off()
 ```
@@ -1485,40 +1501,41 @@ plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 legend(x=0.7,y=1.05, c("noise : LTdep.","noise : RTdep."), lty=c(1,1), pch=c(1,1), 
        col=c('red', 'blue'), horiz=F, bty='o', cex=1.5, adj=0)
 mtext(paste("Ricker model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
-mtext(paste("(K = 50, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+#mtext(paste("(K = 50, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(expression( paste("( K = 50, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 getplot(x=x,rlist = rlist)
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Hassell model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
-mtext(paste("(a = 0.5, b = 100, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(expression( paste("( a = 0.5, b = 100, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_hassell_local
 rlist<-hassell_extrisk_d0$r
 getplot(x=x,rlist = rlist)
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Maynard Smith model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
-mtext(paste("(a = 0.5, b = 4, sd = 0.8)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(expression( paste("( a = 0.5, b = 4, ", sigma,"=0.8 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_msmith_local
 rlist<-msmith_extrisk_d0$r
 getplot(x=x,rlist = rlist)
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Pennycuick model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
-mtext(paste("(a = 0.1, b = 0.1, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(expression( paste("( a = 0.1, b = 0.1, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_pennycuick_local
 rlist<-pennycuick_extrisk_d0$r
 getplot(x=x,rlist = rlist)
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Verhulst model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
-mtext(paste("(K = 1, sd = 0.6)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(expression( paste("( K = 1, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_verhulst_local
 rlist<-verhulst_extrisk_d0$r
 getplot(x=x,rlist = rlist)
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Austin-Brewer model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
-mtext(paste("(s = 0.2, K = 50, sd = 0.6)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(expression( paste("( s = 0.2, K = 50, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_abrewer_local
 rlist<-abrewer_extrisk_d0$r
 getplot(x=x,rlist = rlist)
@@ -1539,40 +1556,40 @@ plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 legend(x=0.7,y=1.05, c("noise : LTdep.","noise : RTdep."), lty=c(1,1), pch=c(1,1), 
        col=c('red', 'blue'), horiz=F, bty='o', cex=1.5, adj=0)
 mtext(paste("Ricker model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
-mtext(paste("(K = 50, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(expression( paste("( K = 50, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 getplot(x=x,rlist = rlist)
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Hassell model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
-mtext(paste("(a = 0.5, b = 100, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(expression( paste("( a = 0.5, b = 100, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_hassell_global
 rlist<-hassell_extrisk_d0$r
 getplot(x=x,rlist = rlist)
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Maynard Smith model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
-mtext(paste("(a = 0.5, b = 4, sd = 0.8)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(expression( paste("( a = 0.5, b = 4, ", sigma,"=0.8 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_msmith_global
 rlist<-msmith_extrisk_d0$r
 getplot(x=x,rlist = rlist)
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Pennycuick model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
-mtext(paste("(a = 0.1, b = 0.1, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(expression( paste("( a = 0.1, b = 0.1, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_pennycuick_global
 rlist<-pennycuick_extrisk_d0$r
 getplot(x=x,rlist = rlist)
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Verhulst model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
-mtext(paste("(K = 1, sd = 0.6)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(expression( paste("( K = 1, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_verhulst_global
 rlist<-verhulst_extrisk_d0$r
 getplot(x=x,rlist = rlist)
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Austin-Brewer model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
-mtext(paste("(s = 0.2, K = 50, sd = 0.6)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(expression( paste("( s = 0.2, K = 50, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_abrewer_global
 rlist<-abrewer_extrisk_d0$r
 getplot(x=x,rlist = rlist)
@@ -1584,7 +1601,7 @@ dev.off()
 ```{r make_tab_model_summary,echo=F}
 library(tibble)
 
-dt1 <- tibble("Models $(P_{t+1}^{i} = \\lambda_t^{i} P_t^{i})$"= c("Ricker",
+dt1 <- tibble("Models"= c("Ricker",
            "Hassell",
            "Maynard Smith",
            "Pennycuick",
@@ -1600,12 +1617,12 @@ dt2<-tibble("Density dependence $(\\lambda_t^{i})$ with noise $(\\epsilon_t^{i})
                           "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} [1+r(K-P_t^{i})\\{1-\\exp(-sP_t^{i})\\}]$"
 ))
 
-dt3<-tibble("\\hspace{-0.1 cm} Parameters used" = c("K = 50, sd = 1",
-                            "a = 0.5, b = 100, sd = 1",
-                            "a = 0.5, b = 4, sd = 0.8",
-                           "a = 0.1, b= 0.1, sd = 1",
-                           "K = 1, sd = 0.6",
-                           "s = 0.2, K = 50, sd = 0.6"
+dt3<-tibble("\\hspace{-0.1 cm} Parameters used" = c("K = 50, $\\sigma$ = 1",
+                            "a = 0.5, b = 100, $\\sigma$ = 1",
+                            "a = 0.5, b = 4, $\\sigma$ = 0.8",
+                           "a = 0.1, b= 0.1, $\\sigma$ = 1",
+                           "K = 1, $\\sigma$ = 0.6",
+                           "s = 0.2, K = 50, $\\sigma$ = 0.6"
 ))
 
 dt4<-tibble("$P_e^{i}$" = c("K",
@@ -1668,7 +1685,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_local_disp.pdf}\\
 \caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Ricker dynamics with local dispersal; 
-numsims=10000, sd=1. \label{fig_ricker_risk_local_disp_scl_1}}
+numsims=10000, $\sigma$=1. \label{fig_ricker_risk_local_disp_scl_1}}
 \end{center}
 \end{figure}
 
@@ -1679,7 +1696,7 @@ numsims=10000, sd=1. \label{fig_ricker_risk_local_disp_scl_1}}
 \includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_global_disp.pdf}\\
 \caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Ricker dynamics with global dispersal; 
-numsims=10000, sd=1. \label{fig_ricker_risk_global_disp_scl_1}}
+numsims=10000, $\sigma$=1. \label{fig_ricker_risk_global_disp_scl_1}}
 \end{center}
 \end{figure}
 
@@ -1690,7 +1707,7 @@ numsims=10000, sd=1. \label{fig_ricker_risk_global_disp_scl_1}}
 \includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_local_disp.pdf}\\
 \caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Hassell dynamics with local dispersal; 
-numsims=10000, sd=1. \label{fig_hassell_risk_local_disp_scl_1}}
+numsims=10000, $\sigma$=1. \label{fig_hassell_risk_local_disp_scl_1}}
 \end{center}
 \end{figure}
 
@@ -1701,7 +1718,7 @@ numsims=10000, sd=1. \label{fig_hassell_risk_local_disp_scl_1}}
 \includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_global_disp.pdf}\\
 \caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Hassell dynamics with global dispersal; 
-numsims=10000, sd=1. \label{fig_hassell_risk_global_disp_scl_1}}
+numsims=10000, $\sigma$=1. \label{fig_hassell_risk_global_disp_scl_1}}
 \end{center}
 \end{figure}
 
@@ -1712,7 +1729,7 @@ numsims=10000, sd=1. \label{fig_hassell_risk_global_disp_scl_1}}
 \includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_local_disp.pdf}\\
 \caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Maynard Smith dynamics with local dispersal; 
-numsims=10000, sd=0.8. \label{fig_msmith_risk_local_disp_scl_0.8}}
+numsims=10000, $\sigma$=0.8. \label{fig_msmith_risk_local_disp_scl_0.8}}
 \end{center}
 \end{figure}
 
@@ -1723,7 +1740,7 @@ numsims=10000, sd=0.8. \label{fig_msmith_risk_local_disp_scl_0.8}}
 \includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_global_disp.pdf}\\
 \caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Maynard Smith dynamics with global dispersal; 
-numsims=10000, sd=0.8. \label{fig_msmith_risk_global_disp_scl_0.8}}
+numsims=10000, $\sigma$=0.8. \label{fig_msmith_risk_global_disp_scl_0.8}}
 \end{center}
 \end{figure}
 
@@ -1734,7 +1751,7 @@ numsims=10000, sd=0.8. \label{fig_msmith_risk_global_disp_scl_0.8}}
 \includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp.pdf}\\
 \caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Pennycuick dynamics with local dispersal; 
-numsims=10000, sd=1. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
+numsims=10000, $\sigma$=1. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
 \end{center}
 \end{figure}
 
@@ -1745,7 +1762,7 @@ numsims=10000, sd=1. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
 \includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp.pdf}\\
 \caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Pennycuick dynamics with global dispersal; 
-numsims=10000, sd=1. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1}}
+numsims=10000, $\sigma$=1. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1}}
 \end{center}
 \end{figure}
 
@@ -1756,7 +1773,7 @@ numsims=10000, sd=1. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1}}
 \includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp.pdf}\\
 \caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Verhulst dynamics with local dispersal; 
-numsims=10000, sd=0.6. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
+numsims=10000, $\sigma$=0.6. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
@@ -1767,7 +1784,7 @@ numsims=10000, sd=0.6. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
 \includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp.pdf}\\
 \caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Verhulst dynamics with global dispersal; 
-numsims=10000, sd=0.6. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6}}
+numsims=10000, $\sigma$=0.6. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
@@ -1778,7 +1795,7 @@ numsims=10000, sd=0.6. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6}}
 \includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp.pdf}\\
 \caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Austin-Brewer dynamics with local dispersal; 
-numsims=10000, sd=0.6. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
+numsims=10000, $\sigma$=0.6. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
@@ -1789,7 +1806,7 @@ numsims=10000, sd=0.6. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
 \includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_global_disp.pdf}\\
 \caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Austin-Brewer dynamics with global dispersal; 
-numsims=10000, sd=0.6. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}}
+numsims=10000, $\sigma$=0.6. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
@@ -1810,7 +1827,7 @@ dependent noise is desired, take the negative of the entire matrix.
 Our [code](https://github.com/sghosh89/ERC/blob/master/ExtremeTailDep.R) for
 generating extreme tail dependence matrix is flexible enough, so that 
 matrix M can be generated initially with independent random draws from a normal 
-distribution with a specified mean ($m$) and standard deviation $(sd)$.
+distribution with a specified mean and standard deviation.
 
 # Stability analysis of deterministic metapopulation models  \label{model_stability}
 
