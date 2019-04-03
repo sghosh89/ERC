@@ -1,16 +1,7 @@
 #--------------------------------------------------------------------------
 source("ExtremeTailDep.R")
 #--------------------------------------------------------------------------
-#The simulator of the multi-location model.
-#
-#Args
-#p0       A length numlocs vector holding initial populations
-#ns       An numsims by numlocs by numsteps array of the epsilons, 
-#           where numsteps is the number of time steps you want
-#
-#Output
-#A numsims by numlocs by numsteps+1 array of populations
-#
+
 #-------------------------------------------------------------------------------
 # A function to generate dispersal matrix D (a square matrix : numlocs by numlocs)
 # Input :

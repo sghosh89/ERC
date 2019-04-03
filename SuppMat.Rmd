@@ -945,9 +945,9 @@ par(op)
 dev.off()
 ```
 
-```{r get_rc_pennycuick,echo=F,results="hide",cache=T,cache.extra=list(seed,mtime("1var_pop_model_bifurcation.R"))}
+```{r get_rc_pennycuick,echo=F,results="hide",cache=T,cache.extra=list(seed,mtime("bifurcation_pennycuick.R"))}
 set.seed(seed)
-source("./1var_pop_model_bifurcation.R")
+source("./bifurcation_pennycuick.R")
 a_pennycuick<-0.1
 b_pennycuick<-0.1
 eps<-1e-10 #you can change it upto which decimal point you want it to be exact
