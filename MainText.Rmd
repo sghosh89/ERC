@@ -51,20 +51,20 @@ seed<-101
 <!--How copula could be relevent in estimating extreme event's influence on extinction risk : introduce Taildep. concept-->
 
 <!--Tail dependence of copula and recent result from BIVAN showing LTdep with higher extrisk than UTdep, but 
-not explored age structured or in metapopulation context with density dependence effect-->
+not explored in age structured model or in metapopulation context with density dependence effect-->
 
 
 <!--our objective ?-->
-We explored the potential of asymmetric tail-dependence in copula 
+We explored the potential use of asymmetric tail-dependence in copula 
 for understanding the extinction risk of populations towards extreme climatic event in ecology
-by addressing the following specific questions: (Q1) Does nature of tail dependence in vital rates
+by addressing the following questions: (Q1) Does nature of tail dependence in vital rates
 of a single-patch age-structured population model affect extinction risk of that population differently?
 We hypothesized population might have higher extinction risk if vital rates are left-tail dependent.
-(Q2) How does asymmetric tail-dependent noise across multiple patches influence extinction 
-risk of a nonlinear metapopulation model having density dependence? We hypothesized the general finding 
+(Q2) How does asymmetric tail-dependent noises across multiple patches influence extinction 
+risk of a nonlinear metapopulation model with density dependence? Our speculation is that the general finding 
 from density-independent metapopulation model [BIVAN paper results of Lewinton-Cohen model]
-(higher extinction risk if noise across patches were 
-left-tail dependent than the one if noise came from right-tail dependent) holds true only in
+(higher extinction risk if noises across patches were 
+left-tail dependent than the one if noises came with right-tail dependence) holds true only in
 the under-compensatory regime, but should be reverse if the model shows over-compensatory dynamics. 
 (Q3) We further hypothesize that when there is no dispersal, the above-said switching should occur
 near the critical parameter value where the deterministic model shows transition from 
@@ -77,7 +77,7 @@ under-compensatory to over-compensatory dynamics.
 To investigate (Q1) from \nameref{intro} that how copula structure in noisy 
 environment affect the extinction risk of
 populations in a single patch age-structured model,
-we considered a simple stochastic age-structured model (Eq. \ref{eq_age_str}) 
+we considered a basic stochastic age-structured model (Eq. \ref{eq_age_str}) 
 with two age classes (egg $E$ and adult $A$). We assumed
 the population was semelperous, i.e., adult ($A$) went through the
 reproductive episode only once before death. Eggs and adults in the 
@@ -86,7 +86,7 @@ and survival of eggs ($0 \leq s_e \leq 1$) from present generation, respectively
 The environmental stochasticity in the model was embedded in 
 the fluctuating vital rates ($f_a$ and $s_e$). We considered the fecundity ($f_a$)
 and survival ($s_e$) rates were random draw from a gamma ($\Gamma(k,\theta)$) and
-a beta ($\mathcal{B}(\alpha,\beta)$) distribution, respectively. These distribution 
+a beta ($\mathcal{B}(\alpha,\beta)$) distribution, respectively. These distributions 
 could be generated from iid noises showing specific tail-dependence (left or right tail)
 between fecundity and survival rates. Eq. \ref{eq_vitalrates} represent the stochasticity 
 in the vital rates. We included the density dependence effect in one of the vital rate,
