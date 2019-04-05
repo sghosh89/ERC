@@ -108,7 +108,7 @@ f_a = \Gamma (k, \theta)\exp(-A/\Omega), \hspace{0.2 cm} s_e = \mathcal{B}(\alph
 <!--calculation of ext risk with age-structured model-->
 To calculate extinction risk after each time step, we simulated model (\ref{eq_age_str}) for $25$ years
 with $10000$ simulations. For each simulation, we started with initial population $(E,A)_{t=0} = (5,10)$
-and following Eq. \ref{eq_age_str} after each time step checked the total population $(E+A)_{t}$
+and following Eq. \ref{eq_age_str} we checked whether after each time step the total population $(E+A)_{t}$
 was below a certain extinction threshold (we set it as $2$) or not. If it was below that threshold then we 
 considered population went extinct for that simulation. We also calculated $2.5^{th}$ and $97.5^{th}$ quantiles
 of $10000$ simulations with the probability of computed extinction risk at each time step.
@@ -258,15 +258,20 @@ with each other. This could give us an idea for supporting our hypothesis.
 
 # Results
 
-<!--Q1 : age structured results : linear and nonlinear model with asymmetric copula-->
+<!--Q1 : age structured results : linear and nonlinear model with asymmetric copula : Fig. S1-->
 
-<!--Q1 : age structured results : linear and nonlinear model with extreme tail dep. copula-->
+<!--Q1 : age structured results : linear and nonlinear model with extreme tail dep. copula : Fig. 1 -->
 
 
 
 <!--Q2 : metapopulation results : density dependence with extreme tail dep. copula-->
 
-<!--Q3 : metapopulation results : switching near rc for d=0-->
+<!--For local dispersal : all model summary : Fig. 2, individual model : Fig. S3-S8-->
+
+<!--For global dispersal : all model summary : Fig. S2, individual model : Fig. S9-S14-->
+
+
+<!--Q3 : metapopulation results : switching near rc for d=0, Fig. 3-->
 
 
 # Discussion
