@@ -1665,7 +1665,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \vspace{-0.2 cm}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_C_SC_nonlinear_omg_100.pdf}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_SG_G_nonlinear_omg_100.pdf}\\
-\caption{Extinction risk from single patch age structured models, fecundity of adults and survival of eggs have either left or right tail dependence in their corresponding copula structure $(A)$ Clayton and Survival Clayton (parameter = 3), $(B)$ Survival Gumbel and Gumbel (parameter = 2.5) for linear model ($\Omega = \infty$), numsims=10000. $(C - D)$ represents the analogous figures as of $(A - B)$ but for non-linear model ($\Omega = 100$). All copula has same Kendall correlation $\tau = 0.6$. \label{fig_extrisk_agestr_C_SC_G_SG_linear}}
+\caption{Extinction risk (shading represents 95\% confidence interval) from single patch age structured models with time; fecundity of adults and survival of eggs have either left or right tail dependence in their corresponding copula structure. $(A)$ Clayton and Survival Clayton (parameter = 3), $(B)$ Survival Gumbel and Gumbel (parameter = 2.5) for linear model ($\Omega = \infty$), numsims=10000. $(C - D)$ represents the analogous figures as of $(A - B)$ but for non-linear model ($\Omega = 100$). All copula has same Kendall correlation $\tau = 0.6$. \label{fig_extrisk_agestr_C_SC_G_SG_linear}}
 \end{center}
 \end{figure}
 

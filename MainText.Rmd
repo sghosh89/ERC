@@ -114,8 +114,7 @@ considered population went extinct for that simulation. We also calculated $2.5^
 of $10000$ simulations with the probability of computed extinction risk at each time step.
 
 To test our hypothesis from (Q1), we repeated the above analysis 
-considering the vital rates coming from a 
-an asymmetric copula with specific 
+considering the vital rates coming from an asymmetric copula with specific 
 left (Clayton, Survival Gumbel)
 or right (Survival Clayton, Gumbel) tail dependence
 or from an extreme tail-depentdent one, 
@@ -259,10 +258,30 @@ with each other. This could give us an idea for supporting our hypothesis.
 # Results
 
 <!--Q1 : age structured results : linear and nonlinear model with asymmetric copula : Fig. S1-->
-
 <!--Q1 : age structured results : linear and nonlinear model with extreme tail dep. copula : Fig. 1 -->
 
-
+For single patch linear age-structured models, we found left-tail 
+dependence (Clayton, Suvival Gumbel copulas) in noisy vital 
+rates enhanced the extinction risk compared to the case when
+vital rates were right tail dependent (Survival clayton, Gumbel copulas).
+It was expected because a sudden "bad" year (e.g. with severe cold) can suppress 
+the fecundity of adult and survival/ maturation of eggs simultaneously 
+and thereby increasing the extinction risk of the population. For non-linear age-structured 
+models, we got the similar trend for extinction risks with different tail-dependence (left and right).
+With non-linear model the extinction risks appeared as higher than their corresponding 
+linear analog as it was evident from Eq. \ref{eq_vitalrates} with finite $\Omega = 100$. 
+Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG_linear} represents this scenario with 4 different 
+asymmetric copulas but of same Kendall's correlation ($\tau = 0.6$). There was very little
+difference between extinction risks within a pair of different tail-dependent copulas
+(e.g. C-SC in Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG_linear}(A,C) and
+G-SG in Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG_linear}(B,D)) and that difference was partly 
+dependent on the strength of tail dependence. Therefore we repeated the same analysis with 
+vital rates coming from extreme-tail dependent (left and right in two different simulations)
+copulas and got the similar results but with much prominent difference between their extinction risks
+(Fig. \ref{fig_extrisk_agestr}). This result answered (Q1) and showed extinction risk of 
+a population could be considered as
+direct manifestation of tail-dependence measure between vital rates of different age-class
+within that population. <!--discussion later : add Tuljapurkar's approximation-->
 
 <!--Q2 : metapopulation results : density dependence with extreme tail dep. copula-->
 
@@ -285,7 +304,8 @@ with each other. This could give us an idea for supporting our hypothesis.
 \begin{center}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_extremetail_linear.pdf}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_extremetail_nonlinear_omg_100.pdf}\\
-\caption{Extinction risk from single patch age structured $(A)$ linear ($\Omega = \infty$) and $(B)$ nonlinear ($\Omega = 100$) models, fecundity of adults and survival of eggs have either extreme left or extreme right tail dependence, numsims=10000. \label{fig_extrisk_agestr}}
+\caption{Extinction risk from single patch age structured $(A)$ linear ($\Omega = \infty$) and $(B)$ nonlinear ($\Omega = 100$) models
+against time (shading represents 95\% confidence interval). Fecundity of adults and survival of eggs have either extreme left or extreme right tail dependence, numsims=10000. \label{fig_extrisk_agestr}}
 \end{center}
 \end{figure*}
 
