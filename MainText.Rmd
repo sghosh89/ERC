@@ -42,7 +42,7 @@ seed<-101
 
 \normalsize
 
-# Introduction\label{intro}
+# Introduction \label{intro}
 
 <!--Background for extinction risk in ecological model-->
 
@@ -284,6 +284,19 @@ direct manifestation of tail-dependence measure between vital rates of different
 within that population. <!--discussion later : add Tuljapurkar's approximation-->
 
 <!--Q2 : metapopulation results : density dependence with extreme tail dep. copula-->
+We found density-dependence metapopulation models with $n=5$ patches in noisy 
+environment showed similar patterns for extinction risk as density-independent 
+metapopulation model showed in earlier studies [BIVAN paper]. For each density-dependent 
+model listed in Table \ref{tab_model_summary}, we observed higher (or lower) extinction risk for 
+the metapopulations when noises across multiple patches were left- (or right) tail dependent.
+But that observation remained valid when the model parameter, usually growth rate $(r)$, of each model was 
+sufficiently low so that under-compensatory dynamics (monotonous approach towards
+its stable equilibrium) for the deterministic analog of the model was ensured. When the model 
+was in over-compensatory regime (oscillatory approach towards stable equilibrium) for higher 
+value of $r$, we observed right (or left) tail dependent noise caused higher (or lower) extinction 
+risk for the metapopulations. All models were consistent with our prediction (see Q2 from \nameref{intro}) 
+across local and global dispersal (Figs. \ref{fig_extrisk_allmodel_localdisp} and 
+\ref{SM-fig_extrisk_allmodel_globaldisp}). 
 
 <!--For local dispersal : all model summary : Fig. 2, individual model : Fig. S3-S8-->
 
