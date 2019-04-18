@@ -284,7 +284,10 @@ direct manifestation of tail-dependence measure between vital rates of different
 within that population. <!--discussion later : add Tuljapurkar's approximation-->
 
 <!--Q2 : metapopulation results : density dependence with extreme tail dep. copula-->
-We found density-dependence metapopulation models with $n=5$ patches in noisy 
+<!--For local dispersal : all model summary : Fig. 2, individual model : Fig. S3-S8-->
+<!--For global dispersal : all model summary : Fig. S2, individual model : Fig. S9-S14-->
+
+We found density-dependence metapopulation models (with $n=5$ patches) in noisy 
 environment showed similar patterns for extinction risk as density-independent 
 metapopulation model showed in earlier studies [BIVAN paper]. For each density-dependent 
 model listed in Table \ref{tab_model_summary}, we observed higher (or lower) extinction risk for 
@@ -294,16 +297,29 @@ sufficiently low so that under-compensatory dynamics (monotonous approach toward
 its stable equilibrium) for the deterministic analog of the model was ensured. When the model 
 was in over-compensatory regime (oscillatory approach towards stable equilibrium) for higher 
 value of $r$, we observed right (or left) tail dependent noise caused higher (or lower) extinction 
-risk for the metapopulations. All models were consistent with our prediction (see Q2 from \nameref{intro}) 
-across local and global dispersal (Figs. \ref{fig_extrisk_allmodel_localdisp} and 
-\ref{SM-fig_extrisk_allmodel_globaldisp}). 
-
-<!--For local dispersal : all model summary : Fig. 2, individual model : Fig. S3-S8-->
-
-<!--For global dispersal : all model summary : Fig. S2, individual model : Fig. S9-S14-->
-
+risk for the metapopulations. Figs. \ref{fig_extrisk_allmodel_localdisp} shows variation of extinction risk 
+against local dispersal rate ($d$) for six density dependent metapopulation models 
+where growth rate $r$ was taken either from under-compensatory or from over-compensatory 
+regime. We also got similarly consisent results with 
+our prediction (see Q2 from \nameref{intro}) for global 
+dispersal (Fig. \ref{SM-fig_extrisk_allmodel_globaldisp}). 
+Figs. (\ref{SM-fig_ricker_risk_local_disp_scl_1} - \ref{SM-fig_risk_local_disp_abrewer_r_vary_scl_0.6}) 
+shows how extinction risk changed against local dispersal rate for a whole range
+of $r$, whereas Figs. (\ref{SM-fig_ricker_risk_global_disp_scl_1} - 
+\ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6}) 
+represents the same but when global dispersal took place between patches. 
+Both case showed the signature of 
+"rescue-effect" (i.e. by lowering extinction risk) when there was 
+a finite dispersal compared to the one with 
+$d=0$.
 
 <!--Q3 : metapopulation results : switching near rc for d=0, Fig. 3-->
+To examine (Q3), we evaluated extinction risk for each metapopulation model for a wide 
+
+
+
+
+
 
 
 # Discussion
