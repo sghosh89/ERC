@@ -1,7 +1,8 @@
 ---
-title: "Impact of asymmetric tail-dependence in extreme climatic events on extinction risk in population ecology"
-author: "Shyamolina Ghosh"
+title: "Extreme climatic events with asymmetric tail-dependence affect population-extinction risk"
+author: "Shyamolina Ghosh, Daniel Reuman"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
+geometry: "left=1in,right=1in,top=1in,bottom=1in"
 output: 
   pdf_document:
     number_sections: no
@@ -27,26 +28,45 @@ options(scipen = 1, digits = 5) #This option round all numbers appeared in the i
 seed<-101
 ```
 
-\noindent\makebox[\linewidth]{\rule{\columnwidth}{1pt}}
+\noindent \emph{Affiliations:}
 
-\scriptsize
+\noindent Ghosh: Department of Ecology and Evolutionary Biology and Kansas Biological Survey, University of Kansas, Lawrence, KS, 66045, USA
 
-\textbf{ABSTRACT:}  \small write abstract here
+\noindent Reuman: Department of Ecology and Evolutionary Biology and Kansas Biological Survey, University of Kansas, Lawrence, KS, 66047, USA; Laboratory of Populations, Rockefeller University, 1230 York Ave, New York, NY, 10065, USA
 
+\newpage
+
+\noindent \textbf{ABSTRACT} 
+<!--200 words limit : J Am Nat-->
 
 
 \textbf{\textit{Keywords:}} extinction risk, extreme events, tail dependence, copula, density-dependence model
 
-
-\noindent\makebox[\linewidth]{\rule{\columnwidth}{1pt}}
-
-\normalsize
+\newpage
 
 # Introduction \label{intro}
 
-<!--Background for extinction risk in ecological model-->
+<!--how common are the extreme events? 
+what are the implication of extreme events on life history? 
+any negative or positive effects? : past literatures-->
+For past few decades, there have been evidences that anthropogenic climate change 
+is causing more frequent extreme events [ref] (e.g. temperature or precipitation extremes,
+heat-waves, wild-fire) which show shifts in its mean, 
+in the variability of the distribution, as well as changes in its 
+symmetry or skewness. Such extreme climatic events (ECE) can pose severe
+impacts at the individual, population, community and ecosystem level (e.g. Parmesan,
+Root & Willig 2000; van de Pol et al. 2010b; Hoover,
+Knapp & Smith 2014). Therefore, understanding the long-term impacts of changes 
+in ECEs has been a longstanding interest in ecological research, specically in modelling 
+extreme-risks [ref:Risk Analysis, Vol. 32, No. 11, 2012]. 
 
-<!--How extinction risk is related to extreme events : past studies-->
+
+<!--How extinction risk is related to extreme events : past studies
+consequences of extreme events on population life history, community-->
+
+
+
+
 
 <!--How copula could be relevent in estimating extreme event's influence on extinction risk : introduce Taildep. concept-->
 
@@ -62,9 +82,9 @@ of a single-patch age-structured population model affect extinction risk of that
 We hypothesized population might have higher extinction risk if vital rates are left-tail dependent.
 (Q2) How does asymmetric tail-dependent noises across multiple patches influence extinction 
 risk of a nonlinear metapopulation model with density dependence? Our speculation is that the general finding 
-from density-independent metapopulation model [BIVAN paper results of Lewinton-Cohen model]
+from density-independent metapopulation model [@Ghosh_copula]
 (higher extinction risk if noises across patches were 
-left-tail dependent than the one if noises came with right-tail dependence) holds true only in
+left-tail dependent than the one if noises had right-tail dependence) holds true only in
 the under-compensatory regime, but should be reverse if the model shows over-compensatory dynamics. 
 (Q3) We further hypothesize that when there is no dispersal, the above-said switching should occur
 near the critical parameter value where the deterministic model shows transition from 
