@@ -54,7 +54,7 @@ can shift temperature or precipitation-mean,
 change variability of the distribution, as well as change its 
 symmetry or skewness. Such extreme climatic events (ECE) can pose severe
 impacts at the individual, population, community and ecosystem level [@bragazza2008climatic; 
-@gutschick2003extreme; @jiguet2011community; 
+@gutschick2003extreme; @jiguet2011community; @mckechnie2009climate;
 @hoover2014resistance]. Therefore, 
 understanding the long-term impacts of changes 
 in ECEs has been a longstanding interest in ecological research 
@@ -79,20 +79,49 @@ each species' life-stages. Successive ECEs with short time intervals
 could weaken the resistance of plant communities too [@dreesen2014successive]. 
 All these studies indicated that environmental stochasticity (through ECEs) 
 can lead to demographic stochasticity (through influence on reproductive or 
-mortality rate) of different stage class of a population making it vulnerable 
+mortality rate) of different age class of a population making it vulnerable 
 to local extinction. 
 
+<!--How copula could be relevent in estimating extreme event's 
+influence on extinction risk : introduce Taildep. concept-->
+A recent study [@Ghosh_copula] showed the importance, causes 
+and consequences of copula structures in associations between ecologically
+important variables and demonstrated one example of density-independent metapopulation model where 
+copula was used to estimate extinction risk. Copula, a rank based measure, is much more informative 
+than linear correlation measure and a widely applied tool in dependence 
+modeling [@joe2014_dependence; @nelsen2006_copula]. We will hereby illaborate the idea why
+the potential use of copula in modelling extinction risk goes beyond the density-independent model 
+and even applicable for a simple age-structured population where its vital rates are influenced by ECEs. 
+<!--do I need to explain the details how to make a copula from raw data?-->
 
-<!--How copula could be relevent in estimating extreme event's influence on extinction risk : introduce Taildep. concept-->
 
-<!--Tail dependence of copula and recent result from BIVAN showing LTdep with higher extrisk than UTdep, but 
-not explored in age structured model or in metapopulation context with density dependence effect-->
-
+<!--tail dep. of copula & extinction risk-->
+A major benefit of the copula approach is that it can effectively capture tail dependence. 
+Tail dependence, already exemplified in Fig..... (add Fig.), is associations between the more extreme 
+values of distributions. For two positively associated variables, left-tail 
+(respectively, right-tail) dependence is stronger association between
+values in the left or lower portions, i. e. smaller values 
+(respectively, the right or upper portions, i.e. higher values) 
+of the two distributions. For example, extreme cold winter during growing season
+might reduce the adult reproduction rate as well as larval survival (i.e. stronger 
+tail dependence between vital rates when temperature is too cold than normal), which 
+could lead to population crash and thereby inflate the extinction risk. Similarly, in context of 
+density-dependent metapopulation models, if extreme environmental fluctuations across sites 
+appear to be as synchronous (left tail dependent or right tail dependent between patches 
+with same correlation as in Fig.....) then it could wipe out some metapopulation patches 
+during unfavorable years unless they are rescued by the nearby populations. This scenario 
+could be more complex depending 
+on the dynamics of the model. Though tail-dependence 
+property of a copula has been used for risk-analysis in other fields like finance, 
+hydrology etc. [@alexander2008market; @li2013; @chen2011flood; @Goswami2018], but to our knowledge
+copula have never been used in estimating the effect of ECEs through extinction risk of age structured 
+model or density-dependent metapopulations.
 
 <!--our objective ?-->
-We explored the potential use of asymmetric tail-dependence in copula 
+In this paper, we will explore the potential use of asymmetric tail-dependence in a copula 
 for understanding the extinction risk of populations towards extreme climatic event in ecology
-by addressing the following questions: (Q1) Does nature of tail dependence in vital rates
+by addressing the following questions: (Q1) Does nature of tail dependence 
+(left tail or right tail) in vital rates
 of a single-patch age-structured population model affect extinction risk of that population differently?
 We hypothesized population might have higher extinction risk if vital rates are left-tail dependent.
 (Q2) How does asymmetric tail-dependent noises across multiple patches influence extinction 
@@ -105,6 +134,7 @@ the under-compensatory regime, but should be reverse if the model shows over-com
 near the critical parameter value where the deterministic model shows transition from 
 under-compensatory to over-compensatory dynamics.
 
+<!--Tuljapurkar estimation to be explained in Discussion-->
 
 # Methods \label{methods}
 
@@ -324,7 +354,7 @@ within that population. <!--discussion later : add Tuljapurkar's approximation--
 
 We found density-dependence metapopulation models (with $n=5$ patches) in noisy 
 environment showed similar patterns for extinction risk as density-independent 
-metapopulation model showed in earlier studies [BIVAN paper]. For each density-dependent 
+metapopulation model showed in earlier studies [@Ghosh_copula]. For each density-dependent 
 model listed in Table \ref{tab_model_summary}, we observed higher (or lower) extinction risk for 
 the metapopulations when noises across multiple patches were left- (or right) tail dependent.
 But that observation remained valid when the model parameter, usually growth rate $(r)$, of each model was 
