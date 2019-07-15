@@ -87,13 +87,23 @@ influence on extinction risk : introduce Taildep. concept-->
 A recent study [@Ghosh_copula] showed the importance, causes 
 and consequences of copula structures in associations between ecologically
 important variables and demonstrated one example of density-independent metapopulation model where 
-copula was used to estimate extinction risk. Copula, a rank based measure, is much more informative 
+copula was used to estimate extinction risk. Copula, a rank based measure of association, is much more informative 
 than linear correlation measure and a widely applied tool in dependence 
-modeling [@joe2014_dependence; @nelsen2006_copula]. We will hereby illaborate the idea why
-the potential use of copula in modelling extinction risk goes beyond the density-independent model 
+modeling [@joe2014_dependence; @nelsen2006_copula]. We here introduce the concept of copula in a
+manner that follows [@Ghosh_copula]. Copulas separate the information content of a bivariate dataset,
+$(x_n, y_n)$ for $n = 1 \ldots N$, into two non-overlapping parts: the information in the marginal 
+distributions (which is not about the association between the variables) and the rest of 
+the information (which is solely about the association). The association information is revealed by 
+the copula plot ($v_n$ against $u_n$) of the raw variables ($y_n$ vs. $x_n$) in Fig...., where 
+$u_n$ is the rank of $x_n$ in the set ${x_1, x_2, \ldots , x_n }$, divided by $N + 1$; 
+and $v_n$ is the rank of $y_n$ in the set ${y_1, y_2, \ldots , y_n }$, also divided
+by $N + 1$. Here the rank of the smallest element of each sets is considered to be 1 and the rank of
+the largest element is $N$. We refer to the $u_n$ and $v_n$ as normalized ranks of the $x_n$ and $y_n$. 
+Ranking makes the marginal distributions uniform, isolating only the information on 
+association between the variables. Here, we will extend the application of copula 
+in estimating extinction risk as introduced by [@Ghosh_copula] on why the potential use of copula
+in modelling extinction risk goes beyond the density-independent model 
 and even applicable for a simple age-structured population where its vital rates are influenced by ECEs. 
-<!--do I need to explain the details how to make a copula from raw data?-->
-
 
 <!--tail dep. of copula & extinction risk-->
 A major benefit of the copula approach is that it can effectively capture tail dependence. 
