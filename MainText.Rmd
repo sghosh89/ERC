@@ -46,26 +46,41 @@ seed<-101
 
 # Introduction \label{intro}
 
-<!--how common are the extreme events? 
-what are the implication of extreme events on life history? 
-any negative or positive effects? : past literatures-->
-For past few decades, there have been evidences that anthropogenic climate change 
-is causing more frequent extreme events [ref] (e.g. temperature or precipitation extremes,
-heat-waves, wild-fire) which show shifts in its mean, 
-in the variability of the distribution, as well as changes in its 
+<!--how common are the extreme events?-->
+For past few decades, there have been increasing evidences that anthropogenic climate change 
+is causing extreme events, e.g. temperature or precipitation extremes,
+heat-waves, wild-fire etc. [@ummenhofer2017extreme]. Frequent extreme events 
+can shift temperature or precipitation-mean, 
+change variability of the distribution, as well as change its 
 symmetry or skewness. Such extreme climatic events (ECE) can pose severe
-impacts at the individual, population, community and ecosystem level (e.g. Parmesan,
-Root & Willig 2000; van de Pol et al. 2010b; Hoover,
-Knapp & Smith 2014). Therefore, understanding the long-term impacts of changes 
-in ECEs has been a longstanding interest in ecological research, specically in modelling 
-extreme-risks [ref:Risk Analysis, Vol. 32, No. 11, 2012]. 
-
+impacts at the individual, population, community and ecosystem level [@bragazza2008climatic; 
+@gutschick2003extreme; @jiguet2011community; 
+@hoover2014resistance]. Therefore, 
+understanding the long-term impacts of changes 
+in ECEs has been a longstanding interest in ecological research 
+[@katz2005statistics; @smith2011ecological; @diez2012will; @moritz2013future; @bailey2016tackling]. 
 
 <!--How extinction risk is related to extreme events : past studies
 consequences of extreme events on population life history, community-->
-
-
-
+Earlier studies showed ECEs may affect species abundances (species re-ordering) through 
+life-history traits and this alteration in community structures could cascade 
+through higher hierarchical levels and lead to local extinction of 
+species [@thomas2004extinction; @edgar2010nino; @moreno2011extreme]. For example, 
+a study based on annal survival data showed changes
+in prey communities induced by extreme flooding affected predators in 
+aquatic and adjacent riparian habitats [@chiu2013impact]. Similarly, 
+$43$ years of ring-recovery data was used to examine the demographic impact of ECEs 
+through temporal variability in juvenile, immature and adult survival
+of European shags on the Isle of May in eastern Scotland [@frederiksen2008demographic].
+A recent study [@mcdermott2017sensitivity] investigated the sensitivity 
+of $41$ UK butterfly species to four different ECEs (extreme heat, extreme cold, 
+extreme precipitation, drought) over $37$ years (1976-2012) at the site level, across 
+each species' life-stages. Successive ECEs with short time intervals 
+could weaken the resistance of plant communities too [@dreesen2014successive]. 
+All these studies indicated that environmental stochasticity (through ECEs) 
+can lead to demographic stochasticity (through influence on reproductive or 
+mortality rate) of different stage class of a population making it vulnerable 
+to local extinction. 
 
 
 <!--How copula could be relevent in estimating extreme event's influence on extinction risk : introduce Taildep. concept-->
