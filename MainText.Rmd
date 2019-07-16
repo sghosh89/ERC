@@ -39,6 +39,15 @@ seed<-101
 \noindent \textbf{ABSTRACT} 
 <!--200 words limit : J Am Nat-->
 
+With global climate change, extreme climatic events (ECEs) appear to be more common than usual. These ECEs 
+could pose severe impact on the resistance or resilience of a population or community level through
+life-history traits of the species. Therefore predicting the impact of ECEs 
+on extinction risk of a population is necessery. We here introduced the potential use of "tail-dependence" 
+property of a copula in modelling the extinction risk of an age-structured single patch model. We also 
+extended the generalized findings of density-independent metapopulation model from [@Ghosh_copula] 
+to density-dependence metapopulation models with this copula approach. For metapopulation models, 
+we showed extinction risk not only depended on the nature of tail-dependence of spatially correlated 
+noise but was also influenced by the inherent dynamics of the population-model.
 
 \textbf{\textit{Keywords:}} extinction risk, extreme events, tail dependence, copula, density-dependence model
 
