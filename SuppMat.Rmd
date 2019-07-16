@@ -24,7 +24,6 @@ bibliography: Ref_extrisk.bib
 \pagenumbering{roman}
 \tableofcontents
 \listoffigures
-<!--\listoftables-->
 
 \pagebreak
 \pagenumbering{arabic}
@@ -1665,7 +1664,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \vspace{-0.2 cm}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_C_SC_nonlinear_omg_100.pdf}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_SG_G_nonlinear_omg_100.pdf}\\
-\caption{Extinction risk (shading represents 95\% confidence interval) from single patch age structured models with time; fecundity of adults and survival of eggs have either left or right tail dependence in their corresponding copula structure. $(A)$ Clayton and Survival Clayton (parameter = 3), $(B)$ Survival Gumbel and Gumbel (parameter = 2.5) for linear model ($\Omega = \infty$), numsims=10000. $(C - D)$ represents the analogous figures as of $(A - B)$ but for non-linear model ($\Omega = 100$). All copula has same Kendall correlation $\tau = 0.6$. \label{fig_extrisk_agestr_C_SC_G_SG_linear}}
+\caption[Extinction risk from single patch age structured models with time when vital rates have either left (C, SG) or right tail (SC, G) dependence.]{Extinction risk (shading represents 95\% confidence interval) from single patch age structured models with time; fecundity of adults and survival of eggs have either left or right tail dependence in their corresponding copula structure. $(A)$ Clayton and Survival Clayton (parameter = 3), $(B)$ Survival Gumbel and Gumbel (parameter = 2.5) for linear model ($\Omega = \infty$), numsims=10000. $(C - D)$ represents the analogous figures as of $(A - B)$ but for non-linear model ($\Omega = 100$). All copula has same Kendall correlation $\tau = 0.6$. \label{fig_extrisk_agestr_C_SC_G_SG_linear}}
 \end{center}
 \end{figure}
 
@@ -1673,7 +1672,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=15 cm]{./Results/allmodel_ext_risk_global_disp.pdf}
-\caption{For each of six nonlinear density-dependence models presented in Table \ref{MT-tab_model_summary} with global dispersal, extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two columns represent extinction risk calculated for bifurcation parameter $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog, respectively.\label{fig_extrisk_allmodel_globaldisp}}
+\caption[Extinction risk vs. dispersal rate for six density dependent metapopulation model with global dispersal.]{For each of six nonlinear density-dependence models presented in Table \ref{MT-tab_model_summary} with global dispersal, extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two columns represent extinction risk calculated for bifurcation parameter $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog, respectively.\label{fig_extrisk_allmodel_globaldisp}}
 \end{center}
 \end{figure}
 
@@ -1682,7 +1681,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
 \includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_local_disp.pdf}\\
-\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Ricker metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Ricker dynamics with local dispersal; 
 numsims=10000, $\sigma$=1. \label{fig_ricker_risk_local_disp_scl_1}}
 \end{center}
@@ -1693,7 +1692,7 @@ numsims=10000, $\sigma$=1. \label{fig_ricker_risk_local_disp_scl_1}}
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
 \includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_local_disp.pdf}\\
-\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Hassell metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Hassell dynamics with local dispersal; 
 numsims=10000, $\sigma$=1. \label{fig_hassell_risk_local_disp_scl_1}}
 \end{center}
@@ -1704,7 +1703,7 @@ numsims=10000, $\sigma$=1. \label{fig_hassell_risk_local_disp_scl_1}}
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
 \includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_local_disp.pdf}\\
-\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Maynard smith metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Maynard Smith dynamics with local dispersal; 
 numsims=10000, $\sigma$=0.8. \label{fig_msmith_risk_local_disp_scl_0.8}}
 \end{center}
@@ -1715,7 +1714,7 @@ numsims=10000, $\sigma$=0.8. \label{fig_msmith_risk_local_disp_scl_0.8}}
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
 \includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp.pdf}\\
-\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Pennycuick metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Pennycuick dynamics with local dispersal; 
 numsims=10000, $\sigma$=1. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
 \end{center}
@@ -1726,18 +1725,18 @@ numsims=10000, $\sigma$=1. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
 \includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp.pdf}\\
-\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Verhulst metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Verhulst dynamics with local dispersal; 
 numsims=10000, $\sigma$=0.6. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
-<!--Supp. FIG : Austin brewer model, local dispersal-->
+<!--Supp. FIG : Austin-Brewer model, local dispersal-->
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
 \includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp.pdf}\\
-\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Austin-Brewer metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Austin-Brewer dynamics with local dispersal; 
 numsims=10000, $\sigma$=0.6. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
 \end{center}
@@ -1748,7 +1747,7 @@ numsims=10000, $\sigma$=0.6. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
 \includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_global_disp.pdf}\\
-\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Ricker metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Ricker dynamics with global dispersal; 
 numsims=10000, $\sigma$=1. \label{fig_ricker_risk_global_disp_scl_1}}
 \end{center}
@@ -1759,7 +1758,7 @@ numsims=10000, $\sigma$=1. \label{fig_ricker_risk_global_disp_scl_1}}
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
 \includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_global_disp.pdf}\\
-\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Hassell metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Hassell dynamics with global dispersal; 
 numsims=10000, $\sigma$=1. \label{fig_hassell_risk_global_disp_scl_1}}
 \end{center}
@@ -1770,7 +1769,7 @@ numsims=10000, $\sigma$=1. \label{fig_hassell_risk_global_disp_scl_1}}
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
 \includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_global_disp.pdf}\\
-\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Maynard smith metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Maynard Smith dynamics with global dispersal; 
 numsims=10000, $\sigma$=0.8. \label{fig_msmith_risk_global_disp_scl_0.8}}
 \end{center}
@@ -1781,7 +1780,7 @@ numsims=10000, $\sigma$=0.8. \label{fig_msmith_risk_global_disp_scl_0.8}}
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
 \includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp.pdf}\\
-\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Pennycuick metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Pennycuick dynamics with global dispersal; 
 numsims=10000, $\sigma$=1. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1}}
 \end{center}
@@ -1792,7 +1791,7 @@ numsims=10000, $\sigma$=1. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1}}
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
 \includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp.pdf}\\
-\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Verhulst metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Verhulst dynamics with global dispersal; 
 numsims=10000, $\sigma$=0.6. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6}}
 \end{center}
@@ -1803,7 +1802,7 @@ numsims=10000, $\sigma$=0.6. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
 \includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_global_disp.pdf}\\
-\caption{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Austin-Brewer metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Austin-Brewer dynamics with global dispersal; 
 numsims=10000, $\sigma$=0.6. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}}
 \end{center}
