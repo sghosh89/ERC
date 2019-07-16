@@ -49,7 +49,7 @@ to density-dependence metapopulation models with this copula approach. For metap
 we showed extinction risk not only depended on the nature of tail-dependence of spatially correlated 
 noise but was also influenced by the inherent dynamics of the population-model.
 
-\textbf{\textit{Keywords:}} extinction risk, extreme events, tail dependence, copula, density-dependence model
+\textbf{\textit{Keywords:}} extinction risk, extreme events, tail dependence, copula, density-dependent model
 
 \newpage
 
@@ -74,17 +74,19 @@ consequences of extreme events on population life history, community-->
 Earlier studies showed ECEs may affect species abundances (species re-ordering) through 
 life-history traits and this alteration in community structures could cascade 
 through higher hierarchical levels and lead to local extinction of 
-species [@thomas2004extinction; @edgar2010nino; @moreno2011extreme]. For example, 
+species [@thomas2004extinction; @edgar2010nino; @moreno2011extreme]. 
+<!--Should I mention idea of match-mismatch hypothesis?-->
+For example, 
 a study based on annal survival data showed changes
 in prey communities induced by extreme flooding affected predators in 
-aquatic and adjacent riparian habitats [@chiu2013impact]. Similarly, 
+aquatic and adjacent riparian habitats [@chiu2013impact] via trophic linkages. Similarly, 
 $43$ years of ring-recovery data was used to examine the demographic impact of ECEs 
 through temporal variability in juvenile, immature and adult survival
 of European shags on the Isle of May in eastern Scotland [@frederiksen2008demographic].
 A recent study [@mcdermott2017sensitivity] investigated the sensitivity 
 of $41$ UK butterfly species to four different ECEs (extreme heat, extreme cold, 
 extreme precipitation, drought) over $37$ years (1976-2012) at the site level, across 
-each species' life-stages. Successive ECEs with short time intervals 
+each species' life-stages. Experimental study showed successive ECEs with short time intervals 
 could weaken the resistance of plant communities too [@dreesen2014successive]. 
 All these studies indicated that environmental stochasticity (through ECEs) 
 can lead to demographic stochasticity (through influence on reproductive or 
@@ -99,7 +101,7 @@ important variables and demonstrated one example of density-independent metapopu
 copula was used to estimate extinction risk. Copula, a rank based measure of association, is much more informative 
 than linear correlation measure and a widely applied tool in dependence 
 modeling [@joe2014_dependence; @nelsen2006_copula]. We here introduce the concept of copula in a
-manner that follows [@Ghosh_copula]. Copulas separate the information content of a bivariate dataset,
+manner that follows @Ghosh_copula. Copulas separate the information content of a bivariate dataset,
 $(x_n, y_n)$ for $n = 1 \ldots N$, into two non-overlapping parts: the information in the marginal 
 distributions (which is not about the association between the variables) and the rest of 
 the information (which is solely about the association). The association information is revealed by 
@@ -115,13 +117,15 @@ in modelling extinction risk goes beyond the density-independent model
 and even applicable for a simple age-structured population where its vital rates are influenced by ECEs. 
 
 <!--tail dep. of copula & extinction risk-->
-A major benefit of the copula approach is that it can effectively capture tail dependence. 
-Tail dependence, already exemplified in Fig..... (add Fig.), is associations between the more extreme 
+A major benefit of the copula approach is that it can effectively capture the tail dependence. 
+Tail dependence, already exemplified in Fig..... (add Fig.), is association between the more extreme 
 values of distributions. For two positively associated variables, left-tail 
 (respectively, right-tail) dependence is stronger association between
-values in the left or lower portions, i. e. smaller values 
-(respectively, the right or upper portions, i.e. higher values) 
-of the two distributions. For example, extreme cold winter during growing season
+values in the left or lower portions, i. e. for smaller values 
+(respectively, the right or upper portions, i.e. for higher values) 
+of the two distributions. Stronger dependence in either tail gives rise to asymmetric copula 
+structure for the joint distribution of two variables. 
+For example, extreme cold winter during growing season
 might reduce the adult reproduction rate as well as larval survival (i.e. stronger 
 tail dependence between vital rates when temperature is too cold than normal), which 
 could lead to population crash and thereby inflate the extinction risk. Similarly, in context of 
@@ -130,7 +134,7 @@ appear to be as synchronous (left tail dependent or right tail dependent between
 with same correlation as in Fig.....) then it could wipe out some metapopulation patches 
 during unfavorable years unless they are rescued by the nearby populations. This scenario 
 could be more complex depending 
-on the dynamics of the model. Though tail-dependence 
+on the dynamics of the model (see \nameref{results}). Though tail-dependence 
 property of a copula has been used for risk-analysis in other fields like finance, 
 hydrology etc. [@alexander2008market; @li2013; @chen2011flood; @Goswami2018], but to our knowledge
 copula have never been used in estimating the effect of ECEs through extinction risk of age structured 
@@ -330,7 +334,7 @@ from under to overcompensatory dynamics was expected to differ in stochastic env
 deterministic analog depending on the underlying nonlinearity of the model.
 We generated plots with extinction risk along y-axis
 for both left tail and right tail dependent noises 
-against the varying range of $r$ when no dispersal ($d=0$) was considered.
+against the varying range of $r$ (along x-axis) when no dispersal ($d=0$) was considered.
 We excluded the possibility of dispersal in this case to avoid any rescue effect among patches. 
 For each model with extreme left and extreme right tail dependent noises, we calculated 
 2.5$^{th}$ and 97.5$^{th}$ quantiles
@@ -339,7 +343,7 @@ extinction risk at each $r$. We compared $r_c$ and the value of $r$ at which
 95\% CI of extinction risk from both noises overlapped
 with each other. This could give us an idea for supporting our hypothesis.
 
-# Results
+# Results \label{results}
 
 <!--Q1 : age structured results : linear and nonlinear model with asymmetric copula : Fig. S1-->
 <!--Q1 : age structured results : linear and nonlinear model with extreme tail dep. copula : Fig. 1 -->
@@ -381,7 +385,7 @@ sufficiently low so that under-compensatory dynamics (monotonous approach toward
 its stable equilibrium) for the deterministic analog of the model was ensured. When the model 
 was in over-compensatory regime (oscillatory approach towards stable equilibrium) for higher 
 value of $r$, we observed right (or left) tail dependent noise caused higher (or lower) extinction 
-risk for the metapopulations. Figs. \ref{fig_extrisk_allmodel_localdisp} shows variation of extinction risk 
+risk for the metapopulations. Fig. \ref{fig_extrisk_allmodel_localdisp} shows variation of extinction risk 
 against local dispersal rate ($d$) for six density dependent metapopulation models 
 where growth rate $r$ was taken either from under-compensatory or from over-compensatory 
 regime. We also got similarly consisent results with 
@@ -391,7 +395,7 @@ Figs. (\ref{SM-fig_ricker_risk_local_disp_scl_1} - \ref{SM-fig_risk_local_disp_a
 shows how extinction risk changed against local dispersal rate for a whole range
 of $r$, whereas Figs. (\ref{SM-fig_ricker_risk_global_disp_scl_1} - 
 \ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6}) 
-represents the same but when global dispersal took place between patches. 
+represents the same but for the case when global dispersal took place between patches. 
 Both case showed the signature of 
 "rescue-effect" (i.e. by lowering extinction risk) when there was 
 a finite dispersal compared to the one with 
@@ -399,7 +403,7 @@ $d=0$.
 
 <!--Q3 : metapopulation results : switching near rc for d=0, Fig. 3-->
 Following Figs. (\ref{SM-fig_ricker_risk_local_disp_scl_1} - 
-\ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6}) we hypothesized the switching 
+\ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6}) we hypothesized that the switching 
 between the extinction risk generated by left-tail dependent and right-tail dependent noise 
 occurred near the critical parameter $r_c$ (see Q3). For simplicity we only consider 
 $d=0$ case, i.e., when there was no dispersal between patches (see \nameref{methods}). 

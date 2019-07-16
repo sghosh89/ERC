@@ -24,7 +24,7 @@ bibliography: Ref_extrisk.bib
 \pagenumbering{roman}
 \tableofcontents
 \listoffigures
-\listoftables
+<!--\listoftables-->
 
 \pagebreak
 \pagenumbering{arabic}
