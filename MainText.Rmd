@@ -53,7 +53,7 @@ noise but was also influenced by the inherent dynamics of the population-model.
 
 \newpage
 
-# Introduction \label{intro}
+# Introduction\label{Introduction}
 
 <!--how common are the extreme events?-->
 For past few decades, there have been increasing evidences that anthropogenic climate change 
@@ -97,11 +97,19 @@ to local extinction.
 influence on extinction risk : introduce Taildep. concept-->
 A recent study [@Ghosh_copula] showed the importance, causes 
 and consequences of copula structures in associations between ecologically
-important variables and demonstrated one example of density-independent metapopulation model where 
-copula was used to estimate extinction risk. Copula, a rank based measure of association, is much more informative 
+important variables and demonstrated a basic example where 
+copula was used to model extinction risk of a density-independent 
+metapopulation. Present manuscript is an extension for the application of copula 
+in estimating the extinction risk as introduced by [@Ghosh_copula]. We will show 
+why the potential use of copula
+in modelling extinction risk goes beyond the density-independent model 
+and even applicable for a simple age-structured population where its vital rates are influenced by ECEs. 
+Following we will introduce the concept of copula in a manner that follows @Ghosh_copula.
+
+<!--brief intro for copula-->
+Copula, a rank based measure of association, is much more informative 
 than linear correlation measure and a widely applied tool in dependence 
-modeling [@joe2014_dependence; @nelsen2006_copula]. We here introduce the concept of copula in a
-manner that follows @Ghosh_copula. Copulas separate the information content of a bivariate dataset,
+modeling [@joe2014_dependence; @nelsen2006_copula]. Copulas separate the information content of a bivariate dataset,
 $(x_n, y_n)$ for $n = 1 \ldots N$, into two non-overlapping parts: the information in the marginal 
 distributions (which is not about the association between the variables) and the rest of 
 the information (which is solely about the association). The association information is revealed by 
@@ -111,10 +119,7 @@ and $v_n$ is the rank of $y_n$ in the set ${y_1, y_2, \ldots , y_n }$, also divi
 by $N + 1$. Here the rank of the smallest element of each sets is considered to be 1 and the rank of
 the largest element is $N$. We refer to the $u_n$ and $v_n$ as normalized ranks of the $x_n$ and $y_n$. 
 Ranking makes the marginal distributions uniform, isolating only the information on 
-association between the variables. Here, we will extend the application of copula 
-in estimating extinction risk as introduced by [@Ghosh_copula] on why the potential use of copula
-in modelling extinction risk goes beyond the density-independent model 
-and even applicable for a simple age-structured population where its vital rates are influenced by ECEs. 
+association between the variables. 
 
 <!--tail dep. of copula & extinction risk-->
 A major benefit of the copula approach is that it can effectively capture the tail dependence. 
@@ -134,7 +139,7 @@ appear to be as synchronous (left tail dependent or right tail dependent between
 with same correlation as in Fig.....) then it could wipe out some metapopulation patches 
 during unfavorable years unless they are rescued by the nearby populations. This scenario 
 could be more complex depending 
-on the dynamics of the model (see \nameref{results}). Though tail-dependence 
+on the dynamics of the model (see \nameref{Results}). Though tail-dependence 
 property of a copula has been used for risk-analysis in other fields like finance, 
 hydrology etc. [@alexander2008market; @li2013; @chen2011flood; @Goswami2018], but to our knowledge
 copula have never been used in estimating the effect of ECEs through extinction risk of age structured 
@@ -142,27 +147,25 @@ model or density-dependent metapopulations.
 
 <!--our objective ?-->
 In this paper, we will explore the potential use of asymmetric tail-dependence in a copula 
-for understanding the extinction risk of populations towards extreme climatic event in ecology
+for understanding the extinction risk of populations towards extreme climatic event
 by addressing the following questions: (Q1) Does nature of tail dependence 
 (left tail or right tail) in vital rates
 of a single-patch age-structured population model affect extinction risk of that population differently?
 We hypothesized population might have higher extinction risk if vital rates are left-tail dependent.
-(Q2) How does asymmetric tail-dependent noises across multiple patches influence extinction 
-risk of a nonlinear metapopulation model with density dependence? Our speculation is that the general finding 
+(Q2) How does asymmetric noise copula (tail dependence across multiple patches) influence extinction 
+risk of a density-dependent metapopulation model? Our speculation is that the general finding 
 from density-independent metapopulation model [@Ghosh_copula]
 (higher extinction risk if noises across patches were 
-left-tail dependent than the one if noises had right-tail dependence) holds true only in
+left-tail dependent than the one if noises had right-tail dependence) would hold true only in
 the under-compensatory regime, but should be reverse if the model shows over-compensatory dynamics. 
 (Q3) We further hypothesize that when there is no dispersal, the above-said switching should occur
 near the critical parameter value where the deterministic model shows transition from 
 under-compensatory to over-compensatory dynamics.
 
-<!--Tuljapurkar estimation to be explained in Discussion-->
-
-# Methods \label{methods}
+# Methods\label{Methods}
 
 <!--stochastic matrix model : age structured-->
-To investigate (Q1) from \nameref{intro} that how copula structure in noisy 
+To investigate (Q1) from \nameref{Introduction} that how copula structure in noisy 
 environment affect the extinction risk of
 populations in a single patch age-structured model,
 we considered a basic stochastic age-structured model (Eq. \ref{eq_age_str}) 
@@ -306,7 +309,7 @@ We assumed population went extinct after each time step if it was below a certai
 That extinction threshold was set to 10\% of initial population $P_e$ for individual model. 
 
 <!--test hypothesis from Q2 : ext risk with density-dependence metapopulation model with r from different regime-->
-To test our hypothesis from (Q2) of \nameref{intro} for each metapopulation model,
+To test our hypothesis from (Q2) of \nameref{Introduction} for each metapopulation model,
 we estimated extinction risk for a wide range of parameter $r$, 
 which covered the undercompensatory and overcompensatory regime. We 
 chose equispaced values of $r$ from the 95\% quantiles 
@@ -343,7 +346,7 @@ extinction risk at each $r$. We compared $r_c$ and the value of $r$ at which
 95\% CI of extinction risk from both noises overlapped
 with each other. This could give us an idea for supporting our hypothesis.
 
-# Results \label{results}
+# Results\label{Results}
 
 <!--Q1 : age structured results : linear and nonlinear model with asymmetric copula : Fig. S1-->
 <!--Q1 : age structured results : linear and nonlinear model with extreme tail dep. copula : Fig. 1 -->
@@ -389,7 +392,7 @@ risk for the metapopulations. Fig. \ref{fig_extrisk_allmodel_localdisp} shows va
 against local dispersal rate ($d$) for six density dependent metapopulation models 
 where growth rate $r$ was taken either from under-compensatory or from over-compensatory 
 regime. We also got similarly consisent results with 
-our prediction (see Q2 from \nameref{intro}) for global 
+our prediction (see Q2 from \nameref{Introduction}) for global 
 dispersal (Fig. \ref{SM-fig_extrisk_allmodel_globaldisp}). 
 Figs. (\ref{SM-fig_ricker_risk_local_disp_scl_1} - \ref{SM-fig_risk_local_disp_abrewer_r_vary_scl_0.6}) 
 shows how extinction risk changed against local dispersal rate for a whole range
@@ -406,7 +409,7 @@ Following Figs. (\ref{SM-fig_ricker_risk_local_disp_scl_1} -
 \ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6}) we hypothesized that the switching 
 between the extinction risk generated by left-tail dependent and right-tail dependent noise 
 occurred near the critical parameter $r_c$ (see Q3). For simplicity we only consider 
-$d=0$ case, i.e., when there was no dispersal between patches (see \nameref{methods}). 
+$d=0$ case, i.e., when there was no dispersal between patches (see \nameref{Methods}). 
 Fig. \ref{fig_extrisk_d0} shows higher extinction risk with left-tail dependent noise 
 for $r<r_c$ and with right-tail dependent noise for $r>r_c$. $r_c$ was the vertical
 line in Fig. \ref{fig_extrisk_d0} indicating the value of $r$ for each model where 
@@ -416,8 +419,26 @@ and Austin-Brewer model, they were consistent with our hypothesis as they had co
 smaller range of $r$ than the other models.
 
 
-
 # Discussion
+
+<!--summary results-->
+
+
+<!--Tuljapurkar approximation : linear version of age-structured model in stochastic environments-->
+
+
+<!--future study: more complex stage or age structured model, extinction risk how propagated through a food web-->
+
+
+<!--future study: worthy for PVA, IUCN red list-->
+
+
+<!--match-mismatch hypothesis leads to extinction? our phenology paper in prep.-->
+
+
+
+
+
 
 
  
