@@ -44,7 +44,7 @@ could pose severe impact on the resistance or resilience of a population or comm
 life-history traits of the species. Therefore predicting the impact of ECEs 
 on extinction risk of a population is necessery. We here introduced the potential use of "tail-dependence" 
 property of a copula in modelling the extinction risk of an age-structured single patch model. We also 
-extended the generalized findings of density-independent metapopulation model from [@Ghosh_copula] 
+extended the generalized findings of density-independent metapopulation model from @Ghosh_copula 
 to density-dependence metapopulation models with this copula approach. For metapopulation models, 
 we showed extinction risk not only depended on the nature of tail-dependence of spatially correlated 
 noise but was also influenced by the inherent dynamics of the population-model.
@@ -178,8 +178,11 @@ The environmental stochasticity in the model was embedded in
 the fluctuating vital rates ($f_a$ and $s_e$). We considered the fecundity ($f_a$)
 and survival ($s_e$) rates were random draw from a gamma ($\Gamma(k,\theta)$) and
 a beta ($\mathcal{B}(\alpha,\beta)$) distribution, respectively. These distributions 
-could be generated from iid noises showing specific tail-dependence (left or right tail)
-between fecundity and survival rates. Eq. \ref{eq_vitalrates} represent the stochasticity 
+were generated from iid noises showing specific tail-dependence (either in left- or in right-tail)
+between fecundity and survival rates. Tail dependence emerged if extreme bad years ("catastrophs") 
+would suppress both vital rates (hence, $f_a$ and $s_e$ would show a left tail dependent copula), whereas 
+extreme good years ("bonanzas") would increase both of them (i.e., $f_a$ and $s_e$ would show 
+a right tail dependent copula). Eq. \ref{eq_vitalrates} represent the stochasticity 
 in the vital rates. We included the density dependence effect in one of the vital rate,
 namely, fecundity ($f_a$). If $\Omega = \infty$ in Eq. \ref{eq_vitalrates}, 
 the projection matrix would be independent
@@ -211,12 +214,10 @@ or right (Survival Clayton, Gumbel) tail dependence
 or from an extreme tail-depentdent one, 
 when vital rates were considered to be affected
 by extreme climatic events. A $N \times 2$ matrix, M, was generated
-using `BiCopSim` function
-from `VineCopula` package 
-for each of the left 
-(Clayton, Survival Gumbel) and right 
+using `BiCopSim` function from `VineCopula` package 
+for each of the left (Clayton, Survival Gumbel) and right 
 (Survival Clayton, Gumbel) tail-dependent bivariate copulas, 
-where $N = numsteps(=25) \times numsims(=10000)$.
+where $N$ is number of years ($25$) multiplied by number of simulations ($10000$) we used. 
 We kept the same Kendall's correlation ($\tau = 0.6$) for 
 each bivariate copula from one parameter family which used its parameter accordingly
 (see `iTau` function from `copula` package). Entries within each clumn of
@@ -421,16 +422,35 @@ smaller range of $r$ than the other models.
 
 # Discussion
 
-<!--summary results-->
-
+<!--summary results:-->
+Our results show the potential use of "asymmetric" copula in estimating the impact of 
+extreme ecological events on population-extinction risk. We show that through left and right tail 
+dependence in vital rates (respectively, spatially correlated environmental noises), years of extreme events 
+("catastrophs" and "bonanzas") affect extinction risk of a single-patch age-structured population
+(respectively, density dependent metapopulations) differently. Though left tail dependence is 
+expected to show higher extinction risk than the one for right tail dependence for age-structured 
+and density dependent metapopulation models, it is not always true 
+when metapopulation models with dispersal show over-compensatory dynamics. In the over-compensatory regime,
+right tail dependent noises result in higher extinction risk than the left tail dependent one. We show 
+that in absence of dispersal, the above-said switching in extinction risk measure occurs near the 
+critical parameter value where the deterministic model shows transition from 
+under-compensatory to over-compensatory regime.
 
 <!--Tuljapurkar approximation : linear version of age-structured model in stochastic environments-->
 
 
+<!--future study: worthy for PVA, IUCN red list
+1. Identify which life stage or demographic process as management target?
+2. multisite age str. model with dispersal, directional change in spatio-temporal variation for vital rates.
+3. Old study (Doak1994, Ferguson1995) showed including correlation btw vital rates for PVA makes a difference, 
+   what if we include TD through copula?
+4. What if TD with negative correlation?
+e.g. some events that will kill adults will allow more successful recruitment of seeds or other propagules.
+-->
+
+
+
 <!--future study: more complex stage or age structured model, extinction risk how propagated through a food web-->
-
-
-<!--future study: worthy for PVA, IUCN red list-->
 
 
 <!--match-mismatch hypothesis leads to extinction? our phenology paper in prep.-->
