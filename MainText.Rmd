@@ -437,8 +437,8 @@ critical parameter value where the deterministic model shows transition from
 under-compensatory to over-compensatory regime.
 
 <!--Tuljapurkar approximation : linear version of age-structured model in stochastic environments-->
-Though we found left tail dependence in vital rates (induced by ECEs) caused higher extinction risk than 
-the right tail dependent ones, the difference was not remarkable (Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG}) 
+We found left tail dependence in vital rates (induced by ECEs) caused higher extinction risk than 
+the right tail dependent ones, but the difference was not remarkable (Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG}) 
 unless the tail dependence was at its extreme (Fig. \ref{fig_extrisk_agestr}). This finding could be explained 
 by the approximation @tuljapurkar1990lecture made for the stochastic log(growth rate) in an iid environment.
 The approximation considered that the growth rate depends on the most dominant eigen value of the mean projection matrix 
@@ -450,8 +450,10 @@ remained same for our model (Eq. \ref{eq_age_str}) with left-tail or right-tail 
 <!--future study: worthy for PVA, IUCN red list
 1. Identify which life stage or demographic process as management target?
 2. Old study (Doak1994, Ferguson1995) showed including correlation btw vital rates for PVA makes a difference, 
-   what if we include TD through copula?
-3. multisite age str. model with dispersal, directional change in spatio-temporal variation for vital rates.
+   what if we include TD through copula? Multisite age str. model with dispersal, directional change
+   in spatio-temporal variation for vital rates.
+3. Tdep. with -ve correlation between vital rates?
+4. extinction risk how propagated through a food web?
 -->
 Although we demonstrated that tail dependence between vital rates of an age structured model can
 influence extinction risk, substantial work remains to determine the importance of this effect in the 
@@ -473,26 +475,19 @@ assumptions about correlations and dependencies may lead to severe over-estimati
 or under-estimation of extinction risks [@ferson1995correlations]. We believe modeling 
 dependencies with copula could help in this case. Second, we did not consider multiple sites of 
 age-structured metapopulation which could be linked via dispersal. So, possible future investigation 
-would be to explore the viability for the metapopulations if vital rates across sites 
-showed specific tail dependence with spatially correlated extreme climatic events. 
-
-
-
-   
-<!--What if TD with negative correlation?
-e.g. some events that will kill adults will allow more successful recruitment of seeds or other propagules.
--->
-
-
-
-
-
-
-
-
-
-<!--future study: more complex stage or age structured model, extinction risk how propagated through a food web-->
-
+would be to explore the viability for the metapopulations if vital rates (e.g. fecundity or 
+survival of different stage class) across sites showed specific tail dependence 
+with spatially correlated extreme climatic events. Third, we considered tail dependence 
+between vital rates when they were positively correlated, but what would be the extinction risk 
+and viability of a population if demographic rates were negatively correlated with asymmetric tail dependence. 
+This scenario could be considered for those extreme events that kill adults and allow more successful
+recruitment of seeds or other propagules. Fourth, following the aforementioned idea, it would be worthy 
+to model more complex prey-predator model where asymmetric tail dependent copula could be used to mimic
+interspecific-dependence. An earlier study [@carnicer2011widespread] showed extreme events
+(i.e., heat waves and droughts) increased mortality and defoliation in southern European forest and its 
+dependent herbivorous insects and fungi through trophic linkage. ECEs can even truncate 
+multiyear insect outbreak dynamics [@esper20061200]. We believe copula (may be a multidimensional one) has 
+a lot more potential to estimate risk of cascading extinction in model food webs. 
 
 <!--match-mismatch hypothesis leads to extinction? our phenology paper in prep.-->
 
