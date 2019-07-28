@@ -61,7 +61,7 @@ is causing extreme events, e.g. temperature or precipitation extremes,
 heat-waves, wild-fire etc. [@ummenhofer2017extreme]. Frequent extreme events 
 can shift temperature or precipitation-mean, 
 change variability of the distribution, as well as change its 
-symmetry or skewness. Such extreme climatic events (ECE) can pose severe
+symmetry or skewness [@hansen2012perception]. Such extreme climatic events (ECE) can pose severe
 impacts at the individual, population, community and ecosystem level [@bragazza2008climatic; 
 @gutschick2003extreme; @jiguet2011community; @mckechnie2009climate;
 @hoover2014resistance]. Therefore, 
@@ -169,7 +169,7 @@ To investigate (Q1) from \nameref{Introduction} that how copula structure in noi
 environment affect the extinction risk of
 populations in a single patch age-structured model,
 we considered a basic stochastic age-structured model (Eq. \ref{eq_age_str}) 
-with two age classes (egg $E$ and adult $A$). We assumed
+with two age classes (egg $E$ and female adult $A$). We assumed
 the population was semelperous, i.e., adult ($A$) went through the
 reproductive episode only once before death. Eggs and adults in the 
 next generation depend upon the fecundity of adult ($f_a \geq 0$) 
@@ -362,11 +362,11 @@ and thereby increasing the extinction risk of the population. For non-linear age
 models, we got the similar trend for extinction risks with different tail-dependence (left and right).
 With non-linear model the extinction risks appeared as higher than their corresponding 
 linear analog as it was evident from Eq. \ref{eq_vitalrates} with finite $\Omega = 100$. 
-Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG_linear} represents this scenario with 4 different 
+Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG} represents this scenario with 4 different 
 asymmetric copulas but of same Kendall's correlation ($\tau = 0.6$). There was very little
 difference between extinction risks within a pair of different tail-dependent copulas
-(e.g. C-SC in Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG_linear}(A,C) and
-G-SG in Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG_linear}(B,D)) and that difference was partly 
+(e.g. C-SC in Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG}(A,C) and
+G-SG in Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG}(B,D)) and that difference was partly 
 dependent on the strength of tail dependence. Therefore we repeated the same analysis with 
 vital rates coming from extreme-tail dependent (left and right in two different simulations)
 copulas and got the similar results but with much prominent difference between their extinction risks
@@ -437,16 +437,57 @@ critical parameter value where the deterministic model shows transition from
 under-compensatory to over-compensatory regime.
 
 <!--Tuljapurkar approximation : linear version of age-structured model in stochastic environments-->
-
+Though we found left tail dependence in vital rates (induced by ECEs) caused higher extinction risk than 
+the right tail dependent ones, the difference was not remarkable (Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG}) 
+unless the tail dependence was at its extreme (Fig. \ref{fig_extrisk_agestr}). This finding could be explained 
+by the approximation @tuljapurkar1990lecture made for the stochastic log(growth rate) in an iid environment.
+The approximation considered that the growth rate depends on the most dominant eigen value of the mean projection matrix 
+and the temporal variance of the log(population growth rate) caused by environmental stochasticity, which was based
+on the linear covariance measure between any two matrix elements, not on their tail-dependence properties. Therefore,
+according to Tuljapurkar's approximation, population growth rate in an iid environment 
+remained same for our model (Eq. \ref{eq_age_str}) with left-tail or right-tail dependent noises.
 
 <!--future study: worthy for PVA, IUCN red list
 1. Identify which life stage or demographic process as management target?
-2. multisite age str. model with dispersal, directional change in spatio-temporal variation for vital rates.
-3. Old study (Doak1994, Ferguson1995) showed including correlation btw vital rates for PVA makes a difference, 
+2. Old study (Doak1994, Ferguson1995) showed including correlation btw vital rates for PVA makes a difference, 
    what if we include TD through copula?
-4. What if TD with negative correlation?
+3. multisite age str. model with dispersal, directional change in spatio-temporal variation for vital rates.
+-->
+Although we demonstrated that tail dependence between vital rates of an age structured model can
+influence extinction risk, substantial work remains to determine the importance of this effect in the 
+following scenarios. First, we demonstrated the effect of tail-dependence on extinction risk 
+with a very simplistic age structured (two age stages) model where we considered the total semelperous 
+population would go extinct if there would be only one female adult and one egg. But in reality population 
+viability analysis (PVA) deals with a little bit higher threshold with several age, stage or size class and a variety 
+of populations including semelperous and iteroperous [@morris2002quantitative]. Future studies should include 
+tail-dependence effect on extinction risk 
+for a multiple age-, size- and stage- structured model and estimate extinction risk 
+for each age, size and stage class separately 
+so that we can identify (via multisite-PVA) which life-stage or demographic process 
+to target for population management. Earlier study by @doak1994modeling showed PVA models including correlation 
+between different demographic rates indicated marked difference in predicting confidence interval for 
+future population size than the model which did not include correlation. But when 
+such correlation cannot be estimated directly, more generally where the
+forms of statistical dependence among the model's parameters are unknown, making incorrect
+assumptions about correlations and dependencies may lead to severe over-estimation 
+or under-estimation of extinction risks [@ferson1995correlations]. We believe modeling 
+dependencies with copula could help in this case. Second, we did not consider multiple sites of 
+age-structured metapopulation which could be linked via dispersal. So, possible future investigation 
+would be to explore the viability for the metapopulations if vital rates across sites 
+showed specific tail dependence with spatially correlated extreme climatic events. 
+
+
+
+   
+<!--What if TD with negative correlation?
 e.g. some events that will kill adults will allow more successful recruitment of seeds or other propagules.
 -->
+
+
+
+
+
+
 
 
 
