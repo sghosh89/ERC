@@ -477,8 +477,9 @@ if (!dir.exists(tempo)){
 resloc<-paste(tempo,"/",sep="")
 
 #initiate a dataframe to store ext risk at dispersal d=0 for all r
-ricker_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) 
-colnames(ricker_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
+ricker_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist)),
+                              NA*numeric(length(rlist)),NA*numeric(length(rlist))) 
+colnames(ricker_extrisk_d0)<-c("r","risk_xleft_d0","risk_xright_d0","risk_mleft_d0","risk_mright_d0")
 
 res_ricker_local<-c()
 
@@ -488,15 +489,18 @@ for(i in c(1:length(rlist))){
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
-    temp_mat<-cbind(ss$d_seq,ss$risk_left,ss$risk_right,ss$pop_avg_acf_left,ss$pop_avg_acf_right)
+    temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_ricker_local<-abind(res_ricker_local,temp_mat,along = 3)
       
-    ricker_extrisk_d0$risk_left_d0[i]<-ss$risk_left[1]
-    ricker_extrisk_d0$risk_right_d0[i]<-ss$risk_right[1]
+    ricker_extrisk_d0$risk_xleft_d0[i]<-ss$risk_xleft[1]
+    ricker_extrisk_d0$risk_xright_d0[i]<-ss$risk_xright[1]
+    
+    ricker_extrisk_d0$risk_mleft_d0[i]<-ss$risk_mleft[1]
+    ricker_extrisk_d0$risk_mright_d0[i]<-ss$risk_mright[1]
 }
 
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+cnm<-c("d","risk_xleft","risk_xright","risk_mleft","risk_mright")
 dimnames(res_ricker_local)<-list(NULL,cnm,anm)
 
 saveRDS(ricker_extrisk_d0,paste(resloc,"ricker_extrisk_d0.RDS",sep=""))
@@ -511,12 +515,12 @@ for(r in rlist){
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
-    temp_mat<-cbind(ss$d_seq,ss$risk_left,ss$risk_right,ss$pop_avg_acf_left,ss$pop_avg_acf_right)
+    temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_ricker_global<-abind(res_ricker_global,temp_mat,along = 3)
 }
 
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+cnm<-c("d","risk_xleft","risk_xright","risk_mleft","risk_mright")
 dimnames(res_ricker_global)<-list(NULL,cnm,anm)
 saveRDS(res_ricker_global,paste(resloc,"res_ricker_global.RDS",sep=""))
 ```
@@ -532,8 +536,9 @@ legend("center", c("noise : LTdep.","noise : RTdep."), lty=c(1,1), pch=c(1,1),
          bty = "n")
 par(op)
 dev.off()
-  
-pdf(paste(resloc,"ricker_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
+
+#-------------------------------------- plot for extreme tail dep. noise ---------------------------------------
+pdf(paste(resloc,"ricker_ext_risk_local_disp_extremenoise.pdf",sep=""),height=9,width=9)
 #op<-par(mfrow=c(3,3),mar=c(5.2,4.2,1.2,6.2))
 op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
@@ -542,35 +547,20 @@ for(i in 1:dim(res_ricker_local)[3]){
   ss<-res_ricker_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
-  lines(ss$d,ss$risk_right,type="b",col="blue")
+  lines(ss$d,ss$risk_xright,type="b",col="blue")
   #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
   #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
-  #---------------------------------------------------
-  ## Allow a second plot on the same graph
-  #par(new=TRUE)
-  
-  #ylm2<-c(-0.2,0.6)
-  ## Plot the second plot and put axis scale on right
-  #plot(ss$d, ss$pop_avg_acf_left, pch=16,  xlab="", ylab="", ylim=ylm2,xlim=c(0,1),
-       #ylim=range(-0.1,0.1), xlim=c(0,1),cex.axis=1.5,bty="n",
-  #     axes=FALSE, type="l", col="orange")
- # abline(h=0,lty="dotted",col="darkgrey")
- # lines(ss$d, ss$pop_avg_acf_right, col="skyblue")
-  
-  ## a little farther out (line=3.2) to make room for labels
- # mtext("Avg. ACF",side=4,line=3.2,col="green4") 
- # axis(4, ylim=ylm2, las=1,col="green4",col.axis="green4")
-  #---------------------------------------------------------
+ 
 }
 par(op)
 dev.off()
 
 
-pdf(paste(resloc,"ricker_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
+pdf(paste(resloc,"ricker_ext_risk_global_disp_extremenoise.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_ricker_global)[3]){
@@ -578,10 +568,52 @@ for(i in 1:dim(res_ricker_global)[3]){
   ss<-res_ricker_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
-  lines(ss$d,ss$risk_right,type="b",col="blue")
+  lines(ss$d,ss$risk_xright,type="b",col="blue")
+  #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+  #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
+}
+par(op)
+dev.off()
+
+#-------------------------------------- plot for moderate tail dep. noise ---------------------------------------
+pdf(paste(resloc,"ricker_ext_risk_local_disp_moderatenoise.pdf",sep=""),height=9,width=9)
+
+op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
+
+for(i in 1:dim(res_ricker_local)[3]){
+  #s<-res_ricker_local[,,i]
+  ss<-res_ricker_local[,,i][1:6,] # plot for d in range (0 to 0.5)
+  ss<-as.data.frame(ss)
+  
+  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+       #panel.first = grid(),
+       xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
+  lines(ss$d,ss$risk_mright,type="b",col="blue")
+  #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+  #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
+ 
+}
+par(op)
+dev.off()
+
+
+pdf(paste(resloc,"ricker_ext_risk_global_disp_moderatenoise.pdf",sep=""),height=9,width=9)
+op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
+
+for(i in 1:dim(res_ricker_global)[3]){
+  #ss<-res_ricker_global
+  ss<-res_ricker_global[,,i][1:6,] # plot for d in range (0 to 0.5)
+  ss<-as.data.frame(ss)
+  
+  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+       #panel.first = grid(),
+       xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
+  lines(ss$d,ss$risk_mright,type="b",col="blue")
   #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
   #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
@@ -595,22 +627,49 @@ set.seed(seed)
 
 ricker_extrisk_d0<-readRDS(paste(resloc,"ricker_extrisk_d0.RDS",sep=""))
 numsims<-10000
-ricker_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=ricker_extrisk_d0$risk_left_d0)/numsims
-ricker_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=ricker_extrisk_d0$risk_left_d0)/numsims
+ricker_extrisk_d0$CI0.025xleft<-qbinom(p=0.025,size=numsims,prob=ricker_extrisk_d0$risk_xleft_d0)/numsims
+ricker_extrisk_d0$CI0.975xleft<-qbinom(p=0.975,size=numsims,prob=ricker_extrisk_d0$risk_xleft_d0)/numsims
 
-ricker_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=ricker_extrisk_d0$risk_right_d0)/numsims
-ricker_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=ricker_extrisk_d0$risk_right_d0)/numsims
+ricker_extrisk_d0$CI0.025xright<-qbinom(p=0.025,size=numsims,prob=ricker_extrisk_d0$risk_xright_d0)/numsims
+ricker_extrisk_d0$CI0.975xright<-qbinom(p=0.975,size=numsims,prob=ricker_extrisk_d0$risk_xright_d0)/numsims
 
-pdf(paste(resloc,"ricker_extrisk_d0.pdf",sep=""),height=5,width=5)
+ricker_extrisk_d0$CI0.025mleft<-qbinom(p=0.025,size=numsims,prob=ricker_extrisk_d0$risk_mleft_d0)/numsims
+ricker_extrisk_d0$CI0.975mleft<-qbinom(p=0.975,size=numsims,prob=ricker_extrisk_d0$risk_mleft_d0)/numsims
+
+ricker_extrisk_d0$CI0.025mright<-qbinom(p=0.025,size=numsims,prob=ricker_extrisk_d0$risk_mright_d0)/numsims
+ricker_extrisk_d0$CI0.975mright<-qbinom(p=0.975,size=numsims,prob=ricker_extrisk_d0$risk_mright_d0)/numsims
+
+#-------------------------------------- plot for extreme tail dep. noise ---------------------------------------
+pdf(paste(resloc,"ricker_extrisk_d0_extremenoise.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
-plot(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_left_d0,col="red",type="b",
+plot(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_xleft_d0,col="red",type="b",
      ylim=c(0,1),xlim = range(ricker_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
-arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025left,x1=ricker_extrisk_d0$r,y1=ricker_extrisk_d0$CI0.975left,
+arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025xleft,x1=ricker_extrisk_d0$r,y1=ricker_extrisk_d0$CI0.975xleft,
        angle=90,length=0.1,col="red",code=3)
 abline(v=rc_ricker,lty="dotted",col="darkgrey") #rc=1
 
-lines(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
-arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025right,x1=ricker_extrisk_d0$r,y1=ricker_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
+lines(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_xright_d0,col="blue",type="b",ylim=c(0,1),pch=1)
+arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025xright,x1=ricker_extrisk_d0$r,
+       y1=ricker_extrisk_d0$CI0.975xright,angle=90,length=0.1,col="blue",code=3)
+legend("topleft", legend=c("Ricker"), horiz=F, bty='n',cex=1.8)  
+mtext(paste0("K = ",K),side = 3, line=-16, adj=0.95, cex=1.8, col="black")
+legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
+#legend("bottomright", legend=c("Ricker",paste0("K = ",K)), horiz=F, bty='n',cex=1.8)
+par(op)
+dev.off()
+
+#-------------------------------------- plot for moderate tail dep. noise ---------------------------------------
+pdf(paste(resloc,"ricker_extrisk_d0_moderatenoise.pdf",sep=""),height=5,width=5)
+op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
+plot(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_mleft_d0,col="red",type="b",
+     ylim=c(0,1),xlim = range(ricker_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
+arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025mleft,x1=ricker_extrisk_d0$r,
+       y1=ricker_extrisk_d0$CI0.975mleft,angle=90,length=0.1,col="red",code=3)
+abline(v=rc_ricker,lty="dotted",col="darkgrey") #rc=1
+
+lines(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_mright_d0,col="blue",type="b",ylim=c(0,1),pch=1)
+arrows(x0=ricker_extrisk_d0$r,y0=ricker_extrisk_d0$CI0.025mright,
+       x1=ricker_extrisk_d0$r,y1=ricker_extrisk_d0$CI0.975mright,angle=90,length=0.1,col="blue",code=3)
 legend("topleft", legend=c("Ricker"), horiz=F, bty='n',cex=1.8)  
 mtext(paste0("K = ",K),side = 3, line=-16, adj=0.95, cex=1.8, col="black")
 legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
@@ -667,8 +726,10 @@ if(vxx>1e-10){
   warning("Not equal spacing in rlist : Hassell model !!!",immediate.=T,call.=T)
 }
 
-hassell_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
-colnames(hassell_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
+hassell_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist)),
+                               NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store 
+                                                                       # ext risk at dispersal d=0 for all r
+colnames(hassell_extrisk_d0)<-c("r","risk_xleft_d0","risk_xright_d0","risk_mleft_d0","risk_mright_d0")
 
 res_hassell_local<-c()
 
@@ -680,15 +741,15 @@ for(i in c(1:length(rlist))){
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
-    temp_mat<-cbind(ss$d_seq,ss$risk_left,ss$risk_right,ss$pop_avg_acf_left,ss$pop_avg_acf_right)
+    temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_hassell_local<-abind(res_hassell_local,temp_mat,along = 3)
       
-    hassell_extrisk_d0$risk_left_d0[i]<-ss$risk_left[1]
-    hassell_extrisk_d0$risk_right_d0[i]<-ss$risk_right[1]
+    hassell_extrisk_d0$risk_xleft_d0[i]<-ss$risk_xleft[1]
+    hassell_extrisk_d0$risk_xright_d0[i]<-ss$risk_xright[1]
 }
 
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+cnm<-c("d","risk_xleft","risk_xright","risk_mleft","risk_mright")
 dimnames(res_hassell_local)<-list(NULL,cnm,anm)
 
 saveRDS(hassell_extrisk_d0,paste(resloc,"hassell_extrisk_d0.RDS",sep=""))
@@ -704,27 +765,29 @@ for(r in rlist){
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
-    temp_mat<-cbind(ss$d_seq,ss$risk_left,ss$risk_right,ss$pop_avg_acf_left,ss$pop_avg_acf_right)
+    temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_hassell_global<-abind(res_hassell_global,temp_mat,along = 3)
 }
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+cnm<-c("d","risk_xleft","risk_xright","risk_mleft","risk_mright")
 dimnames(res_hassell_global)<-list(NULL,cnm,anm)
 saveRDS(res_hassell_global,paste(resloc,"res_hassell_global.RDS",sep=""))
 ```
 
 ```{r fig_hassell_scl_1, echo=F, results="hide",cache=T, cache.extra=list(seed,res_hassell_local,res_hassell_global)}
-pdf(paste(resloc,"hassell_ext_risk_local_disp.pdf",sep=""),height=12,width=12)
+
+#-------------------------------------- plot for extreme tail dep. noise ---------------------------------------
+pdf(paste(resloc,"hassell_ext_risk_local_disp_extremenoise.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_hassell_local)[3]){
   ss<-res_hassell_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
-  lines(ss$d,ss$risk_right,type="b",col="blue")
+  lines(ss$d,ss$risk_xright,type="b",col="blue")
   #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
   #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
@@ -732,18 +795,54 @@ for(i in 1:dim(res_hassell_local)[3]){
 par(op)
 dev.off()
 
-
-pdf(paste(resloc,"hassell_ext_risk_global_disp.pdf",sep=""),height=12,width=12)
+pdf(paste(resloc,"hassell_ext_risk_global_disp_extremenoise.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_hassell_global)[3]){
   ss<-res_hassell_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
-  lines(ss$d,ss$risk_right,type="b",col="blue")
+  lines(ss$d,ss$risk_xright,type="b",col="blue")
+  #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+  #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
+}
+par(op)
+dev.off()
+
+#-------------------------------------- plot for moderate tail dep. noise ---------------------------------------
+pdf(paste(resloc,"hassell_ext_risk_local_disp_moderatenoise.pdf",sep=""),height=12,width=12)
+op<-par(mfrow=c(4,4),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
+
+for(i in 1:dim(res_hassell_local)[3]){
+  ss<-res_hassell_local[,,i][1:6,] # plot for d in range (0 to 0.5)
+  ss<-as.data.frame(ss)
+  
+  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+       #panel.first = grid(),
+       xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
+  lines(ss$d,ss$risk_mright,type="b",col="blue")
+  #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+  #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
+}
+par(op)
+dev.off()
+
+pdf(paste(resloc,"hassell_ext_risk_global_disp_moderatenoise.pdf",sep=""),height=12,width=12)
+op<-par(mfrow=c(4,4),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
+
+for(i in 1:dim(res_hassell_global)[3]){
+  ss<-res_hassell_global[,,i][1:6,] # plot for d in range (0 to 0.5)
+  ss<-as.data.frame(ss)
+  
+  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+       #panel.first = grid(),
+       xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
+  lines(ss$d,ss$risk_mright,type="b",col="blue")
   #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
   #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
@@ -757,22 +856,46 @@ set.seed(seed)
 numsims<-10000
 hassell_extrisk_d0<-readRDS(paste(resloc,"hassell_extrisk_d0.RDS",sep=""))
 
-hassell_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=hassell_extrisk_d0$risk_left_d0)/numsims
-hassell_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=hassell_extrisk_d0$risk_left_d0)/numsims
+hassell_extrisk_d0$CI0.025xleft<-qbinom(p=0.025,size=numsims,prob=hassell_extrisk_d0$risk_xleft_d0)/numsims
+hassell_extrisk_d0$CI0.975xleft<-qbinom(p=0.975,size=numsims,prob=hassell_extrisk_d0$risk_xleft_d0)/numsims
 
-hassell_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=hassell_extrisk_d0$risk_right_d0)/numsims
-hassell_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=hassell_extrisk_d0$risk_right_d0)/numsims
+hassell_extrisk_d0$CI0.025xright<-qbinom(p=0.025,size=numsims,prob=hassell_extrisk_d0$risk_xright_d0)/numsims
+hassell_extrisk_d0$CI0.975xright<-qbinom(p=0.975,size=numsims,prob=hassell_extrisk_d0$risk_xright_d0)/numsims
 
-pdf(paste(resloc,"hassell_extrisk_d0.pdf",sep=""),height=5,width=5)
+hassell_extrisk_d0$CI0.025mleft<-qbinom(p=0.025,size=numsims,prob=hassell_extrisk_d0$risk_mleft_d0)/numsims
+hassell_extrisk_d0$CI0.975mleft<-qbinom(p=0.975,size=numsims,prob=hassell_extrisk_d0$risk_mleft_d0)/numsims
+
+hassell_extrisk_d0$CI0.025mright<-qbinom(p=0.025,size=numsims,prob=hassell_extrisk_d0$risk_mright_d0)/numsims
+hassell_extrisk_d0$CI0.975mright<-qbinom(p=0.975,size=numsims,prob=hassell_extrisk_d0$risk_mright_d0)/numsims
+
+pdf(paste(resloc,"hassell_extrisk_d0_extremenoise.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
-plot(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),xlim = range(hassell_extrisk_d0$r),
+plot(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_xleft_d0,col="red",type="b",ylim=c(0,1),xlim = range(hassell_extrisk_d0$r),
      xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
-arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025left,
-       x1=hassell_extrisk_d0$r,y1=hassell_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
+arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025xleft,
+       x1=hassell_extrisk_d0$r,y1=hassell_extrisk_d0$CI0.975xleft,angle=90,length=0.1,col="red",code=3)
 abline(v=rc_hassell,lty="dotted",col="darkgrey")
 
-lines(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
-arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025right,x1=hassell_extrisk_d0$r,y1=hassell_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
+lines(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_xright_d0,col="blue",type="b",ylim=c(0,1),pch=1)
+arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025xright,x1=hassell_extrisk_d0$r,y1=hassell_extrisk_d0$CI0.975xright,angle=90,length=0.1,col="blue",code=3)
+legend("topleft", legend=c("Hassell"), horiz=F, bty='n',cex=1.8)  
+mtext(paste0("a = ",a,", b = ",b),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
+legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
+#legend("bottomright", c("Hassell",paste0("a = ",a," ,b = ",b),paste0("sd =",scl)), horiz=F, bty='n',cex=1.8)
+par(op)
+dev.off()
+
+pdf(paste(resloc,"hassell_extrisk_d0_moderatenoise.pdf",sep=""),height=5,width=5)
+op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
+plot(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_mleft_d0,col="red",type="b",ylim=c(0,1),xlim = range(hassell_extrisk_d0$r),
+     xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
+arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025mleft,
+       x1=hassell_extrisk_d0$r,y1=hassell_extrisk_d0$CI0.975mleft,angle=90,length=0.1,col="red",code=3)
+abline(v=rc_hassell,lty="dotted",col="darkgrey")
+
+lines(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_mright_d0,col="blue",type="b",ylim=c(0,1),pch=1)
+arrows(x0=hassell_extrisk_d0$r,y0=hassell_extrisk_d0$CI0.025mright,
+       x1=hassell_extrisk_d0$r,y1=hassell_extrisk_d0$CI0.975mright,angle=90,length=0.1,col="blue",code=3)
 legend("topleft", legend=c("Hassell"), horiz=F, bty='n',cex=1.8)  
 mtext(paste0("a = ",a,", b = ",b),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
 legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
@@ -830,8 +953,10 @@ if(vxx>1e-10){
   warning("Not equal spacing in rlist : Maynard-smith model !!!",immediate.=T,call.=T)
 }
 
-msmith_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
-colnames(msmith_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
+msmith_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist)),
+                              NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store 
+                                                                                     # ext risk at dispersal d=0 for all r
+colnames(msmith_extrisk_d0)<-c("r","risk_xleft_d0","risk_xright_d0","risk_mleft_d0","risk_mright_d0")
 
 #for local dispersal in D matrix 
 res_msmith_local<-c()
@@ -844,15 +969,15 @@ for(i in c(1:length(rlist))){
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
-    temp_mat<-cbind(ss$d_seq,ss$risk_left,ss$risk_right,ss$pop_avg_acf_left,ss$pop_avg_acf_right)
+    temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_msmith_local<-abind(res_msmith_local,temp_mat,along = 3)
       
-    msmith_extrisk_d0$risk_left_d0[i]<-ss$risk_left[1]
-    msmith_extrisk_d0$risk_right_d0[i]<-ss$risk_right[1]
+    msmith_extrisk_d0$risk_xleft_d0[i]<-ss$risk_xleft[1]
+    msmith_extrisk_d0$risk_xright_d0[i]<-ss$risk_xright[1]
 }
 
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+cnm<-c("d","risk_xleft","risk_xright","risk_mleft","risk_mright")
 dimnames(res_msmith_local)<-list(NULL,cnm,anm)
 
 saveRDS(msmith_extrisk_d0,paste(resloc,"msmith_extrisk_d0.RDS",sep=""))
@@ -868,27 +993,29 @@ for(r in rlist){
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
-    temp_mat<-cbind(ss$d_seq,ss$risk_left,ss$risk_right,ss$pop_avg_acf_left,ss$pop_avg_acf_right)
+    temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_msmith_global<-abind(res_msmith_global,temp_mat,along = 3)
 }
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+cnm<-c("d","risk_xleft","risk_xright","risk_mleft","risk_mright")
 dimnames(res_msmith_global)<-list(NULL,cnm,anm)
 saveRDS(res_msmith_global,paste(resloc,"res_msmith_global.RDS",sep=""))
 ```
 
 ```{r fig_msmith_scl_0.8, echo=F, results="hide",cache=T, cache.extra=list(seed,res_msmith_local,res_msmith_global)}
-pdf(paste(resloc,"msmith_ext_risk_local_disp.pdf",sep=""),height=12,width=12)
+
+#-------------------------------------- plot for extreme tail dep. noise ---------------------------------------
+pdf(paste(resloc,"msmith_ext_risk_local_disp_extremenoise.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_msmith_local)[3]){
   ss<-res_msmith_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
-  lines(ss$d,ss$risk_right,type="b",col="blue")
+  lines(ss$d,ss$risk_xright,type="b",col="blue")
   #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
   #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
@@ -897,19 +1024,51 @@ par(op)
 dev.off()
 
 
-pdf(paste(resloc,"msmith_ext_risk_global_disp.pdf",sep=""),height=12,width=12)
+pdf(paste(resloc,"msmith_ext_risk_global_disp_extremenoise.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5,4,1.5,1.5))
 
 for(i in 1:dim(res_msmith_global)[3]){
   ss<-res_msmith_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        #panel.first = grid(),
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
-  lines(ss$d,ss$risk_right,type="b",col="blue")
+  lines(ss$d,ss$risk_xright,type="b",col="blue")
   #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
   #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
+}
+par(op)
+dev.off()
+
+#-------------------------------------- plot for moderate tail dep. noise ---------------------------------------
+pdf(paste(resloc,"msmith_ext_risk_local_disp_moderatenoise.pdf",sep=""),height=12,width=12)
+op<-par(mfrow=c(4,4),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
+
+for(i in 1:dim(res_msmith_local)[3]){
+  ss<-res_msmith_local[,,i][1:6,] # plot for d in range (0 to 0.5)
+  ss<-as.data.frame(ss)
+  
+  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+       xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
+  lines(ss$d,ss$risk_mright,type="b",col="blue")
+  mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
+}
+par(op)
+dev.off()
+
+
+pdf(paste(resloc,"msmith_ext_risk_global_disp_moderatenoise.pdf",sep=""),height=12,width=12)
+op<-par(mfrow=c(4,4),mar=c(5,4,1.5,1.5))
+
+for(i in 1:dim(res_msmith_global)[3]){
+  ss<-res_msmith_global[,,i][1:6,] # plot for d in range (0 to 0.5)
+  ss<-as.data.frame(ss)
+  
+  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+       xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
+  lines(ss$d,ss$risk_mright,type="b",col="blue")
   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
 }
 par(op)
@@ -921,22 +1080,45 @@ set.seed(seed)
 
 msmith_extrisk_d0<-readRDS(paste(resloc,"msmith_extrisk_d0.RDS",sep=""))
 numsims<-10000
-msmith_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=msmith_extrisk_d0$risk_left_d0)/numsims
-msmith_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=msmith_extrisk_d0$risk_left_d0)/numsims
+msmith_extrisk_d0$CI0.025xleft<-qbinom(p=0.025,size=numsims,prob=msmith_extrisk_d0$risk_xleft_d0)/numsims
+msmith_extrisk_d0$CI0.975xleft<-qbinom(p=0.975,size=numsims,prob=msmith_extrisk_d0$risk_xleft_d0)/numsims
 
-msmith_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=msmith_extrisk_d0$risk_right_d0)/numsims
-msmith_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=msmith_extrisk_d0$risk_right_d0)/numsims
+msmith_extrisk_d0$CI0.025xright<-qbinom(p=0.025,size=numsims,prob=msmith_extrisk_d0$risk_xright_d0)/numsims
+msmith_extrisk_d0$CI0.975xright<-qbinom(p=0.975,size=numsims,prob=msmith_extrisk_d0$risk_xright_d0)/numsims
 
-pdf(paste(resloc,"msmith_extrisk_d0.pdf",sep=""),height=5,width=5)
+msmith_extrisk_d0$CI0.025mleft<-qbinom(p=0.025,size=numsims,prob=msmith_extrisk_d0$risk_mleft_d0)/numsims
+msmith_extrisk_d0$CI0.975mleft<-qbinom(p=0.975,size=numsims,prob=msmith_extrisk_d0$risk_mleft_d0)/numsims
+
+msmith_extrisk_d0$CI0.025mright<-qbinom(p=0.025,size=numsims,prob=msmith_extrisk_d0$risk_mright_d0)/numsims
+msmith_extrisk_d0$CI0.975mright<-qbinom(p=0.975,size=numsims,prob=msmith_extrisk_d0$risk_mright_d0)/numsims
+
+pdf(paste(resloc,"msmith_extrisk_d0_extremenoise.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
-plot(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),xlim = range(msmith_extrisk_d0$r),
+plot(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_xleft_d0,col="red",type="b",ylim=c(0,1),xlim = range(msmith_extrisk_d0$r),
      xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
-arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025left,
-       x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
+arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025xleft,
+       x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975xleft,angle=90,length=0.1,col="red",code=3)
 abline(v=rc_msmith,lty="dotted",col="darkgrey")
 
-lines(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_right_d0,col="blue",type="b",pch=1)
-arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025right,x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
+lines(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_xright_d0,col="blue",type="b",pch=1)
+arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025xright,x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975xright,angle=90,length=0.1,col="blue",code=3)
+legend("topleft", legend=c("Maynard Smith"), horiz=F, bty='n',cex=1.8)  
+mtext(paste0("a = ",a,", b = ",b),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
+legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
+par(op)
+dev.off()
+
+pdf(paste(resloc,"msmith_extrisk_d0_moderatenoise.pdf",sep=""),height=5,width=5)
+op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
+plot(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_mleft_d0,col="red",type="b",ylim=c(0,1),xlim = range(msmith_extrisk_d0$r),
+     xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
+arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025mleft,
+       x1=msmith_extrisk_d0$r,y1=msmith_extrisk_d0$CI0.975mleft,angle=90,length=0.1,col="red",code=3)
+abline(v=rc_msmith,lty="dotted",col="darkgrey")
+
+lines(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_mright_d0,col="blue",type="b",pch=1)
+arrows(x0=msmith_extrisk_d0$r,y0=msmith_extrisk_d0$CI0.025mright,x1=msmith_extrisk_d0$r,
+       y1=msmith_extrisk_d0$CI0.975mright,angle=90,length=0.1,col="blue",code=3)
 legend("topleft", legend=c("Maynard Smith"), horiz=F, bty='n',cex=1.8)  
 mtext(paste0("a = ",a,", b = ",b),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
 legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
@@ -1025,8 +1207,10 @@ if(vxx>1e-10){
   warning("Not equal spacing in rlist : Pennycuick model !!!",immediate.=T,call.=T)
 }
 
-pennycuick_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) # a dataframe to store ext risk at dispersal d=0 for all r
-colnames(pennycuick_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
+pennycuick_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist)),
+                                  NA*numeric(length(rlist)),NA*numeric(length(rlist))) # a dataframe to store 
+                                                                            # ext risk at dispersal d=0 for all r
+colnames(pennycuick_extrisk_d0)<-c("r","risk_xleft_d0","risk_xright_d0","risk_mleft_d0","risk_mright_d0")
 
 #for local dispersal in D matrix 
 res_pennycuick_local<-c()
@@ -1039,14 +1223,14 @@ for(i in c(1:length(rlist))){
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
-    temp_mat<-cbind(ss$d_seq,ss$risk_left,ss$risk_right,ss$pop_avg_acf_left,ss$pop_avg_acf_right)
+    temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_pennycuick_local<-abind(res_pennycuick_local,temp_mat,along = 3)
       
-    pennycuick_extrisk_d0$risk_left_d0[i]<-ss$risk_left[1]
-    pennycuick_extrisk_d0$risk_right_d0[i]<-ss$risk_right[1]
+    pennycuick_extrisk_d0$risk_xleft_d0[i]<-ss$risk_xleft[1]
+    pennycuick_extrisk_d0$risk_xright_d0[i]<-ss$risk_xright[1]
 }
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+cnm<-c("d","risk_xleft","risk_xright","risk_mleft","risk_mright")
 dimnames(res_pennycuick_local)<-list(NULL,cnm,anm)
 
 saveRDS(pennycuick_extrisk_d0,paste(resloc,"pennycuick_extrisk_d0.RDS",sep=""))
@@ -1062,48 +1246,76 @@ for(r in rlist){
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
-    temp_mat<-cbind(ss$d_seq,ss$risk_left,ss$risk_right,ss$pop_avg_acf_left,ss$pop_avg_acf_right)
+    temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_pennycuick_global<-abind(res_pennycuick_global,temp_mat,along = 3)
 }
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+cnm<-c("d","risk_xleft","risk_xright","risk_mleft","risk_mright")
 dimnames(res_pennycuick_global)<-list(NULL,cnm,anm)
 saveRDS(res_pennycuick_global,paste(resloc,"res_pennycuick_global.RDS",sep=""))
 ```
 
 ```{r fig_pennycuick_scl_1, echo=F, results="hide",cache=T, cache.extra=list(seed,res_pennycuick_local,res_pennycuick_global)}
-pdf(paste(resloc,"pennycuick_ext_risk_local_disp.pdf",sep=""),height=12,width=12)
+
+#-------------------------------------- plot for extreme tail dep. noise ---------------------------------------
+pdf(paste(resloc,"pennycuick_ext_risk_local_disp_extremenoise.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5,4,1.2,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_pennycuick_local)[3]){
   ss<-res_pennycuick_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
-       #panel.first = grid(),
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
-  lines(ss$d,ss$risk_right,type="b",col="blue")
-  #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
-  #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-  mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
+  lines(ss$d,ss$risk_xright,type="b",col="blue")
+   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
 }
 par(op)
 dev.off()
 
 
-pdf(paste(resloc,"pennycuick_ext_risk_global_disp.pdf",sep=""),height=12,width=12)
+pdf(paste(resloc,"pennycuick_ext_risk_global_disp_extremenoise.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_pennycuick_global)[3]){
   ss<-res_pennycuick_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
-       #panel.first = grid(),
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
-  lines(ss$d,ss$risk_right,type="b",col="blue")
-  #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
-  #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  lines(ss$d,ss$risk_xright,type="b",col="blue")
+  mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
+}
+par(op)
+dev.off()
+
+#-------------------------------------- plot for moderate tail dep. noise ---------------------------------------
+pdf(paste(resloc,"pennycuick_ext_risk_local_disp_moderatenoise.pdf",sep=""),height=12,width=12)
+op<-par(mfrow=c(4,4),mar=c(5,4,1.2,1.5),mgp=c(2,0.5,0))
+
+for(i in 1:dim(res_pennycuick_local)[3]){
+  ss<-res_pennycuick_local[,,i][1:6,] # plot for d in range (0 to 0.5)
+  ss<-as.data.frame(ss)
+  
+  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+       xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
+  lines(ss$d,ss$risk_mright,type="b",col="blue")
+   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
+}
+par(op)
+dev.off()
+
+
+pdf(paste(resloc,"pennycuick_ext_risk_global_disp_moderatenoise.pdf",sep=""),height=12,width=12)
+op<-par(mfrow=c(4,4),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
+
+for(i in 1:dim(res_pennycuick_global)[3]){
+  ss<-res_pennycuick_global[,,i][1:6,] # plot for d in range (0 to 0.5)
+  ss<-as.data.frame(ss)
+  
+  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+       xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
+  lines(ss$d,ss$risk_mright,type="b",col="blue")
   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
 }
 par(op)
@@ -1115,22 +1327,46 @@ set.seed(seed)
 numsims<-10000
 pennycuick_extrisk_d0<-readRDS(paste(resloc,"pennycuick_extrisk_d0.RDS",sep=""))
 
-pennycuick_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=pennycuick_extrisk_d0$risk_left_d0)/numsims
-pennycuick_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=pennycuick_extrisk_d0$risk_left_d0)/numsims
+pennycuick_extrisk_d0$CI0.025xleft<-qbinom(p=0.025,size=numsims,prob=pennycuick_extrisk_d0$risk_xleft_d0)/numsims
+pennycuick_extrisk_d0$CI0.975xleft<-qbinom(p=0.975,size=numsims,prob=pennycuick_extrisk_d0$risk_xleft_d0)/numsims
 
-pennycuick_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=pennycuick_extrisk_d0$risk_right_d0)/numsims
-pennycuick_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=pennycuick_extrisk_d0$risk_right_d0)/numsims
+pennycuick_extrisk_d0$CI0.025xright<-qbinom(p=0.025,size=numsims,prob=pennycuick_extrisk_d0$risk_xright_d0)/numsims
+pennycuick_extrisk_d0$CI0.975xright<-qbinom(p=0.975,size=numsims,prob=pennycuick_extrisk_d0$risk_xright_d0)/numsims
 
-pdf(paste(resloc,"pennycuick_extrisk_d0.pdf",sep=""),height=5,width=5)
+pennycuick_extrisk_d0$CI0.025mleft<-qbinom(p=0.025,size=numsims,prob=pennycuick_extrisk_d0$risk_mleft_d0)/numsims
+pennycuick_extrisk_d0$CI0.975mleft<-qbinom(p=0.975,size=numsims,prob=pennycuick_extrisk_d0$risk_mleft_d0)/numsims
+
+pennycuick_extrisk_d0$CI0.025mright<-qbinom(p=0.025,size=numsims,prob=pennycuick_extrisk_d0$risk_mright_d0)/numsims
+pennycuick_extrisk_d0$CI0.975mright<-qbinom(p=0.975,size=numsims,prob=pennycuick_extrisk_d0$risk_mright_d0)/numsims
+
+pdf(paste(resloc,"pennycuick_extrisk_d0_extremenoise.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
-plot(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),
+plot(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_xleft_d0,col="red",type="b",ylim=c(0,1),
      xlim = range(pennycuick_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
-arrows(x0=pennycuick_extrisk_d0$r,y0=pennycuick_extrisk_d0$CI0.025left,
-       x1=pennycuick_extrisk_d0$r,y1=pennycuick_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
+arrows(x0=pennycuick_extrisk_d0$r,y0=pennycuick_extrisk_d0$CI0.025xleft,
+       x1=pennycuick_extrisk_d0$r,y1=pennycuick_extrisk_d0$CI0.975xleft,angle=90,length=0.1,col="red",code=3)
 abline(v=rc_pennycuick,lty="dotted",col="darkgrey")
 
-lines(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_right_d0,col="blue",type="b",ylim=c(0,1),pch=1)
-arrows(x0=pennycuick_extrisk_d0$r,y0=pennycuick_extrisk_d0$CI0.025right,x1=pennycuick_extrisk_d0$r,y1=pennycuick_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
+lines(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_xright_d0,col="blue",type="b",ylim=c(0,1),pch=1)
+arrows(x0=pennycuick_extrisk_d0$r,y0=pennycuick_extrisk_d0$CI0.025xright,x1=pennycuick_extrisk_d0$r,y1=pennycuick_extrisk_d0$CI0.975xright,angle=90,length=0.1,col="blue",code=3)
+legend("topleft", legend=c("Pennycuick"), horiz=F, bty='n',cex=1.8)  
+mtext(paste0("a = ",a,", b = ",b),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
+legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
+#legend("bottomright", c("Pennycuick",paste0("a = ",a," ,b = ",b),paste0("sd =",scl)), horiz=F, bty='n',cex=1.8)
+par(op)
+dev.off()
+
+pdf(paste(resloc,"pennycuick_extrisk_d0_moderatenoise.pdf",sep=""),height=5,width=5)
+op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
+plot(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_mleft_d0,col="red",type="b",ylim=c(0,1),
+     xlim = range(pennycuick_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
+arrows(x0=pennycuick_extrisk_d0$r,y0=pennycuick_extrisk_d0$CI0.025mleft,
+       x1=pennycuick_extrisk_d0$r,y1=pennycuick_extrisk_d0$CI0.975mleft,angle=90,length=0.1,col="red",code=3)
+abline(v=rc_pennycuick,lty="dotted",col="darkgrey")
+
+lines(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_mright_d0,col="blue",type="b",ylim=c(0,1),pch=1)
+arrows(x0=pennycuick_extrisk_d0$r,y0=pennycuick_extrisk_d0$CI0.025mright,x1=pennycuick_extrisk_d0$r,
+       y1=pennycuick_extrisk_d0$CI0.975mright,angle=90,length=0.1,col="blue",code=3)
 legend("topleft", legend=c("Pennycuick"), horiz=F, bty='n',cex=1.8)  
 mtext(paste0("a = ",a,", b = ",b),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
 legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
@@ -1188,8 +1424,10 @@ if(vxx>1e-10){
   warning("Not equal spacing in rlist : Verhulst model !!!",immediate.=T,call.=T)
 }
 
-verhulst_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
-colnames(verhulst_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
+verhulst_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist)),
+                                NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store 
+                                                                   # ext risk at dispersal d=0 for all r
+colnames(verhulst_extrisk_d0)<-c("r","risk_xleft_d0","risk_xright_d0","risk_mleft_d0","risk_mright_d0")
 
 #for local dispersal in D matrix 
 res_verhulst_local<-c()
@@ -1201,15 +1439,15 @@ for(i in c(1:length(rlist))){
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
-    temp_mat<-cbind(ss$d_seq,ss$risk_left,ss$risk_right,ss$pop_avg_acf_left,ss$pop_avg_acf_right)
+    temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_verhulst_local<-abind(res_verhulst_local,temp_mat,along = 3)
       
-    verhulst_extrisk_d0$risk_left_d0[i]<-ss$risk_left[1]
-    verhulst_extrisk_d0$risk_right_d0[i]<-ss$risk_right[1]
+    verhulst_extrisk_d0$risk_xleft_d0[i]<-ss$risk_xleft[1]
+    verhulst_extrisk_d0$risk_xright_d0[i]<-ss$risk_xright[1]
 }
 
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+cnm<-c("d","risk_xleft","risk_xright","risk_mleft","risk_mright")
 dimnames(res_verhulst_local)<-list(NULL,cnm,anm)
 
 saveRDS(verhulst_extrisk_d0,paste(resloc,"verhulst_extrisk_d0.RDS",sep=""))
@@ -1223,49 +1461,75 @@ for(r in rlist){
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
                  scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
-    temp_mat<-cbind(ss$d_seq,ss$risk_left,ss$risk_right,ss$pop_avg_acf_left,ss$pop_avg_acf_right)
+    temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_verhulst_global<-abind(res_verhulst_global,temp_mat,along = 3)
 }
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+cnm<-c("d","risk_xleft","risk_xright","risk_mleft","risk_mright")
 dimnames(res_verhulst_global)<-list(NULL,cnm,anm)
 saveRDS(res_verhulst_global,paste(resloc,"res_verhulst_global.RDS",sep=""))
 ```
 
 ```{r fig_verhulst_scl_0.6, echo=F, results="hide",cache=T, cache.extra=list(seed,res_verhulst_local,res_verhulst_global)}
 
-pdf(paste(resloc,"verhulst_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
+#-------------------------------------- plot for extreme tail dep. noise ---------------------------------------
+pdf(paste(resloc,"verhulst_ext_risk_local_disp_extremenoise.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_verhulst_local)[3]){
   ss<-res_verhulst_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
-       #panel.first = grid(),
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
-  lines(ss$d,ss$risk_right,type="b",col="blue")
-  #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
-  #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  lines(ss$d,ss$risk_xright,type="b",col="blue")
   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
 }
 par(op)
 dev.off()
 
 
-pdf(paste(resloc,"verhulst_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
+pdf(paste(resloc,"verhulst_ext_risk_global_disp_extremenoise.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_verhulst_global)[3]){
   ss<-res_verhulst_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
-       #panel.first = grid(),
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
-  lines(ss$d,ss$risk_right,type="b",col="blue")
-  #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
-  #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  lines(ss$d,ss$risk_xright,type="b",col="blue")
+  mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
+}
+par(op)
+dev.off()
+
+#-------------------------------------- plot for moderate tail dep. noise ---------------------------------------
+pdf(paste(resloc,"verhulst_ext_risk_local_disp_moderatenoise.pdf",sep=""),height=9,width=9)
+op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
+
+for(i in 1:dim(res_verhulst_local)[3]){
+  ss<-res_verhulst_local[,,i][1:6,] # plot for d in range (0 to 0.5)
+  ss<-as.data.frame(ss)
+  
+  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+       xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
+  lines(ss$d,ss$risk_mright,type="b",col="blue")
+  mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
+}
+par(op)
+dev.off()
+
+pdf(paste(resloc,"verhulst_ext_risk_global_disp_moderatenoise.pdf",sep=""),height=9,width=9)
+op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
+
+for(i in 1:dim(res_verhulst_global)[3]){
+  ss<-res_verhulst_global[,,i][1:6,] # plot for d in range (0 to 0.5)
+  ss<-as.data.frame(ss)
+  
+  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+       xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
+  lines(ss$d,ss$risk_mright,type="b",col="blue")
   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
 }
 par(op)
@@ -1273,28 +1537,51 @@ dev.off()
 ```
 
 ```{r fig_verhulst_extrisk_d0_scl_0.6, echo=F,results="hide"}
-
 set.seed(seed)
 numsims<-10000
 verhulst_extrisk_d0<-readRDS(paste(resloc,"verhulst_extrisk_d0.RDS",sep=""))
 
-verhulst_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=verhulst_extrisk_d0$risk_left_d0)/numsims
-verhulst_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=verhulst_extrisk_d0$risk_left_d0)/numsims
+verhulst_extrisk_d0$CI0.025xleft<-qbinom(p=0.025,size=numsims,prob=verhulst_extrisk_d0$risk_xleft_d0)/numsims
+verhulst_extrisk_d0$CI0.975xleft<-qbinom(p=0.975,size=numsims,prob=verhulst_extrisk_d0$risk_xleft_d0)/numsims
 
-verhulst_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=verhulst_extrisk_d0$risk_right_d0)/numsims
-verhulst_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=verhulst_extrisk_d0$risk_right_d0)/numsims
+verhulst_extrisk_d0$CI0.025xright<-qbinom(p=0.025,size=numsims,prob=verhulst_extrisk_d0$risk_xright_d0)/numsims
+verhulst_extrisk_d0$CI0.975xright<-qbinom(p=0.975,size=numsims,prob=verhulst_extrisk_d0$risk_xright_d0)/numsims
 
-pdf(paste(resloc,"verhulst_extrisk_d0.pdf",sep=""),height=5,width=5)
+verhulst_extrisk_d0$CI0.025mleft<-qbinom(p=0.025,size=numsims,prob=verhulst_extrisk_d0$risk_mleft_d0)/numsims
+verhulst_extrisk_d0$CI0.975mleft<-qbinom(p=0.975,size=numsims,prob=verhulst_extrisk_d0$risk_mleft_d0)/numsims
+
+verhulst_extrisk_d0$CI0.025mright<-qbinom(p=0.025,size=numsims,prob=verhulst_extrisk_d0$risk_mright_d0)/numsims
+verhulst_extrisk_d0$CI0.975mright<-qbinom(p=0.975,size=numsims,prob=verhulst_extrisk_d0$risk_mright_d0)/numsims
+
+pdf(paste(resloc,"verhulst_extrisk_d0_extremenoise.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
-plot(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),
+plot(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_xleft_d0,col="red",type="b",ylim=c(0,1),
      xlim = range(verhulst_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
-arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025left,x1=verhulst_extrisk_d0$r,
-       y1=verhulst_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
+arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025xleft,x1=verhulst_extrisk_d0$r,
+       y1=verhulst_extrisk_d0$CI0.975xleft,angle=90,length=0.1,col="red",code=3)
 abline(v=rc_verhulst,lty="dotted",col="darkgrey")
 
-lines(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_right_d0,col="blue",type="b",pch=1)
-arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025right,
-       x1=verhulst_extrisk_d0$r,y1=verhulst_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
+lines(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_xright_d0,col="blue",type="b",pch=1)
+arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025xright,
+       x1=verhulst_extrisk_d0$r,y1=verhulst_extrisk_d0$CI0.975xright,angle=90,length=0.1,col="blue",code=3)
+legend("topleft", legend=c("Verhulst"), horiz=F, bty='n',cex=1.8)  
+mtext(paste0("K = ",K),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
+legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
+#legend("bottomright", c("Verhulst",paste0("K =1, sd =",scl)), horiz=F, bty='n',cex=1.8)
+par(op)
+dev.off()
+
+pdf(paste(resloc,"verhulst_extrisk_d0_moderatenoise.pdf",sep=""),height=5,width=5)
+op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
+plot(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_mleft_d0,col="red",type="b",ylim=c(0,1),
+     xlim = range(verhulst_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
+arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025mleft,x1=verhulst_extrisk_d0$r,
+       y1=verhulst_extrisk_d0$CI0.975mleft,angle=90,length=0.1,col="red",code=3)
+abline(v=rc_verhulst,lty="dotted",col="darkgrey")
+
+lines(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_mright_d0,col="blue",type="b",pch=1)
+arrows(x0=verhulst_extrisk_d0$r,y0=verhulst_extrisk_d0$CI0.025mright,
+       x1=verhulst_extrisk_d0$r,y1=verhulst_extrisk_d0$CI0.975mright,angle=90,length=0.1,col="blue",code=3)
 legend("topleft", legend=c("Verhulst"), horiz=F, bty='n',cex=1.8)  
 mtext(paste0("K = ",K),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
 legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
@@ -1302,7 +1589,6 @@ legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
 par(op)
 dev.off()
 ```
-
 
 ```{r sim_abrewer_scl_0.6, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
@@ -1352,8 +1638,10 @@ if(vxx>1e-10){
   warning("Not equal spacing in rlist : Austin-Brewer model !!!",immediate.=T,call.=T)
 }
 
-abrewer_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store ext risk at dispersal d=0 for all r
-colnames(abrewer_extrisk_d0)<-c("r","risk_left_d0","risk_right_d0")
+abrewer_extrisk_d0<-data.frame(rlist,NA*numeric(length(rlist)),NA*numeric(length(rlist)),
+                               NA*numeric(length(rlist)),NA*numeric(length(rlist))) #initiate a dataframe to store 
+                                                                         # ext risk at dispersal d=0 for all r
+colnames(abrewer_extrisk_d0)<-c("r","risk_xleft_d0","risk_xright_d0","risk_mleft_d0","risk_mright_d0")
 
 #for local dispersal in D matrix 
 res_abrewer_local<-c()
@@ -1367,15 +1655,15 @@ for(i in c(1:length(rlist))){
   ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
                scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
   
-  temp_mat<-cbind(ss$d_seq,ss$risk_left,ss$risk_right,ss$pop_avg_acf_left,ss$pop_avg_acf_right)
+  temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
   res_abrewer_local<-abind(res_abrewer_local,temp_mat,along = 3)
   
-  abrewer_extrisk_d0$risk_left_d0[i]<-ss$risk_left[1]
-  abrewer_extrisk_d0$risk_right_d0[i]<-ss$risk_right[1]
+  abrewer_extrisk_d0$risk_xleft_d0[i]<-ss$risk_xleft[1]
+  abrewer_extrisk_d0$risk_xright_d0[i]<-ss$risk_xright[1]
 }
 
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+cnm<-c("d","risk_xleft","risk_xright","risk_mleft","risk_mright")
 dimnames(res_abrewer_local)<-list(NULL,cnm,anm)
 
 saveRDS(abrewer_extrisk_d0,paste(resloc,"abrewer_extrisk_d0.RDS",sep=""))
@@ -1391,48 +1679,75 @@ for(r in rlist){
   ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
                scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
   
-  temp_mat<-cbind(ss$d_seq,ss$risk_left,ss$risk_right,ss$pop_avg_acf_left,ss$pop_avg_acf_right)
+  temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
   res_abrewer_global<-abind(res_abrewer_global,temp_mat,along = 3)
 }
 anm<-paste("r_",rlist,sep="")
-cnm<-c("d","risk_left","risk_right","pop_avg_acf_left","pop_avg_acf_right")
+cnm<-c("d","risk_xleft","risk_xright","risk_mleft","risk_mright")
 dimnames(res_abrewer_global)<-list(NULL,cnm,anm)
 saveRDS(res_abrewer_global,paste(resloc,"res_abrewer_global.RDS",sep=""))
 ```
 
 ```{r fig_abrewer_scl_0.6, echo=F, results="hide",cache=T, cache.extra=list(seed,res_abrewer_local,res_abrewer_global)}
-pdf(paste(resloc,"abrewer_ext_risk_local_disp.pdf",sep=""),height=9,width=9)
+#-------------------------------------- plot for extreme tail dep. noise ---------------------------------------
+pdf(paste(resloc,"abrewer_ext_risk_local_disp_extremenoise.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_abrewer_local)[3]){
   ss<-res_abrewer_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
-       #panel.first = grid(),
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
-  lines(ss$d,ss$risk_right,type="b",col="blue")
-  #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
-  #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  lines(ss$d,ss$risk_xright,type="b",col="blue")
   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
 }
 par(op)
 dev.off()
 
 
-pdf(paste(resloc,"abrewer_ext_risk_global_disp.pdf",sep=""),height=9,width=9)
+pdf(paste(resloc,"abrewer_ext_risk_global_disp_extremenoise.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_abrewer_global)[3]){
   ss<-res_abrewer_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_left,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
-       #panel.first = grid(),
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
-  lines(ss$d,ss$risk_right,type="b",col="blue")
-  #legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
-  #       col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+  lines(ss$d,ss$risk_xright,type="b",col="blue")
+  mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
+}
+par(op)
+dev.off()
+
+#-------------------------------------- plot for moderate tail dep. noise ---------------------------------------
+pdf(paste(resloc,"abrewer_ext_risk_local_disp_moderatenoise.pdf",sep=""),height=9,width=9)
+op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
+
+for(i in 1:dim(res_abrewer_local)[3]){
+  ss<-res_abrewer_local[,,i][1:6,] # plot for d in range (0 to 0.5)
+  ss<-as.data.frame(ss)
+  
+  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+       xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
+  lines(ss$d,ss$risk_mright,type="b",col="blue")
+  mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
+}
+par(op)
+dev.off()
+
+
+pdf(paste(resloc,"abrewer_ext_risk_global_disp_moderatenoise.pdf",sep=""),height=9,width=9)
+op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
+
+for(i in 1:dim(res_abrewer_global)[3]){
+  ss<-res_abrewer_global[,,i][1:6,] # plot for d in range (0 to 0.5)
+  ss<-as.data.frame(ss)
+  
+  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+       xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
+  lines(ss$d,ss$risk_mright,type="b",col="blue")
   mtext(paste0("r = ", round(rlist[i],5)),cex=1.2)
 }
 par(op)
@@ -1444,21 +1759,45 @@ set.seed(seed)
 numsims<-10000
 abrewer_extrisk_d0<-readRDS(paste(resloc,"abrewer_extrisk_d0.RDS",sep=""))
 
-abrewer_extrisk_d0$CI0.025left<-qbinom(p=0.025,size=numsims,prob=abrewer_extrisk_d0$risk_left_d0)/numsims
-abrewer_extrisk_d0$CI0.975left<-qbinom(p=0.975,size=numsims,prob=abrewer_extrisk_d0$risk_left_d0)/numsims
-abrewer_extrisk_d0$CI0.025right<-qbinom(p=0.025,size=numsims,prob=abrewer_extrisk_d0$risk_right_d0)/numsims
-abrewer_extrisk_d0$CI0.975right<-qbinom(p=0.975,size=numsims,prob=abrewer_extrisk_d0$risk_right_d0)/numsims
-pdf(paste(resloc,"abrewer_extrisk_d0.pdf",sep=""),height=5,width=5)
+abrewer_extrisk_d0$CI0.025xleft<-qbinom(p=0.025,size=numsims,prob=abrewer_extrisk_d0$risk_xleft_d0)/numsims
+abrewer_extrisk_d0$CI0.975xleft<-qbinom(p=0.975,size=numsims,prob=abrewer_extrisk_d0$risk_xleft_d0)/numsims
+abrewer_extrisk_d0$CI0.025xright<-qbinom(p=0.025,size=numsims,prob=abrewer_extrisk_d0$risk_xright_d0)/numsims
+abrewer_extrisk_d0$CI0.975xright<-qbinom(p=0.975,size=numsims,prob=abrewer_extrisk_d0$risk_xright_d0)/numsims
+
+abrewer_extrisk_d0$CI0.025mleft<-qbinom(p=0.025,size=numsims,prob=abrewer_extrisk_d0$risk_mleft_d0)/numsims
+abrewer_extrisk_d0$CI0.975mleft<-qbinom(p=0.975,size=numsims,prob=abrewer_extrisk_d0$risk_mleft_d0)/numsims
+abrewer_extrisk_d0$CI0.025mright<-qbinom(p=0.025,size=numsims,prob=abrewer_extrisk_d0$risk_mright_d0)/numsims
+abrewer_extrisk_d0$CI0.975mright<-qbinom(p=0.975,size=numsims,prob=abrewer_extrisk_d0$risk_mright_d0)/numsims
+
+pdf(paste(resloc,"abrewer_extrisk_d0_extremenoise.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
-plot(abrewer_extrisk_d0$r,abrewer_extrisk_d0$risk_left_d0,col="red",type="b",ylim=c(0,1),
+plot(abrewer_extrisk_d0$r,abrewer_extrisk_d0$risk_xleft_d0,col="red",type="b",ylim=c(0,1),
      xlim = range(abrewer_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
-arrows(x0=abrewer_extrisk_d0$r,y0=abrewer_extrisk_d0$CI0.025left,x1=abrewer_extrisk_d0$r,
-       y1=abrewer_extrisk_d0$CI0.975left,angle=90,length=0.1,col="red",code=3)
+arrows(x0=abrewer_extrisk_d0$r,y0=abrewer_extrisk_d0$CI0.025xleft,x1=abrewer_extrisk_d0$r,
+       y1=abrewer_extrisk_d0$CI0.975xleft,angle=90,length=0.1,col="red",code=3)
 abline(v=rc_abrewer,lty="dotted",col="darkgrey")
 
-lines(abrewer_extrisk_d0$r,abrewer_extrisk_d0$risk_right_d0,col="blue",type="b",pch=1)
-arrows(x0=abrewer_extrisk_d0$r,y0=abrewer_extrisk_d0$CI0.025right,
-       x1=abrewer_extrisk_d0$r,y1=abrewer_extrisk_d0$CI0.975right,angle=90,length=0.1,col="blue",code=3)
+lines(abrewer_extrisk_d0$r,abrewer_extrisk_d0$risk_xright_d0,col="blue",type="b",pch=1)
+arrows(x0=abrewer_extrisk_d0$r,y0=abrewer_extrisk_d0$CI0.025xright,
+       x1=abrewer_extrisk_d0$r,y1=abrewer_extrisk_d0$CI0.975xright,angle=90,length=0.1,col="blue",code=3)
+legend("topleft", legend=c("Austin-Brewer"), horiz=F, bty='n',cex=1.8)  
+mtext(paste0("s = ",s,", K = ",K),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
+legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
+#legend("bottomright", c("Austin-Brewer",paste0("s = ",s," , K = ",K),paste0(" sd =",scl)), horiz=F, bty='n',cex=1.8)
+par(op)
+dev.off()
+
+pdf(paste(resloc,"abrewer_extrisk_d0_moderatenoise.pdf",sep=""),height=5,width=5)
+op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
+plot(abrewer_extrisk_d0$r,abrewer_extrisk_d0$risk_mleft_d0,col="red",type="b",ylim=c(0,1),
+     xlim = range(abrewer_extrisk_d0$r),xlab="r",ylab="Extinction risk",cex.lab=2,cex.axis=1.5,pch=1)
+arrows(x0=abrewer_extrisk_d0$r,y0=abrewer_extrisk_d0$CI0.025mleft,x1=abrewer_extrisk_d0$r,
+       y1=abrewer_extrisk_d0$CI0.975mleft,angle=90,length=0.1,col="red",code=3)
+abline(v=rc_abrewer,lty="dotted",col="darkgrey")
+
+lines(abrewer_extrisk_d0$r,abrewer_extrisk_d0$risk_mright_d0,col="blue",type="b",pch=1)
+arrows(x0=abrewer_extrisk_d0$r,y0=abrewer_extrisk_d0$CI0.025mright,
+       x1=abrewer_extrisk_d0$r,y1=abrewer_extrisk_d0$CI0.975mright,angle=90,length=0.1,col="blue",code=3)
 legend("topleft", legend=c("Austin-Brewer"), horiz=F, bty='n',cex=1.8)  
 mtext(paste0("s = ",s,", K = ",K),side = 3, line=-16, adj=0.9, cex=1.8, col="black")
 legend("bottomright",legend=bquote(sigma==.(scl)), horiz=F,bty='n',cex=1.8)
@@ -1469,27 +1808,35 @@ dev.off()
 
 ```{r create_maintext_fig_localdisp_summary,echo=F,results="hide"}
 
-getplot<-function(x,rlist){
+getplot<-function(x,rlist,noisetype){
 lasta<-dim(x)[3]
 Af<-as.data.frame(x[,,1][1:6,])
 Al<-as.data.frame(x[,,lasta][1:6,])
 
-plot(Af$d,Af$risk_left,xlim=range(Af$d),ylim=c(0,1),type="b",col="red",
-       #panel.first = grid(),
+if(noisetype=="extreme"){
+  risk_left<-Af$risk_xleft
+  risk_right<-Af$risk_xright
+}
+
+if(noisetype=="moderate"){
+  risk_left<-Af$risk_mleft
+  risk_right<-Af$risk_mright
+}
+
+plot(Af$d,risk_left,xlim=range(Af$d),ylim=c(0,1),type="b",col="red",
      xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
-lines(Af$d,Af$risk_right,type="b",col="blue")
+lines(Af$d,risk_right,type="b",col="blue")
 
 mtext(paste0("r = ", round(rlist[1],5)))
 
-plot(Al$d,Al$risk_left,xlim=range(Al$d),ylim=c(0,1),type="b",col="red",
-       #panel.first = grid(),
+plot(Al$d,risk_left,xlim=range(Al$d),ylim=c(0,1),type="b",col="red",
      xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
-lines(Al$d,Al$risk_right,type="b",col="blue")
+lines(Al$d,risk_right,type="b",col="blue")
 mtext(paste0("r = ", round(rlist[lasta],5)))
 
 }
 
-pdf("./Results/allmodel_ext_risk_local_disp.pdf",height=12,width=9)
+pdf("./Results/allmodel_ext_risk_local_disp_extremenoise.pdf",height=12,width=9)
 
 op<-par(mfrow=c(6,3),mar=c(5.2,4.2,1.2,1.5))
 
@@ -1502,49 +1849,52 @@ legend(x=0.7,y=1.05, c("noise : LTdep.","noise : RTdep."), lty=c(1,1), pch=c(1,1
 mtext(paste("Ricker model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 #mtext(paste("(K = 50, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
 mtext(expression( paste("( K = 50, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
-getplot(x=x,rlist = rlist)
+getplot(x=x,rlist = rlist,noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Hassell model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.5, b = 100, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_hassell_local
 rlist<-hassell_extrisk_d0$r
-getplot(x=x,rlist = rlist)
+getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Maynard Smith model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.5, b = 4, ", sigma,"=0.8 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_msmith_local
 rlist<-msmith_extrisk_d0$r
-getplot(x=x,rlist = rlist)
+getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Pennycuick model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.1, b = 0.1, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_pennycuick_local
 rlist<-pennycuick_extrisk_d0$r
-getplot(x=x,rlist = rlist)
+getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Verhulst model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( K = 1, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_verhulst_local
 rlist<-verhulst_extrisk_d0$r
-getplot(x=x,rlist = rlist)
+getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Austin-Brewer model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( s = 0.2, K = 50, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_abrewer_local
 rlist<-abrewer_extrisk_d0$r
-getplot(x=x,rlist = rlist)
+getplot(x=x,rlist = rlist,noisetype = "extreme")
 
 par(op)
 dev.off()
 ```
  
-```{r create_maintext_fig_globaldisp_summary,echo=F,results="hide"}  
-pdf("./Results/allmodel_ext_risk_global_disp.pdf",height=12,width=9)
+```{r create_maintext_fig_globaldisp_summary,echo=F,results="hide"}
+
+#------------- for extreme tail dep. noise ---------------------
+
+pdf("./Results/allmodel_ext_risk_global_disp_extremenoise.pdf",height=12,width=9)
 
 op<-par(mfrow=c(6,3),mar=c(5.2,4.2,1.2,1.5))
 
@@ -1556,42 +1906,96 @@ legend(x=0.7,y=1.05, c("noise : LTdep.","noise : RTdep."), lty=c(1,1), pch=c(1,1
        col=c('red', 'blue'), horiz=F, bty='o', cex=1.5, adj=0)
 mtext(paste("Ricker model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( K = 50, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
-getplot(x=x,rlist = rlist)
+getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Hassell model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.5, b = 100, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_hassell_global
 rlist<-hassell_extrisk_d0$r
-getplot(x=x,rlist = rlist)
+getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Maynard Smith model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.5, b = 4, ", sigma,"=0.8 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_msmith_global
 rlist<-msmith_extrisk_d0$r
-getplot(x=x,rlist = rlist)
+getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Pennycuick model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.1, b = 0.1, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_pennycuick_global
 rlist<-pennycuick_extrisk_d0$r
-getplot(x=x,rlist = rlist)
+getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Verhulst model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( K = 1, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_verhulst_global
 rlist<-verhulst_extrisk_d0$r
-getplot(x=x,rlist = rlist)
+getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
 mtext(paste("Austin-Brewer model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( s = 0.2, K = 50, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_abrewer_global
 rlist<-abrewer_extrisk_d0$r
-getplot(x=x,rlist = rlist)
+getplot(x=x,rlist = rlist, noisetype = "extreme")
+
+par(op)
+dev.off()
+
+#--------------------for moderate tail dep. noise -----------------------
+
+pdf("./Results/allmodel_ext_risk_global_disp_moderatenoise.pdf",height=12,width=9)
+
+op<-par(mfrow=c(6,3),mar=c(5.2,4.2,1.2,1.5))
+
+x<-res_ricker_global
+rlist<-ricker_extrisk_d0$r
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+legend(x=0.7,y=1.05, c("noise : LTdep.","noise : RTdep."), lty=c(1,1), pch=c(1,1), 
+       col=c('red', 'blue'), horiz=F, bty='o', cex=1.5, adj=0)
+mtext(paste("Ricker model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(expression( paste("( K = 50, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
+getplot(x=x,rlist = rlist, noisetype = "moderate")
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Hassell model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(expression( paste("( a = 0.5, b = 100, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
+x<-res_hassell_global
+rlist<-hassell_extrisk_d0$r
+getplot(x=x,rlist = rlist, noisetype = "moderate")
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Maynard Smith model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(expression( paste("( a = 0.5, b = 4, ", sigma,"=0.8 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
+x<-res_msmith_global
+rlist<-msmith_extrisk_d0$r
+getplot(x=x,rlist = rlist, noisetype = "moderate")
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Pennycuick model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(expression( paste("( a = 0.1, b = 0.1, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
+x<-res_pennycuick_global
+rlist<-pennycuick_extrisk_d0$r
+getplot(x=x,rlist = rlist, noisetype = "moderate")
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Verhulst model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(expression( paste("( K = 1, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
+x<-res_verhulst_global
+rlist<-verhulst_extrisk_d0$r
+getplot(x=x,rlist = rlist, noisetype = "moderate")
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Austin-Brewer model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(expression( paste("( s = 0.2, K = 50, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
+x<-res_abrewer_global
+rlist<-abrewer_extrisk_d0$r
+getplot(x=x,rlist = rlist, noisetype = "moderate")
 
 par(op)
 dev.off()
@@ -1671,7 +2075,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 <!--Supp. FIG :  summary : all nonlinear model results for global dispersion : extrisk vs. d-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=15 cm]{./Results/allmodel_ext_risk_global_disp.pdf}
+\includegraphics[width=15 cm]{./Results/allmodel_ext_risk_global_disp_extremenoise.pdf}
 \caption[Extinction risk vs. dispersal rate for six density dependent metapopulation model with global dispersal.]{For each of six nonlinear density-dependence models presented in Table \ref{MT-tab_model_summary} with global dispersal, extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two columns represent extinction risk calculated for bifurcation parameter $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog, respectively.\label{fig_extrisk_allmodel_globaldisp}}
 \end{center}
 \end{figure}
@@ -1680,7 +2084,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_local_disp.pdf}\\
+\includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_local_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Ricker metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Ricker dynamics with local dispersal; 
 numsims=10000, $\sigma$=1. \label{fig_ricker_risk_local_disp_scl_1}}
@@ -1691,7 +2095,7 @@ numsims=10000, $\sigma$=1. \label{fig_ricker_risk_local_disp_scl_1}}
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_local_disp.pdf}\\
+\includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_local_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Hassell metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Hassell dynamics with local dispersal; 
 numsims=10000, $\sigma$=1. \label{fig_hassell_risk_local_disp_scl_1}}
@@ -1702,7 +2106,7 @@ numsims=10000, $\sigma$=1. \label{fig_hassell_risk_local_disp_scl_1}}
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_local_disp.pdf}\\
+\includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_local_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Maynard smith metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Maynard Smith dynamics with local dispersal; 
 numsims=10000, $\sigma$=0.8. \label{fig_msmith_risk_local_disp_scl_0.8}}
@@ -1713,7 +2117,7 @@ numsims=10000, $\sigma$=0.8. \label{fig_msmith_risk_local_disp_scl_0.8}}
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp.pdf}\\
+\includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Pennycuick metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Pennycuick dynamics with local dispersal; 
 numsims=10000, $\sigma$=1. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
@@ -1724,7 +2128,7 @@ numsims=10000, $\sigma$=1. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp.pdf}\\
+\includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Verhulst metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Verhulst dynamics with local dispersal; 
 numsims=10000, $\sigma$=0.6. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
@@ -1735,7 +2139,7 @@ numsims=10000, $\sigma$=0.6. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp.pdf}\\
+\includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Austin-Brewer metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Austin-Brewer dynamics with local dispersal; 
 numsims=10000, $\sigma$=0.6. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
@@ -1746,7 +2150,7 @@ numsims=10000, $\sigma$=0.6. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_global_disp.pdf}\\
+\includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_global_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Ricker metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Ricker dynamics with global dispersal; 
 numsims=10000, $\sigma$=1. \label{fig_ricker_risk_global_disp_scl_1}}
@@ -1757,7 +2161,7 @@ numsims=10000, $\sigma$=1. \label{fig_ricker_risk_global_disp_scl_1}}
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_global_disp.pdf}\\
+\includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_global_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Hassell metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Hassell dynamics with global dispersal; 
 numsims=10000, $\sigma$=1. \label{fig_hassell_risk_global_disp_scl_1}}
@@ -1768,7 +2172,7 @@ numsims=10000, $\sigma$=1. \label{fig_hassell_risk_global_disp_scl_1}}
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_global_disp.pdf}\\
+\includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_global_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Maynard smith metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Maynard Smith dynamics with global dispersal; 
 numsims=10000, $\sigma$=0.8. \label{fig_msmith_risk_global_disp_scl_0.8}}
@@ -1779,7 +2183,7 @@ numsims=10000, $\sigma$=0.8. \label{fig_msmith_risk_global_disp_scl_0.8}}
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp.pdf}\\
+\includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Pennycuick metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Pennycuick dynamics with global dispersal; 
 numsims=10000, $\sigma$=1. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1}}
@@ -1790,7 +2194,7 @@ numsims=10000, $\sigma$=1. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1}}
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp.pdf}\\
+\includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Verhulst metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Verhulst dynamics with global dispersal; 
 numsims=10000, $\sigma$=0.6. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6}}
@@ -1801,7 +2205,7 @@ numsims=10000, $\sigma$=0.6. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_global_disp.pdf}\\
+\includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_global_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Austin-Brewer metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Austin-Brewer dynamics with global dispersal; 
 numsims=10000, $\sigma$=0.6. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}}
