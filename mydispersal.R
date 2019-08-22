@@ -2,7 +2,6 @@
 source("ExtremeTailDep.R")
 #--------------------------------------------------------------------------
 library(copula)
-library(VineCopula)
 #-------------------------------------------------------------------------------
 # A function to generate dispersal matrix D (a square matrix : numlocs by numlocs)
 # Input :
