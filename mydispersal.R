@@ -1,7 +1,8 @@
 #--------------------------------------------------------------------------
 source("ExtremeTailDep.R")
 #--------------------------------------------------------------------------
-
+library(copula)
+library(VineCopula)
 #-------------------------------------------------------------------------------
 # A function to generate dispersal matrix D (a square matrix : numlocs by numlocs)
 # Input :
@@ -156,7 +157,7 @@ get_avg_acf<-function(sims){
   }
   # which(is.na(acfs))
   ans<-mean(acfs,na.rm=T) # This line to remove NaN which is produced due to pop = 0 throughout the time at any patch
-                          # you can see that in the row of matrix m (for a given i)
+  # you can see that in the row of matrix m (for a given i)
   return(ans)
 }
 # I checked : ACF of noise (right tail) = ACF of noise (left tail)
@@ -176,45 +177,80 @@ get_avg_acf<-function(sims){
 #       9) model : a character specifying model name
 #       10) ploton : logical(T or F) to get optional plot
 #       11) resloc : location to save plots
-#       getacf : these are tags
+#       12) getacf : these are tags
 
 plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,model,ploton,resloc,getacf){
- 
+  
+  # ========================== when noises are extreme tail dep. ========================================
   ns1<-retd(n=numsteps*numsims,d=numlocs,rl=1,mn=0,sdev=1)# a righttail dep matrix(numpoints by numlocs,     
-  #                                                      numpoints=numsteps*numsims)
+  # numpoints=numsteps*numsims)
   
   ns1<-array(ns1,c(numsteps,numsims,numlocs))# convert to an array (numsteps by numsims by numlocs)
   ns1<-aperm(ns1,c(2,3,1)) # convert to an array (numsims by numlocs by numsteps)
   
   ns1<-scl*ns1
   pops1<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns1,D=D,params=params,ext_thrs=ext_thrs,model=model)
-  risk_right<-extrisk(pops1) # a vector
+  risk_xright<-extrisk(pops1) # a vector
   
   ns2<-(-ns1)
   pops2<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns2,D=D,params=params,ext_thrs=ext_thrs,model=model)
-  risk_left<-extrisk(pops2) # a vector
+  risk_xleft<-extrisk(pops2) # a vector
   
   #------------------------------------------------------
   # This two number must be same and I checked that
-  #noise_acf_right<-get_avg_acf(sims=ns1) # a number
-  #noise_acf_left<-get_avg_acf(sims=ns2) # a number
+  #noise_acf_xright<-get_avg_acf(sims=ns1) # a number
+  #noise_acf_xleft<-get_avg_acf(sims=ns2) # a number
   #--------------------------------------------------------
   if(getacf==T){
-    pop_acf_right<-get_avg_acf(sims=pops1) # a number
-    pop_acf_left<-get_avg_acf(sims=pops2) # a number
+    pop_acf_xright<-get_avg_acf(sims=pops1) # a number
+    pop_acf_xleft<-get_avg_acf(sims=pops2) # a number
   }else{
-    pop_acf_right<-NA # a number
-    pop_acf_left<-NA
+    pop_acf_xright<-NA # a number
+    pop_acf_xleft<-NA
   }
   
+  # ========================== when noises have moderate tail dep. ========================================
+  ktau<-0.6  # kendall's tau
+  
+  # for clayton : left tail dep.
+  copC<-claytonCopula(3)
+  parC<-iTau(copC,tau=ktau)
+  
+  # first generate Clayton copula with dimensions=numlocs
+  cc<-claytonCopula(par=parC,dim=numlocs)
+  ns3<-rCopula(numsteps*numsims,cc)  # numpoints=(numsteps*numsims)
+  
+  # flip Clayton copula with dimensions=numlocs
+  ns4<-1-ns3
+  
+  # make marginal normally distributed
+  ns3<-qnorm(ns3)
+  ns4<-qnorm(ns4)
+  
+  ns3<-array(ns3,c(numsteps,numsims,numlocs))# convert to an array (numsteps by numsims by numlocs)
+  ns3<-aperm(ns3,c(2,3,1)) # convert to an array (numsims by numlocs by numsteps)
+  
+  ns3<-scl*ns3
+  pops3<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns3,D=D,params=params,ext_thrs=ext_thrs,model=model)
+  risk_mleft<-extrisk(pops3) # a vector
+  
+  ns4<-array(ns4,c(numsteps,numsims,numlocs))# convert to an array (numsteps by numsims by numlocs)
+  ns4<-aperm(ns4,c(2,3,1)) # convert to an array (numsims by numlocs by numsteps)
+  
+  ns4<-scl*ns4
+  pops4<-popsim_ml_D(p0=rep(p0,numlocs),ns=ns4,D=D,params=params,ext_thrs=ext_thrs,model=model)
+  risk_mright<-extrisk(pops4) # a vector
+  
+  # =========================================================================================================
   if(ploton==T){
+    
     # noise time series plot for last simulation (numsim=numsims) from each patches
-    pdf(paste0(resloc,"r_",params[1],"_noise_lastsim_timeseries_all_locs.pdf",sep=""),height=5,width=10)
-    op<-par(mfrow=c(1,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
+    pdf(paste0(resloc,"r_",params[1],"_noise_lastsim_timeseries_all_locs.pdf",sep=""),height=10,width=10)
+    op<-par(mfrow=c(2,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
     
     ns_sim1<-ns2[numsims,,]
     ylm<-max(c(abs(min(ns_sim1)),abs(max(ns_sim1))))
-    plot(0,0,xlim = c(0,numsteps),ylim = c(-ylm,ylm),type = "n",xlab="Time",ylab="Noise : LTdep.")
+    plot(0,0,xlim = c(0,numsteps),ylim = c(-ylm,ylm),type = "n",xlab="Time",ylab="Noise : extreme LTdep.")
     cl <- rainbow(numlocs)
     for(i in 1:numlocs){
       lines(c(0:numsteps),c(0,ns_sim1[i,]),col=cl[i],type="l") # at t=0 noise was also 0, for t>0 , there was finite noise in each time step
@@ -222,20 +258,40 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
     
     ns_sim1<-ns1[numsims,,]
     ylm<-max(c(abs(min(ns_sim1)),abs(max(ns_sim1))))
-    plot(0,0,xlim = c(0,numsteps),ylim = c(-ylm,ylm),type = "n",xlab="Time",ylab="Noise : RTdep.")
+    plot(0,0,xlim = c(0,numsteps),ylim = c(-ylm,ylm),type = "n",xlab="Time",ylab="Noise : extreme RTdep.")
     cl <- rainbow(numlocs)
     for(i in 1:numlocs){
       lines(c(0:numsteps),c(0,ns_sim1[i,]),col=cl[i],type="l") # at t=0 noise was also 0, for t>0 , there was finite noise in each time step
     }
+    
+    ns_sim3<-ns3[numsims,,]
+    ylm<-max(c(abs(min(ns_sim3)),abs(max(ns_sim3))))
+    plot(0,0,xlim = c(0,numsteps),ylim = c(-ylm,ylm),type = "n",xlab="Time",ylab="Noise : moderate LTdep.")
+    cl <- rainbow(numlocs)
+    for(i in 1:numlocs){
+      lines(c(0:numsteps),c(0,ns_sim3[i,]),col=cl[i],type="l") # at t=0 noise was also 0, for t>0 , there was finite noise in each time step
+    }
+    
+    ns_sim4<-ns4[numsims,,]
+    ylm<-max(c(abs(min(ns_sim4)),abs(max(ns_sim4))))
+    plot(0,0,xlim = c(0,numsteps),ylim = c(-ylm,ylm),type = "n",xlab="Time",ylab="Noise : moderate RTdep.")
+    cl <- rainbow(numlocs)
+    for(i in 1:numlocs){
+      lines(c(0:numsteps),c(0,ns_sim4[i,]),col=cl[i],type="l") # at t=0 noise was also 0, for t>0 , there was finite noise in each time step
+    }
+    
     par(op)
     dev.off()
     
-    pdf(paste0(resloc,"r_",params[1],"_pops_lastsim_timeseries_all_locs.pdf",sep=""),height=5,width=10)
-    op<-par(mfrow=c(1,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
+    #--------------------------------------------------------------------------
+    
+    # population time series plot for last simulation (numsim=numsims) from each patches
+    pdf(paste0(resloc,"r_",params[1],"_pops_lastsim_timeseries_all_locs.pdf",sep=""),height=10,width=10)
+    op<-par(mfrow=c(2,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
     
     pop_sim2<-pops2[numsims,,]
     ylm<-max(c(abs(min(pop_sim2)),abs(max(pop_sim2))))
-    plot(0,0,xlim = c(0,numsteps),ylim = c(0,ylm),type = "n",xlab="Time",ylab="Population for LTdep. in noise")
+    plot(0,0,xlim = c(0,numsteps),ylim = c(0,ylm),type = "n",xlab="Time",ylab="Population for extreme LTdep. noise")
     cl <- rainbow(numlocs)
     for(i in 1:numlocs){
       lines(c(0:numsteps),pop_sim2[i,],col=cl[i],type="l")
@@ -243,35 +299,64 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
     
     pop_sim1<-pops1[numsims,,]
     ylm<-max(c(abs(min(pop_sim1)),abs(max(pop_sim1))))
-    plot(0,0,xlim = c(0,numsteps),ylim = c(0,ylm),type = "n",xlab="Time",ylab="Population for RTdep. in noise")
+    plot(0,0,xlim = c(0,numsteps),ylim = c(0,ylm),type = "n",xlab="Time",ylab="Population for extreme RTdep. noise")
     cl <- rainbow(numlocs)
     for(i in 1:numlocs){
       lines(c(0:numsteps),pop_sim1[i,],col=cl[i],type="l")
     }
     
+    pop_sim3<-pops3[numsims,,]
+    ylm<-max(c(abs(min(pop_sim3)),abs(max(pop_sim3))))
+    plot(0,0,xlim = c(0,numsteps),ylim = c(0,ylm),type = "n",xlab="Time",ylab="Population for moderate LTdep. noise")
+    cl <- rainbow(numlocs)
+    for(i in 1:numlocs){
+      lines(c(0:numsteps),pop_sim3[i,],col=cl[i],type="l")
+    }
+    
+    pop_sim4<-pops4[numsims,,]
+    ylm<-max(c(abs(min(pop_sim4)),abs(max(pop_sim4))))
+    plot(0,0,xlim = c(0,numsteps),ylim = c(0,ylm),type = "n",xlab="Time",ylab="Population for moderate RTdep. noise")
+    cl <- rainbow(numlocs)
+    for(i in 1:numlocs){
+      lines(c(0:numsteps),pop_sim4[i,],col=cl[i],type="l")
+    }
+    
     par(op)
     dev.off()
     
-    pdf(paste0(resloc,"r_",params[1],"_extrisk_vs_time.pdf",sep=""),height=5,width=10)
-    op<-par(mfrow=c(1,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
+    #-------------------------------------------------
     
-    plot(c(0:numsteps),risk_left,type='b',xlab='Time',ylab='Extinction risk',col='red',panel.first = grid())
-    mtext("Noise : LTdep.")
+    # extinction risk time series plot for last simulation (numsim=numsims) from each patches
+    pdf(paste0(resloc,"r_",params[1],"_extrisk_vs_time.pdf",sep=""),height=10,width=10)
+    op<-par(mfrow=c(2,2),mar=c(3.5,4.5,2,3.5),mgp=c(1.9,0.5,0))
     
-    plot(c(0:numsteps),risk_right,type='b',
+    plot(c(0:numsteps),risk_xleft,type='b',xlab='Time',ylab='Extinction risk',col='red',panel.first = grid())
+    mtext("Noise : extreme LTdep.")
+    
+    plot(c(0:numsteps),risk_xright,type='b',
          xlab='Time',ylab='Extinction risk',col='blue',panel.first = grid())
-    mtext("Noise : RTdep.")
+    mtext("Noise : extreme RTdep.")
+    
+    plot(c(0:numsteps),risk_mleft,type='b',
+         xlab='Time',ylab='Extinction risk',col='red',panel.first = grid())
+    mtext("Noise : moderate LTdep.")
+    
+    plot(c(0:numsteps),risk_mright,type='b',
+         xlab='Time',ylab='Extinction risk',col='blue',panel.first = grid())
+    mtext("Noise : moderate RTdep.")
     
     par(op)
     dev.off()  
     
   }
   
-  return(list(risk_right_after_numsteps=risk_right[numsteps+1],
-              risk_left_after_numsteps=risk_left[numsteps+1],
-              pop_avg_acf_right_after_numsteps=pop_acf_right,
-              pop_avg_acf_left_after_numsteps=pop_acf_left
-             ))
+  return(list(risk_xright_after_numsteps=risk_xright[numsteps+1],
+              risk_xleft_after_numsteps=risk_xleft[numsteps+1],
+              pop_avg_acf_xright_after_numsteps=pop_acf_xright,
+              pop_avg_acf_xleft_after_numsteps=pop_acf_xleft,
+              risk_mleft_after_numsteps=risk_mleft[numsteps+1],
+              risk_mright_after_numsteps=risk_mright[numsteps+1]
+  ))
   
 }
 #----------------------------------------------------------------------------------------------------
@@ -295,12 +380,14 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
 #       getacf : these are tags
 
 varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,model,disp_everywhere,plotteron,resloc,getacf){
-  risk_right<-c()
-  risk_left<-c()
-  pop_avg_acf_right<-c()
-  pop_avg_acf_left<-c()
-  noise_avg_acf_right<-c()
-  noise_avg_acf_left<-c()
+  risk_xright<-c()
+  risk_xleft<-c()
+  risk_mright<-c()
+  risk_mleft<-c()
+  pop_avg_acf_xright<-c()
+  pop_avg_acf_xleft<-c()
+  noise_avg_acf_xright<-c()
+  noise_avg_acf_xleft<-c()
   
   if(disp_everywhere==F){
     tempo2<-paste(resloc,"local_disp_d_",sep="")
@@ -323,59 +410,74 @@ varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,mod
     riskrl<- plotter_ext_risk(numsims=numsims,numsteps=numsteps,numlocs=numlocs,D=D_mat,p0=p0,params=params,
                               ext_thrs=ext_thrs,scl=scl,model=model,ploton=T,resloc=resloc2,getacf=getacf)
     
-    risk_r<-riskrl$risk_right_after_numsteps
-    risk_l<-riskrl$risk_left_after_numsteps
-    pop_avg_acf_r<-riskrl$pop_avg_acf_right_after_numsteps
-    pop_avg_acf_l<-riskrl$pop_avg_acf_left_after_numsteps
-    #noise_avg_acf_r<-riskrl$noise_avg_acf_right_after_numsteps
-    #noise_avg_acf_l<-riskrl$noise_avg_acf_left_after_numsteps
+    risk_xr<-riskrl$risk_xright_after_numsteps
+    risk_xl<-riskrl$risk_xleft_after_numsteps
+    pop_avg_acf_xr<-riskrl$pop_avg_acf_xright_after_numsteps
+    pop_avg_acf_xl<-riskrl$pop_avg_acf_xleft_after_numsteps
+    #noise_avg_acf_r<-riskrl$noise_avg_acf_xright_after_numsteps
+    #noise_avg_acf_l<-riskrl$noise_avg_acf_xleft_after_numsteps
+    risk_mr<-riskrl$risk_mright_after_numsteps
+    risk_ml<-riskrl$risk_mleft_after_numsteps
     
-    risk_right<-c(risk_right,risk_r)
-    risk_left<-c(risk_left,risk_l)
-    pop_avg_acf_right<-c(pop_avg_acf_right,pop_avg_acf_r)
-    pop_avg_acf_left<-c(pop_avg_acf_left,pop_avg_acf_l)
-    #noise_avg_acf_right<-c(noise_avg_acf_right,noise_avg_acf_r)
-    #noise_avg_acf_left<-c(noise_avg_acf_left,noise_avg_acf_l)
+    risk_xright<-c(risk_xright,risk_xr)
+    risk_xleft<-c(risk_xleft,risk_xl)
+    pop_avg_acf_xright<-c(pop_avg_acf_xright,pop_avg_acf_xr)
+    pop_avg_acf_xleft<-c(pop_avg_acf_xleft,pop_avg_acf_xl)
+    #noise_avg_acf_xright<-c(noise_avg_acf_xright,noise_avg_acf_xr)
+    #noise_avg_acf_xleft<-c(noise_avg_acf_xleft,noise_avg_acf_xl)
+    
+    risk_mright<-c(risk_mright,risk_mr)
+    risk_mleft<-c(risk_mleft,risk_ml)
   }
   
   if(plotteron==T){
     
     if(getacf==T){
-    op<-par(mfrow=c(2,1), mar=c(5.2,4.2,1,1.2))
-    plot(d_seq,risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),
-         xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
-    lines(d_seq,risk_right,type="b",col="blue")
-    legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
-           col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-    mtext(paste0("r = ", r))
-    
-    plot(d_seq,pop_avg_acf_left,xlim=c(0,1),ylim=c(-0.1,0.1),type="b",col="red",panel.first = grid(),pch=16,
-         xlab="d",ylab="avg. ACF",cex.lab=1.5,cex.axis=1.5)
-    lines(d_seq,pop_avg_acf_right,type="b",col="blue",pch=16)
-    legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(16,16), 
-           col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
-    #mtext(paste0("r = ", r))
-    
-    par(op)
-    }else{
-      op<-par(mar=c(5.2,4.2,1,1.2))
-      plot(d_seq,risk_left,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),
+      op<-par(mfrow=c(2,1), mar=c(5.2,4.2,1,1.2))
+      plot(d_seq,risk_xleft,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),
            xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
-      lines(d_seq,risk_right,type="b",col="blue")
-      legend("bottomleft", c("noise : left","noise : right"), lty=c(1,1), pch=c(1,1), 
+      lines(d_seq,risk_xright,type="b",col="blue")
+      legend("bottomleft", c("noise: extreme LT","noise: extreme RT"), lty=c(1,1), pch=c(1,1), 
              col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
       mtext(paste0("r = ", r))
+      
+      plot(d_seq,pop_avg_acf_xleft,xlim=c(0,1),ylim=c(-0.1,0.1),type="b",col="red",panel.first = grid(),pch=16,
+           xlab="d",ylab="avg. ACF",cex.lab=1.5,cex.axis=1.5)
+      lines(d_seq,pop_avg_acf_xright,type="b",col="blue",pch=16)
+      legend("bottomleft", c("noise: extreme LT","noise: extreme RT"), lty=c(1,1), pch=c(16,16), 
+             col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+      #mtext(paste0("r = ", r))
+      
+      par(op)
+    }else{
+      op<-par(mfrow=c(2,1), mar=c(5.2,4.2,1,1.2))
+      plot(d_seq,risk_xleft,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),
+           xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
+      lines(d_seq,risk_xright,type="b",col="blue")
+      legend("bottomleft", c("noise : extreme LT","noise : extreme RT"), lty=c(1,1), pch=c(1,1), 
+             col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+      mtext(paste0("r = ", r))
+      
+      plot(d_seq,risk_mleft,xlim=c(0,1),ylim=c(0,1),type="b",col="red",panel.first = grid(),
+           xlab="d",ylab="ext_risk",cex.lab=1.5,cex.axis=1.5)
+      lines(d_seq,risk_mright,type="b",col="blue")
+      legend("bottomleft", c("noise : moderate LT","noise : moderate RT"), lty=c(1,1), pch=c(1,1), 
+             col=c('red', 'blue'), horiz=T, bty='n', cex=1.2)
+      mtext(paste0("r = ", r))
+      
       par(op)
     }
   }
   
   return(data.frame(d_seq=d_seq,
-                    risk_left=risk_left,
-                    risk_right=risk_right,
-                    pop_avg_acf_left=pop_avg_acf_left,
-                    pop_avg_acf_right=pop_avg_acf_right
-                    ))
+                    risk_xleft=risk_xleft,
+                    risk_xright=risk_xright,
+                    pop_avg_acf_xleft=pop_avg_acf_xleft,
+                    pop_avg_acf_xright=pop_avg_acf_xright,
+                    risk_mleft=risk_mleft,
+                    risk_mright=risk_mright
+  ))
   
-
+  
 }
 #------------------------------------------------------------------------------------------------------------
