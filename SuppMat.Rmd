@@ -746,6 +746,9 @@ for(i in c(1:length(rlist))){
       
     hassell_extrisk_d0$risk_xleft_d0[i]<-ss$risk_xleft[1]
     hassell_extrisk_d0$risk_xright_d0[i]<-ss$risk_xright[1]
+    
+    hassell_extrisk_d0$risk_mleft_d0[i]<-ss$risk_mleft[1]
+    hassell_extrisk_d0$risk_mright_d0[i]<-ss$risk_mright[1]
 }
 
 anm<-paste("r_",rlist,sep="")
@@ -974,6 +977,9 @@ for(i in c(1:length(rlist))){
       
     msmith_extrisk_d0$risk_xleft_d0[i]<-ss$risk_xleft[1]
     msmith_extrisk_d0$risk_xright_d0[i]<-ss$risk_xright[1]
+    
+    msmith_extrisk_d0$risk_mleft_d0[i]<-ss$risk_mleft[1]
+    msmith_extrisk_d0$risk_mright_d0[i]<-ss$risk_mright[1]
 }
 
 anm<-paste("r_",rlist,sep="")
@@ -1228,6 +1234,9 @@ for(i in c(1:length(rlist))){
       
     pennycuick_extrisk_d0$risk_xleft_d0[i]<-ss$risk_xleft[1]
     pennycuick_extrisk_d0$risk_xright_d0[i]<-ss$risk_xright[1]
+    
+    pennycuick_extrisk_d0$risk_mleft_d0[i]<-ss$risk_mleft[1]
+    pennycuick_extrisk_d0$risk_mright_d0[i]<-ss$risk_mright[1]
 }
 anm<-paste("r_",rlist,sep="")
 cnm<-c("d","risk_xleft","risk_xright","risk_mleft","risk_mright")
@@ -1444,6 +1453,9 @@ for(i in c(1:length(rlist))){
       
     verhulst_extrisk_d0$risk_xleft_d0[i]<-ss$risk_xleft[1]
     verhulst_extrisk_d0$risk_xright_d0[i]<-ss$risk_xright[1]
+    
+    verhulst_extrisk_d0$risk_mleft_d0[i]<-ss$risk_mleft[1]
+    verhulst_extrisk_d0$risk_mright_d0[i]<-ss$risk_mright[1]
 }
 
 anm<-paste("r_",rlist,sep="")
@@ -1660,6 +1672,9 @@ for(i in c(1:length(rlist))){
   
   abrewer_extrisk_d0$risk_xleft_d0[i]<-ss$risk_xleft[1]
   abrewer_extrisk_d0$risk_xright_d0[i]<-ss$risk_xright[1]
+  
+  abrewer_extrisk_d0$risk_mleft_d0[i]<-ss$risk_mleft[1]
+  abrewer_extrisk_d0$risk_mright_d0[i]<-ss$risk_mright[1]
 }
 
 anm<-paste("r_",rlist,sep="")
@@ -1814,28 +1829,35 @@ Af<-as.data.frame(x[,,1][1:6,])
 Al<-as.data.frame(x[,,lasta][1:6,])
 
 if(noisetype=="extreme"){
-  risk_left<-Af$risk_xleft
-  risk_right<-Af$risk_xright
+  risk_left1<-Af$risk_xleft
+  risk_right1<-Af$risk_xright
+  
+  risk_left2<-Al$risk_xleft
+  risk_right2<-Al$risk_xright
 }
 
 if(noisetype=="moderate"){
-  risk_left<-Af$risk_mleft
-  risk_right<-Af$risk_mright
+  risk_left1<-Af$risk_mleft
+  risk_right1<-Af$risk_mright
+  
+  risk_left2<-Al$risk_mleft
+  risk_right2<-Al$risk_mright
 }
 
-plot(Af$d,risk_left,xlim=range(Af$d),ylim=c(0,1),type="b",col="red",
+plot(Af$d,risk_left1,xlim=range(Af$d),ylim=c(0,1),type="b",col="red",
      xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
-lines(Af$d,risk_right,type="b",col="blue")
+lines(Af$d,risk_right1,type="b",col="blue")
 
 mtext(paste0("r = ", round(rlist[1],5)))
 
-plot(Al$d,risk_left,xlim=range(Al$d),ylim=c(0,1),type="b",col="red",
+plot(Al$d,risk_left2,xlim=range(Al$d),ylim=c(0,1),type="b",col="red",
      xlab="d",ylab="Extinction risk",cex.lab=1.5,cex.axis=1.5)
-lines(Al$d,risk_right,type="b",col="blue")
+lines(Al$d,risk_right2,type="b",col="blue")
 mtext(paste0("r = ", round(rlist[lasta],5)))
 
 }
 
+#------------- for extreme tail dep. noise : local dispersal ---------------------
 pdf("./Results/allmodel_ext_risk_local_disp_extremenoise.pdf",height=12,width=9)
 
 op<-par(mfrow=c(6,3),mar=c(5.2,4.2,1.2,1.5))
@@ -1885,6 +1907,60 @@ mtext(expression( paste("( s = 0.2, K = 50, ", sigma,"=0.6 )" )),side = 3, line=
 x<-res_abrewer_local
 rlist<-abrewer_extrisk_d0$r
 getplot(x=x,rlist = rlist,noisetype = "extreme")
+
+par(op)
+dev.off()
+
+#------------- for moderate tail dep. noise : local dispersal ---------------------
+pdf("./Results/allmodel_ext_risk_local_disp_moderatenoise.pdf",height=12,width=9)
+
+op<-par(mfrow=c(6,3),mar=c(5.2,4.2,1.2,1.5))
+
+x<-res_ricker_local
+rlist<-ricker_extrisk_d0$r
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+legend(x=0.7,y=1.05, c("noise : LTdep.","noise : RTdep."), lty=c(1,1), pch=c(1,1), 
+       col=c('red', 'blue'), horiz=F, bty='o', cex=1.5, adj=0)
+mtext(paste("Ricker model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+#mtext(paste("(K = 50, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
+mtext(expression( paste("( K = 50, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
+getplot(x=x,rlist = rlist,noisetype = "moderate")
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Hassell model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(expression( paste("( a = 0.5, b = 100, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
+x<-res_hassell_local
+rlist<-hassell_extrisk_d0$r
+getplot(x=x,rlist = rlist, noisetype = "moderate")
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Maynard Smith model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(expression( paste("( a = 0.5, b = 4, ", sigma,"=0.8 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
+x<-res_msmith_local
+rlist<-msmith_extrisk_d0$r
+getplot(x=x,rlist = rlist, noisetype = "moderate")
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Pennycuick model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(expression( paste("( a = 0.1, b = 0.1, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
+x<-res_pennycuick_local
+rlist<-pennycuick_extrisk_d0$r
+getplot(x=x,rlist = rlist, noisetype = "moderate")
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Verhulst model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(expression( paste("( K = 1, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
+x<-res_verhulst_local
+rlist<-verhulst_extrisk_d0$r
+getplot(x=x,rlist = rlist, noisetype = "moderate")
+
+plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
+mtext(paste("Austin-Brewer model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(expression( paste("( s = 0.2, K = 50, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
+x<-res_abrewer_local
+rlist<-abrewer_extrisk_d0$r
+getplot(x=x,rlist = rlist,noisetype = "moderate")
 
 par(op)
 dev.off()
