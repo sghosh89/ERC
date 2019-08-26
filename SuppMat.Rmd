@@ -1,5 +1,5 @@
 ---
-title: "Supporting Information : Extreme climatic events with asymmetric tail-dependence affect population-extinction risk"
+title: "Supporting Information : Asymmetric tail-dependence in extreme climatic events affects population-extinction risk"
 author: "Shyamolina Ghosh, Daniel Reuman"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 geometry: "left=1in,right=1in,top=1in,bottom=1in"
@@ -33,9 +33,12 @@ knitr::opts_chunk$set(echo = TRUE)
 seed<-101
 library(abind)
 source("mtime.R")
+# Note : for moderate tail dep. we used Kendall's tau = 0.6 to get C or SC
 ```
 
-```{r sim_linear_C_SC_G_SG, echo=F,  cache=T, cache.extra=list(seed,mtime("ext_risk_cop_age_str.R"))}
+```{r sim_linear_mtd, echo=F,  cache=T, cache.extra=list(seed,mtime("ext_risk_cop_age_str.R"))}
+# extinction risk with moderate tail dep. for single patch linear age structure model
+
 set.seed(seed)
 source("ext_risk_cop_age_str.R")
 
@@ -88,51 +91,9 @@ resloc<-paste(tempo,"/",sep="")
 SC_age<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg,
             numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
 saveRDS(SC_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
-#---------------------------------------------------------------------------------
-
-# Now for gumbel 
-
-fam<-4
-copG<-gumbelCopula(2)
-parG<-iTau(copG,tau = ktau)
-par<-parG
-
-cop<-BiCopSim(N=(numsteps*numsims), family = fam, par = par)
-
-tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_ktau_",ktau,"_linear",sep="")
-if (!dir.exists(tempo)){
-  dir.create(tempo)
-}
-
-resloc<-paste(tempo,"/",sep="")
-
-G_age<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg,
-            numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
-saveRDS(G_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
-
-#---------------------------------------------------------------------------------
-
-# Now for survival gumbel : should be the same parameter as of gumbel if kendall's tau is the same 
-
-fam<-14
-par<-parG
-
-cop<-BiCopSim(N=(numsteps*numsims), family = fam, par = par)
-
-tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_ktau_",ktau,"_linear",sep="")
-if (!dir.exists(tempo)){
-  dir.create(tempo)
-}
-
-resloc<-paste(tempo,"/",sep="")
-
-SG_age<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg,
-            numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
-saveRDS(SG_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
-#---------------------------------------------------------------------------------
 ```
 
-```{r fig_agestr_C_SC_G_SG_linear, echo=F,results="hide"}
+```{r fig_agestr_mtd_linear, echo=F,results="hide"}
 xL<-C_age$extdf
 xR<-SC_age$extdf
 t<-c(0:(nrow(xL)-1))
@@ -149,26 +110,11 @@ legend("topleft", c("vital rates : LTdep., C","vital rates : RTdep., SC"), lty=c
        col=c('red', 'blue'), horiz=F, bty='n', cex=1.5)
 par(op)
 dev.off()
-
-xL<-SG_age$extdf
-xR<-G_age$extdf
-t<-c(0:(nrow(xL)-1))
-pdf(paste("./Results/age_str_results/extrisk_age_str_SG_G_linear.pdf",sep=""),height=5,width=5)
-op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
-plot(0,-1,ylim=c(0,1),xlim=range(t),ylab="Extinction risk",xlab="time",cex.lab=2,cex.axis=1.5)
-x<-xL
-polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(1,0,0,0.3), border = NA)
-lines(t,x$erA,col="red",type="l")
-x<-xR
-polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(0,0,1,0.3), border = NA)
-lines(t,x$erA,col="blue",type="l")
-legend("topleft", c("vital rates : LTdep., SG","vital rates : RTdep., G"), lty=c(1,1),  
-       col=c('red', 'blue'), horiz=F, bty='n', cex=1.5)
-par(op)
-dev.off()
 ```
 
-```{r sim_nonlinear_C_SC_G_SG, echo=F,  cache=T, cache.extra=list(seed,mtime("ext_risk_cop_age_str.R"))}
+```{r sim_nonlinear_mtd, echo=F,  cache=T, cache.extra=list(seed,mtime("ext_risk_cop_age_str.R"))}
+# extinction risk with moderate tail dep. for single patch non-linear age structure model
+
 set.seed(seed)
 source("ext_risk_cop_age_str.R")
 
@@ -221,51 +167,9 @@ resloc<-paste(tempo,"/",sep="")
 SC_age<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg,
             numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
 saveRDS(SC_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
-#---------------------------------------------------------------------------------
-
-# Now for gumbel 
-
-fam<-4
-copG<-gumbelCopula(2)
-parG<-iTau(copG,tau = ktau)
-par<-parG
-
-cop<-BiCopSim(N=(numsteps*numsims), family = fam, par = par)
-
-tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_ktau_",ktau,"_linear",sep="")
-if (!dir.exists(tempo)){
-  dir.create(tempo)
-}
-
-resloc<-paste(tempo,"/",sep="")
-
-G_age<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg,
-            numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
-saveRDS(G_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
-
-#---------------------------------------------------------------------------------
-
-# Now for survival gumbel : should be the same parameter as of gumbel if kendall's tau is the same 
-
-fam<-14
-par<-parG
-
-cop<-BiCopSim(N=(numsteps*numsims), family = fam, par = par)
-
-tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_ktau_",ktau,"_linear",sep="")
-if (!dir.exists(tempo)){
-  dir.create(tempo)
-}
-
-resloc<-paste(tempo,"/",sep="")
-
-SG_age<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg,
-            numsims = numsims,numsteps = numsteps,ploton=T,resloc=resloc)
-saveRDS(SG_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
-#---------------------------------------------------------------------------------
 ```
 
-```{r fig_agestr_C_SC_G_SG_nonlinear, echo=F,results="hide"}
+```{r fig_agestr_mtd_nonlinear, echo=F,results="hide"}
 xL<-C_age$extdf
 xR<-SC_age$extdf
 t<-c(0:(nrow(xL)-1))
@@ -282,26 +186,11 @@ legend("topleft", c("vital rates : LTdep., C","vital rates : RTdep., SC"), lty=c
        col=c('red', 'blue'), horiz=F, bty='n', cex=1.5)
 par(op)
 dev.off()
-
-xL<-SG_age$extdf[1:26,]
-xR<-G_age$extdf[1:26,]
-t<-c(0:(nrow(xL)-1))
-pdf(paste("./Results/age_str_results/extrisk_age_str_SG_G_nonlinear_omg_",omg,".pdf",sep=""),height=5,width=5)
-op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
-plot(0,-1,ylim=c(0,1),xlim=range(t),ylab="Extinction risk",xlab="time",cex.lab=2,cex.axis=1.5)
-x<-xL
-polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(1,0,0,0.3), border = NA)
-lines(t,x$erA,col="red",type="l")
-x<-xR
-polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(0,0,1,0.3), border = NA)
-lines(t,x$erA,col="blue",type="l")
-legend("topleft", c("vital rates : LTdep., SG","vital rates : RTdep., G"), lty=c(1,1),  
-       col=c('red', 'blue'), horiz=F, bty='n', cex=1.5)
-par(op)
-dev.off()
 ```
 
 ```{r sim_agestr_with_extremetail_linear, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("ext_risk_cop_age_str.R"),mtime("ExtremeTailDep.R"))}
+# extinction risk with extreme tail dep. for single patch linear age structure model
+
 set.seed(seed)
 source("ext_risk_cop_age_str.R")
 source("ExtremeTailDep.R")
@@ -367,6 +256,8 @@ dev.off()
 ```
 
 ```{r sim_agestr_with_extremetail_nonlinear, echo=F,  results="hide", cache=T, cache.extra=list(seed,mtime("ext_risk_cop_age_str.R"),mtime("ExtremeTailDep.R"))}
+# extinction risk with extreme tail dep. for single patch non-linear age structure model
+
 set.seed(seed)
 source("ext_risk_cop_age_str.R")
 source("ExtremeTailDep.R")
@@ -2133,18 +2024,14 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 ```
 
 
-<!--Supp. FIG :  age structure model results for C, SC, G, SG with linear model (\Omega = infinity)-->
+<!--Supp. FIG :  age structure model results for C, SC with linear model (\Omega = infinity)-->
 \begin{figure}[!h]
 \begin{center}
 \textbf{ \hspace{0.5 cm} (A) \hspace{4.4 cm} (B)} \\
 \vspace{-0.2 cm}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_C_SC_linear.pdf}
-\includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_SG_G_linear.pdf}\\
-\textbf{ \hspace{0.5 cm} (C) \hspace{4.4 cm} (D)} \\
-\vspace{-0.2 cm}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_C_SC_nonlinear_omg_100.pdf}
-\includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_SG_G_nonlinear_omg_100.pdf}\\
-\caption[Extinction risk from single patch age structured models with time when vital rates have either left (C, SG) or right tail (SC, G) dependence.]{Extinction risk (shading represents 95\% confidence interval) from single patch age structured models with time; fecundity of adults and survival of eggs have either left or right tail dependence in their corresponding copula structure. $(A)$ Clayton and Survival Clayton (parameter = 3), $(B)$ Survival Gumbel and Gumbel (parameter = 2.5) for linear model ($\Omega = \infty$), numsims=10000. $(C - D)$ represents the analogous figures as of $(A - B)$ but for non-linear model ($\Omega = 100$). All copula has same Kendall correlation $\tau = 0.6$. \label{fig_extrisk_agestr_C_SC_G_SG}}
+\caption[Extinction risk from single patch age structured models with time when vital rates have either left (C) or right tail (SC) dependence.]{Extinction risk (shading represents 95\% confidence interval) from single patch age structured models with time for 10000 simulations. Fecundity of adults and survival of eggs have moderate tail dependence in either left or right tail in their corresponding copula structure. Moderate left tail dependence (or right tail dependence) was generated by a bivariate Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6, $(A)$ for linear model ($\Omega = \infty$) and for $(B)$ non-linear model ($\Omega = 100$).\label{fig_extrisk_agestr_mtd}}
 \end{center}
 \end{figure}
 

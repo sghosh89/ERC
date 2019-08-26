@@ -1,5 +1,5 @@
 ---
-title: "Extreme climatic events with asymmetric tail-dependence affect population-extinction risk"
+title: "Asymmetric tail-dependence in extreme climatic events affects population-extinction risk"
 author: "Shyamolina Ghosh, Daniel Reuman"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 geometry: "left=1in,right=1in,top=1in,bottom=1in"
@@ -362,15 +362,15 @@ and thereby increasing the extinction risk of the population. For non-linear age
 models, we got the similar trend for extinction risks with different tail-dependence (left and right).
 With non-linear model the extinction risks appeared as higher than their corresponding 
 linear analog as it was evident from Eq. \ref{eq_vitalrates} with finite $\Omega = 100$. 
-Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG} represents this scenario with 4 different 
+Fig. \ref{SM-fig_extrisk_agestr_mtd} represents this scenario with 4 different 
 asymmetric copulas but of same Kendall's correlation ($\tau = 0.6$). There was very little
 difference between extinction risks within a pair of different tail-dependent copulas
-(e.g. C-SC in Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG}(A,C) and
-G-SG in Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG}(B,D)) and that difference was partly 
+(e.g. C-SC in Fig. \ref{SM-fig_extrisk_agestr_mtd}(A,C) and
+G-SG in Fig. \ref{SM-fig_extrisk_agestr_mtd}(B,D)) and that difference was partly 
 dependent on the strength of tail dependence. Therefore we repeated the same analysis with 
 vital rates coming from extreme-tail dependent (left and right in two different simulations)
 copulas and got the similar results but with much prominent difference between their extinction risks
-(Fig. \ref{fig_extrisk_agestr}). This result answered (Q1) and showed extinction risk of 
+(Fig. \ref{fig_extrisk_agestr_etd}). This result answered (Q1) and showed extinction risk of 
 a population could be considered as
 direct manifestation of tail-dependence measure between vital rates of different age-class
 within that population. <!--discussion later : add Tuljapurkar's approximation-->
@@ -438,8 +438,8 @@ under-compensatory to over-compensatory regime.
 
 <!--Tuljapurkar approximation : linear version of age-structured model in stochastic environments-->
 We found left tail dependence in vital rates (induced by ECEs) caused higher extinction risk than 
-the right tail dependent ones, but the difference was not remarkable (Fig. \ref{SM-fig_extrisk_agestr_C_SC_G_SG}) 
-unless the tail dependence was at its extreme (Fig. \ref{fig_extrisk_agestr}). This finding could be explained 
+the right tail dependent ones, but the difference was not remarkable (Fig. \ref{SM-fig_extrisk_agestr_mtd}) 
+unless the tail dependence was at its extreme (Fig. \ref{fig_extrisk_agestr_etd}). This finding could be explained 
 by the approximation @tuljapurkar1990lecture made for the stochastic log(growth rate) in an iid environment.
 The approximation considered that the growth rate depends on the most dominant eigen value of the mean projection matrix 
 and the temporal variance of the log(population growth rate) caused by environmental stochasticity, which was based
@@ -505,15 +505,14 @@ a lot more potential to estimate risk of cascading extinction in model food webs
 \begin{center}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_extremetail_linear.pdf}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_extremetail_nonlinear_omg_100.pdf}\\
-\caption{Extinction risk from single patch age structured $(A)$ linear ($\Omega = \infty$) and $(B)$ nonlinear ($\Omega = 100$) models
-against time (shading represents 95\% confidence interval). Fecundity of adults and survival of eggs have either extreme left or extreme right tail dependence, numsims=10000. \label{fig_extrisk_agestr}}
+\caption{Extinction risk from single patch age structured $(A)$ linear ($\Omega = \infty$) and $(B)$ nonlinear ($\Omega = 100$) models against time (shading represents 95\% confidence interval). Fecundity of adults and survival of eggs have either extreme left or extreme right tail dependence, numsims=10000. \label{fig_extrisk_agestr_etd}}
 \end{center}
 \end{figure*}
 
 <!--FIG :  summary : all nonlinear model results for local dispersion : extrisk vs. d-->
 \begin{figure*}[!h]
 \begin{center}
-\includegraphics[width=15 cm]{./Results/allmodel_ext_risk_local_disp.pdf}
+\includegraphics[width=15 cm]{./Results/allmodel_ext_risk_local_disp_extremenoise.pdf}
 \caption{For each of six nonlinear density-dependence models presented in Table \ref{tab_model_summary} with local dispersal
 among $n=5$ patches, extinction risk after $numsteps = 25$ years for $numsims = 10000$ simulations were calculated.
 Extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two columns represent extinction risk calculated for intrinsic growth rate $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog, respectively.\label{fig_extrisk_allmodel_localdisp}}
@@ -525,14 +524,14 @@ Extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two
 \begin{figure*}[!h]
 \begin{center}
 \includegraphics[width=10 cm]{./Results/common_legend.pdf}\\
-\includegraphics[width=5 cm]{./Results/ricker_scl_1/ricker_extrisk_d0.pdf}
-\includegraphics[width=5 cm]{./Results/hassell_scl_1/hassell_extrisk_d0.pdf}\\
+\includegraphics[width=5 cm]{./Results/ricker_scl_1/ricker_extrisk_d0_extremenoise.pdf}
+\includegraphics[width=5 cm]{./Results/hassell_scl_1/hassell_extrisk_d0_extremenoise.pdf}\\
 \vspace{-0.6 cm}
-\includegraphics[width=5 cm]{./Results/msmith_scl_0.8/msmith_extrisk_d0.pdf}
-\includegraphics[width=5 cm]{./Results/pennycuick_scl_1/pennycuick_extrisk_d0.pdf}\\
+\includegraphics[width=5 cm]{./Results/msmith_scl_0.8/msmith_extrisk_d0_extremenoise.pdf}
+\includegraphics[width=5 cm]{./Results/pennycuick_scl_1/pennycuick_extrisk_d0_extremenoise.pdf}\\
 \vspace{-0.6 cm}
-\includegraphics[width=5 cm]{./Results/verhulst_scl_0.6/verhulst_extrisk_d0.pdf}
-\includegraphics[width=5 cm]{./Results/austinbrewer_scl_0.6/abrewer_extrisk_d0.pdf}\\
+\includegraphics[width=5 cm]{./Results/verhulst_scl_0.6/verhulst_extrisk_d0_extremenoise.pdf}
+\includegraphics[width=5 cm]{./Results/austinbrewer_scl_0.6/abrewer_extrisk_d0_extremenoise.pdf}\\
 \caption{Transition of higher to lower extinction risk (calculated after $25$ years) for 
 the metapopulations affected by extreme left tail dependent noise across
 $5$ multiple patches without dispersal ($d=0$), as intrinsic 
