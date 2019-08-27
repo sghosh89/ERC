@@ -2180,8 +2180,7 @@ numsims=10000, $\sigma$=0.6. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}
 
 For extreme tail-dependence algorithm, a $N \times n$ matrix, M was generated of independent 
 standard-normal random draws (in general), where $N = numsteps(=25) \times numsims(=10000)$.
-Then, each row of
-M was identified for a first set of modifications
+Then, each row of M was identified for a first set of modifications
 randomly and independently with a 50\% chance; for those rows identified, every
 element of the row was replaced with the absolute
 value of the first element of the row (including the first element itself).
