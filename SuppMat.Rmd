@@ -418,10 +418,20 @@ saveRDS(res_ricker_global,paste(resloc,"res_ricker_global.RDS",sep=""))
 
 ```{r fig_ricker_scl_1, echo=F, results="hide",cache=T, cache.extra=list(seed,res_ricker_local,res_ricker_global)}
 
-pdf("./Results/common_legend.pdf",height=1,width=12)
+pdf("./Results/common_legend_extreme_noise.pdf",height=1,width=12)
 op<-par(fig = c(0, 1, 0, 1), oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0))
 plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n")
-legend("center", c("noise : LTdep.","noise : RTdep."), lty=c(1,1), pch=c(1,1), 
+legend("center", c("noise: extreme LTdep.","noise: extreme RTdep."), lty=c(1,1), pch=c(1,1), 
+         col=c('red', 'blue'),x.intersp = 0.2,
+         cex = 2.5, xpd = TRUE, horiz = T, inset = c(0,0), 
+         bty = "n")
+par(op)
+dev.off()
+
+pdf("./Results/common_legend_moderate_noise.pdf",height=1,width=12)
+op<-par(fig = c(0, 1, 0, 1), oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0))
+plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n")
+legend("center", c("noise: moderate LTdep.","noise: moderate RTdep."), lty=c(1,1), pch=c(1,1), 
          col=c('red', 'blue'),x.intersp = 0.2,
          cex = 2.5, xpd = TRUE, horiz = T, inset = c(0,0), 
          bty = "n")
@@ -1757,43 +1767,43 @@ x<-res_ricker_local
 rlist<-ricker_extrisk_d0$r
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-legend(x=0.7,y=1.05, c("noise : LTdep.","noise : RTdep."), lty=c(1,1), pch=c(1,1), 
-       col=c('red', 'blue'), horiz=F, bty='o', cex=1.5, adj=0)
-mtext(paste("Ricker model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+legend("topleft", c("noise: extreme LTdep.","noise: extreme RTdep."), lty=c(1,1), pch=c(1,1), 
+       col=c('red', 'blue'), horiz=F, bty='o', cex=1.5, adj=0, x.intersp=0.2)
+mtext(paste("Ricker model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 #mtext(paste("(K = 50, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
 mtext(expression( paste("( K = 50, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 getplot(x=x,rlist = rlist,noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Hassell model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Hassell model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.5, b = 100, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_hassell_local
 rlist<-hassell_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Maynard Smith model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Maynard Smith model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.5, b = 4, ", sigma,"=0.8 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_msmith_local
 rlist<-msmith_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Pennycuick model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Pennycuick model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.1, b = 0.1, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_pennycuick_local
 rlist<-pennycuick_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Verhulst model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Verhulst model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( K = 1, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_verhulst_local
 rlist<-verhulst_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Austin-Brewer model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Austin-Brewer model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( s = 0.2, K = 50, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_abrewer_local
 rlist<-abrewer_extrisk_d0$r
@@ -1811,43 +1821,43 @@ x<-res_ricker_local
 rlist<-ricker_extrisk_d0$r
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-legend(x=0.7,y=1.05, c("noise : LTdep.","noise : RTdep."), lty=c(1,1), pch=c(1,1), 
-       col=c('red', 'blue'), horiz=F, bty='o', cex=1.5, adj=0)
-mtext(paste("Ricker model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+legend("topleft", c("noise: moderate LTdep.","noise: moderate RTdep."), lty=c(1,1), pch=c(1,1), 
+       col=c('red', 'blue'), horiz=F, bty='o', cex=1.5, adj=0, x.intersp=0.2)
+mtext(paste("Ricker model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 #mtext(paste("(K = 50, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
 mtext(expression( paste("( K = 50, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 getplot(x=x,rlist = rlist,noisetype = "moderate")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Hassell model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Hassell model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.5, b = 100, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_hassell_local
 rlist<-hassell_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "moderate")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Maynard Smith model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Maynard Smith model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.5, b = 4, ", sigma,"=0.8 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_msmith_local
 rlist<-msmith_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "moderate")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Pennycuick model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Pennycuick model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.1, b = 0.1, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_pennycuick_local
 rlist<-pennycuick_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "moderate")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Verhulst model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Verhulst model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( K = 1, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_verhulst_local
 rlist<-verhulst_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "moderate")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Austin-Brewer model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Austin-Brewer model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( s = 0.2, K = 50, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_abrewer_local
 rlist<-abrewer_extrisk_d0$r
@@ -1869,42 +1879,42 @@ x<-res_ricker_global
 rlist<-ricker_extrisk_d0$r
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-legend(x=0.7,y=1.05, c("noise : LTdep.","noise : RTdep."), lty=c(1,1), pch=c(1,1), 
-       col=c('red', 'blue'), horiz=F, bty='o', cex=1.5, adj=0)
-mtext(paste("Ricker model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+legend("topleft", c("noise: extreme LTdep.","noise: extreme RTdep."), lty=c(1,1), pch=c(1,1), 
+       col=c('red', 'blue'), horiz=F, bty='o', cex=1.5, adj=0,x.intersp=0.2)
+mtext(paste("Ricker model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( K = 50, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Hassell model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Hassell model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.5, b = 100, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_hassell_global
 rlist<-hassell_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Maynard Smith model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Maynard Smith model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.5, b = 4, ", sigma,"=0.8 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_msmith_global
 rlist<-msmith_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Pennycuick model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Pennycuick model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.1, b = 0.1, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_pennycuick_global
 rlist<-pennycuick_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Verhulst model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Verhulst model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( K = 1, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_verhulst_global
 rlist<-verhulst_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "extreme")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Austin-Brewer model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Austin-Brewer model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( s = 0.2, K = 50, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_abrewer_global
 rlist<-abrewer_extrisk_d0$r
@@ -1923,42 +1933,42 @@ x<-res_ricker_global
 rlist<-ricker_extrisk_d0$r
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-legend(x=0.7,y=1.05, c("noise : LTdep.","noise : RTdep."), lty=c(1,1), pch=c(1,1), 
-       col=c('red', 'blue'), horiz=F, bty='o', cex=1.5, adj=0)
-mtext(paste("Ricker model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+legend("topleft", c("noise: moderate LTdep.","noise: moderate RTdep."), lty=c(1,1), pch=c(1,1), 
+       col=c('red', 'blue'), horiz=F, bty='o', cex=1.5, adj=0, x.intersp=0.2)
+mtext(paste("Ricker model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( K = 50, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 getplot(x=x,rlist = rlist, noisetype = "moderate")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Hassell model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Hassell model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.5, b = 100, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_hassell_global
 rlist<-hassell_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "moderate")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Maynard Smith model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Maynard Smith model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.5, b = 4, ", sigma,"=0.8 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_msmith_global
 rlist<-msmith_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "moderate")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Pennycuick model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Pennycuick model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( a = 0.1, b = 0.1, ", sigma,"=1 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_pennycuick_global
 rlist<-pennycuick_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "moderate")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Verhulst model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Verhulst model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( K = 1, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_verhulst_global
 rlist<-verhulst_extrisk_d0$r
 getplot(x=x,rlist = rlist, noisetype = "moderate")
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-mtext(paste("Austin-Brewer model : "), side = 3, line=-7, adj=0.3, cex=1, col="black")
+mtext(paste("Austin-Brewer model: "), side = 3, line=-7, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( s = 0.2, K = 50, ", sigma,"=0.6 )" )),side = 3, line=-9, adj=0.6, cex=1, col="black")
 x<-res_abrewer_global
 rlist<-abrewer_extrisk_d0$r
@@ -2046,7 +2056,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 <!--Supp. FIG : Ricker model, local dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_local_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Ricker metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Ricker dynamics with local dispersal; 
@@ -2057,7 +2067,7 @@ numsims=10000, $\sigma$=1. \label{fig_ricker_risk_local_disp_scl_1}}
 <!--Supp. FIG : Hassell model, local dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_local_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Hassell metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Hassell dynamics with local dispersal; 
@@ -2068,7 +2078,7 @@ numsims=10000, $\sigma$=1. \label{fig_hassell_risk_local_disp_scl_1}}
 <!--Supp. FIG : Maynard smith model, local dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_local_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Maynard smith metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Maynard Smith dynamics with local dispersal; 
@@ -2079,7 +2089,7 @@ numsims=10000, $\sigma$=0.8. \label{fig_msmith_risk_local_disp_scl_0.8}}
 <!--Supp. FIG : Pennycuick model, local dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Pennycuick metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Pennycuick dynamics with local dispersal; 
@@ -2090,7 +2100,7 @@ numsims=10000, $\sigma$=1. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
 <!--Supp. FIG : Verhulst model, local dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Verhulst metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Verhulst dynamics with local dispersal; 
@@ -2101,7 +2111,7 @@ numsims=10000, $\sigma$=0.6. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}
 <!--Supp. FIG : Austin-Brewer model, local dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Austin-Brewer metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Austin-Brewer dynamics with local dispersal; 
@@ -2112,7 +2122,7 @@ numsims=10000, $\sigma$=0.6. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
 <!--Supp. FIG : Ricker model, global dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_global_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Ricker metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Ricker dynamics with global dispersal; 
@@ -2123,7 +2133,7 @@ numsims=10000, $\sigma$=1. \label{fig_ricker_risk_global_disp_scl_1}}
 <!--Supp. FIG : Hassell model, global dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_global_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Hassell metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Hassell dynamics with global dispersal; 
@@ -2134,7 +2144,7 @@ numsims=10000, $\sigma$=1. \label{fig_hassell_risk_global_disp_scl_1}}
 <!--Supp. FIG : Maynard smith model, global dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_global_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Maynard smith metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Maynard Smith dynamics with global dispersal; 
@@ -2145,7 +2155,7 @@ numsims=10000, $\sigma$=0.8. \label{fig_msmith_risk_global_disp_scl_0.8}}
 <!--Supp. FIG : Pennycuick model, global dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Pennycuick metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Pennycuick dynamics with global dispersal; 
@@ -2156,7 +2166,7 @@ numsims=10000, $\sigma$=1. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1}}
 <!--Supp. FIG : Verhulst model, global dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Verhulst metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Verhulst dynamics with global dispersal; 
@@ -2167,7 +2177,7 @@ numsims=10000, $\sigma$=0.6. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6
 <!--Supp. FIG : Austin brewer model, global dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=12 cm]{./Results/common_legend.pdf}\\
+\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_global_disp_extremenoise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Austin-Brewer metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Austin-Brewer dynamics with global dispersal; 

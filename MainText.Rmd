@@ -349,44 +349,43 @@ with each other. This could give us an idea for supporting our hypothesis.
 <!--Q1 : age structured results : linear and nonlinear model with asymmetric copula : Fig. S1-->
 <!--Q1 : age structured results : linear and nonlinear model with extreme tail dep. copula : Fig. 1 -->
 
-For single patch linear age-structured models, we found left-tail 
-dependence (Clayton, Suvival Gumbel copulas) in noisy vital 
-rates enhanced the extinction risk compared to the case when
-vital rates were right tail dependent (Survival clayton, Gumbel copulas).
-It was expected because a sudden "bad" year (e.g. with severe cold) can suppress 
+For single patch linear age-structured models, we found higher extinction risk for moderate left-tail 
+dependence (modeled by Clayton copula) in fluctuating vital 
+rates compared with the one when vital rates were right tail dependent (modeled by Survival Clayton copula).
+It was expected because an extreme "bad" year (e.g. with severe cold) can suppress 
 the fecundity of adult and survival/ maturation of eggs simultaneously 
-and thereby increasing the extinction risk of the population. For non-linear age-structured 
+and thereby can increase the extinction risk of the population. For non-linear age-structured 
 models, we got the similar trend for extinction risks with different tail-dependence (left and right).
-With non-linear model the extinction risks appeared as higher than their corresponding 
+Non-linear model showed higher extinction risk than its corresponding 
 linear analog as it was evident from Eq. \ref{eq_vitalrates} with finite $\Omega = 100$. 
-Fig. \ref{SM-fig_extrisk_agestr_mtd} represents this scenario with 4 different 
-asymmetric copulas but of same Kendall's correlation ($\tau = 0.6$). There was very little
-difference between extinction risks within a pair of different tail-dependent copulas
-(e.g. C-SC in Fig. \ref{SM-fig_extrisk_agestr_mtd}(A,C) and
-G-SG in Fig. \ref{SM-fig_extrisk_agestr_mtd}(B,D)) and that difference was partly 
-dependent on the strength of tail dependence. Therefore we repeated the same analysis with 
+Fig. \ref{SM-fig_extrisk_agestr_mtd} represents this scenario with two copulas having different 
+asymmetric tails but same Kendall's correlation ($\tau = 0.6$). Extinction risks from 
+two different tail-dependent copulas were not strinkingly different (e.g. see pair of red and
+blue lines in Fig. \ref{SM-fig_extrisk_agestr_mtd}A or B) and we anticipated the difference being partly 
+dependent on the degree of tail dependence. Therefore we repeated the same analysis with 
 vital rates coming from extreme-tail dependent (left and right in two different simulations)
 copulas and got the similar results but with much prominent difference between their extinction risks
 (Fig. \ref{fig_extrisk_agestr_etd}). This result answered (Q1) and showed extinction risk of 
-a population could be considered as
-direct manifestation of tail-dependence measure between vital rates of different age-class
-within that population. <!--discussion later : add Tuljapurkar's approximation-->
+a population could be considered as direct manifestation of tail-dependence measure 
+between vital rates of different age-class
+of that population. <!--discussion later : add Tuljapurkar's approximation-->
 
 <!--Q2 : metapopulation results : density dependence with extreme tail dep. copula-->
 <!--For local dispersal : all model summary : Fig. 2, individual model : Fig. S3-S8-->
 <!--For global dispersal : all model summary : Fig. S2, individual model : Fig. S9-S14-->
 
-We found density-dependence metapopulation models (with $n=5$ patches) in noisy 
+We found density-dependent metapopulation models in stochastic 
 environment showed similar patterns for extinction risk as density-independent 
-metapopulation model showed in earlier studies [@Ghosh_copula]. For each density-dependent 
-model listed in Table \ref{tab_model_summary}, we observed higher (or lower) extinction risk for 
-the metapopulations when noises across multiple patches were left- (or right) tail dependent.
-But that observation remained valid when the model parameter, usually growth rate $(r)$, of each model was 
+metapopulation model showed in recent study [@Ghosh_copula]. For each density-dependent 
+model listed in Table \ref{tab_model_summary}, we observed higher extinction risk for 
+the metapopulations when noises across multiple patches were left-tail dependent than the one with right-tail dependence.
+But that observation remained valid when the model parameter - here considered as growth rate $(r)$ - of each model was 
 sufficiently low so that under-compensatory dynamics (monotonous approach towards
-its stable equilibrium) for the deterministic analog of the model was ensured. When the model 
+its stable equilibrium) for the deterministic analog of the model was ensured.
+We observed right tail dependent noise caused higher extinction 
+risk for the metapopulations than left tail dependent noise when the model 
 was in over-compensatory regime (oscillatory approach towards stable equilibrium) for higher 
-value of $r$, we observed right (or left) tail dependent noise caused higher (or lower) extinction 
-risk for the metapopulations. Fig. \ref{fig_extrisk_allmodel_localdisp} shows variation of extinction risk 
+value of $r$. Fig. \ref{fig_extrisk_allmodel_localdisp} shows variation of extinction risk 
 against local dispersal rate ($d$) for six density dependent metapopulation models 
 where growth rate $r$ was taken either from under-compensatory or from over-compensatory 
 regime. We also got similarly consisent results with 
