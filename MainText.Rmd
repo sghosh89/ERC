@@ -56,7 +56,7 @@ noise but was also influenced by the inherent dynamics of the population-model.
 # Introduction\label{Introduction}
 
 <!--how common are the extreme events?-->
-For past few decades, extreme climatic events (ECE) appeared more common than 
+For past few decades, extreme climatic events (ECEs) appeared more common than 
 usual due to anthropogenic climate change, e.g. temperature or precipitation extremes,
 heat-waves, wild-fire etc. [@ummenhofer2017extreme]. Frequent extreme events 
 can shift temperature or precipitation-mean, 
@@ -289,8 +289,9 @@ from Clayton copula so that all the statistical properties remained
 same except for the direction of tail-dependence. We generated
 extreme left- or right-tail dependent noises via algorithm stated in 
 Appendix \ref{SM-extr_tail_dep}. Our models (Table \ref{tab_model_summary}) 
-computed extinction risk for $n_t = 25$ years, $n = 5$ patches
-and $n_s = 10000$ simulations with both moderate and extreme tail dependence (left-, right-tail).  
+computed extinction risk after $25$ years for $10000$ simulations at $n = 5$ patches
+with spatially correlated noises having either moderate or extreme tail 
+dependence in left and right-tail.  
 
 <!--say how you set ext. threshold = Pe/10-->
 We started with $n$ patches of initial population $P_{t=0}^i = P_e^i, (i = 1,2,\ldots,n)$ where 
@@ -414,47 +415,44 @@ smaller range of $r$ than the other models.
 # Discussion\label{Discussion}
 
 <!--summary results:-->
-Our results show the potential use of "asymmetric" copula in estimating the impact of 
-extreme ecological events on population-extinction risk. We show that through left and right tail 
-dependence in vital rates (respectively, spatially correlated environmental noises), years of extreme events 
-("catastrophs" and "bonanzas") affect extinction risk of a single-patch age-structured population
-(respectively, density dependent metapopulations) differently. Though left tail dependence is 
-expected to show higher extinction risk than the one for right tail dependence for age-structured 
-and density dependent metapopulation models, it is not always true 
-when metapopulation models with dispersal show over-compensatory dynamics. In the over-compensatory regime,
-right tail dependent noises result in higher extinction risk than the left tail dependent one. We show 
-that in absence of dispersal, the above-said switching in extinction risk measure occurs near the 
-critical parameter value where the deterministic model shows transition from 
-under-compensatory to over-compensatory regime.
+We showed the potential use of "asymmetric" tail dependence in modeling the impact of 
+extreme ecological events on population-extinction risk. Our results demonstrated left and right-tail 
+dependence in vital rates (or in spatially correlated environmental noises) affected extinction risk differently
+in years of extreme events ("catastrophs" and "bonanzas"). Though we could expect left tail dependence 
+to show higher extinction risk than the one for right tail dependence with age-structured 
+and density dependent metapopulation models, it was not always true. In the over-compensatory regime,
+right tail dependent noise caused higher extinction risk than the left tail dependent noise. We showed 
+that in absence of dispersal the above-said switching took place near the critical parameter value where 
+the deterministic model showed transition from under-compensatory to over-compensatory regime.
 
 <!--Tuljapurkar approximation : linear version of age-structured model in stochastic environments-->
 We found left tail dependence in vital rates (induced by ECEs) caused higher extinction risk than 
 the right tail dependent ones, but the difference was not remarkable (Fig. \ref{SM-fig_extrisk_agestr_mtd}) 
 unless the tail dependence was at its extreme (Fig. \ref{fig_extrisk_agestr_etd}). This finding could be explained 
 by the approximation @tuljapurkar1990lecture made for the stochastic log(growth rate) in an iid environment.
-The approximation considered that the growth rate depends on the most dominant eigen value of the mean projection matrix 
-and the temporal variance of the log(population growth rate) caused by environmental stochasticity, which was based
+The approximation considered growth rate being dependent on the most dominant eigen value of the mean projection matrix 
+and the temporal variance of the log(population growth rate) caused by environmental stochasticity - which was based
 on the linear covariance measure between any two matrix elements, not on their tail-dependence properties. Therefore,
-according to Tuljapurkar's approximation, population growth rate in an iid environment 
-remained same for our model (Eq. \ref{eq_age_str}) with left-tail or right-tail dependent noises.
+following @tuljapurkar1990lecture, population growth rate in an iid environment could be approximated
+as same for our model (Eq. \ref{eq_age_str}) with left-tail or right-tail dependence.
 
-<!--future study: worthy for PVA, IUCN red list
+<!--future study: worthy for PVA, IUCN red list:
 1. Identify which life stage or demographic process as management target?
 2. Old study (Doak1994, Ferguson1995) showed including correlation btw vital rates for PVA makes a difference, 
    what if we include TD through copula? Multisite age str. model with dispersal, directional change
    in spatio-temporal variation for vital rates.
 3. Tdep. with -ve correlation between vital rates?
 4. extinction risk how propagated through a food web?
-5. ref: see McCarthy2000: Most previous models of metapopulation viability have either ignored
-correlated extinction of patches, or have included uniform correlations, with the correlation between nearby patches being the same as the correlation between distant
+5. Not sure : see McCarthy2000: Most previous models of metapopulation viability have either ignored
+correlated extinction of patches, or have included uniform correlations, with the correlation between 
+nearby patches being the same as the correlation between distant
 patches (Hanski 1994; Tilman et al. 1994; Lindenmayer et al. 1995; McCarthy
 1996). 
-6. see this: http://dx.doi.org/10.1098/rspb.2015.0173
 -->
 Although we demonstrated that tail dependence between vital rates of an age structured model can
 influence extinction risk, substantial work remains to determine the importance of this effect in the 
 following scenarios. First, we demonstrated the effect of tail-dependence on extinction risk 
-with a very simplistic age structured (two age stages) model where we considered the total semelperous 
+with a basic age structured (two age stages) model where we considered the total semelperous 
 population would go extinct if there would be only one female adult and one egg. But in reality population 
 viability analysis (PVA) deals with a little bit higher threshold with several age, stage or size class and a variety 
 of populations including semelperous and iteroperous [@morris2002quantitative]. Future studies should include 
@@ -462,9 +460,9 @@ tail-dependence effect on extinction risk
 for a multiple age-, size- and stage- structured model and estimate extinction risk 
 for each age, size and stage class separately 
 so that we can identify (via multisite-PVA) which life-stage or demographic process 
-to target for population management. Earlier study by @doak1994modeling showed PVA models including correlation 
+to target for population management. Earlier study by @doak1994modeling showed PVA models with correlation 
 between different demographic rates indicated marked difference in predicting confidence interval for 
-future population size than the model which did not include correlation. But when 
+future population size compared with the model which did not include correlation. But when 
 such correlation cannot be estimated directly, more generally where the
 forms of statistical dependence among the model's parameters are unknown, making incorrect
 assumptions about correlations and dependencies may lead to severe over-estimation 
@@ -474,26 +472,24 @@ age-structured metapopulation which could be linked via dispersal. So, possible 
 would be to explore the viability for the metapopulations if vital rates (e.g. fecundity or 
 survival of different stage class) across sites showed specific tail dependence 
 with spatially correlated extreme climatic events. Third, we considered tail dependence 
-between vital rates when they were positively correlated, but what would be the extinction risk 
+between positively correlated vital rates, but what would be the extinction risk 
 and viability of a population if demographic rates were negatively correlated with asymmetric tail dependence. 
-This scenario could be considered for those extreme events that kill adults and allow more successful
+We could consider this scenario to model extreme events that kill adults and allow more successful
 recruitment of seeds or other propagules. Fourth, following the aforementioned idea, it would be worthy 
 to model more complex prey-predator model where asymmetric tail dependent copula could be used to mimic
 interspecific-dependence. An earlier study [@carnicer2011widespread] showed extreme events
 (i.e., heat waves and droughts) increased mortality and defoliation in southern European forest and its 
-dependent herbivorous insects and fungi through trophic linkage. ECEs can even truncate 
-multiyear insect outbreak dynamics [@esper20061200]. We believe copula (may be a multidimensional one) has 
-a lot more potential to estimate risk of cascading extinction in model food webs. 
+dependent herbivorous insects and fungi through trophic linkage. <!--ECEs can even truncate 
+multiyear insect outbreak dynamics [@esper20061200].--> We believe copula (may be a multidimensional one) has 
+a lot more potential to estimate risk of cascading extinction in model food webs. <!--should I mention about 
+match-mismatch hypothesis leads to extinction? our phenology paper in prep.--> Fifth, we considered 
+our metapopulation patches were equispaced on a linear chain with equal global dispersal 
+rate between patches. But in realistic network models, as inter-patch distances 
+can be different, the dispersal rate should depend on distance: dispersal is possible at higher 
+rates between nearby patches than the patches which are far away. It is worthy to study 
+metapopulation viability with non-uniform spatial correlation (i.e. asymmetric tail dependence) in a 
+network with different clusters having various dispersal rates.
 
-<!--match-mismatch hypothesis leads to extinction? our phenology paper in prep.-->
-
-
-
-
-
-
-
- 
  <!--FIG : age structure model results : linear, nonlinear-->
 \begin{figure*}[!h]
 \textbf{ \hspace{5.4 cm} (A) \hspace{4 cm} (B)} \\
