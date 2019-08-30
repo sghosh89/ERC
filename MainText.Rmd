@@ -346,8 +346,7 @@ with each other. This could give us an idea for supporting our hypothesis.
 
 # Results\label{Results}
 
-<!--Q1 : age structured results : linear and nonlinear model with asymmetric copula : Fig. S1-->
-<!--Q1 : age structured results : linear and nonlinear model with extreme tail dep. copula : Fig. 1 -->
+<!--Q1 : age structured results : linear and nonlinear model with asymmetric copula-->
 
 For single patch linear age-structured models, we found higher extinction risk for moderate left-tail 
 dependence (modeled by Clayton copula) in fluctuating vital 
@@ -359,8 +358,8 @@ models, we got the similar trend for extinction risks with different tail-depend
 Non-linear model showed higher extinction risk than its corresponding 
 linear analog as it was evident from Eq. \ref{eq_vitalrates} with finite $\Omega = 100$. 
 Fig. \ref{SM-fig_extrisk_agestr_mtd} represents this scenario with two copulas having different 
-asymmetric tails but same Kendall's correlation ($\tau = 0.6$). Extinction risks from 
-two different tail-dependent copulas were not strinkingly different (e.g. see pair of red and
+asymmetric tails but same Kendall's correlation ($\tau = 0.6$). Extinction risks for
+two different tail-dependent vital rates were not strinkingly different (e.g. see pair of red and
 blue lines in Fig. \ref{SM-fig_extrisk_agestr_mtd}A or B) and we anticipated the difference being partly 
 dependent on the degree of tail dependence. Therefore we repeated the same analysis with 
 vital rates coming from extreme-tail dependent (left and right in two different simulations)
@@ -371,15 +370,13 @@ between vital rates of different age-class
 of that population. <!--discussion later: add Tuljapurkar's approximation-->
 
 <!--Q2 : metapopulation results : density dependence with extreme tail dep. copula-->
-<!--For local dispersal : all model summary : Fig. 2, individual model : Fig. S3-S8-->
-<!--For global dispersal : all model summary : Fig. S2, individual model : Fig. S9-S14-->
 
 We found density-dependent metapopulation models in stochastic 
 environment showed similar patterns for extinction risk as density-independent 
 metapopulation model showed in recent study [@Ghosh_copula]. For each density-dependent 
 model listed in Table \ref{tab_model_summary}, we observed higher extinction risk for 
-the metapopulations when noises across multiple patches were left-tail dependent than the one with right-tail dependence.
-But that observation remained valid when the model parameter - here considered as growth rate $(r)$ - of each model was 
+the metapopulations when spatially correlated noises were left-tail dependent than the one with right-tail dependence.
+But that observation remained valid when the model parameter - here considered as growth rate $(r)$ - was 
 sufficiently low so that under-compensatory dynamics (monotonous approach towards
 its stable equilibrium) for the deterministic analog of the model was ensured.
 We observed right tail dependent noise caused higher extinction 
@@ -387,36 +384,34 @@ risk for the metapopulations than left tail dependent noise when the model
 was in over-compensatory regime (oscillatory approach towards stable equilibrium) for higher 
 value of $r$. Figs. \ref{fig_extrisk_allmodel_localdisp_etd} and \ref{SM-fig_extrisk_allmodel_localdisp_mtd} show
 variation of extinction risk against local dispersal rate ($d$) for six density dependent metapopulation models 
-where growth rate $r$ was taken either from under-compensatory or from over-compensatory 
-regime. We also got similar results with 
-our prediction (see Q2 from \nameref{Introduction}) for global 
-dispersal (Figs. \ref{SM-fig_extrisk_allmodel_globaldisp_etd} and \ref{SM-fig_extrisk_allmodel_globaldisp_mtd}). 
-Figs. (\ref{SM-fig_ricker_risk_local_disp_scl_1_etd} - \ref{SM-fig_risk_local_disp_abrewer_r_vary_scl_0.6_etd}) 
-shows how extinction risk changed against local dispersal rate for a whole range
+(see Table \ref{tab_model_summary}) with growth rate $r$ considered either from under-compensatory or 
+from over-compensatory regime. We also got similar results with our prediction (see Q2 from \nameref{Introduction})
+for global dispersal (Figs. \ref{SM-fig_extrisk_allmodel_globaldisp_etd} and \ref{SM-fig_extrisk_allmodel_globaldisp_mtd}). 
+Figs. (\ref{SM-fig_ricker_risk_local_disp_scl_1_etd} - \ref{SM-fig_risk_local_disp_abrewer_r_vary_scl_0.6_mtd}) 
+demonstrate how extinction risk changed against local dispersal rate for a whole range
 of $r$, whereas Figs. (\ref{SM-fig_ricker_risk_global_disp_scl_1_etd} - 
-\ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6_etd}) 
-represents the same but for the case when global dispersal took place between patches. 
-Both case showed the signature of 
-"rescue-effect" (i.e. by lowering extinction risk) when there was 
-a finite dispersal compared to the one with 
-$d=0$.
+\ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6_mtd}) 
+represent the same but for global dispersal among patches. 
+Both case showed the signature of "rescue-effect" (i.e. reduced extinction risk for 
+finite dispersal compared with $d=0$).
 
-<!--Q3 : metapopulation results : switching near rc for d=0, Fig. 3-->
+<!--Q3 : metapopulation results : switching near rc for d=0-->
 Following Figs. (\ref{SM-fig_ricker_risk_local_disp_scl_1_etd} - 
-\ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6_etd}) we hypothesized that the switching 
+\ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6_mtd}) we hypothesized that the switching 
 between the extinction risk generated by left-tail dependent and right-tail dependent noise 
-occurred near the critical parameter $r_c$ (see Q3). For simplicity we only consider 
+occurred near the critical parameter $r_c$ (see Q3). For simplicity we only considered 
 $d=0$ case, i.e., when there was no dispersal between patches (see \nameref{Methods}). 
-Fig. \ref{fig_extrisk_d0} shows higher extinction risk with left-tail dependent noise 
-for $r<r_c$ and with right-tail dependent noise for $r>r_c$. $r_c$ was the vertical
-line in Fig. \ref{fig_extrisk_d0} indicating the value of $r$ for each model where 
-their deterministic analog switches from under- to over-compensatory dynamics. 
-Though the switching visually appered far from the theoretical $r_c$ value for Verhulst 
-and Austin-Brewer model, they were consistent with our hypothesis as they had comperatively 
+Figs. \ref{fig_extrisk_d0_etd} and \ref{SM-fig_extrisk_d0_mtd} demonstrate higher extinction risk 
+with left-tail dependent noise for $r<r_c$ and with right-tail dependent noise 
+for $r>r_c$. $r_c$ was the vertical line in Figs. \ref{fig_extrisk_d0_etd} and \ref{SM-fig_extrisk_d0_mtd} 
+indicating the value of $r$ for each model where their deterministic analog switches 
+from under- to over-compensatory dynamics. Though the switching visually appered far away
+from the theoretical $r_c$ value for Verhulst and Austin-Brewer model, they were 
+consistent with our hypothesis as they had comperatively 
 smaller range of $r$ than the other models.
 
 
-# Discussion
+# Discussion\label{Discussion}
 
 <!--summary results:-->
 Our results show the potential use of "asymmetric" copula in estimating the impact of 
@@ -506,7 +501,7 @@ a lot more potential to estimate risk of cascading extinction in model food webs
 \begin{center}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_extremetail_linear.pdf}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_extremetail_nonlinear_omg_100.pdf}\\
-\caption{Extinction risk from single patch age structured $(A)$ linear ($\Omega = \infty$) and $(B)$ nonlinear ($\Omega = 100$) models against time (shading represents 95\% confidence interval). Fecundity of adults and survival of eggs have either extreme left or extreme right tail dependence, $n_s=10000$. \label{fig_extrisk_agestr_etd}}
+\caption{Extinction risk against time from single patch age structured $(A)$ linear ($\Omega = \infty$) and $(B)$ nonlinear ($\Omega = 100$) models for $10000$ simulations; shading represents 95\% confidence interval. Fecundity of adults and survival of eggs have either extreme left or extreme right tail dependence. \label{fig_extrisk_agestr_etd}}
 \end{center}
 \end{figure*}
 
@@ -514,14 +509,12 @@ a lot more potential to estimate risk of cascading extinction in model food webs
 \begin{figure*}[!h]
 \begin{center}
 \includegraphics[width=15 cm]{./Results/allmodel_ext_risk_local_disp_extremenoise.pdf}
-\caption{For each of six nonlinear density-dependence models presented in Table \ref{tab_model_summary} with local dispersal
-among $n=5$ patches, extinction risk after $n_t = 25$ years for $n_s = 10000$ simulations were calculated.
-Extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two columns represent extinction risk calculated for intrinsic growth rate $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog, respectively.\label{fig_extrisk_allmodel_localdisp_etd}}
+\caption{Extinction risks are computed after $25$ years for six nonlinear density-dependence models (Table \ref{tab_model_summary}) with local dispersal among $n=5$ patches and for $10000$ simulations. Extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two columns represent extinction risk calculated for intrinsic growth rate $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog, respectively.\label{fig_extrisk_allmodel_localdisp_etd}}
 \end{center}
 \end{figure*}
 
 
- <!--FIG : all nonlinear model results with d=0, extrisk vs. r-->
+ <!--FIG : all nonlinear model results with extreme noise, d=0, extrisk vs. r-->
 \begin{figure*}[!h]
 \begin{center}
 \includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
@@ -536,8 +529,8 @@ Extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two
 \caption{Transition of higher to lower extinction risk (calculated after $25$ years) for 
 the metapopulations affected by extreme left tail dependent noise across
 $5$ multiple patches without dispersal ($d=0$), as intrinsic 
-growth rate ($r$) goes from under to over-compensatory regime. Opposite trend
-was observed with extreme right tail dependent noise.
+growth rate ($r$) goes from under to over-compensatory regime. Extinction risk for 
+extreme right tail dependent noise follows the opposite trend.
 Error bars represent the standard errors associated with $10000$
 simulations for extinction risk computed at each $r$. Dotted line represents the value of $r$
 for each model where their deterministic analog switches from under- to over-compensatory dynamics.
@@ -552,7 +545,7 @@ library(dplyr)
 dt<-readRDS("./Results/tab_model_summary.RDS")
 knitr::kable(dt, escape=F,
              format="latex",digits=3, align="c",table.env='table*',
-             caption = "Summary of six density dependence metapopulation models considered for each patch; last three columns indicated equilibrium population value ($P_e^{i}$), critical growth rate ($r_c^{i}$ : transition point from under- to over-compensatory dynamics of deterministic models) and bifurcation parameter ($r_{bf}^{i}$ : transition point from stable to unstable equilibrium of deterministic models), respectively. Superscript $i=1,2,...,n$ indicates states for $i^{th}$ patch.\\label{tab_model_summary}",
+             caption = "Summary of six density dependence metapopulation models considered for each patch; last three columns indicate equilibrium population value ($P_e^{i}$), critical growth rate ($r_c^{i}$ : transition point from under- to over-compensatory dynamics of deterministic models) and bifurcation parameter ($r_{bf}^{i}$ : transition point from stable to unstable equilibrium of deterministic models), respectively. Superscript $i=1,2,...,n$ indicates index for $i^{th}$ patch.\\label{tab_model_summary}",
              booktabs=T, linesep = "\\addlinespace"
              )%>%column_spec(c(1,3,5,6),width="1.4 cm")%>%kable_styling(latex_options = "basic",position = "center")%>%column_spec(2, width = "3.8 cm")
 ```
