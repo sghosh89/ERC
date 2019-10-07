@@ -1,5 +1,5 @@
 ---
-title: "makefile, compiliation notes"
+title: "extinction risk makefile, compiliation notes"
 author: "Daniel Reuman"
 date: ""
 output: pdf_document
