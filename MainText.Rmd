@@ -124,7 +124,7 @@ higher hierarchical levels and lead to local extinction of
 species [@thomas2004extinction; @edgar2010nino; @moreno2011extreme]. 
 <!--Should I mention idea of match-mismatch hypothesis?-->
 For example, a study [@chiu2013impact] showed extreme flood affected 
-the annal survival of a prey community that in turn affected predators in 
+the annual survival of a prey community that in turn affected predators in 
 aquatic as well as adjacent riparian habitats via trophic linkages. Another study by 
 @frederiksen2008demographic used $43$ years of ring-recovery data 
 to examine the demographic impact of ECEs 
@@ -303,11 +303,10 @@ same Kendall's correlation ($\tau = 0.6$). Entries within each clumn of
 matrix $M$, then became independent of each others but 
 entries between columns had a specific tail dependence
 with positive Kendall's correlation ($\tau = 0.6$). 
-Similarly, we generated extreme left- (or right-) tail dependent matrix M 
-from standard iid (Appendix \ref{SM-extr_tail_dep}) and made the marginals uniform so that
-it could mimic an extreme tail dependent copula. 
 
-We made the first column of matrix 
+On a similar note, we generated extreme left- (or right-) tail dependent matrix (M)
+from standard iid (Appendix \ref{SM-extr_tail_dep}) and made the marginals uniform so that
+it could mimic an extreme tail dependent copula. We made the first column of matrix 
 $M$ as gamma ($\Gamma(k,\theta)$) distributed 
 with shape parameter $k = 2$ and scale parameter $\theta = 1$.
 This distribution represented fecundity of the adult population, $f_a \geq 0$.
@@ -371,10 +370,8 @@ extreme left- or right-tail dependent noises via algorithm stated in
 Appendix \ref{SM-extr_tail_dep}. Our models (Table \ref{tab_model_summary}) 
 computed extinction risk after $25$ years for $10000$ simulations at $n = 5$ patches
 with spatially correlated noises having either moderate or extreme tail 
-dependence in left and right-tail.  
-
-<!--say how you set ext. threshold = Pe/10-->
-We started with $n$ patches of initial population $P_{t=0}^i = P_e^i, (i = 1,2,\ldots,n)$ where 
+dependence in left and right-tail. <!--say how you set ext. threshold = Pe/10-->
+We started with initial population $P_{t=0}^i = P_e^i, (i = 1,2,\ldots,n)$ for each patch, where 
 $P_e^i$ was the equilibrium value (or similar to carrying capacity concept) 
 for each density-dependence model (see 4$^{th}$ column of Table \ref{tab_model_summary}).
 We assumed population went extinct after each time step if it was below a 
@@ -384,8 +381,7 @@ The models stated in Table \ref{tab_model_summary} had one common
 feature: they showed undercompensatory
 dynamics (monotonic approach towards stable steady state $P_e$) when
 growth parameter $r$ remained below a critical 
-level, say, $r_c$. Models showed 
-overcompensatory dynamics with oscillatory approach 
+level (say, $r_c$) and overcompensatory dynamics with oscillatory approach 
 towards stable equilibrium $P_e$ when $r$ was beyond $r_c$. 
 If $r$ became too high and exceeded $r_{bf}$ - the parameter value responsible for Hopf-bifurcation -
 model equilibrium $P_e$ became unstable. Beyond Hopf-bifurcation point, model showed sustained
