@@ -36,7 +36,74 @@ source("mtime.R")
 # Note : for moderate tail dep. we used Kendall's tau = 0.6 to get C or SC
 ```
 
-```{r sim_linear_mtd, echo=F,  cache=T, cache.extra=list(seed,mtime("ext_risk_cop_age_str.R"))}
+```{r get_ktau_common, echo=F, results="hide", cache=T, cache.extra=list(seed,mtime("ExtremeTailDep.R"))}
+set.seed(seed)
+library(copula)
+source("./ExtremeTailDep.R")
+
+np<-100000
+
+#for(i in 1:5){ # for loop to ensure the consistency of Kendall's tau with specified np
+  xtc_r<-retd(n=np,d=2,rl=1,mn=0,sdev=1) # copula with extreme right tail
+
+  start_time <- Sys.time()
+  ktau_common<- cor(xtc_r[,1],xtc_r[,2],method="kendall") #get the kendall's tau
+  end_time <- Sys.time()
+
+#  cat("points = ",np, ", ktau_common = ", ktau_common, ", run time = ", (end_time -start_time),"\n")
+#}
+
+# see the change in 3rd decimal place
+#points =  1e+05 , ktau_common =  0.7512526 , run time =  1.837576 
+#points =  1e+05 , ktau_common =  0.7507594 , run time =  1.864947 
+#points =  1e+05 , ktau_common =  0.7497681 , run time =  1.862879 
+#points =  1e+05 , ktau_common =  0.7487744 , run time =  1.854317 
+#points =  1e+05 , ktau_common =  0.7516491 , run time =  1.840355 
+
+#--------- Plot for intro + methods ------------------------------------
+
+# flip xtc_r to get xtc_l
+#xtc_l<-1-xtc_r
+
+# make marginals uniform 
+xtc_r<-pnorm(xtc_r)
+xtc_l<-1-xtc_r
+  
+# for clayton : left tail dep.
+copC<-claytonCopula(3)
+parC<-iTau(copC,tau=ktau_common)
+  
+# first generate Clayton copula 
+cc<-claytonCopula(par=parC,dim=2)
+mtc_l<-rCopula(np,cc)  
+  
+# flip Clayton copula 
+mtc_r<-1-mtc_l
+
+pdf("./Results/fig_4_copula.pdf", height=3, width=12)
+op<-par(mfrow=c(1,4),mar=c(4,4,2,2),mgp=c(2,1,0))
+
+# extreme left tail
+plot(xtc_l[,1],xtc_l[,2],col=rgb(0,0,0,0.05),pch=19,xlab="u",ylab="v",cex.lab=2)
+legend(x="topleft",legend="A",bty="n",cex=2)
+
+# moderate left tail
+plot(mtc_l[,1],mtc_l[,2],col=rgb(0,0,0,0.05),pch=19,xlab="u",ylab="v",cex.lab=2)
+legend(x="topleft",legend="B",bty="n",cex=2)
+
+# moderate right tail
+plot(mtc_r[,1],mtc_r[,2],col=rgb(0,0,0,0.05),pch=19,xlab="u",ylab="v",cex.lab=2)
+legend(x="topleft",legend="C",bty="n",cex=2)
+
+# extreme right tail
+plot(xtc_r[,1],xtc_r[,2],col=rgb(0,0,0,0.05),pch=19,xlab="u",ylab="v",cex.lab=2)
+legend(x="topleft",legend="D",bty="n",cex=2)
+
+par(op)
+dev.off()
+```
+
+```{r sim_linear_mtd, echo=F,  cache=T, cache.extra=list(seed,ktau_common,mtime("ext_risk_cop_age_str.R"))}
 # extinction risk with moderate tail dep. for single patch linear age structure model
 
 set.seed(seed)
@@ -52,7 +119,7 @@ bshape1<-3
 bshape2<-2
 par_dist<-c(gshape,gscale,bshape1,bshape2)
 omg<-Inf
-ktau<-0.6  # kendall's tau
+ktau<-ktau_common  # kendall's tau
 
 # for clayton
 copC<-claytonCopula(3)
@@ -112,7 +179,7 @@ par(op)
 dev.off()
 ```
 
-```{r sim_nonlinear_mtd, echo=F,  cache=T, cache.extra=list(seed,mtime("ext_risk_cop_age_str.R"))}
+```{r sim_nonlinear_mtd, echo=F,  cache=T, cache.extra=list(seed,ktau_common,mtime("ext_risk_cop_age_str.R"))}
 # extinction risk with moderate tail dep. for single patch non-linear age structure model
 
 set.seed(seed)
@@ -128,7 +195,7 @@ bshape1<-3
 bshape2<-2
 par_dist<-c(gshape,gscale,bshape1,bshape2)
 omg<-100
-ktau<-0.6  # kendall's tau
+ktau<-ktau_common  # kendall's tau
 
 # for clayton
 copC<-claytonCopula(3)
@@ -320,7 +387,7 @@ par(op)
 dev.off()
 ```
 
-```{r sim_ricker_scl_1, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_ricker_scl_1, echo=F,  cache=T, cache.extra=list(seed,ktau_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
@@ -358,6 +425,7 @@ numsteps<-25
 numlocs<-5
 K<-50
 scl<-1
+ktau<-ktau_common
 ext_thrs<-K/10
 model<-"ricker"
 
@@ -378,7 +446,7 @@ for(i in c(1:length(rlist))){
     r<- rlist[i]
     params<-c(r,K)
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,ktau=ktau,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_ricker_local<-abind(res_ricker_local,temp_mat,along = 3)
@@ -404,7 +472,7 @@ for(r in rlist){
     #cat("r=",r,"\n")
     params<-c(r,K)
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,ktau=ktau,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_ricker_global<-abind(res_ricker_global,temp_mat,along = 3)
@@ -579,7 +647,7 @@ par(op)
 dev.off()
 ```
 
-```{r sim_hassell_scl_1, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_hassell_scl_1, echo=F,  cache=T, cache.extra=list(seed,ktau_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
@@ -591,6 +659,7 @@ numlocs<-5
 a<-0.5
 b<-100
 scl<-1
+ktau<-ktau_common
 
 tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
@@ -640,7 +709,7 @@ for(i in c(1:length(rlist))){
     ext_thrs<-K_e/10
     params<-c(r,a,b)
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,ktau=ktau,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_hassell_local<-abind(res_hassell_local,temp_mat,along = 3)
@@ -667,7 +736,7 @@ for(r in rlist){
     ext_thrs<-K_e/10
     params<-c(r,a,b)
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,ktau=ktau,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_hassell_global<-abind(res_hassell_global,temp_mat,along = 3)
@@ -809,12 +878,13 @@ dev.off()
 ```
 
 
-```{r sim_msmith_scl_0.8, echo=F, cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_msmith_scl_0.8, echo=F, cache=T, cache.extra=list(seed,ktau_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
 model<-"msmith"
 scl<-0.8
+ktau<-ktau_common
 
 tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
@@ -871,7 +941,7 @@ for(i in c(1:length(rlist))){
     K_e<-((r-1)^(1/b))/a
     ext_thrs<-K_e/10
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,ktau=ktau,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_msmith_local<-abind(res_msmith_local,temp_mat,along = 3)
@@ -898,7 +968,7 @@ for(r in rlist){
     K_e<-((r-1)^(1/b))/a
     ext_thrs<-K_e/10
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,ktau=ktau,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_msmith_global<-abind(res_msmith_global,temp_mat,along = 3)
@@ -1070,12 +1140,13 @@ r_bf_pennycuick<-rlist[which.min(abs(res_pennycuick-fp))]
 #formatC(rc_pen_uns,digits = 14, format="f") 
 ```
 
-```{r sim_pennycuick_scl_1, echo=F, cache=T, cache.extra=list(seed,a_pennycuick,b_pennycuick,rc_pennycuick,r_bf_pennycuick,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_pennycuick_scl_1, echo=F, cache=T, cache.extra=list(seed,ktau_common,a_pennycuick,b_pennycuick,rc_pennycuick,r_bf_pennycuick,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
 model<-"pennycuick"
 scl<-1
+ktau<-ktau_common
 
 tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
@@ -1128,7 +1199,7 @@ for(i in c(1:length(rlist))){
     K_e<-(b/a)*(a+log(r-1))
     ext_thrs<-K_e/10
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,ktau=ktau,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_pennycuick_local<-abind(res_pennycuick_local,temp_mat,along = 3)
@@ -1154,7 +1225,7 @@ for(r in rlist){
     K_e<-(b/a)*(a+log(r-1))
     ext_thrs<-K_e/10
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,ktau=ktau,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_pennycuick_global<-abind(res_pennycuick_global,temp_mat,along = 3)
@@ -1285,12 +1356,13 @@ par(op)
 dev.off()
 ```
 
-```{r sim_verhulst_scl_0.6, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_verhulst_scl_0.6, echo=F,  cache=T, cache.extra=list(seed,ktau_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
 model<-"verhulst"
 scl<-0.6
+ktau<-ktau_common
 
 tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
@@ -1347,7 +1419,7 @@ for(i in c(1:length(rlist))){
     params<-c(r,K)
     
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,ktau=ktau,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_verhulst_local<-abind(res_verhulst_local,temp_mat,along = 3)
@@ -1372,7 +1444,7 @@ for(r in rlist){
     params<-c(r,K)
     
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
-                 scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,ktau=ktau,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_verhulst_global<-abind(res_verhulst_global,temp_mat,along = 3)
@@ -1503,12 +1575,13 @@ par(op)
 dev.off()
 ```
 
-```{r sim_abrewer_scl_0.6, echo=F,  cache=T, cache.extra=list(seed,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_abrewer_scl_0.6, echo=F,  cache=T, cache.extra=list(seed,ktau_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
 model<-"austinbrewer"
 scl<-0.6
+ktau<-ktau_common
 
 tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
@@ -1566,7 +1639,7 @@ for(i in c(1:length(rlist))){
   ext_thrs<-p0/10
   
   ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
-               scl=scl,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
+               scl=scl,ktau=ktau,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
   
   temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
   res_abrewer_local<-abind(res_abrewer_local,temp_mat,along = 3)
@@ -1593,7 +1666,7 @@ for(r in rlist){
   ext_thrs<-p0/10
   
   ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
-               scl=scl,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
+               scl=scl,ktau=ktau,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
   
   temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
   res_abrewer_global<-abind(res_abrewer_global,temp_mat,along = 3)

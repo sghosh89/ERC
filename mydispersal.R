@@ -173,12 +173,13 @@ get_avg_acf<-function(sims){
 #       6) params : a vector containing model parameters
 #       7) ext_thrs : extinction threshold below which populations go extinct
 #       8) scl : a scaling factor which is multiplied with noise generated
-#       9) model : a character specifying model name
-#       10) ploton : logical(T or F) to get optional plot
-#       11) resloc : location to save plots
-#       12) getacf : these are tags
+#       9) ktau : given kendall's tau to generate moderate tail dep. copula
+#       10) model : a character specifying model name
+#       11) ploton : logical(T or F) to get optional plot
+#       12) resloc : location to save plots
+#       13) getacf : these are tags
 
-plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,model,ploton,resloc,getacf){
+plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,ktau,model,ploton,resloc,getacf){
   
   # ========================== when noises are extreme tail dep. ========================================
   ns1<-retd(n=numsteps*numsims,d=numlocs,rl=1,mn=0,sdev=1)# a righttail dep matrix(numpoints by numlocs,     
@@ -209,7 +210,7 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
   }
   
   # ========================== when noises have moderate tail dep. ========================================
-  ktau<-0.6  # kendall's tau
+  #ktau<-0.6  # kendall's tau
   
   # for clayton : left tail dep.
   copC<-claytonCopula(3)
@@ -368,17 +369,18 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,mod
 #       3) numlocs : an integer : number of locations
 #       4) p0 : initial population to start with
 #       5) params : a vector with model parameters
-#       6) scl : a scaling factor which is multiplied with noise generated
-#       7) ext_thrs extinction threshold below which populations go extinct
-#       8) model : a character specifying model name
-#       9) disp_everywhere :logical:
+#       6) ext_thrs extinction threshold below which populations go extinct
+#       7) scl : a scaling factor which is multiplied with noise generated
+#       8) ktau : given kendall's tau to generate moderate tail dep. copula
+#       9) model : a character specifying model name
+#       10) disp_everywhere :logical:
 #             if T : gives D for linear chain model with equal dispersal everywhere
 #             if F : gives D for linear chain model with equal dispersal only to nearest neighbor location
-#       10) plotteron : logical to get optional plot
-#       11) resloc : location to save plots
-#       getacf : these are tags
+#       11) plotteron : logical to get optional plot
+#       12) resloc : location to save plots
+#       13) getacf : these are tags
 
-varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,model,disp_everywhere,plotteron,resloc,getacf){
+varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,ktau,model,disp_everywhere,plotteron,resloc,getacf){
   risk_xright<-c()
   risk_xleft<-c()
   risk_mright<-c()
@@ -407,7 +409,7 @@ varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,mod
     resloc2<-paste(tempo3,"/",sep="")
     
     riskrl<- plotter_ext_risk(numsims=numsims,numsteps=numsteps,numlocs=numlocs,D=D_mat,p0=p0,params=params,
-                              ext_thrs=ext_thrs,scl=scl,model=model,ploton=T,resloc=resloc2,getacf=getacf)
+                              ext_thrs=ext_thrs,scl=scl,ktau=ktau,model=model,ploton=T,resloc=resloc2,getacf=getacf)
     
     risk_xr<-riskrl$risk_xright_after_numsteps
     risk_xl<-riskrl$risk_xleft_after_numsteps
