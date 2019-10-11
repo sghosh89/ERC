@@ -159,10 +159,12 @@ of $41$ UK butterfly species to four different ECEs (extreme heat, extreme cold,
 extreme precipitation, drought) over $37$ years at the site level, across 
 each species' life-stages. Experimental study showed successive ECEs with short time intervals 
 could weaken the resistance of plant communities too [@dreesen2014successive]. 
-All these studies indicated that environmental stochasticity (through ECEs) 
+All these studies indicated that environmental stochasticity (through ECEs) can 
+make a population vulnerable to extirpation.
+<!--All these studies indicated that environmental stochasticity (through ECEs) 
 can lead to demographic stochasticity (through influence on reproductive or 
 mortality rate) of different age class of a population making it vulnerable 
-to local extinction. 
+to local extinction.--> 
 <!--***DAN: Shyamolina, demogra[hic stochasticity is a specific thing. I suspect you may
 just want to say instead something like "All these studies indicated that environmental stochasticity (through ECEs) can make a population vulnerable to extirpation."] -->
 
@@ -183,8 +185,18 @@ prone to simultaneous extinction during extreme bad years [@earn2000coherence].
 <!--concept for correlation in the extreme tail: tail-association-->
 Though earlier literature considered the influence of spatial and/ or temporal 
 correlations in environmental variables on extinction risk of a metapopulation, to 
-our knowledge the separate influence on extinction risk of 'tail associations' between
-environmental time series in different locations has hardly been considered.
+our knowledge the separate influence on extinction risk of "tail associations" between
+environmental time series in different locations has hardly been considered. "Tail associations" are
+the association between two random variables in their extreme values. If two positively correlated 
+variables are more associated in their smaller values than larger, they are said to have stronger
+"left-tail" or "lower-tail" association (Figure \ref{fig_intro_cop}A, B). Similarly, if two positively correlated 
+variables are more associated in their larger values than smaller, they are said to have stronger
+"right-tail" or "upper-tail" association (Figure \ref{fig_intro_cop}C, D). Figure \ref{fig_intro_cop} shows 
+two random variables can have a wide range of assciation from extreme to moderate degree in their extreme tails, but
+with a fixed Kendall's $\tau$.  
+
+
+
 
 ” But this is not the topic sentence. The topic sentence comes second and is something like “Tail associations are…” or “We say two positively associated variables are more right- than left-tail associated if…”. Then the para continues, its point being to explain what asymmetric tail associations are. You can use a pedagogical figure. One thing you probably want to include is the logic (see BIVAN) that if extreme events are getting stronger and more extreme/intense events are also more spatially widespread, then it seems reasonable to expect that spatial patterns of tail associations in environmental variables will also be changing. You may also want to mention (one sentence only) that we use the statistical concept of the copula to control tail dependence in our simulations – more will be said about copulas in the Methods.  
 
