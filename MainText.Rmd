@@ -520,11 +520,11 @@ its stable equilibrium) for the deterministic analog of the model was ensured.
 We observed right tail dependent noise caused higher extinction 
 risk for the metapopulations than left tail dependent noise when the model 
 was in over-compensatory regime (oscillatory approach towards stable equilibrium) for higher 
-value of $r$. Figs. \ref{fig_extrisk_allmodel_localdisp_etd} and \ref{SM-fig_extrisk_allmodel_localdisp_mtd} show
+value of $r$. Figs. \ref{fig_extrisk_allmodel_localdisp} shows
 variation of extinction risk against local dispersal rate ($d$) for six density dependent metapopulation models 
 (see Table \ref{tab_model_summary}) with growth rate $r$ considered either from under-compensatory or 
 from over-compensatory regime. We also got similar results with our prediction (see Q2 from \nameref{Introduction})
-for global dispersal (Figs. \ref{SM-fig_extrisk_allmodel_globaldisp_etd} and \ref{SM-fig_extrisk_allmodel_globaldisp_mtd}). 
+for global dispersal (Fig. \ref{SM-fig_extrisk_allmodel_globaldisp}). 
 Figs. (\ref{SM-fig_ricker_risk_local_disp_scl_1_etd} - \ref{SM-fig_risk_local_disp_abrewer_r_vary_scl_0.6_mtd}) 
 demonstrate how extinction risk changed against local dispersal rate for a whole range
 of $r$, whereas Figs. (\ref{SM-fig_ricker_risk_global_disp_scl_1_etd} - 
@@ -634,31 +634,38 @@ network with different clusters having various dispersal rates.
 \begin{center}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_extremetail_linear.pdf}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_extremetail_nonlinear_omg_100.pdf}\\
-\caption{Extinction risk against time from single patch age structured $(A)$ linear ($\Omega = \infty$) and $(B)$ nonlinear ($\Omega = 100$) models for $10000$ simulations; shading represents 95\% confidence interval. Fecundity of adults and survival of eggs have either extreme left or extreme right tail association. \label{fig_extrisk_agestr_etd}}
+\end{center}
+\textbf{ \hspace{5.4 cm} (C) \hspace{4 cm} (D)} \\
+\vspace{-0.9 cm}
+\begin{center}
+\includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_C_SC_linear.pdf}
+\includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_C_SC_nonlinear_omg_100.pdf}
+\caption{Extinction risk against time from single patch age structured linear ($\Omega = \infty$) $(A, C)$ and nonlinear ($\Omega = 100$) $(C, D)$ models for $10000$ simulations; shading represents 95\% confidence interval. $(A, B)$ show extinction risk with time when fecundity of adults and survival of eggs have extreme left tail (LT) or extreme right tail (RT) association, $(C, D)$ show the analogous scenario but with moderate tail association between vital rates. \label{fig_extrisk_agestr}}
 \end{center}
 \end{figure*}
 
 <!--FIG :  summary : all nonlinear model results for local dispersion : extrisk vs. d-->
 \begin{figure*}[!h]
 \begin{center}
-\includegraphics[width=15 cm]{./Results/allmodel_ext_risk_local_disp_extremenoise.pdf}
-\caption{Extinction risks are computed after $25$ years for six nonlinear density-dependence models (Table \ref{tab_model_summary}) with local dispersal among $n=5$ patches and for $10000$ simulations. Extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two columns represent extinction risk calculated for intrinsic growth rate $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog, respectively.\label{fig_extrisk_allmodel_localdisp_etd}}
+\includegraphics[width=14.5 cm]{./Results/allmodel_ext_risk_local_disp_extreme_and_moderate_noise.pdf}
+\caption{Extinction risks are computed after $25$ years for six nonlinear density-dependence models (Table \ref{tab_model_summary}) with local dispersal among $n=5$ patches and for $10000$ simulations. Spatially correlated 
+noises have varying degree of tail associations (extreme left tail, moderate left tail, moderate right tail and extreme right tail) as introduced in Fig. \ref{fig_intro_cop}. Last two columns represent variation of extinction risk against dispersal rate ($d$), calculated for intrinsic growth rate $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog.\label{fig_extrisk_allmodel_localdisp}}
 \end{center}
 \end{figure*}
 
 
- <!--FIG : all nonlinear model results with extreme noise, d=0, extrisk vs. r-->
+<!--FIG : all nonlinear model results, d=0, extrisk vs. r-->
 \begin{figure*}[!h]
 \begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
-\includegraphics[width=5 cm]{./Results/ricker_scl_1/ricker_extrisk_d0_extremenoise.pdf}
-\includegraphics[width=5 cm]{./Results/hassell_scl_1/hassell_extrisk_d0_extremenoise.pdf}\\
+\includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
+\includegraphics[width=6 cm]{./Results/ricker_scl_1/ricker_extrisk_d0_extreme_and_moderate_noise.pdf}
+\includegraphics[width=6 cm]{./Results/hassell_scl_1/hassell_extrisk_d0_extreme_and_moderate_noise.pdf}\\
 \vspace{-0.6 cm}
-\includegraphics[width=5 cm]{./Results/msmith_scl_0.8/msmith_extrisk_d0_extremenoise.pdf}
-\includegraphics[width=5 cm]{./Results/pennycuick_scl_1/pennycuick_extrisk_d0_extremenoise.pdf}\\
+\includegraphics[width=6 cm]{./Results/msmith_scl_0.8/msmith_extrisk_d0_extreme_and_moderate_noise.pdf}
+\includegraphics[width=6 cm]{./Results/pennycuick_scl_1/pennycuick_extrisk_d0_extreme_and_moderate_noise.pdf}\\
 \vspace{-0.6 cm}
-\includegraphics[width=5 cm]{./Results/verhulst_scl_0.6/verhulst_extrisk_d0_extremenoise.pdf}
-\includegraphics[width=5 cm]{./Results/austinbrewer_scl_0.6/abrewer_extrisk_d0_extremenoise.pdf}\\
+\includegraphics[width=6 cm]{./Results/verhulst_scl_0.6/verhulst_extrisk_d0_extreme_and_moderate_noise.pdf}
+\includegraphics[width=6 cm]{./Results/austinbrewer_scl_0.6/abrewer_extrisk_d0_extreme_and_moderate_noise.pdf}\\
 \caption{Transition of higher to lower extinction risk (calculated after $25$ years) for 
 the metapopulations affected by extreme left tail dependent noise across
 $5$ multiple patches without dispersal ($d=0$), as intrinsic 

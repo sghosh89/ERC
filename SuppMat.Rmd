@@ -180,8 +180,10 @@ lines(t,x$erA,col="red",type="l")
 x<-xR
 polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(0,0,1,0.3), border = NA)
 lines(t,x$erA,col="blue",type="l")
-legend(x=-2,y=1.05, c("vital rates: moderate LTdep.,C","vital rates: moderate RTdep.,SC"), lty=c(1,1),  
-       col=c('red', 'blue'), horiz=F, bty='n', cex=1.5, x.intersp = 0.2, seg.len = 1)
+legend(x=-2,y=1.05, c("moderate LT","moderate RT", expression(paste(Omega,"= ", infinity))), lty=c(1,1, NA),  
+       col=c('red', 'blue', NA), horiz=F, bty='n', cex=1.5, x.intersp = 0.2
+       #, seg.len = 1
+       )
 par(op)
 dev.off()
 ```
@@ -256,8 +258,10 @@ lines(t,x$erA,col="red",type="l")
 x<-xR
 polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(0,0,1,0.3), border = NA)
 lines(t,x$erA,col="blue",type="l")
-legend(x=-2,y=1.05, c("vital rates: moderate LTdep.,C","vital rates: moderate RTdep.,SC"), lty=c(1,1),  
-       col=c('red', 'blue'), horiz=F, bty='n', cex=1.5, x.intersp = 0.2, seg.len = 1)
+legend(x=-2,y=1.05, c("moderate LT","moderate RT", as.expression(bquote(Omega==.(omg)))), lty=c(1,1,NA),  
+       col=c('red', 'blue',NA), horiz=F, bty='n', cex=1.5, x.intersp = 0.2
+       #, seg.len = 1
+       )
 par(op)
 dev.off()
 ```
@@ -323,8 +327,10 @@ lines(t,x$erA,col="red",type="l")
 x<-xR
 polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(0,0,1,0.3), border = NA)
 lines(t,x$erA,col="blue",type="l")
-legend(x=-2,y=1.05, c("vital rates: extreme LTdep.","vital rates: extreme RTdep."), lty=c(1,1),  
-       col=c('red', 'blue'), horiz=F, bty='n', cex=1.5, x.intersp = 0.2)
+legend(x=-2,y=1.05, c("extreme LT","extreme RT", expression(paste(Omega,"= ", infinity))), lty=c(1,1, NA),  
+       col=c('red', 'blue', NA), horiz=F, bty='n', cex=1.5, x.intersp = 0.2
+       #, seg.len = 1
+       )
 par(op)
 dev.off()
 ```
@@ -388,8 +394,10 @@ lines(t,x$erA,col="red",type="l")
 x<-xR
 polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(0,0,1,0.3), border = NA)
 lines(t,x$erA,col="blue",type="l")
-legend(x=-2,y=1.05, c("vital rates: extreme LTdep.","vital rates: extreme RTdep."), lty=c(1,1),  
-       col=c('red', 'blue'), horiz=F, bty='n', cex=1.5, x.intersp = 0.2)
+legend(x=-2,y=1.05, c("extreme LT","extreme RT", as.expression(bquote(Omega==.(omg)))), lty=c(1,1,NA),  
+       col=c('red', 'blue',NA), horiz=F, bty='n', cex=1.5, x.intersp = 0.2
+       #, seg.len = 1
+       )
 par(op)
 dev.off()
 ```
@@ -516,7 +524,7 @@ dev.off()
 pdf("./Results/common_legend_extreme_and_moderate_noise.pdf",height=1,width=12)
 op<-par(fig = c(0, 1, 0, 1), oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0))
 plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n")
-legend("center", c("extreme LT","moderate LT", "moderate RT","extreme RT"), lty=c(1,1), pch=c(1,1,1,1), 
+legend("center", c("extreme LT,","moderate LT,", "moderate RT,","extreme RT"), lty=c(1,1), pch=c(1,1,1,1), 
          col=c('red', 'orange','skyblue','blue'),x.intersp = 0.1,
          cex = 2.2, xpd = TRUE, horiz = T, inset = c(0,0), 
          bty = "n")
@@ -565,7 +573,7 @@ for(i in 1:dim(res_ricker_global)[3]){
 par(op)
 dev.off()
 
-#-------------------------------------- plot for moderate tail dep. noise ---------------------------------------
+#-------------------------------------- plot for moderate tail dep. noise --------------------------------------
 pdf(paste(resloc,"ricker_ext_risk_local_disp_moderatenoise.pdf",sep=""),height=9,width=9)
 
 op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
@@ -710,7 +718,7 @@ par(op)
 dev.off()
 
 #-------------------- plot for extreme and moderate tail dep. noise ---------------------------------------
-pdf(paste(resloc,"ricker_extrisk_d0_extreme_and_moderatenoise.pdf",sep=""),height=5,width=5)
+pdf(paste(resloc,"ricker_extrisk_d0_extreme_and_moderate_noise.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
 
 plot(ricker_extrisk_d0$r,ricker_extrisk_d0$risk_xleft_d0,col="red",type="b",
@@ -915,7 +923,7 @@ for(i in 1:dim(res_hassell_global)[3]){
 par(op)
 dev.off()
 
-#----------------------- plot for extreme and moderate tail dep. noise ---------------------------------------
+#----------------------- plot for extreme and moderate tail dep. noise --------------------------------------
 pdf(paste(resloc,"hassell_ext_risk_local_disp_extreme_and_moderate_noise.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
@@ -1008,7 +1016,7 @@ par(op)
 dev.off()
 
 #-------------------- plot for extreme and moderate tail dep. noise ---------------------------------------
-pdf(paste(resloc,"hassell_extrisk_d0_extreme_and_moderatenoise.pdf",sep=""),height=5,width=5)
+pdf(paste(resloc,"hassell_extrisk_d0_extreme_and_moderate_noise.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
 
 plot(hassell_extrisk_d0$r,hassell_extrisk_d0$risk_xleft_d0,col="red",type="b",ylim=c(0,1),xlim = range(hassell_extrisk_d0$r),
@@ -1211,15 +1219,15 @@ for(i in 1:dim(res_msmith_global)[3]){
 par(op)
 dev.off()
 
-#---------------------- plot for extreme and moderate tail dep. noise ---------------------------------------
-pdf(paste(resloc,"msmith_ext_risk_local_disp_extreme_and_moderatenoise.pdf",sep=""),height=12,width=12)
+#---------------------- plot for extreme and moderate tail dep. noise --------------------------------------
+pdf(paste(resloc,"msmith_ext_risk_local_disp_extreme_and_moderate_noise.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_msmith_local)[3]){
   ss<-res_msmith_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
   lines(ss$d,ss$risk_mleft,type="b",col="orange")
   lines(ss$d,ss$risk_mright,type="b",col="skyblue")
@@ -1230,14 +1238,14 @@ par(op)
 dev.off()
 
 
-pdf(paste(resloc,"msmith_ext_risk_global_disp_extreme_and_moderatenoise.pdf",sep=""),height=12,width=12)
+pdf(paste(resloc,"msmith_ext_risk_global_disp_extreme_and_moderate_noise.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5,4,1.5,1.5))
 
 for(i in 1:dim(res_msmith_global)[3]){
   ss<-res_msmith_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
   lines(ss$d,ss$risk_mleft,type="b",col="orange")
   lines(ss$d,ss$risk_mright,type="b",col="skyblue")
@@ -1299,7 +1307,7 @@ par(op)
 dev.off()
 
 #-------------------- plot for extreme and moderate tail dep. noise ---------------------------------------
-pdf(paste(resloc,"msmith_extrisk_d0_extreme_and_moderatenoise.pdf",sep=""),height=5,width=5)
+pdf(paste(resloc,"msmith_extrisk_d0_extreme_and_moderate_noise.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
 
 plot(msmith_extrisk_d0$r,msmith_extrisk_d0$risk_xleft_d0,col="red",type="b",ylim=c(0,1),xlim = range(msmith_extrisk_d0$r),
@@ -1527,15 +1535,15 @@ for(i in 1:dim(res_pennycuick_global)[3]){
 par(op)
 dev.off()
 
-#--------------------------- plot for extreme and moderate tail dep. noise ---------------------------------------
-pdf(paste(resloc,"pennycuick_ext_risk_local_disp_extreme_and_moderatenoise.pdf",sep=""),height=12,width=12)
+#--------------------------- plot for extreme and moderate tail dep. noise --------------------------------------
+pdf(paste(resloc,"pennycuick_ext_risk_local_disp_extreme_and_moderate_noise.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5,4,1.2,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_pennycuick_local)[3]){
   ss<-res_pennycuick_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
   lines(ss$d,ss$risk_mleft,type="b",col="orange")
   lines(ss$d,ss$risk_mright,type="b",col="skyblue")
@@ -1546,14 +1554,14 @@ par(op)
 dev.off()
 
 
-pdf(paste(resloc,"pennycuick_ext_risk_global_disp_extreme_and_moderatenoise.pdf",sep=""),height=12,width=12)
+pdf(paste(resloc,"pennycuick_ext_risk_global_disp_extreme_and_moderate_noise.pdf",sep=""),height=12,width=12)
 op<-par(mfrow=c(4,4),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_pennycuick_global)[3]){
   ss<-res_pennycuick_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
   lines(ss$d,ss$risk_mleft,type="b",col="orange")
   lines(ss$d,ss$risk_mright,type="b",col="skyblue")
@@ -1617,7 +1625,7 @@ par(op)
 dev.off()
 
 #-------------------- plot for extreme and moderate tail dep. noise ---------------------------------------
-pdf(paste(resloc,"pennycuick_extrisk_d0_extreme_and_moderatenoise.pdf",sep=""),height=5,width=5)
+pdf(paste(resloc,"pennycuick_extrisk_d0_extreme_and_moderate_noise.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
 
 plot(pennycuick_extrisk_d0$r,pennycuick_extrisk_d0$risk_xleft_d0,col="red",type="b",ylim=c(0,1),xlim = range(pennycuick_extrisk_d0$r),
@@ -1810,15 +1818,15 @@ for(i in 1:dim(res_verhulst_global)[3]){
 par(op)
 dev.off()
 
-#------------------------- plot for extreme and moderate tail dep. noise ---------------------------------------
-pdf(paste(resloc,"verhulst_ext_risk_local_disp_extreme_and_moderatenoise.pdf",sep=""),height=9,width=9)
+#------------------------- plot for extreme and moderate tail dep. noise --------------------------------------
+pdf(paste(resloc,"verhulst_ext_risk_local_disp_extreme_and_moderate_noise.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_verhulst_local)[3]){
   ss<-res_verhulst_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
   lines(ss$d,ss$risk_mleft,type="b",col="orange")
   lines(ss$d,ss$risk_mright,type="b",col="skyblue")
@@ -1828,14 +1836,14 @@ for(i in 1:dim(res_verhulst_local)[3]){
 par(op)
 dev.off()
 
-pdf(paste(resloc,"verhulst_ext_risk_global_disp_extreme_and_moderatenoise.pdf",sep=""),height=9,width=9)
+pdf(paste(resloc,"verhulst_ext_risk_global_disp_extreme_and_moderate_noise.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_verhulst_global)[3]){
   ss<-res_verhulst_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
   lines(ss$d,ss$risk_mleft,type="b",col="orange")
   lines(ss$d,ss$risk_mright,type="b",col="skyblue")
@@ -1900,7 +1908,7 @@ par(op)
 dev.off()
 
 #-------------------- plot for extreme and moderate tail dep. noise ---------------------------------------
-pdf(paste(resloc,"verhulst_extrisk_d0_extreme_and_moderatenoise.pdf",sep=""),height=5,width=5)
+pdf(paste(resloc,"verhulst_extrisk_d0_extreme_and_moderate_noise.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
 
 plot(verhulst_extrisk_d0$r,verhulst_extrisk_d0$risk_xleft_d0,col="red",type="b",ylim=c(0,1),xlim = range(verhulst_extrisk_d0$r),
@@ -2096,15 +2104,15 @@ for(i in 1:dim(res_abrewer_global)[3]){
 par(op)
 dev.off()
 
-#--------------------- plot for extreme and moderate tail dep. noise ---------------------------------------
-pdf(paste(resloc,"abrewer_ext_risk_local_disp_extreme_and_moderatenoise.pdf",sep=""),height=9,width=9)
+#--------------------- plot for extreme and moderate tail dep. noise --------------------------------------
+pdf(paste(resloc,"abrewer_ext_risk_local_disp_extreme_and_moderate_noise.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_abrewer_local)[3]){
   ss<-res_abrewer_local[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
   lines(ss$d,ss$risk_mleft,type="b",col="orange")
   lines(ss$d,ss$risk_mright,type="b",col="skyblue")
@@ -2115,14 +2123,14 @@ par(op)
 dev.off()
 
 
-pdf(paste(resloc,"abrewer_ext_risk_global_disp_extreme_and_moderatenoise.pdf",sep=""),height=9,width=9)
+pdf(paste(resloc,"abrewer_ext_risk_global_disp_extreme_and_moderate_noise.pdf",sep=""),height=9,width=9)
 op<-par(mfrow=c(3,3),mar=c(5,4,1.5,1.5),mgp=c(2,0.5,0))
 
 for(i in 1:dim(res_abrewer_global)[3]){
   ss<-res_abrewer_global[,,i][1:6,] # plot for d in range (0 to 0.5)
   ss<-as.data.frame(ss)
   
-  plot(ss$d,ss$risk_mleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
+  plot(ss$d,ss$risk_xleft,xlim=range(ss$d),ylim=c(0,1),type="b",col="red",
        xlab="d",ylab="Extinction risk",cex.lab=2,cex.axis=1.5)
   lines(ss$d,ss$risk_mleft,type="b",col="orange")
   lines(ss$d,ss$risk_mright,type="b",col="skyblue")
@@ -2185,7 +2193,7 @@ par(op)
 dev.off()
 
 #-------------------- plot for extreme and moderate tail dep. noise ---------------------------------------
-pdf(paste(resloc,"abrewer_extrisk_d0_extreme_and_moderatenoise.pdf",sep=""),height=5,width=5)
+pdf(paste(resloc,"abrewer_extrisk_d0_extreme_and_moderate_noise.pdf",sep=""),height=5,width=5)
 op<-par(mar=c(5,4,1.5,1.5),mgp=c(2,0.7,0))
 
 plot(abrewer_extrisk_d0$r,abrewer_extrisk_d0$risk_xleft_d0,col="red",type="b",ylim=c(0,1),xlim = range(abrewer_extrisk_d0$r),
@@ -2386,7 +2394,7 @@ getplot(x=x,rlist = rlist,noisetype = "moderate")
 par(op)
 dev.off()
 
-#------------- for extreme and moderate tail dep. noise : local dispersal summary fig. ---------------------
+#------------- for extreme and moderate tail dep. noise : local dispersal summary fig. -------------------
 pdf("./Results/allmodel_ext_risk_local_disp_extreme_and_moderate_noise.pdf",height=12,width=9)
 
 op<-par(mfrow=c(6,3),mar=c(5.2,4.2,1.2,1.5))
@@ -2395,8 +2403,8 @@ x<-res_ricker_local
 rlist<-ricker_extrisk_d0$r
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-legend("topleft", c("extreme LT","moderate LT","moderate RT","extreme RT"), lty=c(1,1,1,1), pch=c(1,1,1.1), 
-       col=c('red', 'orange','skyblue','blue'), horiz=F, bty='o', cex=1.5, adj=0, x.intersp=0.2)
+legend(x=0.6,y=1.3, c("extreme LT","moderate LT","moderate RT","extreme RT"), lty=c(1,1,1,1), pch=c(1,1,1.1), 
+       col=c('red', 'orange','skyblue','blue'), horiz=F, bty='n', cex=1.6, adj=0, x.intersp=0.2)
 mtext(paste("Ricker model: "), side = 3, line=-9, adj=0.3, cex=1, col="black")
 #mtext(paste("(K = 50, sd = 1)"), side = 3, line=-8.2, adj=0.6, cex=1, col="black")
 mtext(expression( paste("( K = 50, ", sigma,"=1 )" )),side = 3, line=-11, adj=0.6, cex=1, col="black")
@@ -2553,7 +2561,7 @@ dev.off()
 
 #--------------------for extreme and moderate tail dep. noise : global dispersal summary fig-----------------------
 
-pdf("./Results/allmodel_ext_risk_global_disp_extreme_and_moderatenoise.pdf",height=12,width=9)
+pdf("./Results/allmodel_ext_risk_global_disp_extreme_and_moderate_noise.pdf",height=12,width=9)
 
 op<-par(mfrow=c(6,3),mar=c(5.2,4.2,1.2,1.5))
 
@@ -2561,8 +2569,8 @@ x<-res_ricker_global
 rlist<-ricker_extrisk_d0$r
 
 plot(1, 0, bty = "n", xaxt = "n", yaxt = "n",xlab="",ylab="",type="n")
-legend("topleft", c("extreme LT","moderate LT","moderate RT","extreme RT"), lty=c(1,1,1,1), pch=c(1,1,1.1), 
-       col=c('red', 'orange','skyblue','blue'), horiz=F, bty='o', cex=1.5, adj=0, x.intersp=0.2)
+legend(x=0.6,y=1.3, c("extreme LT","moderate LT","moderate RT","extreme RT"), lty=c(1,1,1,1), pch=c(1,1,1.1), 
+       col=c('red', 'orange','skyblue','blue'), horiz=F, bty='n', cex=1.6, adj=0, x.intersp=0.2)
 mtext(paste("Ricker model: "), side = 3, line=-9, adj=0.3, cex=1, col="black")
 mtext(expression( paste("( K = 50, ", sigma,"=1 )" )),side = 3, line=-11, adj=0.6, cex=1, col="black")
 getplot(x=x,rlist = rlist, noisetype = "both")
@@ -2662,7 +2670,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 ```
 
 
-<!--FIG:  age structure model results for moderate tail dep. (C, SC)-->
+<!--FIG:  age structure model results for moderate tail dep. (C, SC)
 \begin{figure}[!h]
 \begin{center}
 \textbf{ \hspace{0.5 cm} (A) \hspace{4.4 cm} (B)} \\
@@ -2671,293 +2679,139 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_C_SC_nonlinear_omg_100.pdf}
 \caption[Extinction risk from single patch age structured models with time when vital rates have either left (C) or right tail (SC) association.]{Extinction risk (shading represents 95\% confidence interval) from single patch age structured models with time for 10000 simulations. Fecundity of adults and survival of eggs have moderate tail association in either left or right tail in their corresponding copula structure. Moderate left tail association (or right tail association) was generated by a bivariate Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6, $(A)$ for linear model ($\Omega = \infty$) and for $(B)$ non-linear model ($\Omega = 100$).\label{fig_extrisk_agestr_mtd}}
 \end{center}
-\end{figure}
+\end{figure}-->
 
 
-<!--FIG:  summary: all nonlinear model results for local dispersion, moderate noise : extrisk vs. d-->
+<!--FIG:  summary: all nonlinear model results for global dispersion: extrisk vs. d-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=15 cm]{./Results/allmodel_ext_risk_local_disp_moderatenoise.pdf}
-\caption[Analogous figure as that of Fig. \ref{MT-fig_extrisk_allmodel_localdisp_etd} in the maintext but with moderate tail association in spatially correlated noises.]{Analogous figure as that of Fig. \ref{MT-fig_extrisk_allmodel_localdisp_etd} in the maintext but with moderate tail association in spatially correlated noises.\label{fig_extrisk_allmodel_localdisp_mtd}}
+\includegraphics[width=15 cm]{./Results/allmodel_ext_risk_global_disp_extreme_and_moderate_noise.pdf}
+\caption[Extinction risk vs. dispersal rate for six density dependent metapopulation model with global dispersal.]{Analogous figure as of Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text but for global dispersal between metapopulation patches.\label{fig_extrisk_allmodel_globaldisp}}
 \end{center}
 \end{figure}
 
-<!--FIG:  summary: all nonlinear model results for global dispersion, extreme noise : extrisk vs. d-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=15 cm]{./Results/allmodel_ext_risk_global_disp_extremenoise.pdf}
-\caption[Extinction risk vs. dispersal rate for six density dependent metapopulation model with global dispersal.]{For each of six nonlinear density-dependence models presented in Table \ref{MT-tab_model_summary} with global dispersal, extinction risk varies as dispersion-rate ($d$) goes from $0$ to $0.5$. Last two columns represent extinction risk calculated for bifurcation parameter $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog, respectively.\label{fig_extrisk_allmodel_globaldisp_etd}}
-\end{center}
-\end{figure}
 
-<!--FIG:  summary: all nonlinear model results for global dispersion, moderate noise : extrisk vs. d-->
+<!--FIG: Ricker model, local dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=15 cm]{./Results/allmodel_ext_risk_global_disp_moderatenoise.pdf}
-\caption[Analogous figure as that of Fig. \ref{fig_extrisk_allmodel_globaldisp_mtd} but with moderate tail association in spatially correlated noises.]{Analogous figure as that of Fig. \ref{fig_extrisk_allmodel_globaldisp_mtd} but with moderate tail association in spatially correlated noises.\label{fig_extrisk_allmodel_globaldisp_mtd}}
-\end{center}
-\end{figure}
-
-<!--FIG: Ricker model, local dispersal, extreme noise-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_local_disp_extremenoise.pdf}\\
+\includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
+\includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Ricker metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Ricker dynamics with local dispersal; 
-standard deviation $\sigma$=1 was used to generate extreme extreme tail dependent noises for 10000 simulations. \label{fig_ricker_risk_local_disp_scl_1_etd}}
+standard deviation $\sigma$=1 was used to generate extreme extreme tail dependent noises for 10000 simulations. \label{fig_ricker_risk_local_disp_scl_1}}
 \end{center}
 \end{figure}
 
-<!--FIG : Hassell model, local dispersal, extreme noise-->
+<!--FIG : Hassell model, local dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_local_disp_extremenoise.pdf}\\
+\includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
+\includegraphics[width=15 cm]{./Results/hassell_scl_1/hassell_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Hassell metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Hassell dynamics with local dispersal; 
-standard deviation $\sigma$=1 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_hassell_risk_local_disp_scl_1_etd}}
+standard deviation $\sigma$=1 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_hassell_risk_local_disp_scl_1}}
 \end{center}
 \end{figure}
 
-<!--FIG: Maynard smith model, local dispersal, extreme noise-->
+<!--FIG: Maynard smith model, local dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_local_disp_extremenoise.pdf}\\
+\includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
+\includegraphics[width=15 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Maynard smith metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Maynard Smith dynamics with local dispersal; 
-standard deviation $\sigma$=0.8 was used to generate extreme tail dependent noises for 10000 simulations.. \label{fig_msmith_risk_local_disp_scl_0.8_etd}}
+standard deviation $\sigma$=0.8 was used to generate extreme tail dependent noises for 10000 simulations.. \label{fig_msmith_risk_local_disp_scl_0.8}}
 \end{center}
 \end{figure}
 
-<!--FIG: Pennycuick model, local dispersal, extreme noise-->
+<!--FIG: Pennycuick model, local dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp_extremenoise.pdf}\\
+\includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
+\includegraphics[width=15 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Pennycuick metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Pennycuick dynamics with local dispersal; 
-standard deviation $\sigma$=1 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1_etd}}
+standard deviation $\sigma$=1 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
 \end{center}
 \end{figure}
 
-<!--FIG: Verhulst model, local dispersal, extreme noise-->
+<!--FIG: Verhulst model, local dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp_extremenoise.pdf}\\
+\includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
+\includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Verhulst metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Verhulst dynamics with local dispersal; 
-standard deviation $\sigma$=0.6 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6_etd}}
+standard deviation $\sigma$=0.6 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
-<!--FIG: Austin-Brewer model, local dispersal, extreme noise-->
+<!--FIG: Austin-Brewer model, local dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp_extremenoise.pdf}\\
+\includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
+\includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
 \caption[Effect of extreme tail-dependent environmental noises on extinction risk for Austin-Brewer metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Austin-Brewer dynamics with local dispersal; 
-standard deviation $\sigma$=0.6 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6_etd}}
+standard deviation $\sigma$=0.6 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
-<!--FIG: Ricker model, local dispersal, moderate noise-->
+
+<!--FIG : Ricker model, global dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_moderate_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_local_disp_moderatenoise.pdf}\\
-\caption[Effect of moderate tail-dependent environmental noises on extinction risk for Ricker metapopulation model with local dispersal.]{Analogous figure as of Fig. \ref{fig_ricker_risk_local_disp_scl_1_etd} but with moderate left- and right-tail dependent noises; Moderate left tail association (or right tail association) was generated by Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6 between any two out of $n=5$ patches. \label{fig_ricker_risk_local_disp_scl_1_mtd}}
+\includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
+\includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_global_disp_extreme_and_moderate_noise.pdf}\\
+\caption[Analogous figure as of Fig. \ref{fig_ricker_risk_local_disp_scl_1} but for global dispersal between metapopulation patches.]{Analogous figure as of Fig. \ref{fig_ricker_risk_local_disp_scl_1} but for global dispersal between metapopulation patches. \label{fig_ricker_risk_global_disp_scl_1}}
 \end{center}
 \end{figure}
 
-<!--FIG : Hassell model, local dispersal, moderate noise-->
+<!--FIG: Hassell model, global dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_moderate_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_local_disp_moderatenoise.pdf}\\
-\caption[Effect of moderate tail-dependent environmental noises on extinction risk for Hassell metapopulation model with local dispersal.]{Analogous figure as of Fig. \ref{fig_hassell_risk_local_disp_scl_1_etd} but with moderate left- and right-tail dependent noises; Moderate left tail association (or right tail association) was generated by Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6 between any two out of $n=5$ patches. \label{fig_hassell_risk_local_disp_scl_1_mtd}}
+\includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
+\includegraphics[width=15 cm]{./Results/hassell_scl_1/hassell_ext_risk_global_disp_extreme_and_moderate_noise.pdf}\\
+\caption[Analogous figure as of Fig. \ref{fig_hassell_risk_local_disp_scl_1} but for global dispersal between metapopulation patches.]{Analogous figure as of Fig. \ref{fig_hassell_risk_local_disp_scl_1} but for global dispersal between metapopulation patches. \label{fig_hassell_risk_global_disp_scl_1}}
 \end{center}
 \end{figure}
 
-<!--FIG: Maynard smith model, local dispersal, moderate noise-->
+<!--FIG: Maynard smith model, global dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_moderate_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_local_disp_moderatenoise.pdf}\\
-\caption[Effect of moderate tail-dependent environmental noises on extinction risk for Maynard Smith metapopulation model with local dispersal.]{Analogous figure as of Fig. \ref{fig_msmith_risk_local_disp_scl_1_etd} but with moderate left- and right-tail dependent noises; Moderate left tail association (or right tail association) was generated by Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6 between any two out of $n=5$ patches. \label{fig_msmith_risk_local_disp_scl_0.8_mtd}}
+\includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
+\includegraphics[width=15 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_global_disp_extreme_and_moderate_noise.pdf}\\
+\caption[Analogous figure as of Fig. \ref{fig_msmith_risk_local_disp_scl_0.8} but for global dispersal between metapopulation patches.]{Analogous figure as of Fig. \ref{fig_msmith_risk_local_disp_scl_0.8} but for global dispersal between metapopulation patches. \label{fig_msmith_risk_global_disp_scl_0.8}}
 \end{center}
 \end{figure}
 
-<!--FIG: Pennycuick model, local dispersal, moderate noise-->
+<!--FIG: Pennycuick model, global dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_moderate_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp_moderatenoise.pdf}\\
-\caption[Effect of moderate tail-dependent environmental noises on extinction risk for Pennycuick metapopulation model with local dispersal.]{Analogous figure as of Fig. \ref{fig_pennycuick_risk_local_disp_scl_1_etd} but with moderate left- and right-tail dependent noises; Moderate left tail association (or right tail association) was generated by Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6 between any two out of $n=5$ patches. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1_mtd}}
+\includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
+\includegraphics[width=15 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp_extreme_and_moderate_noise.pdf}\\
+\caption[Analogous figure as of Fig. \ref{fig_risk_local_disp_pennycuick_r_vary_scl_1} but for global dispersal between metapopulation patches.]{Analogous figure as of Fig. \ref{fig_risk_local_disp_pennycuick_r_vary_scl_1} but for global dispersal between metapopulation patches. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1}}
 \end{center}
 \end{figure}
 
-<!--FIG: Verhulst model, local dispersal, moderate noise-->
+<!--FIG: Verhulst model, global dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_moderate_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp_moderatenoise.pdf}\\
-\caption[Effect of moderate tail-dependent environmental noises on extinction risk for Verhulst metapopulation model with local dispersal.]{Analogous figure as of Fig. \ref{fig_verhulst_risk_local_disp_scl_1_etd} but with moderate left- and right-tail dependent noises; Moderate left tail association (or right tail association) was generated by Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6 between any two out of $n=5$ patches. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6_mtd}}
-\end{center}
-\end{figure}
-
-<!--FIG: Austin-Brewer model, local dispersal, moderate noise-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_moderate_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp_moderatenoise.pdf}\\
-\caption[Effect of moderate tail-dependent environmental noises on extinction risk for Austin-Brewer metapopulation model with local dispersal.]{Analogous figure as of Fig. \ref{fig_abrewer_risk_local_disp_scl_1_etd} but with moderate left- and right-tail dependent noises; Moderate left tail association (or right tail association) was generated by Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6 between any two out of $n=5$ patches. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6_mtd}}
-\end{center}
-\end{figure}
-
-<!--FIG : Ricker model, global dispersal, extreme noise-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_global_disp_extremenoise.pdf}\\
-\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Ricker metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
-for $5$ metapopulation patches which followed Ricker dynamics with global dispersal; standard deviation $\sigma$=1 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_ricker_risk_global_disp_scl_1_etd}}
-\end{center}
-\end{figure}
-
-<!--FIG: Hassell model, global dispersal, extreme noise-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_global_disp_extremenoise.pdf}\\
-\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Hassell metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
-for $5$ metapopulation patches which followed Hassell dynamics with global dispersal; 
-standard deviation $\sigma$=1 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_hassell_risk_global_disp_scl_1_etd}}
-\end{center}
-\end{figure}
-
-<!--FIG: Maynard smith model, global dispersal, extreme noise-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_global_disp_extremenoise.pdf}\\
-\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Maynard smith metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
-for $5$ metapopulation patches which followed Maynard Smith dynamics with global dispersal; 
-standard deviation $\sigma$=0.8 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_msmith_risk_global_disp_scl_0.8_etd}}
-\end{center}
-\end{figure}
-
-<!--FIG: Pennycuick model, global dispersal, extreme noise-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp_extremenoise.pdf}\\
-\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Pennycuick metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
-for $5$ metapopulation patches which followed Pennycuick dynamics with global dispersal; 
-standard deviation $\sigma$=1 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1_etd}}
-\end{center}
-\end{figure}
-
-<!--FIG: Verhulst model, global dispersal, extreme noise-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp_extremenoise.pdf}\\
-\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Verhulst metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
-for $5$ metapopulation patches which followed Verhulst dynamics with global dispersal; 
-standard deviation $\sigma$=0.6 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6_etd}}
+\includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
+\includegraphics[width=15 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp_extreme_and_moderate_noise.pdf}\\
+\caption[Analogous figure as of Fig. \ref{fig_risk_local_disp_verhulst_r_vary_scl_0.6} but for global dispersal between metapopulation patches.]{Analogous figure as of Fig. \ref{fig_risk_local_disp_verhulst_r_vary_scl_0.6} but for global dispersal between metapopulation patches. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
 <!--FIG: Austin brewer model, global dispersal-->
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_extreme_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_global_disp_extremenoise.pdf}\\
-\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Austin-Brewer metapopulation model with global dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
-for $5$ metapopulation patches which followed Austin-Brewer dynamics with global dispersal; 
-standard deviation $\sigma$=0.6 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6_etd}}
+\includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
+\includegraphics[width=15 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_global_disp_extreme_and_moderate_noise.pdf}\\
+\caption[Analogous figure as of Fig. \ref{fig_risk_local_disp_abrewer_r_vary_scl_0.6} but for global dispersal between metapopulation patches.]{Analogous figure as of Fig. \ref{fig_risk_local_disp_abrewer_r_vary_scl_0.6} but for global dispersal between metapopulation patches. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
-
-<!--FIG: Ricker model, global dispersal, moderate noise-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_moderate_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_global_disp_moderatenoise.pdf}\\
-\caption[Effect of moderate tail-dependent environmental noises on extinction risk for Ricker metapopulation model with global dispersal.]{Analogous figure as of Fig. \ref{fig_ricker_risk_global_disp_scl_1_etd} but with moderate left- and right-tail dependent noises; Moderate left tail association (or right tail association) was generated by Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6 between any two out of $n=5$ patches. \label{fig_ricker_risk_global_disp_scl_1_mtd}}
-\end{center}
-\end{figure}
-
-<!--FIG : Hassell model, global dispersal, moderate noise-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_moderate_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/hassell_scl_1/hassell_ext_risk_global_disp_moderatenoise.pdf}\\
-\caption[Effect of moderate tail-dependent environmental noises on extinction risk for Hassell metapopulation model with global dispersal.]{Analogous figure as of Fig. \ref{fig_hassell_risk_global_disp_scl_1_etd} but with moderate left- and right-tail dependent noises; Moderate left tail association (or right tail association) was generated by Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6 between any two out of $n=5$ patches. \label{fig_hassell_risk_global_disp_scl_1_mtd}}
-\end{center}
-\end{figure}
-
-<!--FIG: Maynard smith model, global dispersal, moderate noise-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_moderate_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_global_disp_moderatenoise.pdf}\\
-\caption[Effect of moderate tail-dependent environmental noises on extinction risk for Maynard Smith metapopulation model with global dispersal.]{Analogous figure as of Fig. \ref{fig_msmith_risk_global_disp_scl_1_etd} but with moderate left- and right-tail dependent noises; Moderate left tail association (or right tail association) was generated by Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6 between any two out of $n=5$ patches. \label{fig_msmith_risk_global_disp_scl_0.8_mtd}}
-\end{center}
-\end{figure}
-
-<!--FIG: Pennycuick model, global dispersal, moderate noise-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_moderate_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp_moderatenoise.pdf}\\
-\caption[Effect of moderate tail-dependent environmental noises on extinction risk for Pennycuick metapopulation model with global dispersal.]{Analogous figure as of Fig. \ref{fig_pennycuick_risk_global_disp_scl_1_etd} but with moderate left- and right-tail dependent noises; Moderate left tail association (or right tail association) was generated by Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6 between any two out of $n=5$ patches. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1_mtd}}
-\end{center}
-\end{figure}
-
-<!--FIG: Verhulst model, global dispersal, moderate noise-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_moderate_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp_moderatenoise.pdf}\\
-\caption[Effect of moderate tail-dependent environmental noises on extinction risk for Verhulst metapopulation model with global dispersal.]{Analogous figure as of Fig. \ref{fig_verhulst_risk_global_disp_scl_1_etd} but with moderate left- and right-tail dependent noises; Moderate left tail association (or right tail association) was generated by Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6 between any two out of $n=5$ patches. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6_mtd}}
-\end{center}
-\end{figure}
-
-<!--FIG: Austin-Brewer model, global dispersal, moderate noise-->
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_moderate_noise.pdf}\\
-\includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_global_disp_moderatenoise.pdf}\\
-\caption[Effect of moderate tail-dependent environmental noises on extinction risk for Austin-Brewer metapopulation model with global dispersal.]{Analogous figure as of Fig. \ref{fig_abrewer_risk_global_disp_scl_1_etd} but with moderate left- and right-tail dependent noises; Moderate left tail association (or right tail association) was generated by Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6 between any two out of $n=5$ patches. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6_mtd}}
-\end{center}
-\end{figure}
-
-
-<!--FIG : all nonlinear model results with moderate noise, d=0, extrisk vs. r-->
-\begin{figure*}[!h]
-\begin{center}
-\includegraphics[width=10 cm]{./Results/common_legend_moderate_noise.pdf}\\
-\includegraphics[width=5 cm]{./Results/ricker_scl_1/ricker_extrisk_d0_moderatenoise.pdf}
-\includegraphics[width=5 cm]{./Results/hassell_scl_1/hassell_extrisk_d0_moderatenoise.pdf}\\
-\vspace{-0.6 cm}
-\includegraphics[width=5 cm]{./Results/msmith_scl_0.8/msmith_extrisk_d0_moderatenoise.pdf}
-\includegraphics[width=5 cm]{./Results/pennycuick_scl_1/pennycuick_extrisk_d0_moderatenoise.pdf}\\
-\vspace{-0.6 cm}
-\includegraphics[width=5 cm]{./Results/verhulst_scl_0.6/verhulst_extrisk_d0_moderatenoise.pdf}
-\includegraphics[width=5 cm]{./Results/austinbrewer_scl_0.6/abrewer_extrisk_d0_moderatenoise.pdf}\\
-\caption[Analogous figure as that of Fig. \ref{MT-fig_extrisk_d0_etd} but with moderarte 
-tail dependent noises.]{Analogous figure as that of Fig. \ref{MT-fig_extrisk_d0_etd} but with moderarte 
-tail dependent noises; Moderate left tail association (or right tail association) was generated 
-by Clayton (or Survival Clayton) copula with Kendall correlation coefficient = 0.6 between
-any two out of $n=5$ patches.\label{fig_extrisk_d0_mtd}}
-\end{center}
-\end{figure*}
 
 # Generating matrix with extreme tail association  \label{extr_tail_dep}
 
