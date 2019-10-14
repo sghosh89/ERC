@@ -192,8 +192,8 @@ Figure \ref{fig_intro_cop} shows two random variables can have a wide
 range of assciation from extreme to moderate degree in one of their 
 extreme tails - often refers to having 'asymmetric tail' - but with a 
 fixed Kendall's $\tau$. One can control the degree of "tail-asymmetry" - moderate 
-to extreme - using "copula" (for details see @Ghosh_copula and \nameref{Methods}), a statistical 
-tool generally used to model dependencies between correlated variables. 
+to extreme - using "copula", a statistical 
+tool generally used to model dependencies between correlated variables (for details see @Ghosh_copula and \nameref{Methods}). 
 This 'asymmetric tail' is commonly found in many 
 bivariate or multivariate dependence structures for environmental, species-trait, 
 phenological, population, community, and ecosystem functioning datasets 
@@ -217,8 +217,6 @@ risk for population viability or ecosystem function
 considering their relation with extreme climatic events.
 
 
-<!--How copula could be relevent in estimating extreme event's 
-influence on extinction risk : introduce Taildep. concept-->
 A recent study [@Ghosh_copula] used the above mentioned feature of "tail-asymmetry" 
 to estimate extinction risk for a density-independent metapopulation model. The study 
 showed "left-tail" associated density-independent metapopulations 
@@ -230,15 +228,23 @@ on its own density, serves as a more realistic model to regulate unbounded growt
 models with "density-dependence" are often studied in population ecology to 
 predict population viability over long-term period [@hassell1975density; @fowler1987review; 
 @courchamp1999inverse]. Here, we will explore the general finding from @Ghosh_copula in the context of
-the density-dependent metapopulation patches which experience same spatially correlated noise but having a variety of tail asymmetry (from extreme to moderate, Fig. \ref{fig_intro_cop}). It is expected that extreme left-tail associated noise might wipe out some metapopulation patches 
+the density-dependent metapopulation patches which experience environmental noises with same spatial correlation but with a variety of tail 
+asymmetry (from extreme to moderate, Fig. \ref{fig_intro_cop}). It is expected 
+that extreme left-tail associated noise might wipe out some metapopulation patches 
 during unfavorable years unless they are rescued by the nearby populations. This scenario 
 could be more complex and specific of the direction of association 
 depending on the dynamics of the model (see \nameref{Results}).
 
-<!--and even applicable for a simple age-structured population where its vital rates are influenced by ECEs. Following we will reintroduce the concept of copula in a manner that follows @Ghosh_copula.-->
-
-
-<!--***DAN: One thing you probably want to include is the logic (see BIVAN) that if extreme events are getting stronger and more extreme/intense events are also more spatially widespread, then it seems reasonable to expect that spatial patterns of tail associations in environmental variables will also be changing. You may also want to mention (one sentence only) that we use the statistical concept of the copula to control tail dependence in our simulations – more will be said about copulas in the Methods.-->  
+Tail-asymmetry in estimating extinction risk can also be applied to an age structured model. From ecological perspective, it is reasonable to expect that extreme cold winter during growing season
+might reduce the adult reproduction rate (fecundity) as well as larval survival. This scenario would resemble Fig.\ref{fig_intro_cop}(A, B) with stronger tail association between vital rates of two stages at their smaller values than larger ones and thereby inflate the population viability compared to a scenario as of Fig.\ref{fig_intro_cop}(C, D). <!--***Shyamolina: Should I tell this? 
+It is reasonable to assume cold winter-temperature as the limiting factor 
+for each age-structured population - thereby also showing "left-tail" asymmetry between 
+the temperature and each age-population time series.(Ref: driver-synchrony relationship as shown in our aphid-plankton paper)--> Though tail-association 
+property of a copula has been used for risk-analysis in other fields like finance, 
+hydrology etc. [@alexander2008market; @li2013; @chen2011flood; @Goswami2018], but to our 
+knowledge asymmetric tail association have never been considered 
+in estimating the effect of ECEs with age structured 
+model or density-dependent metapopulations.
 
 <!--***DAN: Shyamolina, you need to make two major changes in how tail associations
 are introdcued. 
@@ -263,35 +269,6 @@ Right now this is quite a short paper. You have space to explain things and show
 figures.
 -->
 
-
-
-
-
-
-
-From ecological perspective, it is reasonable to expect that extreme cold winter during growing season
-might reduce the adult reproduction rate as well as larval survival (i.e. stronger 
-tail association between vital rates when temperature is too cold than normal) and 
-thereby inflate the population viability. 
-
-
-Similarly, in context of 
-density-dependent metapopulation models, if extreme environmental fluctuations across sites 
-appear to be as synchronous (left tail dependent or right tail dependent between patches 
-with same correlation as in Fig.....) then it could wipe out some metapopulation patches 
-during unfavorable years unless they are rescued by the nearby populations. This scenario 
-could be more complex and specific of the direction of association 
-depending on the dynamics of the model (see \nameref{Results}). 
-
-
-
-
-Though tail-association 
-property of a copula has been used for risk-analysis in other fields like finance, 
-hydrology etc. [@alexander2008market; @li2013; @chen2011flood; @Goswami2018], but to our 
-knowledge asymmetric tail association have never been considered 
-in estimating the effect of ECEs through extinction risk of age structured 
-model or density-dependent metapopulations.
 
 <!--our objective ?-->
 In this paper, we will explore the potential use of asymmetric tail-association 
