@@ -1,5 +1,5 @@
 ---
-title: "Asymmetric tail-association in extreme climatic events affects population-extinction risk"
+title: "Asymmetric tail association in extreme climatic events affects population-extinction risk"
 author: "Shyamolina Ghosh, Daniel Reuman"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 geometry: "left=1in,right=1in,top=1in,bottom=1in"
@@ -48,15 +48,15 @@ seed<-101
 With global climate change, extreme climatic events (ECEs) become more frequent. These ECEs 
 could pose severe impact on the resistance or resilience of a population and/ or community level through
 life-history traits of the species. Therefore predicting the impact of extreme events 
-on population extinction risk is necessery. We here introduce the potential use of "tail-association" 
+on population extinction risk is necessery. We here introduce the potential use of "tail association" 
 property of two correlated ecological variables in modeling the extinction risk of 
 an age-structured single patch model. We also extend this idea 
 to density-dependent metapopulation models. For metapopulation models, 
-we show extinction risk not only depends on the nature of tail-association of 
+we show extinction risk not only depends on the nature of tail association of 
 spatially correlated noise but is also influenced by the inherent dynamics 
 of the population-model. To illaborate, we demonstrate left tail dependent noise across spatially correlated patches 
 cause higher extinction risk than the right tail dependent noise, when the model show undercompensatory dynamics.
-But in overcompensatory regime, the trend is opposite. Our study paves the path for future research considering this tail-association instead of simple correlation in population viability analysis.
+But in overcompensatory regime, the trend is opposite. Our study paves the path for future research considering this tail association instead of simple correlation in population viability analysis.
 
 
 \textbf{\textit{Keywords:}} extinction risk, extreme events, tail association, density-dependent model
@@ -179,7 +179,7 @@ Therefore, understanding the synchronized fluctuation over a metapopulation-netw
 remains important to the conservationists because well connected patches, if synchronous, are more 
 prone to simultaneous extinction during extreme bad years [@earn2000coherence]. 
 
-<!--concept for correlation in the extreme tail: tail-association-->
+<!--concept for correlation in the extreme tail: tail association-->
 Though earlier literature considered the influence of spatial and/ or temporal 
 correlations in environmental variables on extinction risk of a metapopulation, to 
 our knowledge the separate influence on extinction risk of "tail associations" between
@@ -191,7 +191,7 @@ said to have stronger "right-tail" or "upper-tail" association (Figure \ref{fig_
 Figure \ref{fig_intro_cop} shows two random variables can have a wide 
 range of assciation from extreme to moderate degree in one of their 
 extreme tails - often refers to having 'asymmetric tail' - but with a 
-fixed Kendall's $\tau$. One can control the degree of "tail-asymmetry" - moderate 
+fixed Kendall's $\tau$. One can control the degree of "tail asymmetry" - moderate 
 to extreme - using "copula", a statistical 
 tool generally used to model dependencies between correlated variables (for details see @Ghosh_copula and \nameref{Methods}). 
 This 'asymmetric tail' is commonly found in many 
@@ -212,16 +212,16 @@ favorable years if pest metapopulations
 grow abundantly compared to other average years, population time series look like 
 \ref{fig_intro_cop}C or D with stronger "right-tail" association, turning local 
 outbreaks into regional epidemics. In a 
-nutshell, "tail-asymmetry" could have profound effect in understanding 
+nutshell, "tail asymmetry" could have profound effect in understanding 
 risk for population viability or ecosystem function
 considering their relation with extreme climatic events.
 
 
-A recent study [@Ghosh_copula] used the above mentioned feature of "tail-asymmetry" 
+A recent study [@Ghosh_copula] used the above mentioned feature of "tail asymmetry" 
 to estimate extinction risk for a density-independent metapopulation model. The study 
 showed "left-tail" associated density-independent metapopulations 
 to be more prone to extinctions than "right-tail" associated one as we may expect species 
-are more vulnerable to "catastrophs" (extreme bad years) than to "bonanzas" (extreme good years).
+are more vulnerable to "catastrophes" (extreme bad years) than to "bonanzas" (extreme good years).
 Present manuscript is an extension of that concept in estimating the extinction risk 
 beyond the density-independent model. Population growth rate, when depending 
 on its own density, serves as a more realistic model to regulate unbounded growth, hence 
@@ -235,11 +235,11 @@ during unfavorable years unless they are rescued by the nearby populations. This
 could be more complex and specific of the direction of association 
 depending on the dynamics of the model (see \nameref{Results}).
 
-Tail-asymmetry in estimating extinction risk can also be applied to an age structured model. From ecological perspective, it is reasonable to expect that extreme cold winter during growing season
+Tail asymmetry in estimating extinction risk can also be applied to an age structured model. From ecological perspective, it is reasonable to expect that extreme cold winter during growing season
 might reduce the adult reproduction rate (fecundity) as well as larval survival. This scenario would resemble Fig.\ref{fig_intro_cop}(A, B) with stronger tail association between vital rates of two stages at their smaller values than larger ones and thereby inflate the population viability compared to a scenario as of Fig.\ref{fig_intro_cop}(C, D). <!--***Shyamolina: Should I tell this? 
 It is reasonable to assume cold winter-temperature as the limiting factor 
 for each age-structured population - thereby also showing "left-tail" asymmetry between 
-the temperature and each age-population time series.(Ref: driver-synchrony relationship as shown in our aphid-plankton paper)--> Though tail-association 
+the temperature and each age-population time series.(Ref: driver-synchrony relationship as shown in our aphid-plankton paper)--> Though tail association 
 property of a copula has been used for risk-analysis in other fields like finance, 
 hydrology etc. [@alexander2008market; @li2013; @chen2011flood; @Goswami2018], but to our 
 knowledge asymmetric tail association have never been considered 
@@ -269,15 +269,21 @@ Right now this is quite a short paper. You have space to explain things and show
 figures.
 -->
 
-
 <!--our objective ?-->
-In this paper, we will explore the potential use of asymmetric tail-association 
+In this paper, we will explore the potential use of asymmetric tail association 
 for understanding the extinction risk of populations towards extreme climatic event
 by addressing the following questions: (Q1) Does nature of tail association 
 (left tail or right tail) in vital rates
 of a single-patch age-structured population model affect extinction risk of that population differently?
 We hypothesized population might have higher extinction risk if vital rates are left-tail dependent.
-(Q2) How does environmental noises with asymmetric tail association across multiple patches
+(Q2) How do asymmetric tail associations in environmental noises across multiple patches influence extinction risk of a density dependent metapopulation model, and how do the effects 
+interact with the nature of density dependence? Will they remain consistent with the 
+general finding from density-independent metapopulation model [@Ghosh_copula]
+(higher extinction risk if noises across patches were left-tail associated than the one 
+if noises had right-tail association) irrespective of the nature of density dependence? 
+
+<!--
+How does environmental noises with asymmetric tail association across multiple patches
 influence extinction risk of a density-dependent metapopulation model? Our speculation 
 is that the general finding from density-independent metapopulation model [@Ghosh_copula]
 (higher extinction risk if noises across patches were left-tail dependent than the one 
@@ -285,7 +291,7 @@ if noises had right-tail association) would hold true only in the under-compensa
 should be reverse if the model shows over-compensatory dynamics. 
 (Q3) We further hypothesize that when there is no dispersal, the above-said switching should occur
 near the critical parameter value where the deterministic model shows transition from 
-under-compensatory to over-compensatory dynamics.
+under-compensatory to over-compensatory dynamics.-->
 
 
 <!--FIG : pedagogical fig showing 4 types of tail associations: 
@@ -301,16 +307,26 @@ in their extreme values: (A) extreme left tail, (B) moderate left tail, (C) mode
 \end{figure*}
 
 
-
 # Methods\label{Methods}
 
 <!--stochastic matrix model : age structured-->
-To investigate (Q1) from \nameref{Introduction} that how does asymmetric tail 
-dependent noise affect the extinction risk of
+To investigate (Q1) from \nameref{Introduction} that how do vital rates with asymmetric tail 
+association affect the extinction risk of
 populations in a single patch age-structured model,
-we considered a stochastic age-structured model (Eq. \ref{eq_age_str}) 
-with two age classes (egg $E$ and female adult $A$). We assumed
-the population was semelperous, i.e., adult ($A$) went through the
+we considered a simple stochastic age-structured model (Eq. \ref{eq_age_str}) 
+with two age classes (egg $E$ and female adult $A$). 
+
+\begin{equation}
+\left({\begin{array}{cc} E \\ A \end{array}}\right)_{t+1} = 
+\left(\begin{array}{cc} 0 & f_a\\ s_e & 0 \end{array}\right)
+\left(\begin{array}{c} E \\ A \end{array}\right)_{t} \label{eq_age_str}
+\end{equation}
+
+\begin{equation}
+f_a \sim \Gamma (k, \theta)\exp(-A/\Omega), \hspace{0.2 cm} s_e \sim \mathcal{B}(\alpha,\beta) \label{eq_vitalrates}
+\end{equation}
+
+We assumed the population was semelperous, i.e., adult ($A$) went through the
 reproductive episode only once before death. Eggs and adults in the 
 next generation evolved depending on the fecundity of adult ($f_a \geq 0$) 
 and survival of eggs ($0 \leq s_e \leq 1$) from present generation.
@@ -319,39 +335,36 @@ stochasticity (Eq. \ref{eq_vitalrates}). We made adult's fecundity
 ($f_a$) negative density-dependent with its own population. When $\Omega = \infty$ in 
 Eq. \ref{eq_vitalrates}, the projection matrix was independent of populations 
 (i.e., Eq. \ref{eq_age_str} was "linear" model then), 
-but when $\Omega$ was finite, Eq. \ref{eq_age_str} became "nonlinear".
+but when $\Omega$ was finite, Eq. \ref{eq_age_str} became "nonlinear" with density dependence.
 Fecundity ($f_a$) and survival ($s_e$) rates were random draw from a gamma ($\Gamma(k,\theta)$) and
 a beta ($\mathcal{B}(\alpha,\beta)$) distribution, respectively. We generated those distributions 
-from iid noises with a varied degree of asymmetric tail-association between 
+from iid noises with a varied degree of asymmetric tail association between 
 fecundity ($f_a$) and survival ($s_e$) rates. Degree of tail association had two broad 
 categories: moderate and extreme. Each category had specific direction in tail association: 
-either in left or in right tail of vital rates. Vital rates ($f_a$ and $s_e$) were
-left tail dependent when unusual bad years ("catastrophs") suppressed both vital rates synchronously, 
+either in left or in right tail of vital rates (as depicted in Fig. \ref{fig_intro_cop}). Vital 
+rates ($f_a$ and $s_e$) were left tail dependent when unusual bad years ("catastrophes") 
+suppressed both vital rates synchronously, 
 and right tail dependent when unexpected good years ("bonanzas") boosted both of them. 
  
-\begin{equation}
-\left({\begin{array}{cc} E \\ A \end{array}}\right)_{t+1} = 
-\left(\begin{array}{cc} 0 & f_a\\ s_e & 0 \end{array}\right)
-\left(\begin{array}{c} E \\ A \end{array}\right)_{t} \label{eq_age_str}
-\end{equation}
-
-\begin{equation}
-f_a = \Gamma (k, \theta)\exp(-A/\Omega), \hspace{0.2 cm} s_e = \mathcal{B}(\alpha,\beta) \label{eq_vitalrates}
-\end{equation}
-
-We used bivariate Clayton copula to model moderate left-tail and Survival Clayton copula to model 
-moderate right tail association in the vital rates. Both copula had the same Kendall 
-correlation ($=0.6$) but opposite association in their respective tails. 
+Moderate tail associatation was modeled by using the 
+concept of "copula", a statistical tool to model 
+dependencies. Appendix \ref{SM-intro_copula} summarized
+a brief introduction of "copulas" and their relation to tail asscociations, symmetries 
+with examples of available copula families 
+from `R` packages (`copula` and `VineCopula`). We used bivariate Clayton 
+copula to model moderate left-tail and Survival Clayton copula to model 
+moderate right-tail association in the vital rates. Both copula had the same Kendall 
+correlation ($\tau =$ `r ktau_common`) but opposite association in their respective tails. 
 We generated a $N \times 2$ matrix, M, for each of the left (Clayton) and 
-right (Survival Clayton) tail-dependent bivariate copulas (see `BiCopSim` function from
+right (Survival Clayton) tail associated bivariate copulas (see `BiCopSim` function from
 `VineCopula` package ), where $N$ is number of years ($=25$) multiplied 
 by number of simulations ($=10000$) we used. 
 We chose parameters for each copula family using 
 `iTau` function from `copula` package so that both copula had
-same Kendall's correlation ($\tau = 0.6$). Entries within each clumn of
+same Kendall's correlation ($\tau =$ `r ktau_common`). Entries within each clumn of
 matrix $M$, then became independent of each others but 
 entries between columns had a specific tail association
-with positive Kendall's correlation ($\tau = 0.6$). 
+with positive Kendall's correlation. 
 
 On a similar note, we generated extreme left- (or right-) tail dependent matrix (M)
 from standard iid (Appendix \ref{SM-extr_tail_dep}) and made the marginals uniform so that
@@ -366,9 +379,9 @@ beta ($\mathcal{B}(\alpha,\beta)$) transformation. $\alpha =3$ and
 $\beta = 2$ were the shape parameters that could control the distribution 
 of the survival rates of eggs ($s_e$) ranging in between 0 to 1. 
 For each $25$ timesteps from each of $10000$ simulations,
-we feed pairwise entries from each row of matrix $M$ as the vital rates 
-(fecundity $f_a$ and survival rates $s_e$) 
-of the stochastic projrction matrix in model (\ref{eq_age_str}).
+we incorporated pairwise entries from each row of matrix $M$ in the expression for 
+vital rates (fecundity $f_a$ and survival rates $s_e$, Eq. \ref{eq_vitalrates}) of 
+the stochastic projrction matrix in model (\ref{eq_age_str}).
 
 <!--calculation of ext risk with age-structured model-->
 To calculate extinction risk after each time step, we simulated model (\ref{eq_age_str}) for $25$ years
@@ -381,14 +394,14 @@ of $10000$ simulations with the probability of computed extinction risk at each 
 <!--density-dependence metapopulation model-->
 We explored (Q2) by examining how nature of the tail association of an
 environmental variable across space could influence the extinction risk of a 
-metapopulation model with density-dependence feedback. We considered six density-dependent 
+metapopulation model with density-dependent feedback. We considered six density-dependent 
 population-growth models (Ricker, Hassell, Maynard Smith, Pennycuick, Verhulst, Austin-Brewer)
 in noisy environment (see Table \ref{tab_model_summary}) 
 from a metapopulation context.
 Models were adapted from earlier work
 by @cohen1995unexpected, excluding only two : Varley model (this is not a continuous one) 
 and Malthus-Condorcet-Mill model (terms containing logarithm of extinct population does not make sense). 
-All models assumed a generalized form : $\vec{P}_{t+1} = D \lambda_t \vec{P_t}$,
+All models assumed a generalized form: $\vec{P}_{t+1} = D \lambda_t \vec{P_t}$,
 where $\vec{P_t}$ was a vector of population densities, 
 the $i^{th}$ component $P_t^i$ representing
 the density in the $i^{th}$ habitat patch ($i=1,2,\ldots,n$) at time $t$. 
@@ -405,17 +418,21 @@ rate with $d$ being zero there was no dispersal, and hence no chance to rescue a
 patch through migration from nearby metapopulation patches.
 
 We simulated our metapopulation models with noises $(\epsilon_t^i)$ that were 
-independent through time with same spatial correlations between patches (to within sampling error)
-for every simulation, but moderately (or extremely) left- and right-tail dependent between patches in
-different simulations. For moderately left-tail dependent noise we drew points from a $n$ dimensional 
-Clayton copula with same Kendall correlation ($= 0.6$) between any two out of $n$ patches and made 
+independent through time with same spatial correlations 
+between patches (to within sampling error)
+for every simulation, but were moderately (or extremely) left- and 
+right-tail associated between patches in
+different simulations. For moderately left-tail associated 
+noises we drew points from a $n$ dimensional 
+Clayton copula with same Kendall correlation ($\tau =$ `r ktau_common`) between
+any two out of $n$ patches and made 
 the marginals normal with zero mean and standard deviation $\sigma$ 
 (see the specified value $\sigma$ for each model in 3$^{rd}$ 
 column of Table \ref{tab_model_summary}). For moderately 
-right-tail dependent noise we flipped ($180^{\circ}$ rotation) the points drawn 
+right-tail associated noises we flipped ($180^{\circ}$ rotation) the points drawn 
 from Clayton copula so that all the statistical properties remained 
-same except for the direction of tail-association. We generated
-extreme left- or right-tail dependent noises via algorithm stated in 
+same except for the direction of tail association. We generated
+extreme left- or right-tail associated noises via algorithm stated in 
 Appendix \ref{SM-extr_tail_dep}. Our models (Table \ref{tab_model_summary}) 
 computed extinction risk after $25$ years for $10000$ simulations at $n = 5$ patches
 with spatially correlated noises having either moderate or extreme tail 
@@ -444,12 +461,28 @@ that covered the undercompensatory and overcompensatory regime. We
 chose equispaced values of $r$ from the 95\% quantiles 
 of possible range ($r_{min},r_{bf}$), where $r_{min}$ was the minimum value of $r$ 
 to get a positive, finite equilibrium $P_e$ (for details, see Appendix 
-\ref{SM-model_stability}) to start with ($t=0$). For each chosen $r$,
+\ref{SM-model_stability}) to start with (at $t=0$). For each chosen $r$,
 we calculated extinction risk after $25$ years with each metapopulation model 
 where population could disperse locally (or globally) with varying dispersal 
-rate $d= 0,0.1,0.2,..0.5$ and extreme (or moderate) left 
-tail- and right-tail dependent environmental noise 
+rate $d= 0,0.1,0.2,..0.5$ and moderate to extreme left 
+tail- and right-tail associated environmental noises with same Kendall's $\tau$ (= `r ktau_common`)
 in different simulations (for code see [`mydispersal.R`](https://github.com/sghosh89/ERC/blob/master/mydispersal.R)).
+
+<!--start from here-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--test hypothesis from Q3 : switching of ext risk with density-dependence metapopulation model with d=0-->
 Given hypothesis from (Q2) was valid - that left tail dependent noise made extinction risk 
@@ -480,7 +513,7 @@ rates compared with the one when vital rates were right tail dependent (modeled 
 It was expected because an extreme "bad" year (e.g. with severe cold) can suppress 
 the fecundity of adult and survival/ maturation of eggs simultaneously 
 and thereby can increase the extinction risk of the population. For non-linear age-structured 
-models, we got the similar trend for extinction risks with different tail-association (left and right).
+models, we got the similar trend for extinction risks with different tail association (left and right).
 Non-linear model showed higher extinction risk than its corresponding 
 linear analog as it was evident from Eq. \ref{eq_vitalrates} with finite $\Omega = 100$. 
 Fig. \ref{SM-fig_extrisk_agestr_mtd} represents this scenario with two copulas having different 
@@ -491,7 +524,7 @@ dependent on the degree of tail association. Therefore we repeated the same anal
 vital rates coming from extreme-tail dependent (left and right in two different simulations)
 copulas and got the similar results but with much prominent difference between their extinction risks
 (Fig. \ref{fig_extrisk_agestr_etd}). This result answered (Q1) and showed extinction risk of 
-a population could be considered as direct manifestation of tail-association property 
+a population could be considered as direct manifestation of tail association property 
 between vital rates of different age-class
 of that population. <!--discussion later: add Tuljapurkar's approximation-->
 
@@ -543,7 +576,7 @@ smaller range of $r$ than the other models.
 We showed the potential use of "asymmetric" tail association in modeling the impact of 
 extreme ecological events on population-extinction risk. Our results demonstrated left and right-tail 
 association in vital rates (or in spatially correlated environmental noises) affected extinction risk differently
-in years of extreme events ("catastrophs" and "bonanzas"). Though we could expect left tail association 
+in years of extreme events ("catastrophes" and "bonanzas"). Though we could expect left tail association 
 to show higher extinction risk than the one for right tail association with age-structured 
 and density dependent metapopulation models, it was not always true. In the over-compensatory regime,
 right tail dependent noise caused higher extinction risk than the left tail dependent noise. We showed 
@@ -557,7 +590,7 @@ unless the tail association was at its extreme (Fig. \ref{fig_extrisk_agestr_etd
 by the approximation @tuljapurkar1990lecture made for the stochastic log(growth rate) in an iid environment.
 The approximation considered growth rate being dependent on the most dominant eigen value of the mean projection matrix 
 and the temporal variance of the log(population growth rate) caused by environmental stochasticity - which was based
-on the linear covariance measure between any two matrix elements, not on their tail-association properties. Therefore,
+on the linear covariance measure between any two matrix elements, not on their tail association properties. Therefore,
 following @tuljapurkar1990lecture, population growth rate in an iid environment could be approximated
 as same for our model (Eq. \ref{eq_age_str}) with left-tail or right-tail association.
 
@@ -576,12 +609,12 @@ patches (Hanski 1994; Tilman et al. 1994; Lindenmayer et al. 1995; McCarthy
 -->
 Although we demonstrated that tail association between vital rates of an age structured model can
 influence extinction risk, substantial work remains to determine the importance of this effect in the 
-following scenarios. First, we demonstrated the effect of tail-association on extinction risk 
+following scenarios. First, we demonstrated the effect of tail association on extinction risk 
 with a basic age structured (two age stages) model where we considered the total semelperous 
 population would go extinct if there would be only one female adult and one egg. But in reality population 
 viability analysis (PVA) deals with a little bit higher threshold with several age, stage or size class and a variety 
 of populations including semelperous and iteroperous [@morris2002quantitative]. Future studies should include 
-tail-association effect on extinction risk 
+tail association effect on extinction risk 
 for a multiple age-, size- and stage- structured model and estimate extinction risk 
 for each age, size and stage class separately 
 so that we can identify (via multisite-PVA) which life-stage or demographic process 
