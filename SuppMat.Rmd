@@ -2812,10 +2812,27 @@ standard deviation $\sigma$=0.6 was used to generate extreme tail dependent nois
 \end{center}
 \end{figure}
 
+# A brief introduction about "copulas"  \label{intro_copula}
 
-# Generating matrix with extreme tail association  \label{extr_tail_dep}
+<!--needs editing, I just dumped old text here-->
+Copula, a rank based measure of association, is much more informative 
+than linear correlation measure and a widely applied tool in dependence 
+modeling [@joe2014_dependence; @nelsen2006_copula]. Copulas separate 
+the information content of a bivariate dataset,
+$(x_n, y_n)$ for $n = 1 \ldots N$, into two non-overlapping parts: the information in the marginal 
+distributions (which is not about the association between the variables) and the rest of 
+the information (which is solely about the association). The association information is revealed by 
+the copula plot ($v_n$ against $u_n$) of the raw variables ($y_n$ vs. $x_n$) in Fig...., where 
+$u_n$ is the rank of $x_n$ in the set ${x_1, x_2, \ldots , x_n }$, divided by $N + 1$; 
+and $v_n$ is the rank of $y_n$ in the set ${y_1, y_2, \ldots , y_n }$, also divided
+by $N + 1$. Here the rank of the smallest element of each sets is considered to be 1 and the rank of
+the largest element is $N$. We refer to the $u_n$ and $v_n$ as normalized ranks of the $x_n$ and $y_n$. 
+Ranking makes the marginal distributions uniform, isolating only the information on 
+association between the variables. 
 
-For extreme tail-association algorithm, a $N \times n$ matrix, M was generated of independent 
+# Algorithm to generate extreme tail association  \label{extr_tail_dep}
+
+For extreme tail association algorithm, a $N \times n$ matrix, M was generated of independent 
 standard-normal random draws (in general). <!--where $N = numsteps(=25) \times numsims(=10000)$ : only for 2d case-->
 Then, each row of M was identified for a first set of modifications
 randomly and independently with a 50\% chance; for those rows identified, every
