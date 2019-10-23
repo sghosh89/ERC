@@ -34,17 +34,19 @@ seed<-101
 
 \noindent Reuman: Department of Ecology and Evolutionary Biology and Kansas Biological Survey, University of Kansas, Lawrence, KS, 66047, USA; Laboratory of Populations, Rockefeller University, 1230 York Ave, New York, NY, 10065, USA
 
-
-# Alternative titles
+<!--
+Alternative titles
 1) Tail associations in environmental variables and extinction risk
 2) The influence of correlations in the extremes on extinction risk
-
+DAN FAVORITE SO FAR 3) Tail associations in environmental variables and their impact on extinction risk
+-->
 
 \newpage
 
 \noindent \textbf{ABSTRACT} 
 <!--200 words limit : J Am Nat-->
 
+<!--***DAN: Dan has not edited this--> 
 With global climate change, extreme climatic events (ECEs) become more frequent. These ECEs 
 could pose severe impact on the resistance or resilience of a population and/ or community level through
 life-history traits of the species. Therefore predicting the impact of extreme events 
@@ -64,28 +66,6 @@ But in overcompensatory regime, the trend is opposite. Our study paves the path 
 \newpage
 
 <!--***DAN: 
-1) Shyamolina,  was reminded during my editing of BIVAN that "tail dependence" has 
-a specific mathematical definition (now given in the Background section of BIVAN), and that
-is not what we mean here when we say "tail dependence". So we cannot go on calling it "tail
-dependence" in this manuscript - that would be mike me calling my house "the white house" - 
-there already is one of those, and it is much better known than my house, so we cannot
-attempt to hijack the name. So can you change terminology throughout, please? Let's refer to
-it using terminology such as "associations in the tails" or 
-"tail associations". I would like you to provide a 
-definition at an appropriate place early in the manuscript that we will call a pair
-of positively associated variables "left-tail associated" if their association in their 
-left tails is stronger than their association in their right tails (in a sense to be defined
-mathematically in Methods, and then in methods we will define things based on cor_l-cor_u).
-We call a pair of positively associated variable "right-tail associated" if their association
-in their right tails is stronger than their association in their left tails.
-
-2) You need to start getting this paper ready for submission - if you want to send it to 
-the Ecosphere special issue (what do you think of that?) then we have to get moving. Please 
-let me know soon, after reading about Ecospere on their website. If you think this is a 
-good idea, let me know and I will send a summary of the paper to Jon Walter to make sure he is still willing to have us submit the paper to him, and to make sure the paper is close enough
-to the theme of the special issue that he is going for, so that he will be willing to see it
-submitted there.
-
 3) Please
 add the figure you have mentioned in the text but that does not exist. Please run a spell
 check. Please go and check every sentence throughout the manuscript for grammatical 
@@ -93,13 +73,6 @@ errors. I think you will find some
 and will be able to correct them if you focus on that - there are many, and by correcting them
 you will not only make the paper better you will get better at writing grammatically correct 
 sentences in English. 
-
-4) Assuming you want to go for Ecosphere and Jon is OK with us submitting there, please read the "guidelines for authors" section of the Ecosphere website 
-and format the paper for Ecosphere. 
-
-5) Please make all the improvements that you can see for yourself
-are needed! I suspect if you read the paper carefully now after having worked on something
-else for a while you will see many things you can improve!
 -->
 
 ```{r read_res, echo=F}
@@ -108,179 +81,171 @@ ktau_common<-readRDS("./Results/ktau_common.RDS")
 
 # Introduction\label{Introduction}
 
-<!--how common are the extreme events?-->
-For past few decades, extreme climatic events (ECEs) appeared more common than 
-usual due to anthropogenic climate change, e.g. temperature or precipitation extremes,
-heat-waves, wild-fire etc. [@ummenhofer2017extreme]. Frequent extreme events 
-can shift temperature or precipitation-mean, 
-change variability of the distribution, as well as change its 
-symmetry or skewness [@hansen2012perception]. Extreme climatic events can pose severe
-impacts at the individual, population, community and ecosystem level [@bragazza2008climatic; 
+<!--ECEs have a lot of impacts, it is important to understand their impacts-->
+Over the past few decades, extreme climatic events (ECEs) such as
+temperature or precipitation extremes, heat-waves, and extreme wildfires
+have become more common or more extreme due to anthropogenic climate change 
+[@ummenhofer2017extreme]. ECEs are well known to produce severe
+impacts at the population, community and ecosystem levels [@bragazza2008climatic; 
 @gutschick2003extreme; @jiguet2011community; @mckechnie2009climate;
-@felton2017integrating]. Therefore, 
-understanding the long-term impacts of changes 
-in ECEs has been a longstanding interest in ecological research 
-[@katz2005statistics; @smith2011ecological; @diez2012will; @moritz2013future; @bailey2016tackling]. 
-
-<!--How extinction risk is related to extreme events : past studies
-consequences of extreme events on population life history, community-->
-Earlier studies showed ECEs may affect species abundances (species re-ordering) 
-<!--***DAN: Shyamolina, I do not know what the parenthesis refers to 
-
-***Shyamolina: species reordering is used to access the change in community 
-in response to extreme events or global environmental changes, it relates to change 
-in relative abundances of dominant species (mainly). For example, as different species have different 
-sensitivity levels to extreme condition (means the extreme threshold is not 
-constant for all the species in a community), some years with extreme drought favors say c3 grass 
-but in the next year c4 grass could be dominant. Such alteration in community composition has "impact on 
-ecosystem function, leading to an extreme ecological response". For detailed overview you may see 
-@hoover2014resistance, Jones et al. Ecol. lett. 2017 (doi: 10.1111/ele.12864), 
-Smith et al., Ecology 2009 (doi:10.1890/08-1815.1).
-Actually LAN K. KNAPP and MELINDA D. SMITH did a lot of work on this to access changes in 
-plant community response to extreme events 
-(this review article: Felton et al. 2017, Phil. Trans. R. Soc. B 372: 20160142 is a nice summary).
--->
-<!--***DAN: Shyamolina, you have obviously done a lot of reading to situate your manuscript
-in the appropriate literature, and that is great!-->
-through life-history traits, alter community structures through cascading effect on 
-higher hierarchical levels and lead to local extinction of 
-species [@thomas2004extinction; @edgar2010nino; @moreno2011extreme; @hoover2014resistance]. 
-<!--Should I mention idea of match-mismatch hypothesis?-->
-For example, a study [@chiu2013impact] showed extreme flood affected 
-the annual survival of a prey community that in turn affected predators in 
-aquatic as well as adjacent riparian habitats via trophic linkages. Another study by 
-@frederiksen2008demographic used $43$ years of ring-recovery data 
-to examine the demographic impact of ECEs 
-through temporal variability in juvenile, immature and adult survival
-of European shags on the Isle of May in eastern Scotland.
-A relatively recent study [@mcdermott2017sensitivity] investigated the sensitivity 
-of $41$ UK butterfly species to four different ECEs (extreme heat, extreme cold, 
-extreme precipitation, drought) over $37$ years at the site level, across 
-each species' life-stages. Experimental study showed successive ECEs with short time intervals 
-could weaken the resistance of plant communities too [@dreesen2014successive]. 
-All these studies indicated that environmental stochasticity (through ECEs) can 
-make a population vulnerable to extirpation.
-<!--All these studies indicated that environmental stochasticity (through ECEs) 
-can lead to demographic stochasticity (through influence on reproductive or 
-mortality rate) of different age class of a population making it vulnerable 
-to local extinction.--> 
+@felton2017integrating], and thus the goal of improving our understanding of
+the variety of ecological impacts of ECEs is an important applied goal for 
+modern ecology [@katz2005statistics; @smith2011ecological; @diez2012will; @moritz2013future; @bailey2016tackling]. Frequent extreme events 
+can help alter the mean temperature or precipitation of an area, 
+can be associated with changes through time in the overall variance of 
+climate signals, and can directly contribute to changes in the symmetry or
+skewness of distributions of climate signals through time 
+[@hansen2012perception]. All such changes have the potential to influence 
+populations, including their risk of extirpation from an area 
+[@GarciaCarerras2013; @Vasseuretal2014].
+For instance, @frederiksen2008demographic used $43$ years of ring-recovery data 
+to examine the demographic impact of ECEs on European shags 
+via their effects on temporal variability in 
+juvenile, immature and adult survival rates.
+@mcdermott2017sensitivity investigated the sensitivity 
+of $41$ UK butterfly species to four different types of ECEs. 
+At the community level, research has showed that ECEs can reorder
+the dominance heirarchy of species in an area, sometimes leading to 
+selective local extictions, and can also produce effects that cascade 
+across trophic levels [@thomas2004extinction; @edgar2010nino; @moreno2011extreme; @hoover2014resistance]. 
+For example, @chiu2013impact showed that extreme floods affected 
+the annual survival of a prey community, in turn influencing predators in 
+aquatic as well as adjacent riparian habitats. 
+@dreesen2014successive, in an experimental study, showed that 
+successive ECEs with short time intervals between them
+can weaken the resistance of plant communities.
+<!--***DAN: Shyamolina, what, precisely, does it mean to "weaken the resistance of a
+plant community"? Resistance to what? Please clarify.-->
 
 <!--Earlier study on metapopulation extinction risk : Large-scale spatial synchrony 
 may also be generated by other processes such as migration and predation, but regional
 stochasticity in the form of spatially correlated weather conditions is
 probably the dominant synchronizing mechanism (ref: Nature1998) but what about taildep. effect on extrisk?.-->
-In the metapopulation context, regional stochasticity 
-can simultaneously affected multiple habitat patches where spatially correlated weather conditions were 
-probably the dominant synchronizing mechanism for extinctions [@hanski1998metapopulation]. A 21 years-long
-study by @tack2015increasing on the Glanville fritillary butterfly demonstrated that frequency 
-of drought during early larval instars increased amplitude and span of spatial synchrony 
-over a metapopulation network of 4000 dry meadows and could affect the long-term population viability.
-Therefore, understanding the synchronized fluctuation over a metapopulation-network
-remains important to the conservationists because well connected patches, if synchronous, are more 
-prone to simultaneous extinction during extreme bad years [@earn2000coherence]. 
+
+<!--ECEs have impacts in the spatial context as well-->
+ECEs also have impacts in ecological scenarios for which spatial dynamics are
+important.
+In the metapopulation context, spatial synchrony of population dynamics, which can
+be caused by spatial synchrony of climatic fluctuations, is linked to metapopulation
+extinction risk [@hanski1998metapopulation; @earn2000coherence].
+If ECEs are also spatially more extensive than moderate events,
+as seems likely for some types of events, extreme events may accentuate
+population synchrony and thereby increase extinction risk.
+For instance, a 21-year-long
+study of @tack2015increasing on the Glanville fritillary butterfly demonstrated that frequency 
+of drought during early larval instars increased the strength and extent 
+of spatial synchrony 
+over a metapopulation network of 4000 dry meadows, and could thereby influence
+the long-term viability of the species in the area of study.
 
 <!--concept for correlation in the extreme tail: tail association-->
-Though earlier literature considered the influence of spatial and/ or temporal 
-correlations in environmental variables on extinction risk of a metapopulation, to 
-our knowledge the separate influence on extinction risk of "tail associations" between
-environmental time series in different locations has hardly been considered. "Tail associations" are
-the association between two random variables in their extreme values. If two positively correlated 
-variables are more associated in their smaller values than larger, they are said to have stronger
-"left-tail" or "lower-tail" association (Figure \ref{fig_intro_cop}A, B). Similarly, if two positively correlated variables are more associated in their larger values than smaller, they are 
-said to have stronger "right-tail" or "upper-tail" association (Figure \ref{fig_intro_cop}C, D). 
-Figure \ref{fig_intro_cop} shows two random variables can have a wide 
-range of assciation from extreme to moderate degree in one of their 
-extreme tails - often refers to having 'asymmetric tail' - but with a 
-fixed Kendall's $\tau$. One can control the degree of "tail asymmetry" - moderate 
-to extreme - using "copula", a statistical 
-tool generally used to model dependencies between correlated variables (for details see @Ghosh_copula and \nameref{Methods}). 
-This 'asymmetric tail' is commonly found in many 
-bivariate or multivariate dependence structures for environmental, species-trait, 
-phenological, population, community, and ecosystem functioning datasets 
-and can help to interpret the causal mechanisms as well as 
-to draw consequential inferences for such patterns [@Ghosh_copula]. For example, it 
-is well known that spatial dependence of environmental
-variables is an important driver of spatial dependence in fluctuating 
-population time series (called 'spatial synchrony'). Therefore, one may expect 
-the synchronous populations over a larger network would suppress for extreme bad 
-years of limiting resources than moderately 'good' years. Any two such populations, that are 
-affected badly in a similar manner due to common food shortage, are expected to be more
-"left-tail" associated (Figure \ref{fig_intro_cop}A, B) rather than "right-tail" (Figure \ref{fig_intro_cop}C, D) as the environmental fluctuation 
-time-series have more "left-tail" association for those extreme bad years
-(i.e., 'Moran-effect' like mechanism). Similarly, during 
-favorable years if pest metapopulations 
-grow abundantly compared to other average years, population time series look like 
-\ref{fig_intro_cop}C or D with stronger "right-tail" association, turning local 
-outbreaks into regional epidemics. In a 
-nutshell, "tail asymmetry" could have profound effect in understanding 
-risk for population viability or ecosystem function
-considering their relation with extreme climatic events.
+Though earlier literature considered the influence of spatial synchrony 
+in environmental variables on metapopulation extinction risk, to 
+our knowledge the distinct influence of "asymmetric tail associations" between
+environmental time series in different locations has hardly been considered. 
+"Tail associations" are
+associations between two random quantities in their extreme values. 
+For instance, if two positively associated 
+variables are more associated in their smaller values than in their larger values,
+they are said to have stronger
+"left-tail" or "lower-tail" association (Figure \ref{fig_intro_cop}A, B). 
+If two positively associated variables are more associated in their larger 
+values than in their smaller values, they are 
+said to have stronger "right-tail" or "upper-tail" association 
+(Figure \ref{fig_intro_cop}C, D). 
+Figure \ref{fig_intro_cop} shows that two variables can have a wide 
+range of patterns of tail association, from extreme left- to extreme right-tail
+association, with the same overall correlation. So tail association
+is a distinct concept from correlation itself, and may have distinct ecological
+ramifications [@Ghosh_copula]. Asymmetric tail associations have been documented 
+between environmental variables, and between the same environmental variable 
+measured in different places [@Serinaldi2008; @li2013; @She2018; @Goswami2018]. 
+Asymmetric tail associations have also been documented between numerous ecological
+variables and between environmental and ecological variables [@Ghosh_copula].
 
+<!--ECEs probably produce tail associations-->
+There are reasons to believe that ECEs may produce asymmetric tail 
+associations between climatic variables
+measured in different locations. For instance, if a single ECE is associated
+with spatially widespread, large values 
+of some climatic variable, but small values of the
+variable are associated with local weather rather than ECEs, the result could
+be stronger right-tail association between measurements of the climatic variable
+made in different locations, through time.
+For example, rain storms which deposit exceptionally large amounts of rain
+may do so over large areas; but months with less rain may experience
+scattered showers only, which may be much less correlated across locales.
 
-A recent study [@Ghosh_copula] used the above mentioned feature of "tail asymmetry" 
-to estimate extinction risk for a density-independent metapopulation model. The study 
-showed "left-tail" associated density-independent metapopulations 
-to be more prone to extinctions than "right-tail" associated one as we may expect species 
-are more vulnerable to "catastrophes" (extreme bad years) than to "bonanzas" (extreme good years).
-Present manuscript is an extension of that concept in estimating the extinction risk 
-beyond the density-independent model. Population growth rate, when depending 
-on its own density, serves as a more realistic model to regulate unbounded growth, hence 
-models with "density-dependence" are often studied in population ecology to 
-predict population viability over long-term period [@hassell1975density; @fowler1987review; 
-@courchamp1999inverse]. Here, we will explore the general finding from @Ghosh_copula in the context of
-the density-dependent metapopulation patches which experience environmental noises with same spatial correlation but with a variety of tail 
-asymmetry (from extreme to moderate, Fig. \ref{fig_intro_cop}). It is expected 
-that extreme left-tail associated noise might wipe out some metapopulation patches 
-during unfavorable years unless they are rescued by the nearby populations. This scenario 
-could be more complex and specific of the direction of association 
-depending on the dynamics of the model (see \nameref{Results}).
+<!--***DAN: May be scope for a discussion para linking what is known about
+how ECEs are changing to what effect that may have on how tail assiciations
+in environmental variables might be changing, and what influence that may have
+on extinction risk. If little is known, then this might be a good topic for 
+future work.-->
 
-Tail asymmetry in estimating extinction risk can also be applied to an age structured model. From ecological perspective, it is reasonable to expect that extreme cold winter during growing season
-might reduce the adult reproduction rate (fecundity) as well as larval survival. This scenario would resemble Fig.\ref{fig_intro_cop}(A, B) with stronger tail association between vital rates of two stages at their smaller values than larger ones and thereby inflate the population viability compared to a scenario as of Fig.\ref{fig_intro_cop}(C, D). <!--***Shyamolina: Should I tell this? 
-It is reasonable to assume cold winter-temperature as the limiting factor 
-for each age-structured population - thereby also showing "left-tail" asymmetry between 
-the temperature and each age-population time series.(Ref: driver-synchrony relationship as shown in our aphid-plankton paper)--> Though tail association 
-property of a copula has been used for risk-analysis in other fields like finance, 
-hydrology etc. [@alexander2008market; @li2013; @chen2011flood; @Goswami2018], but to our 
-knowledge asymmetric tail association have never been considered 
-in estimating the effect of ECEs with age structured 
-model or density-dependent metapopulations.
+There are also reasons to hypothesize that asymmetry of tail association in 
+environmental variables may influence extinction risks for metapopulations.
+For instance, assuming for the sake of a simple example that low values of an environmental
+variable are "bad" for populations of a given species and high values are "good",
+greater left-tail associations between measurements of the variable in different
+habitat patches may cause higher metapopulation extinction risk because then
+very bad years for component populations would occur at the same time in 
+many patches, reducing the potential for rescue effects. Greater left-tail associations
+would probably not have the same effect, even if overall correlations between locations
+were the same, because it that case it would be very good years for the component 
+populations which would occur at the same time in many patches [@Ghosh_copulas].  
+@Ghosh_copula substantiated this intuition by showing that it held true for a 
+modelling setup using a spatial version of a very simple non-density dependent
+population growth model (the Lewontin-Cohen model). In essence, if environmental
+"catastrophes" (i.e., extremely bad years for a population) are widely 
+spatially synchronized it should create much greater metapopulation extinction 
+risk than if "bonanzas" (i.e., extremely good years) are widely synchronized, even
+if overall (non-tail-specific) levels of environmental synchrony are the same
+in both these cases. The present study extends tests of this idea to metapopulation
+models incorporating density dependence. 
 
-<!--***DAN: Shyamolina, you need to make two major changes in how tail associations
-are introdcued. 
-  First, do it prior to saying anything about copulas. We have been wanting
-to disassociate this paper, to some extent, from BIVAN. Well, probably the best way
-to do that is by introducing tail dependence first, before copulas. You can 
-describe it intuitively as association in the tails, and you can use pictures to describe it.
-You can introduce the partial Spearman correlation (briefly in the Intro, more detail in Methods). 
-You will need an explnation of why we 
-use Spearman instead of Pearson (talk to me if you do not know, but you may want to read the 
-new Background section of BIVAN again first). One does not need to know anything about copulas
-to understand tail associations.
+Extinction risk is also very commonly estimated for age-structured models 
+such as stochastic matrix models [@MorrisDoak2002 ; @Caswell2006] and 
+integral projection models
+[@Merowetal2014]. For such models, extinction risk depends, in part, on the long-term
+population growth rate, a population parameter which in turn 
+depends on the means, variances and covariances of population vital rates such 
+as the survival and fecundity rates of age classes. Extinction risks may,
+*a priori*, also depend on possible asymmetries of tail association between
+population vital rates. For instance, it seems reasonable to imagine
+a case in which both adult fecundity and juvenile survival rates 
+depend on an environmental variable such as spring rainfall in similar ways, but 
+only when that variable takes very low values. When rainfall takes
+typical or high values, fecundity and survival may be limited instead 
+by different factors. This could produce left-tail dependence between these 
+vital rates, possibly resulting in different extinction risk for the model
+compared to a case in which vital rates were symmetrically associated in 
+their tails but otherwise statistically similar. 
 
-  Second, the introduction to copulas that is given is outmoded. See the BAckground section
-to BIVAN for improvements. But you do not want to say anything like that much about copulas 
-here, you just want to briefly link to the concept, cite some of the Intro work that
-has been done (includeing BIVAN and some of the paper BIVAN cites for Intro work),
-mention that tail associations are one aspect of copula structure that we have found important,
-and introduce any specific things you will need, like the Clayton copula.
-
-Right now this is quite a short paper. You have space to explain things and show pedagogical
-figures.
--->
-
-<!--our objective ?-->
-In this paper, we will explore the potential use of asymmetric tail association 
-for understanding the extinction risk of populations towards extreme climatic event
-by addressing the following questions: (Q1) Does nature of tail association 
-(left tail or right tail) in vital rates
-of a single-patch age-structured population model affect extinction risk of that population differently?
-We hypothesized population might have higher extinction risk if vital rates are left-tail dependent.
-(Q2) How do asymmetric tail associations in environmental noises across multiple patches influence extinction risk of a density dependent metapopulation model, and how do the effects 
-interact with the nature of density dependence? Will they remain consistent with the 
-general finding from density-independent metapopulation model [@Ghosh_copula]
-(higher extinction risk if noises across patches were left-tail associated than the one 
-if noises had right-tail association) irrespective of the nature of density dependence? 
+<!--objectives, last para of intro-->
+In this paper, we will explore the potential for asymmtric tail associations to 
+influence extinction risk in populations and metapopulations. Specifically,
+we will address the following sets of questions. Q1) Can the nature of tail associations
+between vital rates in an age-structured population model influence
+extinction risk for the model, and to what extent? Q2) Does the nature
+of tail associations between measurements of an environmental variable in different
+locations influence extinction risk of a density dependendent metapopulation model
+that depends on the environmental variable? How does the nature of the density
+dependence mediate this influence? Will density dependence reverse or reproduce
+the earlier result [@Ghosh_copula], using non-density-dependent models, that 
+left-tail dependence in environmental variables accentuates and right-tail dependence 
+mitigates extinction risks?
+For Q1, we use a simple 2-stage model. We hypothesize that left-tail dependence
+between juvenile survival and adult fecundity rates increases extinction risk
+relative to right-tail dependence, even when overall correlation is kept fixed. 
+For Q2, we consider spatial extensions of several simple and commonly
+used population models. Though tail associations are used
+to assess risks in fields such as finance and hydrology 
+[@alexander2008market; @li2013; @chen2011flood; @Goswami2018], to our
+knowledge asymmetric tail associations have rarely been assessed for their
+importance for extinction risks of populations and species (but see @Ghosh_copulas). 
+Our questions are an important step for understanding
+the potential influence of ECEs on extinction risks if ECEs are associated with
+tail dependence in environmental variables. 
 
 <!--
 How does environmental noises with asymmetric tail association across multiple patches
@@ -293,19 +258,29 @@ should be reverse if the model shows over-compensatory dynamics.
 near the critical parameter value where the deterministic model shows transition from 
 under-compensatory to over-compensatory dynamics.-->
 
-
 <!--FIG : pedagogical fig showing 4 types of tail associations: 
 extreme left, moderate left, moderate right, extreme right-->
 \begin{figure*}[!h]
 \begin{center}
 \includegraphics[width=15 cm]{./Results/introfig_copula.pdf}
-\caption{Two random variables can have same Kendall 
-correlation ($\tau=$ `r ktau_common`), but different degree of associations
-in their extreme values: (A) extreme left tail, (B) moderate left tail, (C) moderate right tail, and
-(D) extreme right tail association.\label{fig_intro_cop}}
+\caption{Two stochastic quantities can have same Kendall 
+correlation, but different degrees of tail association: 
+(A) extreme left-tail association, (B) moderate left-tail association, (C) 
+moderate right-tail association, and (D) extreme right-tail association.
+In all cases Kendall's $\tau$ was the same ($\tau \approx$ `r ktau_common`),
+up to sample variation (the sample correlation for each dataset is displayed
+on its panel). The extreme left-tail (respectively, right-tail) dependent 
+case is perfectly correlated below (respectively, above) the threshold of 0.
+See Methods for information on how bivariate noise was generated with
+asymmetric tail associations.
+\label{fig_intro_cop}}
 \end{center}
 \end{figure*}
-
+<!--***DAN: Shyamolina, can you please put the actual Kendall tau that pertained
+for each dataset on each corresponding
+panel? Use, say, 3-4 digits accuracy for display. These values should be very similar, 
+but are expected to differ due to sampling variation. I would like to make that
+clear.-->
 
 # Methods\label{Methods}
 
