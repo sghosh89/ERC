@@ -60,6 +60,8 @@ np<-100000
 #points =  1e+05 , ktau_common =  0.7487744 , run time =  1.854317 
 #points =  1e+05 , ktau_common =  0.7516491 , run time =  1.840355 
 
+saveRDS(ktau_common,"./Results/ktau_common.RDS") 
+  
 # flip xtc_r to get xtc_l
 #xtc_l<-1-xtc_r
 
@@ -77,6 +79,19 @@ mtc_l<-rCopula(np,cc)
   
 # flip Clayton copula 
 mtc_r<-1-mtc_l
+
+# calculate tau with sampling variation
+kcor_el<-cor(xtc_l,xtc_l,method = "kendall")
+kcor_el<-kcor_el[1,2]
+
+kcor_er<-cor(xtc_r,xtc_r,method = "kendall")
+kcor_er<-kcor_er[1,2]
+
+kcor_ml<-cor(mtc_l,mtc_l,method = "kendall")
+kcor_ml<-kcor_ml[1,2]
+
+kcor_mr<-cor(mtc_r,mtc_r,method = "kendall")
+kcor_mr<-kcor_mr[1,2]
 ```
 
 
@@ -85,29 +100,33 @@ mtc_r<-1-mtc_l
 #--------- Plot for intro + methods ------------------------------------
 
 # for plotting purpose I just showed only first 500 points
+
 pdf("./Results/introfig_copula.pdf", height=3, width=12)
 op<-par(mfrow=c(1,4),mar=c(6,6,2,2),mgp=c(3,1,0))
 
 # extreme left tail
 plot(xtc_l[1:500,1],xtc_l[1:500,2],col=rgb(0,0,0,0.1),pch=19,xlab="u",ylab="v",cex.lab=2.5,cex.axis=2)
-legend(x="topleft",legend="A",bty="n",cex=2.5)
+#legend(x="topleft",legend="A",bty="n",cex=2.5)
+text(x=0.1,y=0.9,"A",cex=2.5)
+text(x=0.8,y=0.1,round(kcor_el,4),cex=2)
 
 # moderate left tail
 plot(mtc_l[1:500,1],mtc_l[1:500,2],col=rgb(0,0,0,0.1),pch=19,xlab="u",ylab="v",cex.lab=2.5,cex.axis=2)
-legend(x="topleft",legend="B",bty="n",cex=2.5)
+text(x=0.1,y=0.9,"B",cex=2.5)
+text(x=0.8,y=0.1,round(kcor_ml,4),cex=2)
 
 # moderate right tail
 plot(mtc_r[1:500,1],mtc_r[1:500,2],col=rgb(0,0,0,0.1),pch=19,xlab="u",ylab="v",cex.lab=2.5,cex.axis=2)
-legend(x="topleft",legend="C",bty="n",cex=2.5)
+text(x=0.1,y=0.9,"C",cex=2.5)
+text(x=0.8,y=0.1,round(kcor_mr,4),cex=2)
 
 # extreme right tail
 plot(xtc_r[1:500,1],xtc_r[1:500,2],col=rgb(0,0,0,0.1),pch=19,xlab="u",ylab="v",cex.lab=2.5,cex.axis=2)
-legend(x="topleft",legend="D",bty="n",cex=2.5)
+text(x=0.1,y=0.9,"D",cex=2.5)
+text(x=0.8,y=0.1,round(kcor_er,4),cex=2)
 
 par(op)
 dev.off()
-
-saveRDS(ktau_common,"./Results/ktau_common.RDS")
 ```
 
 ```{r sim_linear_mtd, echo=F,  cache=T, cache.extra=list(seed,ktau_common,mtime("ext_risk_cop_age_str.R"))}
