@@ -65,16 +65,6 @@ But in overcompensatory regime, the trend is opposite. Our study paves the path 
 
 \newpage
 
-<!--***DAN: 
-3) Please
-add the figure you have mentioned in the text but that does not exist. Please run a spell
-check. Please go and check every sentence throughout the manuscript for grammatical 
-errors. I think you will find some 
-and will be able to correct them if you focus on that - there are many, and by correcting them
-you will not only make the paper better you will get better at writing grammatically correct 
-sentences in English. 
--->
-
 ```{r read_res, echo=F}
 ktau_common<-readRDS("./Results/ktau_common.RDS")
 ```
