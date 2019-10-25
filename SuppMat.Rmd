@@ -1,5 +1,5 @@
 ---
-title: "Supporting Information : Asymmetric tail association in extreme climatic events affects population-extinction risk"
+title: "Supporting information: Tail associations and their impact on extinction risk"
 author: "Shyamolina Ghosh, Daniel Reuman"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 geometry: "left=1in,right=1in,top=1in,bottom=1in"
@@ -2831,9 +2831,10 @@ standard deviation $\sigma$=0.6 was used to generate extreme tail dependent nois
 \end{center}
 \end{figure}
 
-# A brief introduction about "copulas"  \label{intro_copula}
+# Generating noise with asymmetric tail associations  \label{makenoise}
 
 <!--needs editing, I just dumped old text here-->
+
 Copula, a rank based measure of association, is much more informative 
 than linear correlation measure and a widely applied tool in dependence 
 modeling [@joe2014_dependence; @nelsen2006_copula]. Copulas separate 
@@ -2849,7 +2850,7 @@ the largest element is $N$. We refer to the $u_n$ and $v_n$ as normalized ranks 
 Ranking makes the marginal distributions uniform, isolating only the information on 
 association between the variables. 
 
-# Algorithm to generate extreme tail association  \label{extr_tail_dep}
+<!--# Algorithm to generate extreme tail association  \label{extr_tail_dep}-->
 
 For extreme tail association algorithm, a $N \times n$ matrix, M was generated of independent 
 standard-normal random draws (in general). <!--where $N = numsteps(=25) \times numsims(=10000)$ : only for 2d case-->
@@ -2865,6 +2866,47 @@ Our [code](https://github.com/sghosh89/ERC/blob/master/ExtremeTailDep.R) for
 generating extreme tail association matrix is flexible enough, so that 
 matrix M can be generated initially with independent random draws from a normal 
 distribution with a specified mean and standard deviation.
+
+<!--some stuff that used to be in the main text-->
+
+The moderate tail association was modeled by using the 
+concept of "copula", a statistical tool to model 
+dependencies. Appendix \ref{SM-intro_copula} summarized
+a brief introduction of "copulas" and their relation to tail associations, symmetries 
+with examples of available copula families 
+from `R` packages (`copula` and `VineCopula`). We used bivariate Clayton 
+copula to model moderate left-tail and Survival Clayton copula to model 
+moderate right-tail association in the vital rates. Both copulae had the same Kendall 
+correlation ($\tau =$ `r ktau_common`) but opposite association in their respective tails. 
+We generated a $N \times 2$ matrix, M, for each of the left (Clayton) and 
+right (Survival Clayton) tail associated bivariate copulas (see `BiCopSim` function from
+`VineCopula` package ), where $N$ is number of years ($=25$) multiplied 
+by number of simulations ($=10000$) we used. 
+We chose parameters for each copula family using 
+`iTau` function from `copula` package so that both copula had
+same Kendall's correlation ($\tau =$ `r ktau_common`). Entries within each column of
+matrix $M$, then became independent of each other but 
+entries between columns had a specific tail association
+with positive Kendall's correlation. 
+
+<!--some more stuff from the main text-->
+
+On a similar note, we generated extreme left- (or right-) tail dependent matrix (M)
+from standard iid (Appendix \ref{SM-extr_tail_dep}) and made the marginals uniform so that
+it could mimic an extreme tail dependent copula. We made the first column of matrix 
+$M$ as gamma ($\Gamma(k,\theta)$) distributed 
+with shape parameter $k = 2$ and scale parameter $\theta = 1$.
+This distribution represented fecundity of the adult population, $f_a \geq 0$.
+For a given $\theta$, increasing $k$ would shift the distribution towards
+higher fecundity and reduce the extinction risk if the other parameters
+remain unchanged. We took the second column of $M$ and applied a 
+beta ($\mathcal{B}(\alpha,\beta)$) transformation. $\alpha =3$ and
+$\beta = 2$ were the shape parameters that could control the distribution 
+of the survival rates of eggs ($s_e$) ranging in between 0 to 1. 
+For each $25$ timesteps from each of $10000$ simulations,
+we incorporated pairwise entries from each row of matrix $M$ in the expression for 
+vital rates (fecundity $f_a$ and survival rates $s_e$, Eq. \ref{eq_vitalrates}) of 
+the stochastic projrction matrix in model (\ref{eq_age_str}).
 
 # Stability analysis of deterministic metapopulation models  \label{model_stability}
 
