@@ -356,7 +356,8 @@ simulations that went extinct.
 
 <!--***DAN: Shyamolina, the below text makes me wonder if I am misunderstanding something, please
 explain. The part that confuses me is the 2.5th and 97.5th quantile part, what is the meaning
-of that and what does it have to do with extinction riks?
+of that and what does it have to do with extinction riks? I would have thought extinction risk
+was just the fraction of 10000 sims that went extinct.
 
 after each time step, we simulated model (\ref{eq_age_str}) for $25$ years
 with $10000$ simulations. For each simulation, we started with initial population $(E,A)_{t=0} = (5,10)$
