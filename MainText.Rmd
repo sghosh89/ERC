@@ -295,9 +295,9 @@ different, which will mean readers think anything funny is going on.-->
 # Methods\label{Methods}
 
 <!--stochastic matrix model : age-structured-->
-To investigate (Q1) from the \nameref{Introduction},
+To investigate Q1 from the \nameref{Introduction},
 we considered a simple stochastic age-structured model
-with two age classes,  
+with two age classes, 
 \begin{equation}
 \left({\begin{array}{cc} E(t+1) \\ A(t+1) \end{array}}\right) = 
 \left(\begin{array}{cc} 0 & f_a(t)\\ s_e(t) & 0 \end{array}\right)
@@ -368,30 +368,34 @@ of $10000$ simulations with the probability of computed extinction risk at each 
 -->
 
 <!--density-dependence metapopulation model-->
-We explored (Q2) by examining how the nature of the tail association of an
-environmental variable across space could influence the extinction risk of a 
-metapopulation model with density-dependent feedback. We considered six density-dependent 
-population-growth models (Ricker, Hassell, Maynard Smith, Pennycuick, Verhulst, Austin-Brewer)
-in noisy environment (see Table \ref{tab_model_summary}) 
-from a metapopulation context.
-Models were adapted from earlier work
-by @cohen1995unexpected, excluding only two: Varley model (this is not a continuous one) 
-and the Malthus-Condorcet-Mill model (terms containing logarithm of the extinct population does not make sense). 
-All models assumed a generalized form: $\vec{P}_{t+1} = D \lambda_t \vec{P_t}$,
-where $\vec{P_t}$ was a vector of population densities, 
-the $i^{th}$ component $P_t^i$ representing
-the density in the $i^{th}$ habitat patch ($i=1,2,\ldots,n$) at time $t$. 
-The $n \times n$ matrix $\lambda(t)$ was diagonal with $i^{th}$ diagonal entry 
-of stochastic density dependence form $\lambda_i(t)$ (see second column 
-of Table \ref{tab_model_summary}). For simplicity, 
-we considered $n$ patches in each model were arranged, evenly spaced, in a line
-with the provision of "local" or "global" dispersal among patches. An n $\times$ n dispersal
-matrix, $D$ assumed that a fraction $d$ of 
-each population patch dispersed during any given time step, equally distributed to
-the two or one nearest neighbors in case of local dispersal. For global dispersal, the fraction
-$d$ dispersed equally to other $(n-1)$ patches. We called $d$ as dispersal
-rate with $d$ being zero there was no dispersal, and hence no chance to rescue an extinct 
-patch through migration from nearby metapopulation patches.
+To investigate Q2 from the \nameref{Introduction}, we considered spatialized, stochastic versions
+of six density dependent population models, the Ricker, Hassell, Maynard-Smith, Pennycuick, Verhulst, 
+and Austin-Brewer models as elaborated by @cohen1995unexpected (Table \ref{tab_model_summary}).
+All models took the general form $\vec{P} (t+1) = D \lambda(t) \vec{P}(t)$,
+where $\vec{P}(t)$ is a vector of population densities, 
+the $i^{\text{th}}$ component $P_i(t)$ representing
+the population density in the $i^{\text{th}}$ habitat patch ($i=1,2,\ldots,n$) at time $t$. 
+The $n \times n$ matrix $\lambda(t)$ was diagonal with $i^{\text{th}}$ diagonal entry 
+$\lambda_i(t)$ depnding on the model used (see Table \ref{tab_model_summary}). The matrix $D$
+was an $n \times n$ dispersal matrix. For simplicity, 
+we assumed the $n$ habitat patches were arranged, evenly spaced, in a line.
+We considered both "local" and "global" dispersal among patches in different simulations. 
+For local dispersal, a fraction $d$ of 
+each population dispersed during each time step, equally distributed to
+the two or one nearest neighbors. For global dispersal the same fraction $d$ dispersed
+equally to the other $(n-1)$ patches. When $d$ was $0$, dispersal did not occur and 
+rescue effects were not possible.
+Two models that @cohen1995unexpected used were excluded from our analyses because they were not
+readily adapted to our simulation setup: the Varley model,
+which is not continuous;
+<!--***DAN: Shyamolina, I cannot remember this one and cannot see immediately why non-continuity 
+is a reason to exclude these models? I remember we had a good reason to exclude it, I am just 
+wanting a bit more explanation here, please. Can you add?-->
+and the Malthus-Condorcet-Mill model, which employs a logarithm of the population and therefore
+cannot be applied in the context of extinction.
+<!--***DAN: go back and look at that model when you get the paper and remind yourself-->
+
+<!--***DAN: got to here 2019 10 25-->
 
 We simulated our metapopulation models with noises $(\epsilon_t^i)$ that were 
 independent through time with same spatial correlations 
