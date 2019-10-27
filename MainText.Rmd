@@ -390,10 +390,18 @@ readily adapted to our simulation setup: the Varley model,
 which is not continuous;
 <!--***DAN: Shyamolina, looking back at the Cohen paper, using the value C=1 as they used, the
 Varley model *is* continuous. It is not differentiable, but it's not clear to me that 
-non-differentiability means we cannot use the model. Let's discuss.-->
-and the Malthus-Condorcet-Mill model, which employs a logarithm of the population and therefore
-cannot be applied in the context of extinction.
-<!--***DAN: go back and look at that model when you get the paper and remind yourself-->
+non-differentiability means we cannot use the model. Perhaps it does mean that, but I don't see 
+it. Let's discuss. I'm not saying we have to go back and use it, but we may have to justify
+differently why we used 6 of Cohen's models and not the other two.-->
+and the Malthus-Condorcet-Mill model, which employs a logarithm of the population and is therefore
+inconvenient to analyze in the context of extinction.
+<!--***DAN: Unless I am mistaken, the limit of the right hand side of the M-C-M model as
+described by Cohen, as P approaches 0 from the right, is 0. That means the model has
+a removable singularity at 0, i.e., we could just define the model so P_t+1=0 when P_t
+is 0, and we would get a perfectly valid continuous model. This means that using logs is 
+not really a valid reason to not use the models. Let's discuss. I'm not saying we have to go 
+back and use it, but we may have to justify differently why we used 6 of Cohen's models and not 
+the other two.-->
 
 <!--***DAN: got to here 2019 10 25-->
 
