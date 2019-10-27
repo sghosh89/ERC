@@ -369,8 +369,8 @@ of $10000$ simulations with the probability of computed extinction risk at each 
 
 <!--density-dependence metapopulation model-->
 To investigate Q2 from the \nameref{Introduction}, we considered spatialized, stochastic versions
-of six density dependent population models, the Ricker, Hassell, Maynard-Smith, Pennycuick, Verhulst, 
-and Austin-Brewer models as elaborated by @cohen1995unexpected (Table \ref{tab_model_summary}).
+of six density dependent population models, the Ricker, Hassell, Maynard Smith, Pennycuick, Verhulst, 
+and Austin-Brewer models (@cohen1995unexpected; Table \ref{tab_model_summary}).
 All models took the general form $\vec{P} (t+1) = D \lambda(t) \vec{P}(t)$,
 where $\vec{P}(t)$ is a vector of population densities, 
 the $i^{\text{th}}$ component $P_i(t)$ representing
@@ -388,9 +388,9 @@ rescue effects were not possible.
 Two models that @cohen1995unexpected used were excluded from our analyses because they were not
 readily adapted to our simulation setup: the Varley model,
 which is not continuous;
-<!--***DAN: Shyamolina, I cannot remember this one and cannot see immediately why non-continuity 
-is a reason to exclude these models? I remember we had a good reason to exclude it, I am just 
-wanting a bit more explanation here, please. Can you add?-->
+<!--***DAN: Shyamolina, looking back at the Cohen paper, using the value C=1 as they used, the
+Varley model *is* continuous. It is not differentiable, but it's not clear to me that 
+non-differentiability means we cannot use the model. Let's discuss.-->
 and the Malthus-Condorcet-Mill model, which employs a logarithm of the population and therefore
 cannot be applied in the context of extinction.
 <!--***DAN: go back and look at that model when you get the paper and remind yourself-->
