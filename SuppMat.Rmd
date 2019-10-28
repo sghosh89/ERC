@@ -2908,6 +2908,21 @@ we incorporated pairwise entries from each row of matrix $M$ in the expression f
 vital rates (fecundity $f_a$ and survival rates $s_e$, Eq. \ref{eq_vitalrates}) of 
 the stochastic projrction matrix in model (\ref{eq_age_str}).
 
+<!--yet more stuff from the main text-->
+
+For moderately left-tail associated 
+noises we drew points from a $n$ dimensional 
+Clayton copula with same Kendall correlation ($\tau =$ `r ktau_common`) between
+any two out of $n$ patches and made 
+the marginals normal with zero mean and standard deviation $\sigma$ 
+(see the specified value $\sigma$ for each model in 3$^{rd}$ 
+column of Table \ref{tab_model_summary}). For moderately 
+right-tail associated noises we flipped ($180^{\circ}$ rotation) the points drawn 
+from Clayton copula so that all the statistical properties remained 
+same except for the direction of tail association. We generated
+extreme left- or right-tail associated noises via algorithm stated in 
+Appendix \ref{SM-extr_tail_dep}. 
+
 # Stability analysis of deterministic metapopulation models  \label{model_stability}
 
 First, we will briefly discuss about the stability analysis for a difference 

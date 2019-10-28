@@ -129,7 +129,8 @@ they are said to have stronger
 If two positively associated variables are more associated in their larger 
 values than in their smaller values, they are 
 said to have stronger "right-tail" or "upper-tail" association 
-(Figure \ref{fig_intro_cop}C, D). 
+(Figure \ref{fig_intro_cop}C, D). A precise definition of a measure of tail 
+association is given in Methods.
 Figure \ref{fig_intro_cop} shows that two variables can have a wide 
 range of patterns of tail association, from extreme left- to extreme right-tail
 association, with the same overall correlation. So tail association
@@ -166,12 +167,12 @@ variable are "bad" for populations of a given species and high values are "good"
 greater left-tail associations between measurements of the variable in different
 habitat patches may cause higher metapopulation extinction risk because then
 very bad years for component populations would occur at the same time in 
-many patches, reducing the potential for rescue effects. Greater left-tail associations
+many patches, reducing the potential for rescue effects. Greater right-tail associations
 would probably not have the same effect, even if overall correlations between locations
 were the same, because in that case it would be very good years for the component 
 populations that would occur at the same time in many patches [@Ghosh_copula]. 
 @Ghosh_copula substantiated this intuition by showing that it held true for a 
-modeling setup using a spatial version of a very simple non-density dependent
+modeling setup using a spatial version of a very simple non-density-dependent
 population growth model (the Lewontin-Cohen model). In essence, if environmental
 "catastrophes" (i.e., extremely bad years for a population) are widely 
 spatially synchronized it should create much greater metapopulation extinction 
@@ -216,10 +217,11 @@ between juvenile survival and adult fecundity rates increases extinction risk
 relative to right-tail dependence, even when the overall correlation is kept fixed. 
 For Q2, we simulate spatial extensions of several simple and commonly
 used population models. We intentionally use a simulation approach and simple models
-instead of attampting mathematical analysis and/or using realistic models
+instead of attempting mathematical analysis and/or using models that are more realistic, 
 because our intention here is to provide an initial exploration only of 
 the potential mechanisms outlined above which suggest that
 asymmetries of tail association may make a difference for extinction risks. 
+Some material in the Discussion outlines possible next steps.
 <!--***DAN: In Discussion need to talk about what analytic results are needed
 to take the next step of determining when tail depencence may make enough of
 a difference to think about. I think our results, together with Tulja's 
@@ -230,7 +232,11 @@ the influence of tail associations on rescue effects. Could maybe even outline
 analytic approaches for non-dd models? Not sure what would be done with dd
 models. The point is you need to take the next step in the Discussion of 
 talking about how our results, which admitedly are just for specific models,
-could be turned into analytic results or general results.-->
+could be turned into analytic results or general results. Interestingly, 
+Tulja's approximation may also apply to the spatial case, at least when 
+all locations can be reached from all other locations via dispersal. But the 
+approximation seems poor in that case. Need to think about it more, and maybe
+need more research.-->
 Though tail associations are used
 to assess risks in fields such as finance and hydrology 
 [@alexander2008market; @li2013; @chen2011flood; @Goswami2018], to our
@@ -290,7 +296,7 @@ wonder why this is the case. Rather than plotting the reversed version of the
 data from A on D, and the reversed version of the data from B on C, can you plase
 generate separate, independent data for A and D, and also for B and C? That
 will have the effect of making the sample kendalls on the 4 panels slightly
-different, which will mean readers think anything funny is going on.-->
+different, which will mean readers wont think anything funny is going on.-->
 
 # Methods\label{Methods}
 
@@ -354,7 +360,53 @@ went below an extinction threshold (we used a threshold of $2$) within the
 $25$-time-step time horizon. Extinction risk was the fraction of $10000$
 simulations that went extinct.
 
-<!--***DAN: Shyamolina, the below text makes me wonder if I am misunderstanding something, please
+<!--***DAN: Insert para here talking about in what sense the variables
+$s_e(t)$ and $f_a(t)$ are asymmetrically associated, through time, in their 
+tails. This is where you intro the partial Spearman and may also make references
+to Genest and others indicating that, when you are interested in dependence,
+you want a rank-based notion of association - it's the only thing that
+separates the association from the marginals. I will insert some text now,
+but it won't fit perfectly until after we go through and replace Kendall with
+Spearman throughout.-->
+The variables $u(t)$ and $v(t)$ are visibly asymmetrically tail associated (Fig. \ref{fig_intro_cop}),
+but we have instead used the transformed variables $s_e(t)$ and $\tilde{f}_a(t)$
+in our model. In what sense are $s_e(t)$ and $\tilde{f}_a(t)$ asymmetrically
+tail associated? Given two boundary quantities $l_b$ and $u_b$ such
+that $0 \leq l_b < u_b \leq 1$, and letting $x(t)$ be the rank of 
+$u(t)$ in the set $\{u(t) | t=1,\ldots,T\}$ and letting 
+$y(t)$ be the rank of 
+$v(t)$ in the set $\{v(t) | i=1,\ldots,T\}$ (smallest elements
+are defined to have rank 1),
+consider the portions of the 
+lines $x+y = 2l_b$ and $x+y=2u_b$ which meet with the unit square
+(Fig. \ref{PartialSpearmanFig}). 
+<!--***DAN: need to make this figure-->
+We can then define the *partial Spearman correlation*,
+\begin{equation}
+\cor_{l_b,u_b}(u,v) = \frac{\sum (x(t)-\mean(x))(y(t)-\mean(y))}{(n-1)\sqrt{\var(x) \var(y)}},\label{PartialSpearmanEq}
+\end{equation}
+\noindent where sample means and variances in this equation
+are computed using all the data but the sum is computed only
+over the $t$ such that $x(t)+y(t) > 2l_b$ and $x(t)+y(t)<2u_b$. 
+The partial Spearman correlation is the component of the Spearman
+correlation of $u$ and $v$ which can be attributed to the points
+for which the ranks, $x$ and $y$, lie between the boundary lines
+we defined (Fig. \ref{PartialSpearmanFig}) in
+the unit square. The quantity $\cor_{0,0.5}(u,v)-\cor_{0.5,1}(u,v)$ 
+is a way to measure asymmetry of tail associations between
+$u$ and $v$. And this quantity is the same as 
+$\cor_{0,0.5}(s_e,\tilde{f}_a)-\cor_{0.5,1}(s_e,\tilde{f}_a)$, 
+because the partial Spearman correlation, like the Spearman
+correlation itself, is based on ranks. Ranks are the same
+for $u(t)$ and for $s_e(t)$ because these quantities are 
+related by a monotonic transformation (and likewise for 
+$v(t)$ and $\tilde{f}_a(t)$). Thus, in the sense captured
+by the statistic $\cor_{0,0.5}-\cor_{0.5,1}$, $s_e(t)$
+and $\tilde{f}_a(t)$ have the same asymmetry of tail
+association as the values $u(t)$ and $v(t)$ from which they
+were constructed.
+
+<!--***DAN: Shyamolina, the below commented text makes me wonder if I am misunderstanding something, please
 explain. The part that confuses me is the 2.5th and 97.5th quantile part, what is the meaning
 of that and what does it have to do with extinction riks? I would have thought extinction risk
 was just the fraction of 10000 sims that went extinct.
@@ -403,33 +455,79 @@ not really a valid reason to not use the models. Let's discuss. I'm not saying w
 back and use it, but we may have to justify differently why we used 6 of Cohen's models and not 
 the other two.-->
 
-<!--***DAN: got to here 2019 10 25-->
+We simulated our metapopulation models using environmental noises $\epsilon_i(t)$ (Table \ref{tab_model_summary}), 
+independent through time, that were generated to have the same overall associations 
+between all patches and in all simulations (Kendall's $\tau$ again $0.75$, up to sampling variation), 
+but with different degrees and types of asymmetry of tail associations 
+between patches in different simulations, as follows. For a simulation of length $T$,
+we used methods that can generate $T$ independent $n$-tuples $(u_1(t),\ldots,u_n(t))$
+for $t=1,\ldots,T$ with $\tau=0.75$ between $u_i(t)$ and $u_j(t)$ for all $i \neq j$
+(up to sampling variation), but with either extreme left-, moderate left-, moderate right-,
+or extreme right-tail association between all pairs of locations (as in Fig. \ref{fig_intro_cop}). 
+Pairs $u_i(t)$ and $u_j(t)$ looked like Fig. \ref{fig_intro_cop} and were structured, statistically,
+in the same way as the stochastic quantities $u(t)$ and $v(t)$ used for the non-spatial 
+simulations described above. For any $i$, $u_i(t)$ was again uniformly distributed on 
+the interval $(0,1)$. To obtain the values $\epsilon_i(t)$, the $u_i(t)$ were 
+transformed so that the resulting numbers were
+normally distributed with mean $0$ and standard deviation $\sigma$ (Table \ref{tab_model_summary}), 
+for all $i$. This was 
+accomplished with the inverse cummulative distribution function of the normal distribution
+with mean $0$ and standard deviation $\sigma$. Because this was a monotonic transformation,
+the Kendall correlation between $\epsilon_i(t)$ and $\epsilon_j(t)$ was the same 
+as that between $u_i(t)$ and $u_j(t)$. The quantities $(u_1(t),\ldots,u_n(t))$
+for $t=1,\ldots,T$ were generated as described in Appendix \ref{SM-makenoise}.
 
-We simulated our metapopulation models with noises $(\epsilon_t^i)$ that were 
-independent through time with same spatial correlations 
-between patches (to within sampling error)
-for every simulation, but were moderately (or extremely) left- and 
-right-tail associated between patches in
-different simulations. For moderately left-tail associated 
-noises we drew points from a $n$ dimensional 
-Clayton copula with same Kendall correlation ($\tau =$ `r ktau_common`) between
-any two out of $n$ patches and made 
-the marginals normal with zero mean and standard deviation $\sigma$ 
-(see the specified value $\sigma$ for each model in 3$^{rd}$ 
-column of Table \ref{tab_model_summary}). For moderately 
-right-tail associated noises we flipped ($180^{\circ}$ rotation) the points drawn 
-from Clayton copula so that all the statistical properties remained 
-same except for the direction of tail association. We generated
-extreme left- or right-tail associated noises via algorithm stated in 
-Appendix \ref{SM-extr_tail_dep}. Our models (Table \ref{tab_model_summary}) 
+<!--***DAN: Dan is starting to wonder if referees will wonder something like "what 
+happens to tail associations when you do these transformatons." We do not wonder 
+this because we have in mind a defn for tail associations that only depends on ranks,
+but we have not presented that defn. We have instead only given an intuitive description
+of tail association. This may be a problem. Referees will see uf generating data with tail associatons
+and uniform marginals, but then transforming it, and putting the transformed values into 
+our models. And we are confortable with the idea that that transformation does not
+alter the tail associations, but they are not comfortable with that.
+We may need to define tail associations
+using partial Spearman or something, to get this idea across. The problem with that is, 
+we use Kendall throughout
+the rest of the ms, and so if we define partial Spearman that will create an inconsistency
+(using Kendall in some places, Spearman in others) that may raise eyebrows in a short paper 
+like this. Not sure right now what to do anout this, we need to think about it. Can we add a new
+para at the beginnign of methods giving some kind of formal introduction to tail associations
+that makes clear it is something we consider to be for ranks? Without using partial Spearman?
+There is no partial Kendall, since Kendall is based on concordant and discordant pairs.
+An alterntive is to replace Kendall wth Spearman throughout the paper, then go ahead
+and intro partial Spearmn as a way of making it clear tail associaton is for ranks. 
+Is this possible? It would definitely be a pain, so therefore want to avoid unless
+necessary. One thing this would require would be calculating the populaton (not sample) 
+Spearman of the extreme tail associated data. At least we could estimate it very precisely
+using a huge sample (would not have the same problems doing that as we did for Kendall),
+and may even be able to calculate it analytically. Let's just use Spearman and calculate it very
+precisely using a large sample. Well, maybe we could calculate it analytically. 
+-->
+
+To calculate extinction risk for a given model and a given choice of tail association,
+we simulated the model for $25$ time steps, $10000$ times, using $n=5$ habitat patches.
+The initial condition $P_e$ was used in each habitat patch ($P_e$ is the equilibrium value of the 
+one-patch, deterministic version of the model, see Table \ref{tab_model_summary}).
+After each time step, if $P_i(t)$ was less than $P_e/10$ then it was set to $0$.
+The whole metapopulation was considered to have gone extinct if all patches were $0$
+a time step $25$.
+<!--***DAN: Shyamolina, please check the above two sentences, is this what you did?-->
+Extinction risk was the fraction of 10000 metapopulations that went extinct. 
+
+<!--***DAN: Dan plans to delete this text as it has been superseded by the above. Keeping it
+around until I am sure the above is right:
+Our models (Table \ref{tab_model_summary}) 
 computed extinction risk after $25$ years for $10000$ simulations at $n = 5$ patches
 with spatially correlated noises having either moderate or extreme tail 
-association in left and right-tail. <!--say how you set ext. threshold = Pe/10-->
+association in left and right-tail. 
 We started with initial population $P_{t=0}^i = P_e^i, (i = 1,2,\ldots,n)$ for each patch, where 
 $P_e^i$ was the equilibrium value (or similar to carrying capacity concept) 
 for each density-dependence model (see 4$^{th}$ column of Table \ref{tab_model_summary}).
 We assumed the population went extinct after each time step if it was below a 
 certain threshold (set to 10\% of the initial population $P_e$ for individual model). 
+-->
+
+<!--***DAN: Dan stopped here on 2019 10 27 until we resolve some of the issues that have come up-->
 
 The models stated in Table \ref{tab_model_summary} had one common 
 feature: they showed undercompensatory
@@ -689,7 +787,15 @@ knitr::kable(dt, escape=F,
              booktabs=T, linesep = "\\addlinespace"
              )%>%column_spec(c(1,3,5,6),width="1.4 cm")%>%kable_styling(latex_options = "basic",position = "center")%>%column_spec(2, width = "3.8 cm")
 ```
-
+<!--***DAN: Shyamolina, in this table and in the sup mat (and anywhere else where this comment applies),
+please replace the notation P^i_t and \epsilon^i_t by P_i(t) and \epsilon_i(t), the reason being,
+putting an i in the superscript makes it look like and exponent. This is legitimately confusing because
+we use lots of other exponents. I want you to generally refrain from placing the abitat patch index in the
+superscript, putting in the subscript instead. This means you have to put the t in parens in front of the
+variable in question, instead of in the subscript. This will require several changes to this table. Please
+make those changes and then commit. Then please make the corresponding changes to the sup mat, whereever needed.-->
+<!--***DAN: Dan, once Shyamolina does the above, you will then have to go back and edit this table in various
+ways that you cannot do until after that change is made.-->
 
 \clearpage
 
