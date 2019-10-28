@@ -33,34 +33,19 @@ knitr::opts_chunk$set(echo = TRUE)
 seed<-101
 library(abind)
 source("mtime.R")
-# Note : for moderate tail dep. we used Kendall's tau = 0.6 to get C or SC
 ```
 
-```{r get_ktau_common, echo=F, results="hide", cache=T, cache.extra=list(seed,mtime("ExtremeTailDep.R"))}
+```{r get_srho_common, echo=F, results="hide", cache=T, cache.extra=list(seed,mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 library(copula)
 source("./ExtremeTailDep.R")
 
-np<-100000
+np<-1000000
+srho_common<-0.875 #7/8
 
-#for(i in 1:5){ # for loop to ensure the consistency of Kendall's tau with specified np
-  xtc_r<-retd(n=np,d=2,rl=1,mn=0,sdev=1) # copula with extreme right tail
+xtc_r<-retd(n=np,d=2,rl=1,mn=0,sdev=1) # copula with extreme right tail
 
-  start_time <- Sys.time()
-  ktau_common<- cor(xtc_r[,1],xtc_r[,2],method="kendall") #get the kendall's tau
-  end_time <- Sys.time()
-
-#  cat("points = ",np, ", ktau_common = ", ktau_common, ", run time = ", (end_time -start_time),"\n")
-#}
-
-# see the change in 3rd decimal place
-#points =  1e+05 , ktau_common =  0.7512526 , run time =  1.837576 
-#points =  1e+05 , ktau_common =  0.7507594 , run time =  1.864947 
-#points =  1e+05 , ktau_common =  0.7497681 , run time =  1.862879 
-#points =  1e+05 , ktau_common =  0.7487744 , run time =  1.854317 
-#points =  1e+05 , ktau_common =  0.7516491 , run time =  1.840355 
-
-saveRDS(ktau_common,"./Results/ktau_common.RDS") 
+saveRDS(srho_common,"./Results/srho_common.RDS") 
   
 # flip xtc_r to get xtc_l
 #xtc_l<-1-xtc_r
@@ -71,7 +56,7 @@ xtc_l<-1-xtc_r
   
 # for clayton : left tail dep.
 copC<-claytonCopula(3)
-parC<-iTau(copC,tau=ktau_common)
+parC<-iRho(copC,rho=srho_common)
   
 # first generate Clayton copula 
 cc<-claytonCopula(par=parC,dim=2)
@@ -80,18 +65,18 @@ mtc_l<-rCopula(np,cc)
 # flip Clayton copula 
 mtc_r<-1-mtc_l
 
-# calculate tau with sampling variation
-kcor_el<-cor(xtc_l,xtc_l,method = "kendall")
-kcor_el<-kcor_el[1,2]
+# calculate rho with sampling variation
+scor_el<-cor(xtc_l,xtc_l,method = "spearman")
+scor_el<-scor_el[1,2]
 
-kcor_er<-cor(xtc_r,xtc_r,method = "kendall")
-kcor_er<-kcor_er[1,2]
+#scor_er<-cor(xtc_r,xtc_r,method = "spearman")
+scor_er<- -scor_el # Note it should be opposite to scor_el
 
-kcor_ml<-cor(mtc_l,mtc_l,method = "kendall")
-kcor_ml<-kcor_ml[1,2]
+scor_ml<-cor(mtc_l,mtc_l,method = "spearman")
+scor_ml<- scor_ml[1,2]
 
-kcor_mr<-cor(mtc_r,mtc_r,method = "kendall")
-kcor_mr<-kcor_mr[1,2]
+#scor_mr<-cor(mtc_r,mtc_r,method ="spearman")
+scor_mr<- -scor_ml # Note it should be opposite to scor_ml
 ```
 
 
@@ -108,28 +93,28 @@ op<-par(mfrow=c(1,4),mar=c(6,6,2,2),mgp=c(3,1,0))
 plot(xtc_l[1:500,1],xtc_l[1:500,2],col=rgb(0,0,0,0.1),pch=19,xlab="u",ylab="v",cex.lab=2.5,cex.axis=2)
 #legend(x="topleft",legend="A",bty="n",cex=2.5)
 text(x=0.1,y=0.9,"A",cex=2.5)
-text(x=0.8,y=0.1,round(kcor_el,4),cex=2)
+text(x=0.8,y=0.1,round(scor_el,4),cex=2)
 
 # moderate left tail
 plot(mtc_l[1:500,1],mtc_l[1:500,2],col=rgb(0,0,0,0.1),pch=19,xlab="u",ylab="v",cex.lab=2.5,cex.axis=2)
 text(x=0.1,y=0.9,"B",cex=2.5)
-text(x=0.8,y=0.1,round(kcor_ml,4),cex=2)
+text(x=0.8,y=0.1,round(scor_ml,4),cex=2)
 
 # moderate right tail
 plot(mtc_r[1:500,1],mtc_r[1:500,2],col=rgb(0,0,0,0.1),pch=19,xlab="u",ylab="v",cex.lab=2.5,cex.axis=2)
 text(x=0.1,y=0.9,"C",cex=2.5)
-text(x=0.8,y=0.1,round(kcor_mr,4),cex=2)
+text(x=0.8,y=0.1,round(scor_mr,4),cex=2)
 
 # extreme right tail
 plot(xtc_r[1:500,1],xtc_r[1:500,2],col=rgb(0,0,0,0.1),pch=19,xlab="u",ylab="v",cex.lab=2.5,cex.axis=2)
 text(x=0.1,y=0.9,"D",cex=2.5)
-text(x=0.8,y=0.1,round(kcor_er,4),cex=2)
+text(x=0.8,y=0.1,round(scor_er,4),cex=2)
 
 par(op)
 dev.off()
 ```
 
-```{r sim_linear_mtd, echo=F,  cache=T, cache.extra=list(seed,ktau_common,mtime("ext_risk_cop_age_str.R"))}
+```{r sim_linear_mtd, echo=F,  cache=T, cache.extra=list(seed,srho_common,mtime("ext_risk_cop_age_str.R"))}
 # extinction risk with moderate tail dep. for single patch linear age structure model
 
 set.seed(seed)
@@ -145,17 +130,17 @@ bshape1<-3
 bshape2<-2
 par_dist<-c(gshape,gscale,bshape1,bshape2)
 omg<-Inf
-ktau<-ktau_common  # kendall's tau
+srho<-srho_common  # Spearman's rho
 
 # for clayton
 copC<-claytonCopula(3)
-parC<-iTau(copC,tau=ktau)
+parC<-iRho(copC,rho=srho)
 par<-parC
 fam<-3
 
 cop<-BiCopSim(N=(numsteps*numsims), family = fam, par = par)
 
-tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_ktau_",ktau,"_linear",sep="")
+tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_scor_",srho,"_linear",sep="")
 if (!dir.exists(tempo)){
   dir.create(tempo)
 }
@@ -167,14 +152,14 @@ C_age<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg
 saveRDS(C_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
 #---------------------------------------------------------------------------------
 
-# Now for survival clayton : should be the same parameter as of clayton if kendall's tau is the same 
+# Now for survival clayton : should be the same parameter as of clayton if Spearman's rho is the same 
 
 fam<-13
 par<-parC
 
 cop<-BiCopSim(N=(numsteps*numsims), family = fam, par = par)
 
-tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_ktau_",ktau,"_linear",sep="")
+tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_scor_",srho,"_linear",sep="")
 if (!dir.exists(tempo)){
   dir.create(tempo)
 }
@@ -207,7 +192,7 @@ par(op)
 dev.off()
 ```
 
-```{r sim_nonlinear_mtd, echo=F,  cache=T, cache.extra=list(seed,ktau_common,mtime("ext_risk_cop_age_str.R"))}
+```{r sim_nonlinear_mtd, echo=F,  cache=T, cache.extra=list(seed,srho_common,mtime("ext_risk_cop_age_str.R"))}
 # extinction risk with moderate tail dep. for single patch non-linear age structure model
 
 set.seed(seed)
@@ -223,17 +208,17 @@ bshape1<-3
 bshape2<-2
 par_dist<-c(gshape,gscale,bshape1,bshape2)
 omg<-100
-ktau<-ktau_common  # kendall's tau
+srho<-srho_common  # Spearman's rho
 
 # for clayton
 copC<-claytonCopula(3)
-parC<-iTau(copC,tau=ktau)
+parC<-iRho(copC,rho=srho)
 par<-parC
 fam<-3
 
 cop<-BiCopSim(N=(numsteps*numsims), family = fam, par = par)
 
-tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_ktau_",ktau,"_nonlinear",sep="")
+tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_scor_",srho,"_nonlinear",sep="")
 if (!dir.exists(tempo)){
   dir.create(tempo)
 }
@@ -245,14 +230,14 @@ C_age<-sim_age_str(p0=p0,ext_thrs = ext_thrs,cop=cop,par_dist = par_dist,omg=omg
 saveRDS(C_age,paste(resloc,BiCopName(family = fam),"_sim_age_str.RDS",sep=""))
 #---------------------------------------------------------------------------------
 
-# Now for survival clayton : should be the same parameter as of clayton if kendall's tau is the same 
+# Now for survival clayton : should be the same parameter as of clayton if Spearman's rho is the same 
 
 fam<-13
 par<-parC
 
 cop<-BiCopSim(N=(numsteps*numsims), family = fam, par = par)
 
-tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_ktau_",ktau,"_linear",sep="")
+tempo<-paste("./Results/age_str_results/",BiCopName(family=fam),"_par_",par,"_scor_",srho,"_linear",sep="")
 if (!dir.exists(tempo)){
   dir.create(tempo)
 }
@@ -421,7 +406,7 @@ par(op)
 dev.off()
 ```
 
-```{r sim_ricker_scl_1, echo=F,  cache=T, cache.extra=list(seed,ktau_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_ricker_scl_1, echo=F,  cache=T, cache.extra=list(seed,srho_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
@@ -459,7 +444,7 @@ numsteps<-25
 numlocs<-5
 K<-50
 scl<-1
-ktau<-ktau_common
+srho<-srho_common
 ext_thrs<-K/10
 model<-"ricker"
 
@@ -480,7 +465,7 @@ for(i in c(1:length(rlist))){
     r<- rlist[i]
     params<-c(r,K)
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K,params=params,ext_thrs=ext_thrs,
-                 scl=scl,ktau=ktau,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,srho=srho,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_ricker_local<-abind(res_ricker_local,temp_mat,along = 3)
@@ -506,7 +491,7 @@ for(r in rlist){
     #cat("r=",r,"\n")
     params<-c(r,K)
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K,params=params,ext_thrs=ext_thrs,
-                 scl=scl,ktau=ktau,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,srho=srho,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_ricker_global<-abind(res_ricker_global,temp_mat,along = 3)
@@ -766,7 +751,7 @@ par(op)
 dev.off()
 ```
 
-```{r sim_hassell_scl_1, echo=F,  cache=T, cache.extra=list(seed,ktau_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_hassell_scl_1, echo=F,  cache=T, cache.extra=list(seed,srho_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
@@ -778,7 +763,7 @@ numlocs<-5
 a<-0.5
 b<-100
 scl<-1
-ktau<-ktau_common
+srho<-srho_common
 
 tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
@@ -828,7 +813,7 @@ for(i in c(1:length(rlist))){
     ext_thrs<-K_e/10
     params<-c(r,a,b)
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,ktau=ktau,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,srho=srho,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_hassell_local<-abind(res_hassell_local,temp_mat,along = 3)
@@ -855,7 +840,7 @@ for(r in rlist){
     ext_thrs<-K_e/10
     params<-c(r,a,b)
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,ktau=ktau,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,srho=srho,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_hassell_global<-abind(res_hassell_global,temp_mat,along = 3)
@@ -1065,13 +1050,13 @@ dev.off()
 ```
 
 
-```{r sim_msmith_scl_0.8, echo=F, cache=T, cache.extra=list(seed,ktau_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_msmith_scl_0.8, echo=F, cache=T, cache.extra=list(seed,srho_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
 model<-"msmith"
 scl<-0.8
-ktau<-ktau_common
+srho<-srho_common
 
 tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
@@ -1128,7 +1113,7 @@ for(i in c(1:length(rlist))){
     K_e<-((r-1)^(1/b))/a
     ext_thrs<-K_e/10
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,ktau=ktau,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,srho=srho,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_msmith_local<-abind(res_msmith_local,temp_mat,along = 3)
@@ -1155,7 +1140,7 @@ for(r in rlist){
     K_e<-((r-1)^(1/b))/a
     ext_thrs<-K_e/10
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,ktau=ktau,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,srho=srho,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_msmith_global<-abind(res_msmith_global,temp_mat,along = 3)
@@ -1392,13 +1377,13 @@ r_bf_pennycuick<-rlist[which.min(abs(res_pennycuick-fp))]
 #formatC(rc_pen_uns,digits = 14, format="f") 
 ```
 
-```{r sim_pennycuick_scl_1, echo=F, cache=T, cache.extra=list(seed,ktau_common,a_pennycuick,b_pennycuick,rc_pennycuick,r_bf_pennycuick,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_pennycuick_scl_1, echo=F, cache=T, cache.extra=list(seed,srho_common,a_pennycuick,b_pennycuick,rc_pennycuick,r_bf_pennycuick,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
 model<-"pennycuick"
 scl<-1
-ktau<-ktau_common
+srho<-srho_common
 
 tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
@@ -1451,7 +1436,7 @@ for(i in c(1:length(rlist))){
     K_e<-(b/a)*(a+log(r-1))
     ext_thrs<-K_e/10
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,ktau=ktau,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,srho=srho,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_pennycuick_local<-abind(res_pennycuick_local,temp_mat,along = 3)
@@ -1477,7 +1462,7 @@ for(r in rlist){
     K_e<-(b/a)*(a+log(r-1))
     ext_thrs<-K_e/10
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=K_e,params=params,ext_thrs=ext_thrs,
-                 scl=scl,ktau=ktau,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,srho=srho,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_pennycuick_global<-abind(res_pennycuick_global,temp_mat,along = 3)
@@ -1673,13 +1658,13 @@ par(op)
 dev.off()
 ```
 
-```{r sim_verhulst_scl_0.6, echo=F,  cache=T, cache.extra=list(seed,ktau_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_verhulst_scl_0.6, echo=F,  cache=T, cache.extra=list(seed,srho_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
 model<-"verhulst"
 scl<-0.6
-ktau<-ktau_common
+srho<-srho_common
 
 tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
@@ -1736,7 +1721,7 @@ for(i in c(1:length(rlist))){
     params<-c(r,K)
     
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
-                 scl=scl,ktau=ktau,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,srho=srho,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_verhulst_local<-abind(res_verhulst_local,temp_mat,along = 3)
@@ -1761,7 +1746,7 @@ for(r in rlist){
     params<-c(r,K)
     
     ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
-                 scl=scl,ktau=ktau,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
+                 scl=scl,srho=srho,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
     
     temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
     res_verhulst_global<-abind(res_verhulst_global,temp_mat,along = 3)
@@ -1956,13 +1941,13 @@ par(op)
 dev.off()
 ```
 
-```{r sim_abrewer_scl_0.6, echo=F,  cache=T, cache.extra=list(seed,ktau_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
+```{r sim_abrewer_scl_0.6, echo=F,  cache=T, cache.extra=list(seed,srho_common,mtime("mydispersal.R"),mtime("ExtremeTailDep.R"))}
 set.seed(seed)
 source("mydispersal.R")
 
 model<-"austinbrewer"
 scl<-0.6
-ktau<-ktau_common
+srho<-srho_common
 
 tempo<-paste("./Results/",model,"_scl_",scl,sep="")
 if (!dir.exists(tempo)){
@@ -2020,7 +2005,7 @@ for(i in c(1:length(rlist))){
   ext_thrs<-p0/10
   
   ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
-               scl=scl,ktau=ktau,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
+               scl=scl,srho=srho,model=model,disp_everywhere=F,plotteron = F,resloc=resloc, getacf=F)
   
   temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
   res_abrewer_local<-abind(res_abrewer_local,temp_mat,along = 3)
@@ -2047,7 +2032,7 @@ for(r in rlist){
   ext_thrs<-p0/10
   
   ss<-varying_d(numsims=numsims,numsteps=numsteps,numlocs=numlocs,p0=p0,params=params,ext_thrs=ext_thrs,
-               scl=scl,ktau=ktau,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
+               scl=scl,srho=srho,model=model,disp_everywhere=T,plotteron = F,resloc=resloc, getacf=F)
   
   temp_mat<-cbind(ss$d_seq,ss$risk_xleft,ss$risk_xright,ss$risk_mleft,ss$risk_mright)
   res_abrewer_global<-abind(res_abrewer_global,temp_mat,along = 3)
@@ -2877,14 +2862,14 @@ with examples of available copula families
 from `R` packages (`copula` and `VineCopula`). We used bivariate Clayton 
 copula to model moderate left-tail and Survival Clayton copula to model 
 moderate right-tail association in the vital rates. Both copulae had the same Kendall 
-correlation ($\tau =$ `r ktau_common`) but opposite association in their respective tails. 
+correlation ($\rho =$ `r srho_common`) but opposite association in their respective tails. 
 We generated a $N \times 2$ matrix, M, for each of the left (Clayton) and 
 right (Survival Clayton) tail associated bivariate copulas (see `BiCopSim` function from
 `VineCopula` package ), where $N$ is number of years ($=25$) multiplied 
 by number of simulations ($=10000$) we used. 
 We chose parameters for each copula family using 
-`iTau` function from `copula` package so that both copula had
-same Kendall's correlation ($\tau =$ `r ktau_common`). Entries within each column of
+`iRho` function from `copula` package so that both copula had
+same Kendall's correlation ($\rho =$ `r srho_common`). Entries within each column of
 matrix $M$, then became independent of each other but 
 entries between columns had a specific tail association
 with positive Kendall's correlation. 
@@ -2912,7 +2897,7 @@ the stochastic projrction matrix in model (\ref{eq_age_str}).
 
 For moderately left-tail associated 
 noises we drew points from a $n$ dimensional 
-Clayton copula with same Kendall correlation ($\tau =$ `r ktau_common`) between
+Clayton copula with same Kendall correlation ($\rho =$ `r srho_common`) between
 any two out of $n$ patches and made 
 the marginals normal with zero mean and standard deviation $\sigma$ 
 (see the specified value $\sigma$ for each model in 3$^{rd}$ 

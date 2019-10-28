@@ -94,8 +94,21 @@ popsim_ml_D<-function(p0,ns,D,params,ext_thrs,model){
       r<-params[1]
       K<-params[2]
       L<-params[3]
-      lam_malthus<-r*res[,,tct]*(K-res[,,tct]+(L*log(res[,,tct])))
+      
+      x1<-res[,,tct]
+      id0<-which(x1==0,arr.ind = T)
+      idp<-which(x1!=0,arr.ind = T)
+      
+      x2<-x1
+      
+      x2[idp]<-r*x1[idp]*(K-x1[idp]+(L*log(x1[idp])))
+      x2[id0]<-0 # just to ensure extinct value
+      
+      #lam_malthus<-r*res[,,tct]*(K-res[,,tct]+(L*log(res[,,tct])))
+      lam_malthus<-x2
+      
       res[,,tct+1]<-lam_malthus*lam_sto #numsims by numlocs matrix
+      
     }else if(model=="austinbrewer"){
       r<-params[1]
       K<-params[2]
@@ -173,13 +186,13 @@ get_avg_acf<-function(sims){
 #       6) params : a vector containing model parameters
 #       7) ext_thrs : extinction threshold below which populations go extinct
 #       8) scl : a scaling factor which is multiplied with noise generated
-#       9) ktau : given kendall's tau to generate moderate tail dep. copula
+#       9) srho : given Spearman's rho to generate moderate tail dep. copula
 #       10) model : a character specifying model name
 #       11) ploton : logical(T or F) to get optional plot
 #       12) resloc : location to save plots
 #       13) getacf : these are tags
 
-plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,ktau,model,ploton,resloc,getacf){
+plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,srho,model,ploton,resloc,getacf){
   
   # ========================== when noises are extreme tail dep. ========================================
   ns1<-retd(n=numsteps*numsims,d=numlocs,rl=1,mn=0,sdev=1)# a righttail dep matrix(numpoints by numlocs,     
@@ -210,11 +223,10 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,kta
   }
   
   # ========================== when noises have moderate tail dep. ========================================
-  #ktau<-0.6  # kendall's tau
   
   # for clayton : left tail dep.
   copC<-claytonCopula(3)
-  parC<-iTau(copC,tau=ktau)
+  parC<-iRho(copC,rho=srho)
   
   # first generate Clayton copula with dimensions=numlocs
   cc<-claytonCopula(par=parC,dim=numlocs)
@@ -371,7 +383,7 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,kta
 #       5) params : a vector with model parameters
 #       6) ext_thrs extinction threshold below which populations go extinct
 #       7) scl : a scaling factor which is multiplied with noise generated
-#       8) ktau : given kendall's tau to generate moderate tail dep. copula
+#       8) srho : given Spearman's rho to generate moderate tail dep. copula
 #       9) model : a character specifying model name
 #       10) disp_everywhere :logical:
 #             if T : gives D for linear chain model with equal dispersal everywhere
@@ -380,7 +392,7 @@ plotter_ext_risk<-function(numsims,numsteps,numlocs,D,p0,params,ext_thrs,scl,kta
 #       12) resloc : location to save plots
 #       13) getacf : these are tags
 
-varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,ktau,model,disp_everywhere,plotteron,resloc,getacf){
+varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,srho,model,disp_everywhere,plotteron,resloc,getacf){
   risk_xright<-c()
   risk_xleft<-c()
   risk_mright<-c()
@@ -409,7 +421,7 @@ varying_d<-function(numsims,numsteps,numlocs,p0,params,ext_thrs=ext_thrs,scl,kta
     resloc2<-paste(tempo3,"/",sep="")
     
     riskrl<- plotter_ext_risk(numsims=numsims,numsteps=numsteps,numlocs=numlocs,D=D_mat,p0=p0,params=params,
-                              ext_thrs=ext_thrs,scl=scl,ktau=ktau,model=model,ploton=T,resloc=resloc2,getacf=getacf)
+                              ext_thrs=ext_thrs,scl=scl,srho=srho,model=model,ploton=T,resloc=resloc2,getacf=getacf)
     
     risk_xr<-riskrl$risk_xright_after_numsteps
     risk_xl<-riskrl$risk_xleft_after_numsteps
