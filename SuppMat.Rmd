@@ -2629,12 +2629,12 @@ dt1 <- tibble("Models"= c("Ricker",
            "Austin-Brewer")
 )
 
-dt2<-tibble("Density dependence $(\\lambda_t^{i})$ with noise $(\\epsilon_t^{i})$" = c("$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} \\exp[r (1-P_t^{i}/K)$]",
-                          "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} r/(1+aP_t^{i})^b$",
-                          "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} r/[1+(aP_t^{i})^b]$",
-                          "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} r/[1+\\exp \\{-a(1-P_t^{i}/b)\\}]$",
-                          "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} [1+r(1-P_t^{i}/K)]$",
-                          "$\\exp(\\epsilon_t^{i}) \\hspace{0.1 cm} [1+r(K-P_t^{i})\\{1-\\exp(-sP_t^{i})\\}]$"
+dt2<-tibble("Density dependence $(\\lambda_i(t))$ with noise $(\\epsilon_i(t))$" = c("$\\exp(\\epsilon_i(t)) \\hspace{0.1 cm} \\exp[r (1-P_i(t)/K)$]",
+                          "$\\exp(\\epsilon_i(t)) \\hspace{0.1 cm} r/(1+aP_i(t))^b$",
+                          "$\\exp(\\epsilon_i(t)) \\hspace{0.1 cm} r/[1+(aP_i(t))^b]$",
+                          "$\\exp(\\epsilon_i(t)) \\hspace{0.1 cm} r/[1+\\exp \\{-a(1-P_i(t)/b)\\}]$",
+                          "$\\exp(\\epsilon_i(t)) \\hspace{0.1 cm} [1+r(1-P_i(t)/K)]$",
+                          "$\\exp(\\epsilon_i(t)) \\hspace{0.1 cm} [1+r(K-P_i(t))\\{1-\\exp(-sP_i(t))\\}]$"
 ))
 
 dt3<-tibble("\\hspace{-0.1 cm} Parameters used" = c("K = 50, $\\sigma$ = 1",
@@ -2645,7 +2645,7 @@ dt3<-tibble("\\hspace{-0.1 cm} Parameters used" = c("K = 50, $\\sigma$ = 1",
                            "s = 0.2, K = 50, $\\sigma$ = 0.6"
 ))
 
-dt4<-tibble("$P_e^{i}$" = c("K",
+dt4<-tibble("$P_{e}$" = c("K",
                         "$(r^{1/b}-1)/a$",
                         "$[(r-1)^{1/b}]/a$",
                         "$[b\\{a+ln(r-1)\\}]/a$",
@@ -2653,7 +2653,7 @@ dt4<-tibble("$P_e^{i}$" = c("K",
                         "K"
 ))
 
-dt5<-tibble("$r_c^{i}$" = c(rc_ricker,
+dt5<-tibble("$r_{c}$" = c(rc_ricker,
                         rc_hassell,
                         rc_msmith,
                         rc_pennycuick,
@@ -2661,7 +2661,7 @@ dt5<-tibble("$r_c^{i}$" = c(rc_ricker,
                         rc_abrewer
 ))
 
-dt6<-tibble("$r_{bf}^{i}$" = c(r_bf_ricker,
+dt6<-tibble("$r_{bf}$" = c(r_bf_ricker,
                            r_bf_hassell,
                            r_bf_msmith,
                            r_bf_pennycuick,
@@ -2700,7 +2700,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Ricker metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of tail association in environmental noises on extinction risk for Ricker metapopulation model with local dispersal.]{Effect of tail association in environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Ricker dynamics with local dispersal; 
 standard deviation $\sigma$=1 was used to generate extreme extreme tail dependent noises for 10000 simulations. \label{fig_ricker_risk_local_disp_scl_1}}
 \end{center}
@@ -2711,7 +2711,7 @@ standard deviation $\sigma$=1 was used to generate extreme extreme tail dependen
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/hassell_scl_1/hassell_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Hassell metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of tail association in environmental noises on extinction risk for Hassell metapopulation model with local dispersal.]{Effect of tail association in environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Hassell dynamics with local dispersal; 
 standard deviation $\sigma$=1 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_hassell_risk_local_disp_scl_1}}
 \end{center}
@@ -2722,9 +2722,8 @@ standard deviation $\sigma$=1 was used to generate extreme tail dependent noises
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Maynard smith metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
-for $5$ metapopulation patches which followed Maynard Smith dynamics with local dispersal; 
-standard deviation $\sigma$=0.8 was used to generate extreme tail dependent noises for 10000 simulations.. \label{fig_msmith_risk_local_disp_scl_0.8}}
+\caption[Effect of tail association in environmental noises on extinction risk for Maynard smith metapopulation model with local dispersal.]{Effect of tail association in environmental noises on extinction risk (calculated after 25 years) for $5$ metapopulation patches which followed Maynard Smith dynamics with local dispersal; 
+standard deviation $\sigma$=0.8 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_msmith_risk_local_disp_scl_0.8}}
 \end{center}
 \end{figure}
 
@@ -2733,7 +2732,7 @@ standard deviation $\sigma$=0.8 was used to generate extreme tail dependent nois
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Pennycuick metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of tail association in environmental noises on extinction risk for Pennycuick metapopulation model with local dispersal.]{Effect of tail association in environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Pennycuick dynamics with local dispersal; 
 standard deviation $\sigma$=1 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
 \end{center}
@@ -2744,7 +2743,7 @@ standard deviation $\sigma$=1 was used to generate extreme tail dependent noises
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Verhulst metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
+\caption[Effect of tail association in environmental noises on extinction risk for Verhulst metapopulation model with local dispersal.]{Effect of tail association in environmental noises on extinction risk (calculated after 25 years)
 for $5$ metapopulation patches which followed Verhulst dynamics with local dispersal; 
 standard deviation $\sigma$=0.6 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
 \end{center}
@@ -2755,8 +2754,7 @@ standard deviation $\sigma$=0.6 was used to generate extreme tail dependent nois
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Effect of extreme tail-dependent environmental noises on extinction risk for Austin-Brewer metapopulation model with local dispersal.]{Effect of extreme tail-dependent environmental noises on extinction risk (calculated after 25 years)
-for $5$ metapopulation patches which followed Austin-Brewer dynamics with local dispersal; 
+\caption[Effect of tail association in environmental noises on extinction risk for Austin-Brewer metapopulation model with local dispersal.]{Effect of tail association in environmental noises on extinction risk (calculated after 25 years) for $5$ metapopulation patches which followed Austin-Brewer dynamics with local dispersal; 
 standard deviation $\sigma$=0.6 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
@@ -2861,7 +2859,7 @@ a brief introduction of "copulas" and their relation to tail associations, symme
 with examples of available copula families 
 from `R` packages (`copula` and `VineCopula`). We used bivariate Clayton 
 copula to model moderate left-tail and Survival Clayton copula to model 
-moderate right-tail association in the vital rates. Both copulae had the same Kendall 
+moderate right-tail association in the vital rates. Both copulae had the same Spearman 
 correlation ($\rho =$ `r srho_common`) but opposite association in their respective tails. 
 We generated a $N \times 2$ matrix, M, for each of the left (Clayton) and 
 right (Survival Clayton) tail associated bivariate copulas (see `BiCopSim` function from
@@ -2869,10 +2867,10 @@ right (Survival Clayton) tail associated bivariate copulas (see `BiCopSim` funct
 by number of simulations ($=10000$) we used. 
 We chose parameters for each copula family using 
 `iRho` function from `copula` package so that both copula had
-same Kendall's correlation ($\rho =$ `r srho_common`). Entries within each column of
+same Spearman correlation ($\rho =$ `r srho_common`). Entries within each column of
 matrix $M$, then became independent of each other but 
 entries between columns had a specific tail association
-with positive Kendall's correlation. 
+with positive Spearman correlation. 
 
 <!--some more stuff from the main text-->
 
@@ -2897,7 +2895,7 @@ the stochastic projrction matrix in model (\ref{eq_age_str}).
 
 For moderately left-tail associated 
 noises we drew points from a $n$ dimensional 
-Clayton copula with same Kendall correlation ($\rho =$ `r srho_common`) between
+Clayton copula with same Spearman correlation ($\rho =$ `r srho_common`) between
 any two out of $n$ patches and made 
 the marginals normal with zero mean and standard deviation $\sigma$ 
 (see the specified value $\sigma$ for each model in 3$^{rd}$ 
@@ -2911,16 +2909,16 @@ Appendix \ref{SM-extr_tail_dep}.
 # Stability analysis of deterministic metapopulation models  \label{model_stability}
 
 First, we will briefly discuss about the stability analysis for a difference 
-equation which is frequently used in population ecology model. Let's say, $P_{t+1} = F(P_t,r)$
+equation which is frequently used in population ecology model. Let's say, $P(t+1) = F(P(t),r)$
 represents the model dynamics of a single population $P$ which progress recursively via 
 a nonlinear density-dependence function $F$ with discrete time variable $t$. $r$ is the model parameter 
 which plays major role in assessing the model's dynamical stability. Fixed-point analysis can
 be used to get information about this type of nonlinear difference equation. The idea is to
 employ the concept that the system at fixed point (or equilibrium $P_e$) does not change with time 
-(i.e. $P_{t+1} = P_t$). Given a tiny perturbation from its equilibrium $P_e$, if the system 
-returns to its original state, then $P_e$ is called to be a stable equilibrium, otherwise unstable.
+(i.e. $P(t+1) = P(t)$). Given a tiny perturbation from its equilibrium $P_e$, if the system 
+returns to its initial state, then $P_e$ is called to be a stable equilibrium, otherwise unstable.
 Mathematically, from standard linear stability analysis we can say an equilibrium is locally 
-asymptotically stable if $| {F}' | < 1$, where ${F}' = \left( \frac{\mathrm{d}F }{\mathrm{d} P} \right) _{P_t=P_e}$.
+asymptotically stable if $| {F}' | < 1$, where ${F}' = \left( \frac{\mathrm{d}F }{\mathrm{d} P} \right) _{P(t)=P_e}$.
 If the approach towards its equilibrium is monotonic (when $0<{F}'<1$), the dynamics is said to be
 in under-compensatory regime. An over-compensatory dynamics means the approach towards its stable equlibrium
 is oscillatory ($-1<{F}'<0$). Following we will describe stability condition of the model dynamics considered for each 
@@ -2931,7 +2929,7 @@ stock and recruitment of salmon populations, is a classic
 discrete population model 
 and frequently used in fisheries management problem. The model dynamics
 is represented as 
-$P_{t+1}=F(P_t,r,K)=P_t \exp[r(1-P_t/K)]$, where $P$ is the population density, $r>0$ is the intrinsic 
+$P(t+1)=F(P(t),r,K)=P(t) \exp[r(1-P(t)/K)]$, where $P$ is the population density, $r>0$ is the intrinsic 
 growth rate and $K>0$ is the carrying capacity. There are two equilibrium states ($P_e = 0, K$).
 The equilibrium at ($P_e = 0$) is unstable as ${F}' = \exp(r) > 1$ for a positive $r$ and considered 
 as the extinction equilibrium 
@@ -2944,7 +2942,7 @@ as $r_c$, the critical point where system goes from under- to over-compensatory 
 $r=2$ as $r_{bf}$ where bifurcation (transition from stable to unstable equilibrium) occurs.
 
 **Hassell model** [@hassell1975density; @may1976bifurcations], motivated for modelling insect populations,
-can be represented as $P_{t+1} = F(P_t,r,a,b)=rP_t/(1+aP_t)^b$, where $r>0$ is the intrinsic growth rate 
+can be represented as $P(t+1) = F(P(t),r,a,b)=rP(t)/(1+aP(t))^b$, where $r>0$ is the intrinsic growth rate 
 of population density $(P)$. $a$ and $b$ are the other positive parameters. If $b=1$, it reduces to
 Beverton-Holt model [@beverton2012dynamics] used in fisheries. In general, if $b \sim 1$,
 then we say that there is contest and $F$ will saturate eventually at a finite
@@ -2959,7 +2957,7 @@ Hopf bifurcation occurs at $r_{bf} = [b/(b-2)]^b$, so if $r>r_{bf}$, $P_e=P^\sta
 becomes unstable equilibrium.
 
 **Maynard Smith model** [@cohen1995unexpected; @maynard1978models; @may1976bifurcations] follows the dynamics 
-$P_{t+1}=F(P_t,r,a,b)=rP_t/[1+(aP_t)^b]$. $r$ is the growth rate, $a, b$ are the parameters with positive values.
+$P(t+1)=F(P(t),r,a,b)=rP(t)/[1+(aP(t))^b]$. $r$ is the growth rate, $a, b$ are the parameters with positive values.
 Equilibriums are: $P_e=0$(as expected extinction equilibrium) and $P_e = P^\star=\frac{1}{a}(r-1)^{1/b}$.
 For a positive equilibrium value of $P^\star$, $r$ must be greater than $1$. This $P^\star$ will be stable
 in under-compensatory regime for $1<r<r_c(=b/(b-1))$ and in over-compensatory regime for $r_c<r<b/(b-2)$.
@@ -2975,7 +2973,7 @@ expected through the change
 in total population density. 
 A two population variant could also be possible
 in prey-predator perspective as indicated in [@pennycuick1968computer].
-In general, model dynamics is expressed as $P_{t+1}=F(P_t,r,a,b)=rP_t/[1+\exp \left\{-a(1-P_t/b)\right\}]$, where 
+In general, model dynamics is expressed as $P(t+1)=F(P(t),r,a,b)=rP(t)/[1+\exp \left\{-a(1-P(t)/b)\right\}]$, where 
 $r$ is the intrinsic growth rate and $a>0,b>0$ are the model parameters. Model
 equilibriums are 
 $P_e=0$ (extinction equilibrium) and $P_e=P^\star=\frac{b}{a}[a+\ln{(r-1)}]$. For 
@@ -2987,7 +2985,7 @@ by numerical solution of ${F}'=0$ and ${F}'=-1$ at $P_e=P^{\star}$, respectively
 
 **Verhulst model** [@cohen1995unexpected; @may1976bifurcations] is a discrete time difference 
 representation of logistic growth of non-human biological population and can be written 
-as $P_{t+1} = F(P_t,r,K) =P_t[1+r(1-P_t/K)]$, wirh $r>0$ and $K>0$ being growth rate and carrying capacity, respectively. 
+as $P(t+1) = F(P(t),r,K) =P(t)[1+r(1-P(t)/K)]$, with $r>0$ and $K>0$ being growth rate and carrying capacity, respectively. 
 Model equilibrium $P_e=0$ is always unstable whereas $P_e=K$ is stable below Hopf-bifurcation 
 point $r_{bf}(=2)$. Model at stable equilibrium ($P_e=K$) lies in the under-compensatory regime when $0<r<r_c$
 and in over-compensatory regime when $rc<r<r_{bf}$ with $r_c$ being equal to 1.
@@ -2995,7 +2993,7 @@ and in over-compensatory regime when $rc<r<r_{bf}$ with $r_c$ being equal to 1.
 **Austin-Brewer model** [@austin1971world; @cohen1995unexpected], unlike from the first
 five models we considered,
 is used to model growth of human population. It follows the
-discrete dynamics : $P_{t+1} = F(P_t,r,K,s)= P_t[1+r(K-P_t) \left\{ 1-\exp (-sP_t)\right\}]$, where
+discrete dynamics : $P(t+1) = F(P(t),r,K,s)= P(t)[1+r(K-P(t)) \left\{ 1-\exp (-sP(t))\right\}]$, where
 $r, K, s$ are positive, representing growth rate, carrying capacity 
 and model parameter, respectively.
 Usual extinction equilibrium is $P_e=0$. The other
