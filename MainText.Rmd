@@ -100,10 +100,10 @@ stochasticity in the form of spatially correlated weather conditions is
 probably the dominant synchronizing mechanism (ref: Nature1998) but what about taildep. effect on extrisk?.-->
 
 <!--ECEs have impacts in the spatial context as well-->
-ECEs also have impacts in ecological scenarios for which spatial dynamics are
+ECEs also have impacts in ecological contexts for which spatial dynamics are
 important.
 In the metapopulation context, spatial synchrony of population dynamics, which can
-be caused by spatial synchrony of climatic fluctuations, is linked to metapopulation
+be caused by spatial synchrony of climatic fluctuations [@Liebhold2004], is linked to metapopulation
 extinction risk [@hanski1998metapopulation; @earn2000coherence].
 If ECEs are also spatially more extensive than moderate events,
 as seems likely for some types of events, extreme events may accentuate
@@ -141,17 +141,21 @@ measured in different places [@Serinaldi2008; @li2013; @She2018; @Goswami2018].
 Asymmetric tail associations have also been documented between numerous ecological
 variables and between environmental and ecological variables [@Ghosh_copula].
 
+<!--***DAN: maybe you want to have a Discussion para on copulas. It could start with
+some text about ranks being the proper way to study associations, and then could go
+on to link to copulas and cite BIVAN-->
+
 <!--ECEs probably produce tail associations-->
-There are reasons to believe that ECEs may produce asymmetric tail 
+There are reasons to hypothesize that ECEs may produce asymmetric tail 
 associations between climatic variables
 measured in different locations. For instance, if a single ECE is associated
 with spatially widespread, large values 
 of some climatic variable, but small values of the
 variable are associated with local weather rather than ECEs, the result could
-be stronger right-tail association between measurements of the climatic variable
-made in different locations, through time.
+be stronger right-tail association, through time, between measurements of the climatic variable
+made in different locations.
 For example, rainstorms which deposit exceptionally large amounts of rain
-may do so over large areas; but months with less rain may experience
+may do so over large areas; but periods with less rain may experience
 scattered showers only, which may be much less correlated across locales.
 
 <!--***DAN: May be scope for a discussion para linking what is known about
@@ -170,7 +174,7 @@ very bad years for component populations would occur at the same time in
 many patches, reducing the potential for rescue effects. Greater right-tail associations
 would probably not have the same effect, even if overall correlations between locations
 were the same, because in that case it would be very good years for the component 
-populations that would occur at the same time in many patches [@Ghosh_copula]. 
+populations that would occur at the same time in many patches. 
 @Ghosh_copula substantiated this intuition by showing that it held true for a 
 modeling setup using a spatial version of a very simple non-density-dependent
 population growth model (the Lewontin-Cohen model). In essence, if environmental
@@ -178,7 +182,7 @@ population growth model (the Lewontin-Cohen model). In essence, if environmental
 spatially synchronized it should create much greater metapopulation extinction 
 risk than if "bonanzas" (i.e., extremely good years) are widely synchronized, even
 if overall (non-tail-specific) levels of environmental synchrony are the same
-in both these cases. The present study extends tests of this idea to metapopulation
+in both these scenarios. The present study extends tests of this idea to metapopulation
 models incorporating density dependence. 
 
 Extinction risk is also very commonly estimated for age-structured models 
@@ -192,7 +196,7 @@ as the survival and fecundity rates of age classes. Extinction risks may,
 population vital rates. For instance, it seems reasonable to imagine
 a case in which both adult fecundity and juvenile survival rates 
 depend on an environmental variable such as spring rainfall in similar ways, but 
-only when that variable takes very low values. When rainfall takes
+only when that variable takes low values. When rainfall takes
 typical or high values, fecundity and survival may be limited instead 
 by different factors. This could produce left-tail dependence between these 
 vital rates, possibly resulting in different extinction risk for the model
@@ -219,9 +223,10 @@ For Q2, we simulate spatial extensions of several simple and commonly
 used population models. We intentionally use a simulation approach and simple models
 instead of attempting mathematical analysis and/or using models that are more realistic, 
 because our intention here is to provide an initial exploration only of 
-the potential mechanisms outlined above which suggest that
+the potential mechanisms, outlined above, which suggest that
 asymmetries of tail association may make a difference for extinction risks. 
-Some material in the Discussion outlines possible next steps.
+By so doing we hope to open these potentially practically important questions to 
+wider examination other researchers. Some material in the Discussion outlines some possible next steps.
 <!--***DAN: In Discussion need to talk about what analytic results are needed
 to take the next step of determining when tail depencence may make enough of
 a difference to think about. I think our results, together with Tulja's 
@@ -243,8 +248,8 @@ to assess risks in fields such as finance and hydrology
 knowledge asymmetric tail associations have rarely been assessed for their
 importance for extinction risks of populations and species (but see @Ghosh_copula). 
 Our questions are an important step for understanding
-the potential influence of ECEs on extinction risks if ECEs are associated with
-tail dependence in environmental variables. 
+the potential influence of ECEs on extinction risks if ECEs are related to
+tail associations in environmental variables. 
 
 <!--
 How does environmental noises with asymmetric tail association across multiple patches
@@ -262,11 +267,11 @@ extreme left, moderate left, moderate right, extreme right-->
 \begin{figure*}[!h]
 \begin{center}
 \includegraphics[width=15 cm]{./Results/introfig_copula.pdf}
-\caption{Two stochastic quantities can have same Kendall 
+\caption{Two stochastic quantities can have same Spearman 
 correlation, but different degrees of tail association: 
 (A) extreme left-tail association, (B) moderate left-tail association, (C) 
 moderate right-tail association, and (D) extreme right-tail association.
-In all cases, Kendall's $\tau$ was the same, $\tau = 0.75$,
+In all cases, Spearman's $\rho$ was the same, $\rho = 0.875$,
 up to sample variation (the sample correlation for each dataset is displayed
 on its panel). The extreme left-tail (respectively, right-tail) dependent 
 case is perfectly correlated below (respectively, above) the threshold of 0.
@@ -275,28 +280,6 @@ asymmetric tail associations.
 \label{fig_intro_cop}}
 \end{center}
 \end{figure*}
-<!--***DAN: Shyamolina, it occured to be there are simple and good analytic reasons
-why ktau_common is exactly 0.75 (up to sample variation). 
-I bet you will see them too if you look up the
-definition of kendall tau and think about the extreme tail dependent cases. 
-Currently, around line 50 of the sup mat Rmd, you calculate ktau_common
-by simulating 100000 points from the extreme-tail-denepdnece noise and then
-calculating the sample kendall. Instead, can you please replace those lines 
-with the simple line "ktau_common<-0.75"? I would do this myself but I
-don't want to risk messing up your code in some way I don't understand. You should not
-need the seed anymore to ensure you get the same ktau_common on each run
-since you won't be using the sample correlartion anymore to estimate ktau_common,
-you'll just be using the analytic result that the population correlation
-of data from the extreme-tail-dependent algorithm (in the limit of infinite
-sample sizes) is exactly 0.75. Please
-let me know if you do not understand something here.-->
-<!--***DAN: Shyamolina, currently the sample kendalls are the same on A and D, and
-also on B and C, and I know why. This looks weird, and makes the reader
-wonder why this is the case. Rather than plotting the reversed version of the
-data from A on D, and the reversed version of the data from B on C, can you plase
-generate separate, independent data for A and D, and also for B and C? That
-will have the effect of making the sample kendalls on the 4 panels slightly
-different, which will mean readers wont think anything funny is going on.-->
 
 # Methods\label{Methods}
 
@@ -326,27 +309,27 @@ $\Omega$ made the model nonlinear, with density dependence in the adult
 fecundity rate.  
 
 The stochastic quantities $s_e(t)$ and $\tilde{f}_a(t)$ were generated 
-to have the same overall association (Kendall's $\tau$ equal to $0.75$,
+to have the same overall association (Spearman's $\rho$ equal to $0.875$,
 up to sampling variation), but different degrees and types of 
 asymmetry of tail association in different simulations, as follows.
 For a simulation of length $T$, we used methods that can 
 generate $T$ independent pairs $(u(t),v(t))$ for $t=1,\ldots,T$ with
-$\tau=0.75$ (up to sample variation), but with either extreme left-,
+$\rho=0.875$ (up to sample variation), but with either extreme left-,
 moderate left-, moderate right-, or extreme right-tail association 
 (e.g., Fig. \ref{fig_intro_cop}). The methods we used generated
 $(u(t),v(t))$ such that $u(t)$ was uniformly distributed on $(0,1)$,
 and likewise for $v(t)$. We then applied a monotonic transformation
 to the $u(t)$ so that the resulting numbers were distributed according to
 a beta distribution with parameters
-$\alpha=3$ and $\beta=2$ 
-and used those values for the $s_e(t)$. We also applied a (different)
+$\alpha=3$ and $\beta=2$, 
+and we used those values for the $s_e(t)$. We also applied a (different)
 monotonic transformation to the $v(t)$ so that the resulting numbers were
 distributed according to a gamma distribution with parameters $k=2$
-and $\theta=1$ and used those values for the $\tilde{f}_a(t)$. Because
+and $\theta=1$, and we used those values for the $\tilde{f}_a(t)$. Because
 the $u(t)$ and $v(t)$ were uniformly distributed, the inverse 
 cummulative distribution functions of the desired beta and
 gamma distributions were the transformations. Because these
-were monotonic transformations, the Kendall correlation of 
+were monotonic transformations, the Spearman correlation of 
 $s_e(t)$ and $\tilde{f}_a(t)$ was the same as that of 
 $u(t)$ and $v(t)$. The quantities $(u(t),v(t))$ for $t=1,\ldots,T$ were
 generated as described in Appendix \ref{SM-makenoise}.
@@ -360,14 +343,6 @@ went below an extinction threshold (we used a threshold of $2$) within the
 $25$-time-step time horizon. Extinction risk was the fraction of $10000$
 simulations that went extinct.
 
-<!--***DAN: Insert para here talking about in what sense the variables
-$s_e(t)$ and $f_a(t)$ are asymmetrically associated, through time, in their 
-tails. This is where you intro the partial Spearman and may also make references
-to Genest and others indicating that, when you are interested in dependence,
-you want a rank-based notion of association - it's the only thing that
-separates the association from the marginals. I will insert some text now,
-but it won't fit perfectly until after we go through and replace Kendall with
-Spearman throughout.-->
 The variables $u(t)$ and $v(t)$ are visibly asymmetrically tail associated (Fig. \ref{fig_intro_cop}),
 but we have instead used the transformed variables $s_e(t)$ and $\tilde{f}_a(t)$
 in our model. In what sense are $s_e(t)$ and $\tilde{f}_a(t)$ asymmetrically
@@ -376,7 +351,7 @@ that $0 \leq l_b < u_b \leq 1$, and letting $x(t)$ be the rank of
 $u(t)$ in the set $\{u(t) | t=1,\ldots,T\}$ and letting 
 $y(t)$ be the rank of 
 $v(t)$ in the set $\{v(t) | i=1,\ldots,T\}$ (smallest elements
-are defined to have rank 1),
+are here defined to have rank 1),
 consider the portions of the 
 lines $x+y = 2l_b$ and $x+y=2u_b$ which meet with the unit square
 (Fig. \ref{PartialSpearmanFig}). 
@@ -391,20 +366,26 @@ over the $t$ such that $x(t)+y(t) > 2l_b$ and $x(t)+y(t)<2u_b$.
 The partial Spearman correlation is the component of the Spearman
 correlation of $u$ and $v$ which can be attributed to the points
 for which the ranks, $x$ and $y$, lie between the boundary lines
-we defined (Fig. \ref{PartialSpearmanFig}) in
-the unit square. The quantity $\cor_{0,0.5}(u,v)-\cor_{0.5,1}(u,v)$ 
+we defined in
+the unit square (Fig. \ref{PartialSpearmanFig}). 
+The quantity $\cor_{0,0.5}(u,v)-\cor_{0.5,1}(u,v)$ 
 is a way to measure asymmetry of tail associations between
 $u$ and $v$. And this quantity is the same as 
 $\cor_{0,0.5}(s_e,\tilde{f}_a)-\cor_{0.5,1}(s_e,\tilde{f}_a)$, 
 because the partial Spearman correlation, like the Spearman
 correlation itself, is based on ranks. Ranks are the same
 for $u(t)$ and for $s_e(t)$ because these quantities are 
-related by a monotonic transformation (and likewise for 
+related by an increasing monotonic transformation (and likewise for 
 $v(t)$ and $\tilde{f}_a(t)$). Thus, in the sense captured
 by the statistic $\cor_{0,0.5}-\cor_{0.5,1}$, $s_e(t)$
 and $\tilde{f}_a(t)$ have the same asymmetry of tail
 association as the values $u(t)$ and $v(t)$ from which they
-were constructed.
+were constructed. Rank-based approaches to understanding the nature
+of association between variables have been recommended, as such
+approaches are not influenced by the marginal distributions of
+the quantities (e.g., @Genest2007). Marginal distributions contain no information
+about association between variables, as each marginal pertains to
+only one of the variables.
 
 <!--***DAN: Shyamolina, the below commented text makes me wonder if I am misunderstanding something, please
 explain. The part that confuses me is the 2.5th and 97.5th quantile part, what is the meaning
@@ -422,38 +403,41 @@ of $10000$ simulations with the probability of computed extinction risk at each 
 <!--density-dependence metapopulation model-->
 To investigate Q2 from the \nameref{Introduction}, we considered spatialized, stochastic versions
 of six density dependent population models, the Ricker, Hassell, Maynard Smith, Pennycuick, Verhulst, 
-and Austin-Brewer models (@cohen1995unexpected; Table \ref{tab_model_summary}).
+and Austin-Brewer models (Table \ref{tab_model_summary}).
 All models took the general form $\vec{P} (t+1) = D \lambda(t) \vec{P}(t)$,
 where $\vec{P}(t)$ is a vector of population densities, 
 the $i^{\text{th}}$ component $P_i(t)$ representing
 the population density in the $i^{\text{th}}$ habitat patch ($i=1,2,\ldots,n$) at time $t$. 
 The $n \times n$ matrix $\lambda(t)$ was diagonal with $i^{\text{th}}$ diagonal entry 
-$\lambda_i(t)$ depnding on the model used (see Table \ref{tab_model_summary}). The matrix $D$
+$\lambda_i(t)$ depending on the model used (Table \ref{tab_model_summary}). The matrix $D$
 was an $n \times n$ dispersal matrix. For simplicity, 
 we assumed the $n$ habitat patches were arranged, evenly spaced, in a line.
 We considered both "local" and "global" dispersal among patches in different simulations. 
 For local dispersal, a fraction $d$ of 
 each population dispersed during each time step, equally distributed to
 the two or one nearest neighbors. For global dispersal the same fraction $d$ dispersed
-equally to the other $(n-1)$ patches. When $d$ was $0$, dispersal did not occur and 
+equally to the other $n-1$ patches. When $d$ was $0$, dispersal did not occur and 
 rescue effects were not possible.
-Two models that @cohen1995unexpected used were excluded from our analyses because they were not
-readily adapted to our simulation setup: the Varley model,
-which is not continuous;
-<!--***DAN: Shyamolina, looking back at the Cohen paper, using the value C=1 as they used, the
-Varley model *is* continuous. It is not differentiable, but it's not clear to me that 
-non-differentiability means we cannot use the model. Perhaps it does mean that, but I don't see 
-it. Let's discuss. I'm not saying we have to go back and use it, but we may have to justify
-differently why we used 6 of Cohen's models and not the other two.-->
-and the Malthus-Condorcet-Mill model, which employs a logarithm of the population and is therefore
-inconvenient to analyze in the context of extinction.
-<!--***DAN: Unless I am mistaken, the limit of the right hand side of the M-C-M model as
-described by Cohen, as P approaches 0 from the right, is 0. That means the model has
-a removable singularity at 0, i.e., we could just define the model so P_t+1=0 when P_t
-is 0, and we would get a perfectly valid continuous model. This means that using logs is 
-not really a valid reason to not use the models. Let's discuss. I'm not saying we have to go 
-back and use it, but we may have to justify differently why we used 6 of Cohen's models and not 
-the other two.-->
+
+<!--***DAN: Also need to talk about how you selected parameters-->
+We obtained our list of classic population models (which we then spatialized and made 
+stochastic) from @cohen1995unexpected. 
+Model parameters were selected so that varying $r$ across a range, while keeping
+the other selected parameters fixed at selected values for a model, led to a 
+transition from undercompensatory to overcompensatory equilibrium dynamics
+for the deterministic, one-patch versions of the models. Whereas @cohen1995unexpected
+was interested in studying chaotic model behavior and therefore chose parameters
+for which the models exhibited chaotic dynamics, we were interested in non-chaotic model
+behaviors, which seem likely to be more common in real populations. 
+Two models that @cohen1995unexpected 
+used were excluded from our analyses because their functional forms complicated 
+the analyses we wished to perform. First, the equilibrium of the 
+Malthus-Condorcet-Mill model [@cohen1995unexpected] could not be determined 
+analytically, making downstream analysis difficult. Second, for
+the Varley model and for the portions of parameter space we explored, 
+varying $r$ produced no transition from under- to overcompensatory dynamics.
+
+<!--***DAN: got to here-->
 
 We simulated our metapopulation models using environmental noises $\epsilon_i(t)$ (Table \ref{tab_model_summary}), 
 independent through time, that were generated to have the same overall associations 
@@ -477,33 +461,6 @@ the Kendall correlation between $\epsilon_i(t)$ and $\epsilon_j(t)$ was the same
 as that between $u_i(t)$ and $u_j(t)$. The quantities $(u_1(t),\ldots,u_n(t))$
 for $t=1,\ldots,T$ were generated as described in Appendix \ref{SM-makenoise}.
 
-<!--***DAN: Dan is starting to wonder if referees will wonder something like "what 
-happens to tail associations when you do these transformatons." We do not wonder 
-this because we have in mind a defn for tail associations that only depends on ranks,
-but we have not presented that defn. We have instead only given an intuitive description
-of tail association. This may be a problem. Referees will see uf generating data with tail associatons
-and uniform marginals, but then transforming it, and putting the transformed values into 
-our models. And we are confortable with the idea that that transformation does not
-alter the tail associations, but they are not comfortable with that.
-We may need to define tail associations
-using partial Spearman or something, to get this idea across. The problem with that is, 
-we use Kendall throughout
-the rest of the ms, and so if we define partial Spearman that will create an inconsistency
-(using Kendall in some places, Spearman in others) that may raise eyebrows in a short paper 
-like this. Not sure right now what to do anout this, we need to think about it. Can we add a new
-para at the beginnign of methods giving some kind of formal introduction to tail associations
-that makes clear it is something we consider to be for ranks? Without using partial Spearman?
-There is no partial Kendall, since Kendall is based on concordant and discordant pairs.
-An alterntive is to replace Kendall wth Spearman throughout the paper, then go ahead
-and intro partial Spearmn as a way of making it clear tail associaton is for ranks. 
-Is this possible? It would definitely be a pain, so therefore want to avoid unless
-necessary. One thing this would require would be calculating the populaton (not sample) 
-Spearman of the extreme tail associated data. At least we could estimate it very precisely
-using a huge sample (would not have the same problems doing that as we did for Kendall),
-and may even be able to calculate it analytically. Let's just use Spearman and calculate it very
-precisely using a large sample. Well, maybe we could calculate it analytically. 
--->
-
 To calculate extinction risk for a given model and a given choice of tail association,
 we simulated the model for $25$ time steps, $10000$ times, using $n=5$ habitat patches.
 The initial condition $P_e$ was used in each habitat patch ($P_e$ is the equilibrium value of the 
@@ -526,8 +483,6 @@ for each density-dependence model (see 4$^{th}$ column of Table \ref{tab_model_s
 We assumed the population went extinct after each time step if it was below a 
 certain threshold (set to 10\% of the initial population $P_e$ for individual model). 
 -->
-
-<!--***DAN: Dan stopped here on 2019 10 27 until we resolve some of the issues that have come up-->
 
 The models stated in Table \ref{tab_model_summary} had one common 
 feature: they showed undercompensatory
@@ -790,7 +745,7 @@ knitr::kable(dt, escape=F,
 <!--***DAN: Shyamolina, in this table and in the sup mat (and anywhere else where this comment applies),
 please replace the notation P^i_t and \epsilon^i_t by P_i(t) and \epsilon_i(t), the reason being,
 putting an i in the superscript makes it look like and exponent. This is legitimately confusing because
-we use lots of other exponents. I want you to generally refrain from placing the abitat patch index in the
+we use lots of other exponents. I want you to generally refrain from placing the habitat patch index in the
 superscript, putting in the subscript instead. This means you have to put the t in parens in front of the
 variable in question, instead of in the subscript. This will require several changes to this table. Please
 make those changes and then commit. Then please make the corresponding changes to the sup mat, whereever needed.-->
