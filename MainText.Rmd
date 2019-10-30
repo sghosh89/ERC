@@ -419,25 +419,34 @@ the two or one nearest neighbors. For global dispersal the same fraction $d$ dis
 equally to the other $n-1$ patches. When $d$ was $0$, dispersal did not occur and 
 rescue effects were not possible.
 
-<!--***DAN: Also need to talk about how you selected parameters-->
 We obtained our list of classic population models (which we then spatialized and made 
-stochastic) from @cohen1995unexpected. 
-Model parameters were selected so that varying $r$ across a range, while keeping
-the other selected parameters fixed at selected values for a model, led to a 
-transition from undercompensatory to overcompensatory equilibrium dynamics
-for the deterministic, one-patch versions of the models. Whereas @cohen1995unexpected
+stochastic, as above) from @cohen1995unexpected. 
+Model parameters were selected so that varying the growth parameter, $r$, across a 
+range, while keeping the other parameters fixed at selected values, 
+caused the  deterministic, one-patch versions of the models to transition from dynamics
+showing an undercompensatory (i.e., monotonic) approach to an equilibrium; to
+dynamics showing an overcompensatory (i.e., oscillatory) approach to an equilibrium. 
+The transition value of $r$ was denoted $r_c$. Appendix \ref{SM-model_stability}
+summarizes stability analyses of the models.
+Whereas @cohen1995unexpected
 was interested in studying chaotic model behavior and therefore chose parameters
-for which the models exhibited chaotic dynamics, we were interested in non-chaotic model
+for which the models exhibited chaotic dynamics, we were interested in non-chaotic 
 behaviors, which seem likely to be more common in real populations. 
 Two models that @cohen1995unexpected 
 used were excluded from our analyses because their functional forms complicated 
 the analyses we wished to perform. First, the equilibrium of the 
 Malthus-Condorcet-Mill model [@cohen1995unexpected] could not be determined 
-analytically, making downstream analysis difficult. Second, for
+analytically, making downstream analyses difficult for that model. Second, for
 the Varley model and for the portions of parameter space we explored, 
 varying $r$ produced no transition from under- to overcompensatory dynamics.
 
-<!--***DAN: got to here-->
+<!--***DAN: By the way, Shyamolina, these are not Hopf bifuractions - those cannot happen
+with univariate models like these. These are called period-doubling bifucations.
+If $r$ became too high and exceeded $r_{bf}$ - the parameter value responsible for Hopf-bifurcation -
+model equilibrium $P_e$ became unstable. Beyond the Hopf-bifurcation point, the model showed sustained
+oscillation and eventually led to chaos with increasing $r$. Appendix \ref{SM-model_stability}
+summarized the stability analysis of each model in their deterministic form.
+-->
 
 We simulated our metapopulation models using environmental noises $\epsilon_i(t)$ (Table \ref{tab_model_summary}), 
 independent through time, that were generated to have the same overall associations 
@@ -458,13 +467,14 @@ for all $i$. This was
 accomplished with the inverse cummulative distribution function of the normal distribution
 with mean $0$ and standard deviation $\sigma$. Because this was a monotonic transformation,
 the Spearman correlation between $\epsilon_i(t)$ and $\epsilon_j(t)$ was the same 
-as that between $u_i(t)$ and $u_j(t)$. The quantities $(u_1(t),\ldots,u_n(t))$
+as that between $u_i(t)$ and $u_j(t)$; likewise partial Spearman correlations were the same. 
+The quantities $(u_1(t),\ldots,u_n(t))$
 for $t=1,\ldots,T$ were generated as described in Appendix \ref{SM-makenoise}.
 
 To calculate extinction risk for a given model and a given choice of tail association,
 we simulated the model for $25$ time steps, $10000$ times, using $n=5$ habitat patches.
 The initial condition $P_e$ was used in each habitat patch ($P_e$ is the equilibrium value of the 
-one-patch, deterministic version of the model, see Table \ref{tab_model_summary}).
+one-patch, deterministic version of the model, Table \ref{tab_model_summary}).
 After each time step, if $P_i(t)$ was less than $P_e/10$ then it was set to $0$.
 The whole metapopulation was considered to have gone extinct if all patches were $0$
 a time step $25$.
@@ -484,22 +494,14 @@ We assumed the population went extinct after each time step if it was below a
 certain threshold (set to 10\% of the initial population $P_e$ for individual model). 
 -->
 
-The models stated in Table \ref{tab_model_summary} had one common 
-feature: they showed undercompensatory
-dynamics (monotonic approach towards stable steady state $P_e$) when
-growth parameter $r$ remained below a critical 
-level (say, $r_c$) and overcompensatory dynamics with oscillatory approach 
-towards stable equilibrium $P_e$ when $r$ was beyond $r_c$. 
-If $r$ became too high and exceeded $r_{bf}$ - the parameter value responsible for Hopf-bifurcation -
-model equilibrium $P_e$ became unstable. Beyond the Hopf-bifurcation point, the model showed sustained
-oscillation and eventually led to chaos with increasing $r$. Appendix \ref{SM-model_stability}
-summarized the stability analysis of each model in their deterministic form.
+<!--**DAN: got to here 2019 10 29-->
 
 <!--test hypothesis from Q2 : ext risk with density-dependence metapopulation model with r from different regime-->
-To answer (Q2) of \nameref{Introduction} for each metapopulation model,
-we estimated extinction risk for a wide range of parameter $r$ 
-that covered the undercompensatory and overcompensatory regime. We 
-chose equispaced values of $r$ from the 95\% quantiles 
+To answer (Q2) of the \nameref{Introduction} for each metapopulation model,
+we estimated extinction risk of each model using each form of tail 
+association in the environmental noise,
+across the range of $r$ indicated above that spanned under- and overcompensatory dynamics.
+We chose equispaced values of $r$ from the 95\% quantiles 
 of possible range ($r_{min},r_{bf}$), where $r_{min}$ was the minimum value of $r$ 
 to get a positive, finite equilibrium $P_e$ (for details, see Appendix 
 \ref{SM-model_stability}) to start with (at $t=0$). For each chosen $r$,
@@ -738,19 +740,11 @@ library(dplyr)
 dt<-readRDS("./Results/tab_model_summary.RDS")
 knitr::kable(dt, escape=F,
              format="latex",digits=3, align="c",table.env='table*',
-             caption = "Summary of six density dependence metapopulation models considered for each patch; last three columns indicate equilibrium population value ($P_{e}$), critical growth rate ($r_{c}$ : transition point from under- to over-compensatory dynamics of deterministic models) and bifurcation parameter ($r_{bf}$ : transition point from stable to unstable equilibrium of deterministic models), respectively. Subscript $i=1,2,...,n$ indicates index for $i^{th}$ patch.\\label{tab_model_summary}",
+             caption = "Summary of the six density-dependent stochastic metapopulation models we used. The population growth rate in habitat patch $i$ at time $t$, $\\lambda_i(t)$ (second column), is $P_i(t+1)/P_i(t)$, where $P_i(t)$ is the population in patch $i$ as time $t$. The growth rate depends on model parameters, $P_i(t)$, and the environment $\\epsilon_i(t)$ in patch $i$ at time $t$. $\\epsilon_i(t)$ was normally distributed with mean $0$ and standard deviation $\\sigma$, and values were generated independently across times. $P_e$ is the equilibrium of the deterministic, one-patch version of the model. $r_c$ is the value of $r$ for which a transition occurs from under- to overcompensatory dynamics (see main text). $r_{bf}$ is the value of $r$ for which a transition occurs from a stable to an unstable equilbrium (a bifurcation). We use only $r<r_{bf}$. Dispersal between patches was also implemented as described in the main text.\\label{tab_model_summary}",
              booktabs=T, linesep = "\\addlinespace"
              )%>%column_spec(c(1,3,5,6),width="1.4 cm")%>%kable_styling(latex_options = "basic",position = "center")%>%column_spec(2, width = "3.8 cm")
 ```
-<!--***DAN: Shyamolina, in this table and in the sup mat (and anywhere else where this comment applies),
-please replace the notation P^i_t and \epsilon^i_t by P_i(t) and \epsilon_i(t), the reason being,
-putting an i in the superscript makes it look like and exponent. This is legitimately confusing because
-we use lots of other exponents. I want you to generally refrain from placing the habitat patch index in the
-superscript, putting in the subscript instead. This means you have to put the t in parens in front of the
-variable in question, instead of in the subscript. This will require several changes to this table. Please
-make those changes and then commit. Then please make the corresponding changes to the sup mat, whereever needed.-->
-<!--***DAN: Dan, once Shyamolina does the above, you will then have to go back and edit this table in various
-ways that you cannot do until after that change is made.-->
+<!--***DAN: Shyamolina, can you please make the header of the second column read simply \lambda_i(t)?-->
 
 \clearpage
 
