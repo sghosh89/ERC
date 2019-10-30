@@ -272,7 +272,7 @@ correlation, but different degrees of tail association:
 (A) extreme left-tail association, (B) moderate left-tail association, (C) 
 moderate right-tail association, and (D) extreme right-tail association.
 In all cases, Spearman's $\rho$ was the same, $\rho = 0.875$,
-up to sample variation (the sample correlation for each dataset is displayed
+up to sampling variance (the sample correlation for each dataset is displayed
 on its panel). The extreme left-tail (respectively, right-tail) dependent 
 case is perfectly correlated below (respectively, above) the threshold of 0.
 See Methods for information on how bivariate noise was generated with
@@ -280,6 +280,9 @@ asymmetric tail associations.
 \label{fig_intro_cop}}
 \end{center}
 \end{figure*}
+<!--***DAN: Shyamolina, you put a negative sign in front of the Spearman correlations
+on the C and D panels, but that is erroneous. The Spearman correlations are positive
+in all four cases! Please fix!-->
 
 # Methods\label{Methods}
 
@@ -310,11 +313,11 @@ fecundity rate.
 
 The stochastic quantities $s_e(t)$ and $\tilde{f}_a(t)$ were generated 
 to have the same overall association (Spearman's $\rho$ equal to $0.875$,
-up to sampling variation), but different degrees and types of 
+up to sampling variance), but different degrees and types of 
 asymmetry of tail association in different simulations, as follows.
 For a simulation of length $T$, we used methods that can 
 generate $T$ independent pairs $(u(t),v(t))$ for $t=1,\ldots,T$ with
-$\rho=0.875$ (up to sample variation), but with either extreme left-,
+$\rho=0.875$ (up to sampling variance), but with either extreme left-,
 moderate left-, moderate right-, or extreme right-tail association 
 (e.g., Fig. \ref{fig_intro_cop}). The methods we used generated
 $(u(t),v(t))$ such that $u(t)$ was uniformly distributed on $(0,1)$,
@@ -339,9 +342,10 @@ To calculate extinction risk for a given $\Omega$ and choice of tail dependence,
 we simulated the model for $25$ time steps, $10000$ times,
 each simulation starting from $E(t)=5$ and $A(t)=10$. The population for a simulation
 was considered to have gone extinct if the total population $E(t)+A(t)$ ever 
-went below an extinction threshold (we used a threshold of $2$) within the 
+went below an extinction threshold (we used $2$) within the 
 $25$-time-step time horizon. Extinction risk was the fraction of $10000$
-simulations that went extinct.
+simulations that went extinct. Confidence intervals (95\%) of extinction
+risk were also computed based on a binomial distribution.
 
 The variables $u(t)$ and $v(t)$ are visibly asymmetrically tail associated (Fig. \ref{fig_intro_cop}),
 but we have instead used the transformed variables $s_e(t)$ and $\tilde{f}_a(t)$
@@ -353,9 +357,15 @@ $y(t)$ be the rank of
 $v(t)$ in the set $\{v(t) | i=1,\ldots,T\}$ (smallest elements
 are here defined to have rank 1),
 consider the portions of the 
-lines $x+y = 2l_b$ and $x+y=2u_b$ which meet with the unit square
+lines $x+y = 2l_b$ and $x+y=2u_b$ which lie within the unit square
 (Fig. \ref{PartialSpearmanFig}). 
-<!--***DAN: need to make this figure-->
+<!--***DAN: Shyamolina, please make this figure. You can start from the code that 
+make the similar figure in BIVAN (Fig. 7), but change it slightly so the figure is not
+*exactly* the same. E.g., you could just switch from Clayton to survival Clayton data,
+and maybe slightly change the locations of the bands. The caption can also be similar,
+but obviously should not mention D^2 or P, and wording should be changed slightly.
+The caption will also have to say something like "This figure was reproduced largely 
+following Fig. 7 of Ghosh et al".-->
 We can then define the *partial Spearman correlation*,
 \begin{equation}
 \cor_{l_b,u_b}(u,v) = \frac{\sum (x(t)-\mean(x))(y(t)-\mean(y))}{(n-1)\sqrt{\var(x) \var(y)}},\label{PartialSpearmanEq}
@@ -375,8 +385,8 @@ $\cor_{0,0.5}(s_e,\tilde{f}_a)-\cor_{0.5,1}(s_e,\tilde{f}_a)$,
 because the partial Spearman correlation, like the Spearman
 correlation itself, is based on ranks. Ranks are the same
 for $u(t)$ and for $s_e(t)$ because these quantities are 
-related by an increasing monotonic transformation (and likewise for 
-$v(t)$ and $\tilde{f}_a(t)$). Thus, in the sense captured
+related by an increasing monotonic transformation; and likewise for 
+$v(t)$ and $\tilde{f}_a(t)$. Thus, in the sense captured
 by the statistic $\cor_{0,0.5}-\cor_{0.5,1}$, $s_e(t)$
 and $\tilde{f}_a(t)$ have the same asymmetry of tail
 association as the values $u(t)$ and $v(t)$ from which they
@@ -387,23 +397,10 @@ the quantities (e.g., @Genest2007). Marginal distributions contain no informatio
 about association between variables, as each marginal pertains to
 only one of the variables.
 
-<!--***DAN: Shyamolina, the below commented text makes me wonder if I am misunderstanding something, please
-explain. The part that confuses me is the 2.5th and 97.5th quantile part, what is the meaning
-of that and what does it have to do with extinction riks? I would have thought extinction risk
-was just the fraction of 10000 sims that went extinct.
-
-after each time step, we simulated model (\ref{eq_age_str}) for $25$ years
-with $10000$ simulations. For each simulation, we started with initial population $(E,A)_{t=0} = (5,10)$
-and following Eq. \ref{eq_age_str} we checked whether after each time step the total population $(E+A)_{t}$
-was below a certain extinction threshold (we set it as $2$) or not. If total population was below that threshold then we 
-considered population went extinct for that simulation. We also calculated $2.5^{th}$ and $97.5^{th}$ quantiles
-of $10000$ simulations with the probability of computed extinction risk at each time step (see [`code`](https://github.com/sghosh89/ERC/blob/master/ext_risk_cop_age_str.R)).
--->
-
 <!--density-dependence metapopulation model-->
 To investigate Q2 from the \nameref{Introduction}, we considered spatialized, stochastic versions
 of six density dependent population models, the Ricker, Hassell, Maynard Smith, Pennycuick, Verhulst, 
-and Austin-Brewer models (Table \ref{tab_model_summary}).
+and Austin-Brewer models.
 All models took the general form $\vec{P} (t+1) = D \lambda(t) \vec{P}(t)$,
 where $\vec{P}(t)$ is a vector of population densities, 
 the $i^{\text{th}}$ component $P_i(t)$ representing
@@ -442,6 +439,7 @@ varying $r$ produced no transition from under- to overcompensatory dynamics.
 
 <!--***DAN: By the way, Shyamolina, these are not Hopf bifuractions - those cannot happen
 with univariate models like these. These are called period-doubling bifucations.
+
 If $r$ became too high and exceeded $r_{bf}$ - the parameter value responsible for Hopf-bifurcation -
 model equilibrium $P_e$ became unstable. Beyond the Hopf-bifurcation point, the model showed sustained
 oscillation and eventually led to chaos with increasing $r$. Appendix \ref{SM-model_stability}
@@ -450,12 +448,12 @@ summarized the stability analysis of each model in their deterministic form.
 
 We simulated our metapopulation models using environmental noises $\epsilon_i(t)$ (Table \ref{tab_model_summary}), 
 independent through time, that were generated to have the same overall associations 
-between all patches and in all simulations (Spearman's $\rho$ again `r srho_common`, up to sampling variation), 
+between all patches and in all simulations (Spearman's $\rho$ again `r srho_common`, up to sampling variance), 
 but with different degrees and types of asymmetry of tail associations 
 between patches in different simulations, as follows. For a simulation of length $T$,
 we used methods that can generate $T$ independent $n$-tuples $(u_1(t),\ldots,u_n(t))$
 for $t=1,\ldots,T$ with $\rho=$ `r srho_common` between $u_i(t)$ and $u_j(t)$ for all $i \neq j$
-(up to sampling variation), but with either extreme left-, moderate left-, moderate right-,
+(up to sampling variance), but with either extreme left-, moderate left-, moderate right-,
 or extreme right-tail association between all pairs of locations (as in Fig. \ref{fig_intro_cop}). 
 Pairs $u_i(t)$ and $u_j(t)$ looked like Fig. \ref{fig_intro_cop} and were structured, statistically,
 in the same way as the stochastic quantities $u(t)$ and $v(t)$ used for the non-spatial 
@@ -471,15 +469,19 @@ as that between $u_i(t)$ and $u_j(t)$; likewise partial Spearman correlations we
 The quantities $(u_1(t),\ldots,u_n(t))$
 for $t=1,\ldots,T$ were generated as described in Appendix \ref{SM-makenoise}.
 
-To calculate extinction risk for a given model and a given choice of tail association,
+To calculate extinction risk for a given metapopulation model, given parameters,
+and a given choice of tail association,
 we simulated the model for $25$ time steps, $10000$ times, using $n=5$ habitat patches.
-The initial condition $P_e$ was used in each habitat patch ($P_e$ is the equilibrium value of the 
-one-patch, deterministic version of the model, Table \ref{tab_model_summary}).
+The equilibrium value of the 
+one-patch, deterministic version of the model, $P_e$ (Table \ref{tab_model_summary})
+was used as the initial condition in all patches and simulations.
 After each time step, if $P_i(t)$ was less than $P_e/10$ then it was set to $0$.
 The whole metapopulation was considered to have gone extinct if all patches were $0$
 a time step $25$.
 <!--***DAN: Shyamolina, please check the above two sentences, is this what you did?-->
 Extinction risk was the fraction of 10000 metapopulations that went extinct. 
+Estimates of extinction risk were plotted together with 95\% confidence intervals
+based on a binomial distribution.
 
 <!--***DAN: Dan plans to delete this text as it has been superseded by the above. Keeping it
 around until I am sure the above is right:
@@ -494,23 +496,29 @@ We assumed the population went extinct after each time step if it was below a
 certain threshold (set to 10\% of the initial population $P_e$ for individual model). 
 -->
 
-<!--**DAN: got to here 2019 10 29-->
-
 <!--test hypothesis from Q2 : ext risk with density-dependence metapopulation model with r from different regime-->
-To answer (Q2) of the \nameref{Introduction} for each metapopulation model,
-we estimated extinction risk of each model using each form of tail 
-association in the environmental noise,
-across the range of $r$ indicated above that spanned under- and overcompensatory dynamics.
-We chose equispaced values of $r$ from the 95\% quantiles 
-of possible range ($r_{min},r_{bf}$), where $r_{min}$ was the minimum value of $r$ 
-to get a positive, finite equilibrium $P_e$ (for details, see Appendix 
-\ref{SM-model_stability}) to start with (at $t=0$). For each chosen $r$,
-we calculated extinction risk after $25$ years with each metapopulation model 
-where population could disperse locally (or globally) with varying dispersal 
-rate $d= 0,0.1,0.2,..0.5$ and moderate to extreme left 
-tail- and right-tail associated environmental noises with same Kendall's $\rho$ (= `r srho_common`)
-in different simulations (for code see [`mydispersal.R`](https://github.com/sghosh89/ERC/blob/master/mydispersal.R)).
+To answer (Q2) of the \nameref{Introduction}, 
+we estimated extinction risk for each metapopulation model, using each form of tail 
+association for the environmental noise,
+using values of $r$ that included under- and overcompensatory dynamics,
+as indicated above. We chose values of $r$ within a range, the
+range specified as follows. The second part of Q2 (about how density dependence mediates the
+influence of asymmetric tail associations on extinction risk) was addressed by comparing
+results for under- and overcompensatory model regimes.
+Defining $r_{min}$ as the minimum value of $r$ 
+for which $P_e$ was non-negative; and defining
+$r_{bf}$ as the value of $r$ at which a bifurcation occurs, the range of
+$r$ used spanned 95\% of the interval ($r_{min},r_{bf}$). For details, see Appendix 
+\ref{SM-model_stability}. The range of $r$ encompassed $r_c$, so included 
+a transition from under- to overcompensatory dynamics. For each value of $r$
+used within the range, we calculated extinction risk as indicated above.
+Dispersal parameter values $d= 0,0.1,0.2,..0.5$ were also used in different 
+simulations. We plotted extinction risk as a function of $d$ for two
+fixed values of $r$, one producing under- and one overcompensatory dynamics.
+For $d=0$ we also plotted extinction risk as a function of $r$. All code for 
+this project is available at https://github.com/sghosh89/ERC.
 
+<!--
 We plotted extinction risks along the y-axis
 for both left tail and right tail associated noises 
 against the varying range of $r$ along x-axis when no dispersal ($d=0$) was considered.
@@ -523,29 +531,25 @@ extinction risks at each $r$. We compared $r_c$ and the value of $r$ at which
 with each other. This could give us an idea of how extinction risks affected by the model parameter 
 $r$ that controlled the underlying dynamics of the model, i.e., undercompensatory 
 or overcompensatory.
+-->
 
 # Results\label{Results}
 
-<!--Q1 : age-structured results : linear and nonlinear model with asymmetric copula-->
-
-For single patch linear age-structured models, we found higher extinction risk for moderate left-tail 
-association (modeled by Clayton copula) in fluctuating vital 
-rates compared with the one when vital rates were right tail dependent (modeled by Survival Clayton copula).
-It was expected because an extreme "bad" year (e.g. with severe cold) can suppress 
-the fecundity of adult and survival/ maturation of eggs simultaneously 
-and thereby can increase the extinction risk of the population. For non-linear age-structured 
-models, we got a similar trend for extinction risks with the different tail associations (left and right).
-The non-linear model showed higher extinction risk than its corresponding 
-linear analog as it was evident from Eq. \ref{eq_vitalrates} with finite $\Omega = 100$. 
-Fig. \ref{fig_extrisk_agestr} represents this scenario when vital rates have moderate to extreme tail association in either tail but with same Kendall's correlation ($\rho =$ `r srho_common`). Extinction risks for two different tail-dependent vital rates were not strinkingly different (e.g. see pair of red and
-blue lines in Fig. \ref{fig_extrisk_agestr}A or B) and we anticipated the difference being partly 
-dependent on the degree of tail association. Therefore we repeated the same analysis with 
-vital rates coming from extreme-tail dependent (left and right in two different simulations)
-copulas and got similar results but with much prominent difference between their extinction risks
-(Fig. \ref{fig_extrisk_agestr}C or D). This result answered (Q1) and showed extinction risk of 
-a population could be considered as a direct manifestation of tail association property 
-between vital rates of different age-class
-of that population. <!--discussion later: add Tuljapurkar's approximation-->
+<!--Q1 : age-structured model results-->
+For our age-structured, non-spatial model, extinction risks were higher when 
+associations between the vital rates $s_e$ and $f_a$ were principally for low values
+of these vital rates (left-tail association), and were lower when associations
+were principally for higher values; but the effect was minor for this model (Fig. \ref{fig_extrisk_agestr}).
+Though extinction risks were overall higher for the density-dependent version of our model compared
+to density-independent version, extinction risk differences across tail association 
+scenarios were similar for the two versions. Because the same Spearman correlation (up to sampling
+variance) was used in all simulations, the differences between lines in the panels
+of Fig. \ref{fig_extrisk_agestr} are attributable solely to the changes we made in the
+asymmetry of tail associations, and answer Q1. Though differences were significant (confidence
+bands in Fig. \ref{fig_extrisk_agestr}, which are very narrow, did not overlap),
+they were also small, corresponding to only a few percentage points of additional extinction
+risk after 25 years. A potential reason for this outcome is elaborated in the Discussion.
+<!--discussion later: add Tuljapurkar's approximation stuff-->
 
 <!--Q2 : metapopulation results : density dependence with extreme tail dep. copula-->
 
@@ -695,7 +699,12 @@ network with different clusters having various dispersal rates.
 \begin{center}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_extremetail_linear.pdf}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_extremetail_nonlinear_omg_100.pdf}
-\caption{Extinction risk against time from single patch age-structured linear ($\Omega = \infty$) $(A, C)$ and nonlinear ($\Omega = 100$) $(B, D)$ models for $10000$ simulations; shading represents 95\% confidence interval. $(A, B)$ show extinction risk with time when fecundity of adults and survival of eggs have a moderate left tail (LT) or a moderate right tail (RT) association, $(C, D)$ show the analogous scenario but with the extreme tail association between vital rates. \label{fig_extrisk_agestr}}
+\caption{Extinction risk versus time for our stochastic, age-structured model; risks
+were higher when associations between vital rates were stronger in the left compared to
+the right tails of the rates, but only slightly so. Results are for the linear
+version of the model ($\Omega = \infty$; A, C) and for the nonlinear model with density
+dependence in the fecundity rate ($\Omega = 100$; B, D). Results show cases of moderate
+(A, B) and extreme (C, D) asymmetry of tail association. The solid line is the estimated extinction risk and the area of shading, which is barely visible because it is so narrow, show 95\% confidence intervals for extinction risk.\label{fig_extrisk_agestr}}
 \end{center}
 \end{figure*}
 
@@ -740,11 +749,11 @@ library(dplyr)
 dt<-readRDS("./Results/tab_model_summary.RDS")
 knitr::kable(dt, escape=F,
              format="latex",digits=3, align="c",table.env='table*',
-             caption = "Summary of the six density-dependent stochastic metapopulation models we used. The population growth rate in habitat patch $i$ at time $t$, $\\lambda_i(t)$ (second column), is $P_i(t+1)/P_i(t)$, where $P_i(t)$ is the population in patch $i$ as time $t$. The growth rate depends on model parameters, $P_i(t)$, and the environment $\\epsilon_i(t)$ in patch $i$ at time $t$. $\\epsilon_i(t)$ was normally distributed with mean $0$ and standard deviation $\\sigma$, and values were generated independently across times. $P_e$ is the equilibrium of the deterministic, one-patch version of the model. $r_c$ is the value of $r$ for which a transition occurs from under- to overcompensatory dynamics (see main text). $r_{bf}$ is the value of $r$ for which a transition occurs from a stable to an unstable equilbrium (a bifurcation). We use only $r<r_{bf}$. Dispersal between patches was also implemented as described in the main text.\\label{tab_model_summary}",
+             caption = "Summary of the six density-dependent stochastic metapopulation models we used. The population growth rate in habitat patch $i$ at time $t$, $\\lambda_i(t)$ (second column), is $P_i(t+1)/P_i(t)$, and defines how the model works within each patch. Here $P_i(t)$ is the population in patch $i$ at time $t$. The growth rate depends on model parameters, $P_i(t)$, and the environment $\\epsilon_i(t)$ in patch $i$ at time $t$. $\\epsilon_i(t)$ was normally distributed with mean $0$ and standard deviation $\\sigma$, and values were generated independently across times. $P_e$ is the equilibrium of the deterministic, one-patch version of the model. $r_{min}$ is the smallest $r$, given fixed values of the other parameters, for which $P_e$ was non-negative. $r_c$ is the value of $r$ for which a transition occurs from under- to overcompensatory dynamics (see main text). $r_{bf}$ is the value of $r$ for which a transition occurs from a stable to an unstable equilbrium (a bifurcation; see main text). We used $r$ such that $r_{min}<r<r_{bf}$. Dispersal between patches was also implemented (see main text).\\label{tab_model_summary}",
              booktabs=T, linesep = "\\addlinespace"
              )%>%column_spec(c(1,3,5,6),width="1.4 cm")%>%kable_styling(latex_options = "basic",position = "center")%>%column_spec(2, width = "3.8 cm")
 ```
-<!--***DAN: Shyamolina, can you please make the header of the second column read simply \lambda_i(t)?-->
+<!--***DAN: Shyamolina, can you please make the header of the second column read simply \lambda_i(t)? Also, can you add a column for r_min, please?-->
 
 \clearpage
 
