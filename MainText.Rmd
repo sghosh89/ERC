@@ -282,10 +282,6 @@ asymmetric tail associations.
 \label{fig_intro_cop}}
 \end{center}
 \end{figure*}
-<!--***DAN: Shyamolina, you put a negative sign in front of the Spearman correlations
-on the C and D panels, but that is erroneous. The Spearman correlations are positive
-in all four cases! Please fix!
-***Shya: Yes, you are right, I fixed that.-->
 
 # Methods\label{Methods}
 
@@ -362,30 +358,6 @@ are here defined to have rank 1),
 consider the portions of the 
 lines $x+y = 2l_b$ and $x+y=2u_b$ which lie within the unit square
 (Fig. \ref{PartialSpearmanFig}). 
-<!--***DAN: Shyamolina, please make this figure. You can start from the code that 
-make the similar figure in BIVAN (Fig. 7), but change it slightly so the figure is not
-*exactly* the same. E.g., you could just switch from Clayton to survival Clayton data,
-and maybe slightly change the locations of the bands. The caption can also be similar,
-but obviously should not mention D^2 or P, and wording should be changed slightly.
-The caption will also have to say something like "This figure was reproduced largely 
-following Fig. 7 of Ghosh et al".
-***Shya: see below.-->
-
-<!--FIG : schematic diagram for partial spearman correlation, adapted from BIVAN-->
-\begin{figure*}[!h]
-\begin{center}
-\includegraphics[width=6 cm]{./Results/PartialSpearmanFig.pdf}
-\caption{The partial Spearman correlation, $\cor_{lb,ub}(u, v)$, within a band can be computed
-for any band to describe how the strength of association between $u$ and $v$
-varies from one part of the two distributions to another. Diagonal lines 
-show two bands, the data in the right/upper band showing
-stronger association than those in the left/lower band. This figure was reproduced
-largely following $Fig. 7$ of $Ghosh et al.(2019)$.
-\label{PartialSpearmanFig}}
-\end{center}
-\end{figure*}
-
-
 We can then define the *partial Spearman correlation*,
 \begin{equation}
 \cor_{l_b,u_b}(u,v) = \frac{\sum (x(t)-\mean(x))(y(t)-\mean(y))}{(n-1)\sqrt{\var(x) \var(y)}},\label{PartialSpearmanEq}
@@ -416,6 +388,22 @@ approaches are not influenced by the marginal distributions of
 the quantities (e.g., @Genest2007). Marginal distributions contain no information
 about association between variables, as each marginal pertains to
 only one of the variables.
+
+<!--FIG : schematic diagram for partial spearman correlation, adapted from BIVAN-->
+\begin{figure*}[!h]
+\begin{center}
+\includegraphics[width=6 cm]{./Results/PartialSpearmanFig.pdf}
+\caption{The partial Spearman correlation, $\cor_{l_b,u_b}(u, v)$, within a band can be computed
+for any band to describe how the strength of association between $u$ and $v$
+varies from one part of the two distributions to another. Diagonal lines 
+show two bands, the data in the right/upper band showing
+stronger association than those in the left/lower band. This figure was reproduced
+largely following Fig. 7 of Ghosh \emph{et al.} (2019).
+\label{PartialSpearmanFig}}
+\end{center}
+\end{figure*}
+<!--***DAN: Shyamolina, please change the u and v axis labels on the figure
+to x and y, respectively, since we defined those as the ranks in the main text.-->
 
 <!--density-dependence metapopulation model-->
 To investigate Q2 from the \nameref{Introduction}, we considered spatialized, stochastic versions
@@ -500,12 +488,17 @@ one-patch, deterministic version of the model, $P_e$ (Table \ref{tab_model_summa
 was used as the initial condition in all patches and simulations.
 After each time step, if $P_i(t)$ was less than $P_e/10$ then it was set to $0$.
 The whole metapopulation was considered to have gone extinct if all patches were $0$
-a time step $25$.
+at time step $25$.
 <!--***DAN: Shyamolina, please check the above two sentences, is this what you did?
 ***Shya: I agreed with you upto line 482, the last line "The whole metapopulation was considered to have gone extinct if all patches were $0$ a time step $25$" I could not understand, did you write that conceptually? (then it's ok), 
 or you meant I apply that in my code?
+***DAN: I wrote it guessing that that was what you did. If that is not what you did,
+when we should discuss, preferably as soon as possible, before Friday.
 Similarly, the below line explains lines 149-150 of mydispersal.R, I am not fluent in using apply function on two dims at once e.g. c(1,3), you wrote that piece of code, I want to explain you 
-on Friday gow I interpret that portion, then I can tell you accurately what I did.-->
+on Friday gow I interpret that portion, then I can tell you accurately what I did.
+***DAN: I added some comments above the function extrisk in mydispersal.R, after reading those
+can you tell me by adding another comment what you did and if what I wrote here was correct?
+-->
 Extinction risk was the fraction of 10000 metapopulations that went extinct. 
 Estimates of extinction risk were plotted together with 95\% confidence intervals
 based on a binomial distribution.

@@ -145,6 +145,15 @@ popsim_ml_D<-function(p0,ns,D,params,ext_thrs,model){
 }
 
 # function to calculate extinction risk
+#
+#Args
+#sims     A numeric array, assumed to be numsims by numlocs by numsteps
+#
+#Output
+#Produces a vector of length numsteps with the entry in location i being
+#the fraction of simulations which have gone extinct by time step i. 
+#"Extinct" here means all locations have population 0.
+#
 extrisk<-function(sims){
   totpop<-apply(FUN=sum,X=sims,MARGIN=c(1,3))
   return(apply(FUN=sum,X=(totpop==0),MARGIN=2)/dim(sims)[1])
