@@ -147,16 +147,23 @@ popsim_ml_D<-function(p0,ns,D,params,ext_thrs,model){
 # function to calculate extinction risk
 #
 #Args
-#sims     A numeric array, assumed to be numsims by numlocs by numsteps
+#sims     A numeric array, assumed to be numsims by numlocs by numsteps+1 (output from "popsim_ml_D" function)
 #
 #Output
+# A vector of length numsteps+1, where i^th entry represent the fraction of simulations 
+# which have gone extinct by time step i. 
+#"Extinct" here means all locations have population 0.
+
+# DAN wrote this:
 #Produces a vector of length numsteps with the entry in location i being
 #the fraction of simulations which have gone extinct by time step i. 
 #"Extinct" here means all locations have population 0.
 #
 extrisk<-function(sims){
-  totpop<-apply(FUN=sum,X=sims,MARGIN=c(1,3))
-  return(apply(FUN=sum,X=(totpop==0),MARGIN=2)/dim(sims)[1])
+  totpop<-apply(FUN=sum,X=sims,MARGIN=c(1,3)) # this totpop is a matrix (dim= numsims by numsteps+1)
+                                              # where totpop[i,j] is the sum of the entries from sims[i,,j]
+  return(apply(FUN=sum,X=(totpop==0),MARGIN=2)/dim(sims)[1]) # this line then counts the fraction of zeros 
+                                                                  # along each column of totpop
 }
 
 # function to calculate average ACF (lag=1) from all numlocs after specified time steps

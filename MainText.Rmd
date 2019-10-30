@@ -403,7 +403,8 @@ largely following Fig. 7 of Ghosh \emph{et al.} (2019).
 \end{center}
 \end{figure*}
 <!--***DAN: Shyamolina, please change the u and v axis labels on the figure
-to x and y, respectively, since we defined those as the ranks in the main text.-->
+to x and y, respectively, since we defined those as the ranks in the main text.
+***Shya: Done.-->
 
 <!--density-dependence metapopulation model-->
 To investigate Q2 from the \nameref{Introduction}, we considered spatialized, stochastic versions
@@ -498,6 +499,8 @@ Similarly, the below line explains lines 149-150 of mydispersal.R, I am not flue
 on Friday gow I interpret that portion, then I can tell you accurately what I did.
 ***DAN: I added some comments above the function extrisk in mydispersal.R, after reading those
 can you tell me by adding another comment what you did and if what I wrote here was correct?
+***Shya: Yes, you are correct. I also added commented text in mydispersal.R lines 153-165. Have a look 
+to check that you are agreed with me or not.
 -->
 Extinction risk was the fraction of 10000 metapopulations that went extinct. 
 Estimates of extinction risk were plotted together with 95\% confidence intervals
