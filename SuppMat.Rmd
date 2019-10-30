@@ -2629,7 +2629,7 @@ dt1 <- tibble("Models"= c("Ricker",
            "Austin-Brewer")
 )
 
-dt2<-tibble("Density dependence $(\\lambda_i(t))$ with noise $(\\epsilon_i(t))$" = c("$\\exp(\\epsilon_i(t)) \\hspace{0.1 cm} \\exp[r (1-P_i(t)/K)$]",
+dt2<-tibble("$\\lambda_i(t)$" = c("$\\exp(\\epsilon_i(t)) \\hspace{0.1 cm} \\exp[r (1-P_i(t)/K)$]",
                           "$\\exp(\\epsilon_i(t)) \\hspace{0.1 cm} r/(1+aP_i(t))^b$",
                           "$\\exp(\\epsilon_i(t)) \\hspace{0.1 cm} r/[1+(aP_i(t))^b]$",
                           "$\\exp(\\epsilon_i(t)) \\hspace{0.1 cm} r/[1+\\exp \\{-a(1-P_i(t)/b)\\}]$",
