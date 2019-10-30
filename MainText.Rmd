@@ -1,7 +1,7 @@
 ---
 title: "Tail associations and their impact on extinction risk"
 author: "Shyamolina Ghosh, Daniel Reuman"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+date: ""
 geometry: "left=1in,right=1in,top=1in,bottom=1in"
 output: 
   pdf_document:
@@ -33,6 +33,8 @@ seed<-101
 \noindent Ghosh: Department of Ecology and Evolutionary Biology and Kansas Biological Survey, University of Kansas, Lawrence, KS, 66045, USA
 
 \noindent Reuman: Department of Ecology and Evolutionary Biology and Kansas Biological Survey, University of Kansas, Lawrence, KS, 66047, USA; Laboratory of Populations, Rockefeller University, 1230 York Ave, New York, NY, 10065, USA
+
+\noindent \emph{Correspondence:} Daniel Reuman, 2101 Constant Ave, Lawrence, KS, 66047, reuman@ku.edu, 626 560 7084. 
 
 <!--
 Alternative titles
@@ -551,35 +553,43 @@ they were also small, corresponding to only a few percentage points of additiona
 risk after 25 years. A potential reason for this outcome is elaborated in the Discussion.
 <!--discussion later: add Tuljapurkar's approximation stuff-->
 
-<!--Q2 : metapopulation results : density dependence with extreme tail dep. copula-->
+<!--Q2 : metapopulation results-->
+For our metapopulation simulations, for low values of $r$, left-tail
+associations of environmental noises accentuated extinction risks, and right-tail associations
+mitigated them; but the reverse was true for high values of $r$ in the range
+$(r_{min},r_{bf})$. Thus 
+density dependent models can either produce similar results, regarding the influence of 
+tail associations on extinction risk, as the density-independent models of @Ghosh_copula, or
+opposite results, depending on the nature of density dependence. 
+For each model of Table \ref{tab_model_summary}, using a value of $r$ on
+the low end of the range $(r_{min},r_{bf})$, extinction risk was highest
+for extreme left-tail associated noise, lowest for extreme right-tail associated
+noise, and was intermediate for the moderate tail association scenarios, for
+both local (Fig. \ref{fig_extrisk_allmodel_localdisp}, left panels) and global 
+(Fig. \ref{SM-fig_extrisk_allmodel_globaldisp}, left panels) dispersal, and for 
+essentially all the dispersal rates, $d$, that we considered. However, 
+using a value of $r$ on the high end of the range $(r_{min},r_{bf})$,
+extinction risks were ordered oppositely (right panels of Figs 
+\ref{fig_extrisk_allmodel_localdisp} and \ref{SM-fig_extrisk_allmodel_globaldisp}). 
+These results help address Q2 from the \nameref{Introduction}.
+Intermediate values of $r$ are shown in Figs. \ref{SM-fig_ricker_risk_local_disp_scl_1} - 
+\ref{SM-fig_risk_local_disp_abrewer_r_vary_scl_0.6} for local dispersal and 
+Figs. \ref{SM-fig_ricker_risk_global_disp_scl_1} - 
+\ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6} for global dispersal among 
+habitat patches. 
 
-We found density-dependent metapopulation models in stochastic 
-environment showed similar patterns for extinction risk as density-independent 
-metapopulation model did in a recent study [@Ghosh_copula]. For each density-dependent 
-model listed in Table \ref{tab_model_summary}, we observed higher extinction risk for 
-the metapopulations when spatially correlated noises were left-tail associated 
-than the one with the right-tail association. But that observation remained 
-valid when the model parameter - here considered as growth rate $(r)$ - was 
-sufficiently low so that under-compensatory dynamics (monotonous approach towards
-its stable equilibrium) for the deterministic analog of the model was ensured.
-We observed right tail associated noise caused higher extinction 
-risk for the metapopulations than left tail associated noise when the model 
-was in over-compensatory regime (oscillatory approach towards stable equilibrium) for higher 
-value of $r$. Fig. \ref{fig_extrisk_allmodel_localdisp} shows
-variation of extinction risk against local dispersal rate ($d$) for 
-six density dependent metapopulation models (see Table \ref{tab_model_summary}) with growth 
-rate $r$ considered either from under-compensatory or 
-from over-compensatory regime. This finding addresses (Q2) from \nameref{Introduction}. We 
-also got similar results 
-for global dispersal (Fig. \ref{SM-fig_extrisk_allmodel_globaldisp}). 
-Figs. (\ref{SM-fig_ricker_risk_local_disp_scl_1} - 
-\ref{SM-fig_risk_local_disp_abrewer_r_vary_scl_0.6}) 
-demonstrate how extinction risk changed against local dispersal rate for a whole range
-of $r$, whereas Figs. (\ref{SM-fig_ricker_risk_global_disp_scl_1} - 
-\ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6}) 
-represent the same but for global dispersal among patches. 
-Both case showed the signature of "rescue-effect" (i.e. reduced the extinction risk for 
-finite dispersal compared with $d=0$).
+Because the deterministic, one-patch versions of our models showed undercompensatory
+dynamics for $r<r_c$ (and therefore for $r$ on the left end of the range $(r_{min},r_{bf})$),
+and showed overcompensatory dynamics for $r>r_c$, Figs \ref{fig_extrisk_allmodel_localdisp}
+and \ref{SM-fig_extrisk_allmodel_globaldisp} suggest the hypothesis that the
+opposite effects of tail association on extinction risk correspond to the domains
+in which models exhibit under- versus overcompensatory dynamics. This was 
+approximately, but not exactly, true. Careful inspection of Figs 
+\ref{SM-fig_ricker_risk_local_disp_scl_1} - \ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6}
+and Table 
+
+
+
 
 <!--Q3 : metapopulation results : switching near rc for d=0-->
 Following Figs. (\ref{SM-fig_ricker_risk_local_disp_scl_1} - 
@@ -712,8 +722,11 @@ dependence in the fecundity rate ($\Omega = 100$; B, D). Results show cases of m
 \begin{figure*}[!h]
 \begin{center}
 \includegraphics[width=14.5 cm]{./Results/allmodel_ext_risk_local_disp_extreme_and_moderate_noise.pdf}
-\caption{Extinction risks are computed after $25$ years for six nonlinear density-dependence models (Table \ref{tab_model_summary}) with local dispersal among $n=5$ patches and for $10000$ simulations. Spatially correlated 
-noises have varying degree of tail associations (extreme left tail, moderate left tail, moderate right tail and extreme right tail) as introduced in Fig. \ref{fig_intro_cop}. Last two columns represent variation of extinction risk against dispersal rate ($d$), calculated for intrinsic growth rate $(r)$ taken from under-compensatory and over-compensatory regime of deterministic model analog.\label{fig_extrisk_allmodel_localdisp}}
+\caption{Extinction risk versus dispersal rate for different scenarios of tail association
+for our six metapopulation models (Methods, Table \ref{tab_model_summary}). Dispersal was
+local, see Fig. \ref{SM-fig_extrisk_allmodel_globaldisp} for global dispersal. Values of $r$
+used are in the panel headers.
+Extinction risks are for a 25-year time horizon. \label{fig_extrisk_allmodel_localdisp}}
 \end{center}
 \end{figure*}
 

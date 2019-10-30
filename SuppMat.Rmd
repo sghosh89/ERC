@@ -1,7 +1,7 @@
 ---
 title: "Supporting information: Tail associations and their impact on extinction risk"
 author: "Shyamolina Ghosh, Daniel Reuman"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+date: ""
 geometry: "left=1in,right=1in,top=1in,bottom=1in"
 
 output: 
@@ -2690,7 +2690,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=15 cm]{./Results/allmodel_ext_risk_global_disp_extreme_and_moderate_noise.pdf}
-\caption[Extinction risk vs. dispersal rate for six density dependent metapopulation model with global dispersal.]{Analogous figure as of Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text but for global dispersal between metapopulation patches.\label{fig_extrisk_allmodel_globaldisp}}
+\caption[Extinction risk v. tail association and $d$: metapopulations, global dispersal]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but using global dispersal between habitat patches.\label{fig_extrisk_allmodel_globaldisp}}
 \end{center}
 \end{figure}
 
@@ -2700,9 +2700,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Effect of tail association in environmental noises on extinction risk for Ricker metapopulation model with local dispersal.]{Effect of tail association in environmental noises on extinction risk (calculated after 25 years)
-for $5$ metapopulation patches which followed Ricker dynamics with local dispersal; 
-standard deviation $\sigma$=1 was used to generate extreme extreme tail dependent noises for 10000 simulations. \label{fig_ricker_risk_local_disp_scl_1}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Ricker]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Ricker model.\label{fig_ricker_risk_local_disp_scl_1}}
 \end{center}
 \end{figure}
 
@@ -2711,9 +2709,7 @@ standard deviation $\sigma$=1 was used to generate extreme extreme tail dependen
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/hassell_scl_1/hassell_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Effect of tail association in environmental noises on extinction risk for Hassell metapopulation model with local dispersal.]{Effect of tail association in environmental noises on extinction risk (calculated after 25 years)
-for $5$ metapopulation patches which followed Hassell dynamics with local dispersal; 
-standard deviation $\sigma$=1 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_hassell_risk_local_disp_scl_1}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Hassell]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Hassell model. \label{fig_hassell_risk_local_disp_scl_1}}
 \end{center}
 \end{figure}
 
@@ -2722,8 +2718,7 @@ standard deviation $\sigma$=1 was used to generate extreme tail dependent noises
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Effect of tail association in environmental noises on extinction risk for Maynard smith metapopulation model with local dispersal.]{Effect of tail association in environmental noises on extinction risk (calculated after 25 years) for $5$ metapopulation patches which followed Maynard Smith dynamics with local dispersal; 
-standard deviation $\sigma$=0.8 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_msmith_risk_local_disp_scl_0.8}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Maynard Smith]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Maynard Smith model. \label{fig_msmith_risk_local_disp_scl_0.8}}
 \end{center}
 \end{figure}
 
@@ -2732,9 +2727,7 @@ standard deviation $\sigma$=0.8 was used to generate extreme tail dependent nois
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Effect of tail association in environmental noises on extinction risk for Pennycuick metapopulation model with local dispersal.]{Effect of tail association in environmental noises on extinction risk (calculated after 25 years)
-for $5$ metapopulation patches which followed Pennycuick dynamics with local dispersal; 
-standard deviation $\sigma$=1 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Pennycuick]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Pennycuick model. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
 \end{center}
 \end{figure}
 
@@ -2743,9 +2736,7 @@ standard deviation $\sigma$=1 was used to generate extreme tail dependent noises
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Effect of tail association in environmental noises on extinction risk for Verhulst metapopulation model with local dispersal.]{Effect of tail association in environmental noises on extinction risk (calculated after 25 years)
-for $5$ metapopulation patches which followed Verhulst dynamics with local dispersal; 
-standard deviation $\sigma$=0.6 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Velhurst]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Velhurst model. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
@@ -2754,8 +2745,7 @@ standard deviation $\sigma$=0.6 was used to generate extreme tail dependent nois
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Effect of tail association in environmental noises on extinction risk for Austin-Brewer metapopulation model with local dispersal.]{Effect of tail association in environmental noises on extinction risk (calculated after 25 years) for $5$ metapopulation patches which followed Austin-Brewer dynamics with local dispersal; 
-standard deviation $\sigma$=0.6 was used to generate extreme tail dependent noises for 10000 simulations. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Austin-Brewer]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Austin-Brewer model. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
@@ -2765,7 +2755,7 @@ standard deviation $\sigma$=0.6 was used to generate extreme tail dependent nois
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_global_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Analogous figure as of Fig. \ref{fig_ricker_risk_local_disp_scl_1} but for global dispersal between metapopulation patches.]{Analogous figure as of Fig. \ref{fig_ricker_risk_local_disp_scl_1} but for global dispersal between metapopulation patches. \label{fig_ricker_risk_global_disp_scl_1}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, global dispersal, Ricker]{Analogous to Fig. \ref{fig_ricker_risk_local_disp_scl_1} but for global dispersal between habitat patches. \label{fig_ricker_risk_global_disp_scl_1}}
 \end{center}
 \end{figure}
 
@@ -2774,7 +2764,7 @@ standard deviation $\sigma$=0.6 was used to generate extreme tail dependent nois
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/hassell_scl_1/hassell_ext_risk_global_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Analogous figure as of Fig. \ref{fig_hassell_risk_local_disp_scl_1} but for global dispersal between metapopulation patches.]{Analogous figure as of Fig. \ref{fig_hassell_risk_local_disp_scl_1} but for global dispersal between metapopulation patches. \label{fig_hassell_risk_global_disp_scl_1}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, global dispersal, Hassell]{Analogous to Fig. \ref{fig_hassell_risk_local_disp_scl_1} but for global dispersal between habitat patches. \label{fig_hassell_risk_global_disp_scl_1}}
 \end{center}
 \end{figure}
 
@@ -2783,7 +2773,7 @@ standard deviation $\sigma$=0.6 was used to generate extreme tail dependent nois
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_global_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Analogous figure as of Fig. \ref{fig_msmith_risk_local_disp_scl_0.8} but for global dispersal between metapopulation patches.]{Analogous figure as of Fig. \ref{fig_msmith_risk_local_disp_scl_0.8} but for global dispersal between metapopulation patches. \label{fig_msmith_risk_global_disp_scl_0.8}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, global dispersal, Maynard Smith]{Analogous to Fig. \ref{fig_msmith_risk_local_disp_scl_0.8} but for global dispersal between habitat patches. \label{fig_msmith_risk_global_disp_scl_0.8}}
 \end{center}
 \end{figure}
 
@@ -2792,7 +2782,7 @@ standard deviation $\sigma$=0.6 was used to generate extreme tail dependent nois
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_global_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Analogous figure as of Fig. \ref{fig_risk_local_disp_pennycuick_r_vary_scl_1} but for global dispersal between metapopulation patches.]{Analogous figure as of Fig. \ref{fig_risk_local_disp_pennycuick_r_vary_scl_1} but for global dispersal between metapopulation patches. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, global dispersal, Pennycuick]{Analogous to Fig. \ref{fig_risk_local_disp_pennycuick_r_vary_scl_1} but for global dispersal between habitat patches. \label{fig_risk_global_disp_pennycuick_r_vary_scl_1}}
 \end{center}
 \end{figure}
 
@@ -2801,7 +2791,7 @@ standard deviation $\sigma$=0.6 was used to generate extreme tail dependent nois
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Analogous figure as of Fig. \ref{fig_risk_local_disp_verhulst_r_vary_scl_0.6} but for global dispersal between metapopulation patches.]{Analogous figure as of Fig. \ref{fig_risk_local_disp_verhulst_r_vary_scl_0.6} but for global dispersal between metapopulation patches. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, global dispersal, Velhurst]{Analogous to Fig. \ref{fig_risk_local_disp_verhulst_r_vary_scl_0.6} but for global dispersal between habitat patches. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
@@ -2810,7 +2800,7 @@ standard deviation $\sigma$=0.6 was used to generate extreme tail dependent nois
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_global_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Analogous figure as of Fig. \ref{fig_risk_local_disp_abrewer_r_vary_scl_0.6} but for global dispersal between metapopulation patches.]{Analogous figure as of Fig. \ref{fig_risk_local_disp_abrewer_r_vary_scl_0.6} but for global dispersal between metapopulation patches. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, global dispersal, Austin-Brewer]{Analogous to Fig. \ref{fig_risk_local_disp_abrewer_r_vary_scl_0.6} but for global dispersal between habitat patches. \label{fig_risk_global_disp_abrewer_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
