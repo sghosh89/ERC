@@ -273,7 +273,7 @@ extreme left, moderate left, moderate right, extreme right-->
 correlation, but different degrees of tail association: 
 (A) extreme left-tail association, (B) moderate left-tail association, (C) 
 moderate right-tail association, and (D) extreme right-tail association.
-In all cases, Spearman's $\rho$ was the same, $\rho = 0.875$,
+In all cases, Spearman's $\rho$ was the same, $\rho =$ `r srho_common`,
 up to sampling variance (the sample correlation for each dataset is displayed
 on its panel). The extreme left-tail (respectively, right-tail) dependent 
 case is perfectly correlated below (respectively, above) the threshold of 0.
@@ -284,7 +284,8 @@ asymmetric tail associations.
 \end{figure*}
 <!--***DAN: Shyamolina, you put a negative sign in front of the Spearman correlations
 on the C and D panels, but that is erroneous. The Spearman correlations are positive
-in all four cases! Please fix!-->
+in all four cases! Please fix!
+***Shya: Yes, you are right, I fixed that.-->
 
 # Methods\label{Methods}
 
@@ -367,7 +368,24 @@ make the similar figure in BIVAN (Fig. 7), but change it slightly so the figure 
 and maybe slightly change the locations of the bands. The caption can also be similar,
 but obviously should not mention D^2 or P, and wording should be changed slightly.
 The caption will also have to say something like "This figure was reproduced largely 
-following Fig. 7 of Ghosh et al".-->
+following Fig. 7 of Ghosh et al".
+***Shya: see below.-->
+
+<!--FIG : schematic diagram for partial spearman correlation, adapted from BIVAN-->
+\begin{figure*}[!h]
+\begin{center}
+\includegraphics[width=6 cm]{./Results/PartialSpearmanFig.pdf}
+\caption{The partial Spearman correlation, $\cor_{lb,ub}(u, v)$, within a band can be computed
+for any band to describe how the strength of association between $u$ and $v$
+varies from one part of the two distributions to another. Diagonal lines 
+show two bands, the data in the right/upper band showing
+stronger association than those in the left/lower band. This figure was reproduced
+largely following $Fig. 7$ of $Ghosh et al.(2019)$.
+\label{PartialSpearmanFig}}
+\end{center}
+\end{figure*}
+
+
 We can then define the *partial Spearman correlation*,
 \begin{equation}
 \cor_{l_b,u_b}(u,v) = \frac{\sum (x(t)-\mean(x))(y(t)-\mean(y))}{(n-1)\sqrt{\var(x) \var(y)}},\label{PartialSpearmanEq}
@@ -442,6 +460,9 @@ varying $r$ produced no transition from under- to overcompensatory dynamics.
 <!--***DAN: By the way, Shyamolina, these are not Hopf bifuractions - those cannot happen
 with univariate models like these. These are called period-doubling bifucations.
 
+***Shya: I also mentioned Hopf bifurcation in Appendix S2. I leave as it is, when you checked that 
+we need to modify from hopf to period-doubling.
+
 If $r$ became too high and exceeded $r_{bf}$ - the parameter value responsible for Hopf-bifurcation -
 model equilibrium $P_e$ became unstable. Beyond the Hopf-bifurcation point, the model showed sustained
 oscillation and eventually led to chaos with increasing $r$. Appendix \ref{SM-model_stability}
@@ -480,7 +501,11 @@ was used as the initial condition in all patches and simulations.
 After each time step, if $P_i(t)$ was less than $P_e/10$ then it was set to $0$.
 The whole metapopulation was considered to have gone extinct if all patches were $0$
 a time step $25$.
-<!--***DAN: Shyamolina, please check the above two sentences, is this what you did?-->
+<!--***DAN: Shyamolina, please check the above two sentences, is this what you did?
+***Shya: I agreed with you upto line 482, the last line "The whole metapopulation was considered to have gone extinct if all patches were $0$ a time step $25$" I could not understand, did you write that conceptually? (then it's ok), 
+or you meant I apply that in my code?
+Similarly, the below line explains lines 149-150 of mydispersal.R, I am not fluent in using apply function on two dims at once e.g. c(1,3), you wrote that piece of code, I want to explain you 
+on Friday gow I interpret that portion, then I can tell you accurately what I did.-->
 Extinction risk was the fraction of 10000 metapopulations that went extinct. 
 Estimates of extinction risk were plotted together with 95\% confidence intervals
 based on a binomial distribution.
@@ -764,9 +789,10 @@ knitr::kable(dt, escape=F,
              format="latex",digits=3, align="c",table.env='table*',
              caption = "Summary of the six density-dependent stochastic metapopulation models we used. The population growth rate in habitat patch $i$ at time $t$, $\\lambda_i(t)$ (second column), is $P_i(t+1)/P_i(t)$, and defines how the model works within each patch. Here $P_i(t)$ is the population in patch $i$ at time $t$. The growth rate depends on model parameters, $P_i(t)$, and the environment $\\epsilon_i(t)$ in patch $i$ at time $t$. $\\epsilon_i(t)$ was normally distributed with mean $0$ and standard deviation $\\sigma$, and values were generated independently across times. $P_e$ is the equilibrium of the deterministic, one-patch version of the model. $r_{min}$ is the smallest $r$, given fixed values of the other parameters, for which $P_e$ was non-negative. $r_c$ is the value of $r$ for which a transition occurs from under- to overcompensatory dynamics (see main text). $r_{bf}$ is the value of $r$ for which a transition occurs from a stable to an unstable equilbrium (a bifurcation; see main text). We used $r$ such that $r_{min}<r<r_{bf}$. Dispersal between patches was also implemented (see main text).\\label{tab_model_summary}",
              booktabs=T, linesep = "\\addlinespace"
-             )%>%column_spec(c(1,3,5,6),width="1.4 cm")%>%kable_styling(latex_options = "basic",position = "center")%>%column_spec(2, width = "3.8 cm")
+             )%>%column_spec(c(1,3,5,6,7),width="1.4 cm")%>%kable_styling(latex_options = "basic",position = "center")%>%column_spec(2, width = "3.8 cm")
 ```
-<!--***DAN: Shyamolina, can you please make the header of the second column read simply \lambda_i(t)? Also, can you add a column for r_min, please?-->
+<!--***DAN: Shyamolina, can you please make the header of the second column read simply \lambda_i(t)? Also, can you add a column for r_min, please?
+***Shya: Done, I added r_min value, if a population starts with exactly r=r_min, then P_e remains at 0, it should start with r>r_min to get a positive equilibrium.-->
 
 \clearpage
 
