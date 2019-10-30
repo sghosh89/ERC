@@ -69,14 +69,14 @@ mtc_r<-1-mtc_l
 scor_el<-cor(xtc_l,xtc_l,method = "spearman")
 scor_el<-scor_el[1,2]
 
-#scor_er<-cor(xtc_r,xtc_r,method = "spearman")
-scor_er<- -scor_el # Note it should be opposite to scor_el
+scor_er<-cor(xtc_r,xtc_r,method = "spearman")
+scor_er<- scor_er[1,2] 
 
 scor_ml<-cor(mtc_l,mtc_l,method = "spearman")
 scor_ml<- scor_ml[1,2]
 
-#scor_mr<-cor(mtc_r,mtc_r,method ="spearman")
-scor_mr<- -scor_ml # Note it should be opposite to scor_ml
+scor_mr<-cor(mtc_r,mtc_r,method ="spearman")
+scor_mr<- scor_mr[1,2] 
 ```
 
 
@@ -110,6 +110,19 @@ plot(xtc_r[1:500,1],xtc_r[1:500,2],col=rgb(0,0,0,0.1),pch=19,xlab="u",ylab="v",c
 text(x=0.1,y=0.9,"D",cex=2.5)
 text(x=0.8,y=0.1,round(scor_er,4),cex=2)
 
+par(op)
+dev.off()
+
+
+#========== Schematic fig for partial spearman correlation ==============
+pdf("./Results/PartialSpearmanFig.pdf", width=6, height=6)
+op<-par(mar=c(6,6,2,2),mgp=c(3,1,0))
+plot(mtc_r[1:150,1],mtc_r[1:150,2],type='p',pch=19,col=rgb(0,0,0,0.15),cex=1.5,
+     cex.axis=2,cex.lab=2.5,xlab="u",ylab="v")
+lines(c(0,0.3),c(0.3,0),type='l')
+lines(c(0,0.6),c(0.6,0),type='l')
+lines(c(0,1.4),c(1.4,0),type='l')
+lines(c(0,1.7),c(1.7,0),type='l')
 par(op)
 dev.off()
 ```
@@ -2653,6 +2666,14 @@ dt4<-tibble("$P_{e}$" = c("K",
                         "K"
 ))
 
+dt4_2<-tibble("$r_{min}$" = c("0",
+                        "1",
+                        "1",
+                        "$1+\\exp(-a)$",
+                        "0",
+                        "0"
+))
+
 dt5<-tibble("$r_{c}$" = c(rc_ricker,
                         rc_hassell,
                         rc_msmith,
@@ -2669,7 +2690,7 @@ dt6<-tibble("$r_{bf}$" = c(r_bf_ricker,
                            r_bf_abrewer
 ))
 
-dt<-cbind(dt1,dt2,dt3,dt4,dt5,dt6)
+dt<-cbind(dt1,dt2,dt3,dt4,dt4_2,dt5,dt6)
 saveRDS(dt,"./Results/tab_model_summary.RDS")
 ```
 
