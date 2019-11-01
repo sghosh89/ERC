@@ -143,10 +143,6 @@ measured in different places [@Serinaldi2008; @li2013; @She2018; @Goswami2018].
 Asymmetric tail associations have also been documented between numerous ecological
 variables and between environmental and ecological variables [@Ghosh_copula].
 
-<!--***DAN: maybe you want to have a Discussion para on copulas. It could start with
-some text about ranks being the proper way to study associations, and then could go
-on to link to copulas and cite BIVAN-->
-
 <!--ECEs probably produce tail associations-->
 There are reasons to hypothesize that ECEs may produce asymmetric tail 
 associations between climatic variables
@@ -159,12 +155,6 @@ made in different locations.
 For example, rainstorms which deposit exceptionally large amounts of rain
 may do so over large areas; but periods with less rain may experience
 scattered showers only, which may be much less correlated across locales.
-
-<!--***DAN: May be scope for a discussion para linking what is known about
-how ECEs are changing to what effect that may have on how tail assiciations
-in environmental variables might be changing, and what influence that may have
-on extinction risk. If little is known, then this might be a good topic for 
-future work.-->
 
 There are also reasons to hypothesize that asymmetry of tail association in 
 environmental variables may influence extinction risks for metapopulations.
@@ -229,21 +219,6 @@ the potential mechanisms, outlined above, which suggest that
 asymmetries of tail association may make a difference for extinction risks. 
 By so doing we hope to open these potentially practically important questions to 
 wider examination other researchers. Some material in the Discussion outlines some possible next steps.
-<!--***DAN: In Discussion need to talk about what analytic results are needed
-to take the next step of determining when tail depencence may make enough of
-a difference to think about. I think our results, together with Tulja's 
-approximation, suggest that tail associations probably don't make much difference
-for models without a spatial component. But our results illsutaret that it can
-make a big difference when there is a spatial component, apparently because of 
-the influence of tail associations on rescue effects. Could maybe even outline
-analytic approaches for non-dd models? Not sure what would be done with dd
-models. The point is you need to take the next step in the Discussion of 
-talking about how our results, which admitedly are just for specific models,
-could be turned into analytic results or general results. Interestingly, 
-Tulja's approximation may also apply to the spatial case, at least when 
-all locations can be reached from all other locations via dispersal. But the 
-approximation seems poor in that case. Need to think about it more, and maybe
-need more research.-->
 Though tail associations are used
 to assess risks in fields such as finance and hydrology 
 [@alexander2008market; @li2013; @chen2011flood; @Goswami2018], to our
@@ -402,9 +377,6 @@ largely following Fig. 7 of Ghosh \emph{et al.} (2019).
 \label{PartialSpearmanFig}}
 \end{center}
 \end{figure*}
-<!--***DAN: Shyamolina, please change the u and v axis labels on the figure
-to x and y, respectively, since we defined those as the ranks in the main text.
-***Shya: Done.-->
 
 <!--density-dependence metapopulation model-->
 To investigate Q2 from the \nameref{Introduction}, we considered spatialized, stochastic versions
@@ -490,34 +462,9 @@ was used as the initial condition in all patches and simulations.
 After each time step, if $P_i(t)$ was less than $P_e/10$ then it was set to $0$.
 The whole metapopulation was considered to have gone extinct if all patches were $0$
 at time step $25$.
-<!--***DAN: Shyamolina, please check the above two sentences, is this what you did?
-***Shya: I agreed with you upto line 482, the last line "The whole metapopulation was considered to have gone extinct if all patches were $0$ a time step $25$" I could not understand, did you write that conceptually? (then it's ok), 
-or you meant I apply that in my code?
-***DAN: I wrote it guessing that that was what you did. If that is not what you did,
-when we should discuss, preferably as soon as possible, before Friday.
-Similarly, the below line explains lines 149-150 of mydispersal.R, I am not fluent in using apply function on two dims at once e.g. c(1,3), you wrote that piece of code, I want to explain you 
-on Friday gow I interpret that portion, then I can tell you accurately what I did.
-***DAN: I added some comments above the function extrisk in mydispersal.R, after reading those
-can you tell me by adding another comment what you did and if what I wrote here was correct?
-***Shya: Yes, you are correct. I also added commented text in mydispersal.R lines 153-165. Have a look 
-to check that you are agreed with me or not.
--->
 Extinction risk was the fraction of 10000 metapopulations that went extinct. 
 Estimates of extinction risk were plotted together with 95\% confidence intervals
 based on a binomial distribution.
-
-<!--***DAN: Dan plans to delete this text as it has been superseded by the above. Keeping it
-around until I am sure the above is right:
-Our models (Table \ref{tab_model_summary}) 
-computed extinction risk after $25$ years for $10000$ simulations at $n = 5$ patches
-with spatially correlated noises having either moderate or extreme tail 
-association in left and right-tail. 
-We started with initial population $P_{t=0}^i = P_e^i, (i = 1,2,\ldots,n)$ for each patch, where 
-$P_e^i$ was the equilibrium value (or similar to carrying capacity concept) 
-for each density-dependence model (see 4$^{th}$ column of Table \ref{tab_model_summary}).
-We assumed the population went extinct after each time step if it was below a 
-certain threshold (set to 10\% of the initial population $P_e$ for individual model). 
--->
 
 <!--test hypothesis from Q2 : ext risk with density-dependence metapopulation model with r from different regime-->
 To answer (Q2) of the \nameref{Introduction}, 
@@ -617,22 +564,64 @@ whereas the reverse occurs for overcompensatory dynamics ($r>r_c$). Fig. \ref{fi
 reveals a similar reversal for the Maynard Smith, Velhurst and Austin-Brewer models; but 
 it occurs at a value of $r$ close to but distinguishable from $r_c$.
 
-<!--***DAN: stopped here, also need to do the caption of the last figure-->
+<!--***DAN: stopped here-->
 
 # Discussion\label{Discussion}
 
 <!--summary results:-->
-We showed the potential use of the "asymmetric" tail association in modeling the impact of 
-extreme ecological events on population-extinction risk. Our results demonstrated left and right-tail 
-association in vital rates (or in spatially correlated environmental noises) affected extinction risk differently
-in years of extreme events ("catastrophes" and "bonanzas"). Though we could expect the left tail association 
-to show higher extinction risk than the one for right tail association with age-structured 
-and density-dependent metapopulation models, it was not always true. In the over-compensatory regime,
-right tail dependent noise caused higher extinction risk than the left tail dependent noise. We showed 
-that in the absence of dispersal the above-said switching took place near the critical parameter value where 
-the deterministic model showed the transition from under-compensatory to the over-compensatory regime.
+Our results combined with earlier results 
+show that asymmetries in tail associations between environmental variables in
+different locations can have a substantial influence on metapopulation extinction risk,
+for density-dependent as well as for density-independent 
+models. These results
+extend the result of @Ghosh_copula, which was for a density-independent model. For a
+density-independent model, @Ghosh_copula corroborated the intuition
+that, when "harmful" environmental events 
+(i.e., events which reduce the growth rates of local populations)
+are correlated across space,
+extinction risk of metapopulations will be accentuated compared 
+to when "beneficial" events
+(i.e., events which increase the growth of local populations)
+are spatially correlated, even if overall correlation is the same in 
+both scenarios. This was presumably because the first of these scenarios reduces the 
+potential for rescue effects. For the density-dependent metapopulation 
+models we considered, the same 
+result held, typically, but not always, for undercompensatory model dynamics. However,
+for overcompensatory dynamics, the oposite result held, again typically, but not always: 
+when "harmful" events were correlated across space,
+extinction risk of metapopulations was actually mitigated compared 
+to when "beneficial" environmental events were 
+spatially correlated by the same amount. This was probably because the correlated 
+beneficial events caused populations to exceed carrying capacity, and 
+to subsequently crash, across large areas. In contrast 
+to the metapopulation case, our results 
+suggest that asymmetry of tail associations between vital rates
+in a stage-structured, non-spatial stochastic model may be of limited 
+importance for extinction risk. However, our results provide suggestive, rather
+than definitive evidence, here, because we considered 
+only one model. In our stage-structured, non-spatial model, extinction 
+risk was only weakly influenced by asymmetry of tail associations
+between vital rates. 
+
+<!--***DAN: May be scope for a discussion para linking what is known about
+how ECEs are changing to what effect that may have on how tail assiciations
+in environmental variables might be changing, and what influence that may have
+on extinction risk. If little is known, then this might be a good topic for 
+future work.-->
+Extensive evidence now exists that ECEs have become more frequent and more intense
+over the last several decades, and substantial progress has recently been made so that
+some event categories and specific events can now be attributed with confidence to
+human-induced climate change [@ummenhofer2017extreme]. We here provide a fuller 
+explanation of how such changes may modify the asymmetry of tail association of 
+weather variables measured in different places, and thereby influence metapopulation
+extinction risk through the mechansms that were explored in this paper. 
+
+
+
+
 
 <!--Tuljapurkar approximation : linear version of age-structured model in stochastic environments-->
+<!--***DAN: Dan to elaborate and make more specific/precise-->
 We found a left tail association in vital rates (induced by ECEs) caused higher extinction risk than 
 the right tail dependent ones, but the difference was not remarkable 
 unless the tail association was at its 
@@ -650,9 +639,36 @@ rate in an iid environment could be approximated
 as same for our model (Eq. \ref{eq_age_str}) with 
 left-tail or right-tail association.
 
+<!--***DAN: Dan to maybe add another para on the fact that I thnk Tulja's approx should also
+work for our spatial, non-dd model (check first, Dan), but we see a strong effect here,
+so not clear why. And also suggests the possibilty that for some age-structured models,
+tail associations will make a bigger difference then they did in our case. Maybe somehow
+get to the suggestion that someone needs to revisit Tulja's approx and the analytic
+approximation of extinction risk of Lande and Orzack looking at tail associations? Maybe
+this and the previous para need to be combined, or broken up in a different way.-->
+
+<!--***DAN: maybe you want to have a Discussion para on copulas. It could start with
+some text about ranks being the proper way to study associations, and then could go
+on to link to copulas and cite BIVAN-->
+
+
+<!--***DAN: In Discussion need to talk about what analytic results are needed
+to take the next step of determining when tail depencence may make enough of
+a difference to think about. I think our results, together with Tulja's 
+approximation, suggest that tail associations probably don't make much difference
+for models without a spatial component. But our results illsutaret that it can
+make a big difference when there is a spatial component, apparently because of 
+the influence of tail associations on rescue effects. Could maybe even outline
+analytic approaches for non-dd models? Not sure what would be done with dd
+models. The point is you need to take the next step in the Discussion of 
+talking about how our results, which admitedly are just for specific models,
+could be turned into analytic results or general results. Interestingly, 
+Tulja's approximation may also apply to the spatial case, at least when 
+all locations can be reached from all other locations via dispersal. But the 
+approximation seems poor in that case. Need to think about it more, and maybe
+need more research.-->
+
 <!--Intution/ possible explanation for expected results/ hypo?-->
-
-
 
 <!--future study: worthy for PVA, IUCN red list:
 1. Identify which life stage or demographic process as management target?
@@ -685,21 +701,30 @@ such correlation cannot be estimated directly, more generally where the
 forms of statistical dependence among the model's parameters are unknown, making incorrect
 assumptions about correlations and dependencies may lead to severe over-estimation 
 or under-estimation of extinction risks [@ferson1995correlations]. We believe modeling 
-dependencies with copula could help in this case. Second, we did not consider multiple sites of 
+dependencies with copula could help in this case. 
+<!--***DAN: the ideas in this para up to here (taking out the wrong statements) might 
+follow on well from a para based on the notes I wrote above on Tulja's approx.-->
+Second, we did not consider multiple sites of 
 age-structured metapopulation which could be linked via dispersal. So, the possible future investigation 
 would be to explore the viability for the metapopulations if vital rates (e.g. fecundity or 
 survival of different stage class) across sites showed specific tail association 
-with spatially correlated extreme climatic events. Third, we considered the tail association 
+with spatially correlated extreme climatic events. 
+<!--***DAN: a reasonable point, above-->
+Third, we considered the tail association 
 between positively correlated vital rates, but what would be the extinction risk 
 and viability of a population if demographic rates were negatively correlated with the asymmetric tail association. 
+<!--***DAN: a good point, above-->
 We could consider this scenario to model extreme events that kill adults and allow more successful
 recruitment of seeds or other propagules. Fourth, following the aforementioned idea, it would be worthy 
 to model more complex prey-predator model where asymmetric tail association could feature the
-interspecific-dependence. An earlier study [@carnicer2011widespread] showed extreme events
+interspecific-dependence. 
+<!--***DAN: mentioning interactions strikes me as a step too far-->
+An earlier study [@carnicer2011widespread] showed extreme events
 (i.e., heatwaves and droughts) increased mortality and defoliation in the southern European forest and its 
 dependent herbivorous insects and fungi through trophic linkage. <!--ECEs can even truncate 
 multiyear insect outbreak dynamics [@esper20061200].--> We believe copula (maybe a multidimensional one) has 
-a lot more potential to estimate the risk of cascading extinction in model food webs. <!--should I mention about 
+a lot more potential to estimate the risk of cascading extinction in model food webs. <!--should I 
+mention about 
 match-mismatch hypothesis leads to extinction? our phenology paper in prep.--> Fifth, we considered 
 our metapopulation patches were equispaced on a linear chain with equal global dispersal 
 rate between patches. But in realistic network models, as inter-patch distances 
@@ -707,6 +732,8 @@ can be different, the dispersal rate should depend on distance: dispersal is pos
 rates between nearby patches than the patches which are far away. It is worthy to study 
 metapopulation viability with non-uniform spatial correlation (i.e. asymmetric tail association) in a 
 network with different clusters having various dispersal rates.
+<!--***DAN: might also mention how this relates with geog of sync of environmental vars, linking to
+Jon's paper-->
 
  <!--FIG : age structure model results : linear, nonlinear-->
 \begin{figure*}[!h]
@@ -721,12 +748,12 @@ network with different clusters having various dispersal rates.
 \begin{center}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_extremetail_linear.pdf}
 \includegraphics[width=5 cm]{./Results/age_str_results/extrisk_age_str_extremetail_nonlinear_omg_100.pdf}
-\caption{Extinction risk versus time for our stochastic, age-structured model; risks
+\caption{Extinction risk versus time for our stochastic, age-structured model. Risks
 were higher when associations between vital rates were stronger in the left compared to
 the right tails of the rates, but only slightly so. Results are for the linear
 version of the model ($\Omega = \infty$; A, C) and for the nonlinear model with density
 dependence in the fecundity rate ($\Omega = 100$; B, D). Results show cases of moderate
-(A, B) and extreme (C, D) asymmetry of tail association. The solid line is the estimated extinction risk and the area of shading, which is barely visible because it is so narrow, show 95\% confidence intervals for extinction risk.\label{fig_extrisk_agestr}}
+(A, B) and extreme (C, D) asymmetry of tail association. The solid line is the estimated extinction risk, and the area of shading, which is barely visible because it is very narrow, shows 95\% confidence intervals for extinction risk.\label{fig_extrisk_agestr}}
 \end{center}
 \end{figure*}
 
@@ -738,7 +765,11 @@ dependence in the fecundity rate ($\Omega = 100$; B, D). Results show cases of m
 for our six metapopulation models (Methods, Table \ref{tab_model_summary}). Dispersal was
 local, see Fig. \ref{SM-fig_extrisk_allmodel_globaldisp} for global dispersal. Values of $r$
 used are in the panel headers.
-Extinction risks are for a 25-year time horizon. \label{fig_extrisk_allmodel_localdisp}}
+Extinction risks are for a 25-year time horizon. Confidence intervals for extinction 
+risk are not plotted, to provide a clearer plot. But 
+because 10000 simulations were
+done for each extinction risk estimate, confidence intervals
+were very narrow, as in Fig. \ref{fig_extrisk_agestr}.\label{fig_extrisk_allmodel_localdisp}}
 \end{center}
 \end{figure*}
 
@@ -755,14 +786,11 @@ Extinction risks are for a 25-year time horizon. \label{fig_extrisk_allmodel_loc
 \vspace{-0.6 cm}
 \includegraphics[width=6 cm]{./Results/verhulst_scl_0.6/verhulst_extrisk_d0_extreme_and_moderate_noise.pdf}
 \includegraphics[width=6 cm]{./Results/austinbrewer_scl_0.6/abrewer_extrisk_d0_extreme_and_moderate_noise.pdf}\\
-\caption{Transition of higher to lower extinction risk (calculated after $25$ years) for 
-the metapopulations affected by extreme left tail dependent noise across
-$5$ multiple patches without dispersal ($d=0$), as intrinsic 
-growth rate ($r$) goes from under to over-compensatory regime. Extinction risk for 
-extreme right tail dependent noise follows the opposite trend.
-Error bars represent the standard errors associated with $10000$
-simulations for extinction risk computed at each $r$. Dotted line represents the value of $r$
-for each model where their deterministic analog switches from under- to over-compensatory dynamics.
+\caption{Extinction risk versus $r$, with $d=0$, for different scenarios of tail association for 
+our six metapopulation models (Methods, Table \ref{tab_model_summary}). 
+Extinction risks are for a 25-year time horizon. Vertical lines show $r_c$,
+the transition from under- to overcompensatory dynamics of the deterministic, one-patch
+version of the model. Error bars show 95\% confidence intervals of extinction risk.
 \label{fig_extrisk_d0}}
 \end{center}
 \end{figure*}

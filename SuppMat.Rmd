@@ -2917,6 +2917,9 @@ same except for the direction of tail association. We generated
 extreme left- or right-tail associated noises via algorithm stated in 
 Appendix \ref{SM-extr_tail_dep}. 
 
+<!--***DAN: you need to insert the proof that Spearman is 0.875 for the extreme
+tail dependent noise-->
+
 # Stability analysis of deterministic metapopulation models  \label{model_stability}
 
 First, we will briefly discuss about the stability analysis for a difference 
