@@ -700,7 +700,7 @@ Perhaps unfortunately, the Pearson correlation,
 which is the most commonly used measure of association of two variables,
 depends on both marginal information and association information.
 It is possible that recently observed changes in environmental
-[e.g., @Black2018] and biological [e.g., @Koenig2016] synchrony 
+(e.g., @Black2018) and biological (e.g., @Koenig2016) synchrony 
 are, at least in part, just another feature of 
 already-studied changes in distributional characteristics of  
 variables, rather than reflecting true changes in association.

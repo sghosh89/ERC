@@ -2827,116 +2827,82 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 
 # Generating noise with asymmetric tail associations  \label{makenoise}
 
-<!--needs editing, I just dumped old text here-->
-
-Copula, a rank based measure of association, is much more informative 
-than linear correlation measure and a widely applied tool in dependence 
-modeling [@joe2014_dependence; @nelsen2006_copula]. Copulas separate 
-the information content of a bivariate dataset,
-$(x_n, y_n)$ for $n = 1 \ldots N$, into two non-overlapping parts: the information in the marginal 
-distributions (which is not about the association between the variables) and the rest of 
-the information (which is solely about the association). The association information is revealed by 
-the copula plot ($v_n$ against $u_n$) of the raw variables ($y_n$ vs. $x_n$) in Fig...., where 
-$u_n$ is the rank of $x_n$ in the set ${x_1, x_2, \ldots , x_n }$, divided by $N + 1$; 
-and $v_n$ is the rank of $y_n$ in the set ${y_1, y_2, \ldots , y_n }$, also divided
-by $N + 1$. Here the rank of the smallest element of each sets is considered to be 1 and the rank of
-the largest element is $N$. We refer to the $u_n$ and $v_n$ as normalized ranks of the $x_n$ and $y_n$. 
-Ranking makes the marginal distributions uniform, isolating only the information on 
-association between the variables. 
-
 <!--# Algorithm to generate extreme tail association  \label{extr_tail_dep}-->
+Bivarite environmental noise with extreme left-tail association (as in Fig. 
+\ref{fig_intro_cop}A) was generated using an algorithm originally presented 
+by @Ghosh_copula (their Appendix S10), presented again here for convenience.
+If $T$ time steps of noise were desired, step 1 was to generate a $T$ by $2$
+matrix, $M$, of independent random numbers, each standard-normally distributed. 
+Then, each row of $M$ was identified for modification randomly and
+independently, with a 50\% chance. For those rows identified, every element
+of the row was replaced by the negative of the absolute value of the first element
+of the row, including the first element itself. For the other rows, every 
+element in the row was replaced by its own absolute value. For noise
+with extreme right-tail association (as in Fig. 
+\ref{fig_intro_cop}D), take the negative of the entire matrix. For
+both types of noise, every entry was transformed by the cummulative distribution
+function of a standard normal distribution, to make each column uniformly
+distributed.
 
-For extreme tail association algorithm, a $N \times n$ matrix, M was generated of independent 
-standard-normal random draws (in general). <!--where $N = numsteps(=25) \times numsims(=10000)$ : only for 2d case-->
-Then, each row of M was identified for a first set of modifications
-randomly and independently with a 50\% chance; for those rows identified, every
-element of the row was replaced with the absolute
-value of the first element of the row (including the first element itself).
-For other rows, every element in the row was replaced by the negative of 
-its own absolute value. This produces right-tail dependent
-matrix, normally distributed for each column. If left-tail 
-dependent noise is desired, take the negative of the entire matrix.
-Our [code](https://github.com/sghosh89/ERC/blob/master/ExtremeTailDep.R) for
-generating extreme tail association matrix is flexible enough, so that 
-matrix M can be generated initially with independent random draws from a normal 
-distribution with a specified mean and standard deviation.
+<!--Spearman correlation of the extreme-tail-associated noise-->
+The Spearman correlation of the extreme left- or right-tail associated 
+noise was $0.875$, up to sampling variation.
+<!--***DAN: fill this in-->
 
-<!--some stuff that used to be in the main text-->
+<!--moderate tail association noise-->
+Bivarite environmental noise with moderate left-tail association (as in Fig. 
+\ref{fig_intro_cop}B) was generated using a 2-dimensional Clayton copula. The statistical
+theory of copulas has been introduced systematically in several texts 
+(e.g., @nelsen2006_copula; @joe2014_dependence), and was briefly 
+introduced by @Genest2007. Short, conceptual introductions aimed at ecological
+audiences were provided by sections within the papers of @Anderson2018 and  
+@Ghosh_copula. A 2-dimensional Clayton copula is equivalent to a particular bivariate 
+probability density function with marginal distributions which are 
+uniform on the interval $(0,1)$. The points on Fig. 
+\ref{fig_intro_cop}B were independent draws from the associated random variable.
+The functions `claytonCopula` and `rCopula` from the `copula` package for the 
+R programming language were used. The parameter of the Clayton family was
+chosen so that the Spearman correlation was $0.875$, the same as that of the
+extreme left-tail associated noise. This was accomplished with the `iRho`
+function of the `copula` package. Noise with moderate right-tail
+association was generated in a similar way but using the 2-dimensional 
+survival Clayton copula.
 
-The moderate tail association was modeled by using the 
-concept of "copula", a statistical tool to model 
-dependencies. Appendix \ref{SM-intro_copula} summarized
-a brief introduction of "copulas" and their relation to tail associations, symmetries 
-with examples of available copula families 
-from `R` packages (`copula` and `VineCopula`). We used bivariate Clayton 
-copula to model moderate left-tail and Survival Clayton copula to model 
-moderate right-tail association in the vital rates. Both copulae had the same Spearman 
-correlation ($\rho =$ `r srho_common`) but opposite association in their respective tails. 
-We generated a $N \times 2$ matrix, M, for each of the left (Clayton) and 
-right (Survival Clayton) tail associated bivariate copulas (see `BiCopSim` function from
-`VineCopula` package ), where $N$ is number of years ($=25$) multiplied 
-by number of simulations ($=10000$) we used. 
-We chose parameters for each copula family using 
-`iRho` function from `copula` package so that both copula had
-same Spearman correlation ($\rho =$ `r srho_common`). Entries within each column of
-matrix $M$, then became independent of each other but 
-entries between columns had a specific tail association
-with positive Spearman correlation. 
-
-<!--some more stuff from the main text-->
-
-On a similar note, we generated extreme left- (or right-) tail dependent matrix (M)
-from standard iid (Appendix \ref{SM-extr_tail_dep}) and made the marginals uniform so that
-it could mimic an extreme tail dependent copula. We made the first column of matrix 
-$M$ as gamma ($\Gamma(k,\theta)$) distributed 
-with shape parameter $k = 2$ and scale parameter $\theta = 1$.
-This distribution represented fecundity of the adult population, $f_a \geq 0$.
-For a given $\theta$, increasing $k$ would shift the distribution towards
-higher fecundity and reduce the extinction risk if the other parameters
-remain unchanged. We took the second column of $M$ and applied a 
-beta ($\mathcal{B}(\alpha,\beta)$) transformation. $\alpha =3$ and
-$\beta = 2$ were the shape parameters that could control the distribution 
-of the survival rates of eggs ($s_e$) ranging in between 0 to 1. 
-For each $25$ timesteps from each of $10000$ simulations,
-we incorporated pairwise entries from each row of matrix $M$ in the expression for 
-vital rates (fecundity $f_a$ and survival rates $s_e$, Eq. \ref{eq_vitalrates}) of 
-the stochastic projrction matrix in model (\ref{eq_age_str}).
-
-<!--yet more stuff from the main text-->
-
-For moderately left-tail associated 
-noises we drew points from a $n$ dimensional 
-Clayton copula with same Spearman correlation ($\rho =$ `r srho_common`) between
-any two out of $n$ patches and made 
-the marginals normal with zero mean and standard deviation $\sigma$ 
-(see the specified value $\sigma$ for each model in 3$^{rd}$ 
-column of Table \ref{tab_model_summary}). For moderately 
-right-tail associated noises we flipped ($180^{\circ}$ rotation) the points drawn 
-from Clayton copula so that all the statistical properties remained 
-same except for the direction of tail association. We generated
-extreme left- or right-tail associated noises via algorithm stated in 
-Appendix \ref{SM-extr_tail_dep}. 
-
-<!--***DAN: you need to insert the proof that Spearman is 0.875 for the extreme
-tail dependent noise-->
+<!--Multivariate extreme tail association-->
+Multivariate noise with extreme left-tail association was generated using a
+very simlar algorithm to the bivariate case,
+as follows. If $T$ time steps of noise of dimension $n$ were desired,
+step 1 was to generate a $T$ by $n$
+matrix, $M$, of independent random numbers, each standard-normally distributed.
+Each row of $M$ was identified for modification randomly and
+independently, with a 50\% chance. For those rows identified, every element
+of the row was replaced by the negative of the absolute value of the first element
+of the row, including the first element itself. For the other rows, every 
+element in the row was replaced by its own absolute value. For noise
+with extreme right-tail association, take the negative of the entire matrix. For
+both types of noise, every entry was transformed by the cummulative distribution
+function of a standard normal distribution, to make each column uniformly
+distributed. 
+Multivariate moderately tail associated noise of dimension $n$
+was generated using $n$-dimensional Clayton or survival Clayton copulas. 
 
 # Stability analysis of deterministic metapopulation models  \label{model_stability}
 
-First, we will briefly discuss about the stability analysis for a difference 
-equation which is frequently used in population ecology model. Let's say, $P(t+1) = F(P(t),r)$
-represents the model dynamics of a single population $P$ which progress recursively via 
-a nonlinear density-dependence function $F$ with discrete time variable $t$. $r$ is the model parameter 
-which plays major role in assessing the model's dynamical stability. Fixed-point analysis can
-be used to get information about this type of nonlinear difference equation. The idea is to
-employ the concept that the system at fixed point (or equilibrium $P_e$) does not change with time 
-(i.e. $P(t+1) = P(t)$). Given a tiny perturbation from its equilibrium $P_e$, if the system 
-returns to its initial state, then $P_e$ is called to be a stable equilibrium, otherwise unstable.
-Mathematically, from standard linear stability analysis we can say an equilibrium is locally 
-asymptotically stable if $| {F}' | < 1$, where ${F}' = \left( \frac{\mathrm{d}F }{\mathrm{d} P} \right) _{P(t)=P_e}$.
-If the approach towards its equilibrium is monotonic (when $0<{F}'<1$), the dynamics is said to be
-in under-compensatory regime. An over-compensatory dynamics means the approach towards its stable equlibrium
-is oscillatory ($-1<{F}'<0$). Following we will describe stability condition of the model dynamics considered for each 
-patch of metapopulation models in the maintext (see Table \ref{MT-tab_model_summary}).
+Let $P(t+1) = F(P(t),r)$ be a deterministic population-dynamic model, where 
+$P(t)$ is the population at time $t$ and $r$ is a model parameter. Let $P_e$
+be an equilibrium (which may depend on $r$), i.e., $F(P_e,r)=P_e$. $P_e$
+is called a stable equilibrium if, when the population is perturbed slightly
+from equilibrium, the system returns to the equilibrium value; $P_e$ is called
+an unstable equilibrium otherwise.
+From standard linear stability analysis, we say an equilibrium is locally 
+asymptotically stable if $| {F}' | < 1$, where ${F}' = \left( \frac{\mathrm{d}F }{\mathrm{d} P} \right) _{P=P_e}$.
+If $0<{F}'<1$, then the approach of the system to the equilibrium is monotonic,
+and dynamics are called undercompensatory. If $-1<{F}'<0$, then the approach of the
+system to equilibrium is oscillatory, and dynamics are called overcompensatory. 
+We will now describe stability analyses of the deterministic 1-habitat-patch version
+of each model of Table \ref{MT-tab_model_summary}.
+
+<!--***DAN: got to here-->
 
 **Ricker model** [@ricker1954stock; @may1976bifurcations], originally introduced in the context of modelling
 stock and recruitment of salmon populations, is a classic 
