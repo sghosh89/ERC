@@ -212,7 +212,7 @@ in both these scenarios. The present study extends tests of this idea to metapop
 models incorporating density dependence. 
 
 Extinction risk is also very commonly estimated for age-structured models 
-such as stochastic matrix models [@MorrisDoak2002; @Caswell2006] and 
+such as stochastic matrix models [@MorrisDoak2002; @Caswell2000] and 
 integral projection models
 [@Merowetal2014]. For such models, extinction risk depends, in part, on the long-term
 population growth rate, a population parameter which in turn 
@@ -587,7 +587,7 @@ and \ref{SM-fig_extrisk_allmodel_globaldisp} suggest the hypothesis that the
 opposite effects of tail association on extinction risk correspond to the domains
 in which models exhibit under- versus overcompensatory dynamics. This was 
 approximately, but not exactly, true. Careful inspection of Figs 
-\ref{fig_risk_local_disp_verhulst_r_vary_scl_0.6} - \ref{fig_risk_local_disp_abrewer_r_vary_scl_0.6} and Figs \ref{fig_risk_global_disp_verhulst_r_vary_scl_0.6} - \ref{fig_risk_global_disp_abrewer_r_vary_scl_0.6}  
+\ref{SM-fig_risk_local_disp_verhulst_r_vary_scl_0.6} - \ref{SM-fig_risk_local_disp_abrewer_r_vary_scl_0.6} and Figs \ref{SM-fig_risk_global_disp_verhulst_r_vary_scl_0.6} - \ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6}  
 and the $r_c$ values of 
 Table \ref{tab_model_summary} reveals that, for the Velhurst and Austin-Brewer models,
 the switch occurs at a value of $r$ less than $r_c$ for these models. For the example
@@ -700,7 +700,7 @@ Perhaps unfortunately, the Pearson correlation,
 which is the most commonly used measure of association of two variables,
 depends on both marginal information and association information.
 It is possible that recently observed changes in environmental
-(e.g., @Black2018) and biological (e.g., @Koenig2016) synchrony 
+[e.g., @Black2018] and biological [e.g., @Koenig2016] synchrony 
 are, at least in part, just another feature of 
 already-studied changes in distributional characteristics of  
 variables, rather than reflecting true changes in association.
@@ -712,7 +712,7 @@ to the marginal distributions of these two variables, and the information
 that pertains solely to their association. 
 @Ghosh_copula argued generally for the potential of copulas and related ideas
 to improve our understanding of ecology 
-(see also @Popovic2018, @Valpine2014, @Anderson2018).
+(see also @Popovic2018; @Valpine2014; @Anderson2018).
 Rank-based methods such as the Spearman and partial Spearman correlations
 which we have used are closely related to copula approaches, and @Ghosh_copula,
 @Genest2007 and others have recommended copula and rank approaches when the 
