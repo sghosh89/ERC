@@ -53,33 +53,40 @@ Alternative titles
 due to climate change. Furthermore, there is reason to believe extreme 
 climatic events may modify "tail associations" between values of an environmental 
 variable measured in different locations, i.e., associations that 
-occur principally between values in the left or right tails of the distributions 
-of values of the variable that can occur in the individual locations. 
-Two positively associated variables can be "left-tail associated" (i.e., more 
+occur between values in the left or right tails of the distributions 
+of the variable that occur in the locations. 
+Two positively associated variables can be principally "left-tail associated" (i.e., more 
 correlated when they take low than high values) or "right-tail associated"
-(more correlated when they take high than low values) even with the same
+(more correlated when they take high than low values), even with the same
 overall correlation coefficient in both cases. We tested whether the nature of 
 spatial tail associations of environmental variables can influence metapopulation 
-extinction risk. For instance, if low values of a variable are bad for local
+extinction risk. For instance, if low values of a variable reduce the growth 
+rates of local
 populations, one may expect that left-tail associations increase
 metapopulation extinction risks because then environmental catastrophes are
 spatially synchronized, presumably reducing the potential for rescue effects.
-We also tested, in the context of (non-spatial) stage-structured matrix models, 
-whether tail associations between values of stage-specific vital rates may
+We also tested, in the context of non-spatial stage-structured matrix models, 
+whether tail associations between stage-specific vital rates may
 influence extinction risk. 
-
-
-
-
+We showed that density dependence interacts with the
+propensity for tail associations to influence metapopulation extinction risk: for 
+population models
+showing undercompensatory density dependence, left-tail associations in environmental 
+variables typically accentuated
+and right-tail associations mitigated extinction risk; whereas the 
+reverse was usually true for models showing overcompensatory density dependence.
+For the non-spatial, stage structured models we considered, left-tail associations 
+between vital rates did accentuate extinction risk compared to right-tail
+associations, but the effect was small. 
 Tail associations and their asymmetries are taken into account in assessing risks
 in finance and other fields, but to our knowledge our study is one of the first
-to consider how tail associations influence extinction risk.
+to consider how tail associations influence population extinction risk. 
+Our modelling results 
+provide an initial demonstration of a new mechanism influencing extinction risks,
+and, in our view, should help motivate more comprehensive
+study of the mechanism and its importance for real populations in future work.
 
-
-
-With global climate change, extreme climatic events (ECEs) become more frequent. These ECEs could pose a severe impact on the resistance or resilience of a population and/ or community level through life-history traits of the species. Therefore predicting the impact of extreme events on population extinction risk is necessary. We here introduce the potential use of "tail association" property of two correlated ecological variables in modeling the extinction risk of an age-structured single patch model. We also extend this idea to density-dependent metapopulation models. For metapopulation models, we show extinction risk not only depends on the nature of the tail association of spatially correlated noise but is also influenced by the inherent dynamics of the population-model. To elaborate, we demonstrate left tail dependent noise across spatially correlated patches cause higher extinction risk than the right tail dependent noise when the model show undercompensatory dynamics. But in the overcompensatory regime, the trend is the opposite. Our study paves the path for future research considering this tail association instead of a simple correlation in population viability analysis.
-
-\noindent \textbf{\textit{Keywords:}} extinction risk, extreme events, tail association, density-dependent model
+\noindent \textbf{\textit{Keywords:}} extinction risk, extreme events, tail association, density-dependent model, copula
 
 \newpage
 
