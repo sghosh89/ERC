@@ -47,12 +47,39 @@ Alternative titles
 \newpage
 
 \noindent \textbf{ABSTRACT} 
-<!--200 words limit : J Am Nat-->
+<!--350 words limit : Ecosphere-->
 
-<!--***DAN: Dan has not edited this--> 
+\noindent Extreme climatic events are becoming more frequent and more intense
+due to climate change. Furthermore, there is reason to believe extreme 
+climatic events may modify "tail associations" between values of an environmental 
+variable measured in different locations, i.e., associations that 
+occur principally between values in the left or right tails of the distributions 
+of values of the variable that can occur in the individual locations. 
+Two positively associated variables can be "left-tail associated" (i.e., more 
+correlated when they take low than high values) or "right-tail associated"
+(more correlated when they take high than low values) even with the same
+overall correlation coefficient in both cases. We tested whether the nature of 
+spatial tail associations of environmental variables can influence metapopulation 
+extinction risk. For instance, if low values of a variable are bad for local
+populations, one may expect that left-tail associations increase
+metapopulation extinction risks because then environmental catastrophes are
+spatially synchronized, presumably reducing the potential for rescue effects.
+We also tested, in the context of (non-spatial) stage-structured matrix models, 
+whether tail associations between values of stage-specific vital rates may
+influence extinction risk. 
+
+
+
+
+Tail associations and their asymmetries are taken into account in assessing risks
+in finance and other fields, but to our knowledge our study is one of the first
+to consider how tail associations influence extinction risk.
+
+
+
 With global climate change, extreme climatic events (ECEs) become more frequent. These ECEs could pose a severe impact on the resistance or resilience of a population and/ or community level through life-history traits of the species. Therefore predicting the impact of extreme events on population extinction risk is necessary. We here introduce the potential use of "tail association" property of two correlated ecological variables in modeling the extinction risk of an age-structured single patch model. We also extend this idea to density-dependent metapopulation models. For metapopulation models, we show extinction risk not only depends on the nature of the tail association of spatially correlated noise but is also influenced by the inherent dynamics of the population-model. To elaborate, we demonstrate left tail dependent noise across spatially correlated patches cause higher extinction risk than the right tail dependent noise when the model show undercompensatory dynamics. But in the overcompensatory regime, the trend is the opposite. Our study paves the path for future research considering this tail association instead of a simple correlation in population viability analysis.
 
-\textbf{\textit{Keywords:}} extinction risk, extreme events, tail association, density-dependent model
+\noindent \textbf{\textit{Keywords:}} extinction risk, extreme events, tail association, density-dependent model
 
 \newpage
 
@@ -219,10 +246,7 @@ because our intention here is to provide an initial exploration only of
 the potential mechanisms, outlined above, which suggest that
 asymmetries of tail association may make a difference for extinction risks. 
 By so doing we hope to open these potentially practically important questions to 
-wider examination other researchers. Some material in the Discussion 
-outlines some possible next steps.
-<!--***DAN: make sure you do this-->
-Though tail associations are used
+wider examination by other researchers. Though tail associations are used
 to assess risks in fields such as finance and hydrology 
 [@alexander2008market; @li2013; @chen2011flood; @Goswami2018], to our
 knowledge asymmetric tail associations have rarely been assessed for their
