@@ -2902,87 +2902,74 @@ system to equilibrium is oscillatory, and dynamics are called overcompensatory.
 We will now describe stability analyses of the deterministic 1-habitat-patch version
 of each model of Table \ref{MT-tab_model_summary}.
 
-<!--***DAN: got to here-->
+**The Ricker model.** The Ricker model was originally introduced in the context of modelling
+the stock and recruitment of salmon populations, and has frequently been used in fisheries 
+management. The model is 
+$P(t+1)=F(P(t),r,K)=P(t) \exp[r(1-P(t)/K)]$, where $r>0$ is the intrinsic 
+growth rate and $K>0$ is the carrying capacity of the population. There are two equilibrium 
+states, $P_e = 0$ and $P_e = K$.
+The equilibrium $P_e = 0$ is unstable, since ${F}' = \exp(r)$ for that equilibtrium, and 
+$\exp(r) > 1$ for a positive $r$. Depending on $r$, 
+the other equilibrium, $P_e = K$, can be stable or unstable, since ${F}' = (1-r)$. 
+Specifically, $P_e=K$ is stable if $|1-r|<1$, i.e., $0<r<2$. 
+The model shows undercompesatory dynamics if $0<r<1$ and overcompensatory dynamics
+if $1<r<2$. Thus $r_{min}=0$, $r_c=1$, and $r_{bf}=2$.
 
-**Ricker model** [@ricker1954stock; @may1976bifurcations], originally introduced in the context of modelling
-stock and recruitment of salmon populations, is a classic 
-discrete population model 
-and frequently used in fisheries management problem. The model dynamics
-is represented as 
-$P(t+1)=F(P(t),r,K)=P(t) \exp[r(1-P(t)/K)]$, where $P$ is the population density, $r>0$ is the intrinsic 
-growth rate and $K>0$ is the carrying capacity. There are two equilibrium states ($P_e = 0, K$).
-The equilibrium at ($P_e = 0$) is unstable as ${F}' = \exp(r) > 1$ for a positive $r$ and considered 
-as the extinction equilibrium 
-in population ecology context. Depending on parameter $r$, 
-the other equilibrium $P_e = K$ can be stable or unstable as ${F}' = (1-r)$. Following generalized
-concept, the model can show monotonic approach to its stable equilibrium $P_e = K$ if $0<r<1$ 
-or can approach $P_e = K$ in an oscillating fashion if $1<r<2$. When 
-$r>2$ (i.e., ${F}'<-1$), system shows sustained oscillation and the equilibrium becomes unstable. We called $r=1$ 
-as $r_c$, the critical point where system goes from under- to over-compensatory regime and 
-$r=2$ as $r_{bf}$ where bifurcation (transition from stable to unstable equilibrium) occurs.
+**The Hassell model.** The Hassell model [@hassell1975density; @may1976bifurcations] was 
+developed to help understand the dynamics of insect populations, and as a model of contest versus scramble 
+instraspecific competition. The model
+can be written $P(t+1) = F(P(t),r,a,b)=rP(t)/(1+aP(t))^b$. Here $r>0$ is the intrinsic growth rate and
+$a$ and $b$ are positive parameters. If $b=1$, the Hassell model reduces to the
+Beverton-Holt model [@beverton2012dynamics] used in fisheries. The Hassell model is a representation
+of contest competition if $b \sim 1$, and scramble competition if $b$ is large.
+Like the Ricker model, the Hassell model also has two equilibria, $P_e =0$ 
+(the trivial extinction equilibrium) and $P_e = P^\star =(r^{1/b}-1)/a$. 
+For $P_e = P^\star$, the model shows undercompensatory dymamics if $1<r<[b/(b-1)]^b$ 
+and overcompensatory dynamics if $[b/(b-1)]^b<r<[b/(b-2)]^b$, so $r_{min}=1$, 
+$r_c = [b/(b-1)]^b$, and $r_{bf}=[b/(b-2)]^b$.
 
-**Hassell model** [@hassell1975density; @may1976bifurcations], motivated for modelling insect populations,
-can be represented as $P(t+1) = F(P(t),r,a,b)=rP(t)/(1+aP(t))^b$, where $r>0$ is the intrinsic growth rate 
-of population density $(P)$. $a$ and $b$ are the other positive parameters. If $b=1$, it reduces to
-Beverton-Holt model [@beverton2012dynamics] used in fisheries. In general, if $b \sim 1$,
-then we say that there is contest and $F$ will saturate eventually at a finite
-level for large populations, which indicates that the population stabilizes by
-rejecting too many newborns. For scramble, $b$ is large and $F$ tends to
-zero for large populations which indicates that the resources are over-utilized
-leading to eventual extinction. Like Ricker, Hassel model too has two equilibrim:
-$P_e =0$ (trivial extinction equilibrium) and $P_e = P^\star =(r^{1/b}-1)/a$. 
-For $P_e = P^\star$, model remains in under-compensatory regime if $1<r<[b/(b-1)]^b$ 
-and in over-compensatory regime if $[b/(b-1)]^b<r<[b/(b-2)]^b$ with $r_c = [b/(b-1)]^b$.
-Hopf bifurcation occurs at $r_{bf} = [b/(b-2)]^b$, so if $r>r_{bf}$, $P_e=P^\star$
-becomes unstable equilibrium.
+**The Maynard Smith model.** The Maynard Smith 
+model [@cohen1995unexpected; @maynard1978models; @may1976bifurcations] is
+$P(t+1)=F(P(t),r,a,b)=rP(t)/[1+(aP(t))^b]$. Here $r>0$ is the growth rate and $a, b$ are 
+positive parameters. The equilibria are $P_e=0$ (the extinction equilibrium) 
+and $P_e = P^\star=\frac{1}{a}(r-1)^{1/b}$.
+For a positive equilibrium value of $P^\star$, $r$ must be greater than $1$, so $r_{min}=1$. 
+Then $P^\star$ will 
+be a stable equilibrium and the model will show undercompensatory dynamics if $1<r<r_c=b/(b-1)$;
+the model will show overcompensatory dymamics $r_c<r<b/(b-2)$.
+$P^\star$ will become unstable for $r>r_{bf}=b/(b-2)$. 
 
-**Maynard Smith model** [@cohen1995unexpected; @maynard1978models; @may1976bifurcations] follows the dynamics 
-$P(t+1)=F(P(t),r,a,b)=rP(t)/[1+(aP(t))^b]$. $r$ is the growth rate, $a, b$ are the parameters with positive values.
-Equilibriums are: $P_e=0$(as expected extinction equilibrium) and $P_e = P^\star=\frac{1}{a}(r-1)^{1/b}$.
-For a positive equilibrium value of $P^\star$, $r$ must be greater than $1$. This $P^\star$ will be stable
-in under-compensatory regime for $1<r<r_c(=b/(b-1))$ and in over-compensatory regime for $r_c<r<b/(b-2)$.
-$P^\star$ will become unstable when $r>r_{bf}(=b/(b-2))$. 
-
-**Pennycuick model** [@pennycuick1968computer; @may1976bifurcations] was 
-initially developed
-to follow change in age-structured total population
-level which assumed
-to have a constant sex 
-ratio and therefore change in female population was 
-expected through the change 
-in total population density. 
-A two population variant could also be possible
-in prey-predator perspective as indicated in [@pennycuick1968computer].
-In general, model dynamics is expressed as $P(t+1)=F(P(t),r,a,b)=rP(t)/[1+\exp \left\{-a(1-P(t)/b)\right\}]$, where 
-$r$ is the intrinsic growth rate and $a>0,b>0$ are the model parameters. Model
-equilibriums are 
-$P_e=0$ (extinction equilibrium) and $P_e=P^\star=\frac{b}{a}[a+\ln{(r-1)}]$. For 
-a finite equilibrium population 
-$r$ must be greater than $r_{min}$, where 
-$r_{min} = 1+\exp(-a)$. The critical transition point $r_c$ (from under- to 
-over-compensatory dynamics) and Hopf-bifurcation point $r_{bf}$ can be obtained
+**The Pennycuick model.** The Pennycuick model [@pennycuick1968computer; @may1976bifurcations] 
+is $P(t+1)=F(P(t),r,a,b)=rP(t)/[1+\exp \left\{-a(1-P(t)/b)\right\}]$, where 
+$r>0$ is the intrinsic growth rate and $a$ and $b$ are positive parameters. Model
+equilibria are 
+$P_e=0$ (the extinction equilibrium) and $P_e=P^\star=\frac{b}{a}[a+\ln{(r-1)}]$. For 
+a positive equilibrium population 
+$r$ must be greater than $r_{min} = 1+\exp(-a)$. The transition point $r_c$ (from under- to 
+overcompensatory dynamics) and the bifurcation point $r_{bf}$ were obtained
 by numerical solution of ${F}'=0$ and ${F}'=-1$ at $P_e=P^{\star}$, respectively.
 
-**Verhulst model** [@cohen1995unexpected; @may1976bifurcations] is a discrete time difference 
-representation of logistic growth of non-human biological population and can be written 
-as $P(t+1) = F(P(t),r,K) =P(t)[1+r(1-P(t)/K)]$, with $r>0$ and $K>0$ being growth rate and carrying capacity, respectively. 
-Model equilibrium $P_e=0$ is always unstable whereas $P_e=K$ is stable below Hopf-bifurcation 
-point $r_{bf}(=2)$. Model at stable equilibrium ($P_e=K$) lies in the under-compensatory regime when $0<r<r_c$
-and in over-compensatory regime when $rc<r<r_{bf}$ with $r_c$ being equal to 1.
+**The Verhulst model.** The Velhurst model 
+[@cohen1995unexpected; @may1976bifurcations] is a discrete-time 
+representation of logistic growth, and can be written 
+as $P(t+1) = F(P(t),r,K) =P(t)[1+r(1-P(t)/K)]$, with $r>0$ and $K>0$ being growth rate and 
+carrying capacity parameters, respectively. 
+The model equilibrium $P_e=0$ is always unstable whereas the equilibrium 
+$P_e=K$ is stable below the bifurcation 
+point $r_{bf}=2$. The model shows undercompensatory dynamics for $0<r<r_c=1$
+and overcompensatory dynamics for $r_c<r<r_{bf}$.
 
-**Austin-Brewer model** [@austin1971world; @cohen1995unexpected], unlike from the first
-five models we considered,
-is used to model growth of human population. It follows the
-discrete dynamics : $P(t+1) = F(P(t),r,K,s)= P(t)[1+r(K-P(t)) \left\{ 1-\exp (-sP(t))\right\}]$, where
-$r, K, s$ are positive, representing growth rate, carrying capacity 
-and model parameter, respectively.
-Usual extinction equilibrium is $P_e=0$. The other
-finite, positive equilibrium is $P_e=P^\star=1-rK\left\{ 1-\exp (-sK)\right\}$. The equilibrium $P^\star$
-is stable when $r<r_{bf}$ and unstable beyond the bifurcatio point $r_{bf} = \frac{2}{K[1-\exp (-sK)]}$.
-After perturbation, model can return back monotonically to its stable equilibrium if parameter $r$ lies in the 
-under-compensatory regime ($0<r<r_c$), where $r_c = \frac{1}{K[1-\exp (-sK)]}$. In the 
-over-compensatory regime ($r_c<r<r_{bf}$), model approaches to stable equilibrium $P^\star$
-in oscillatory fashion.
+**The Austin-Brewer model.** The Austin-Brewer model 
+[@austin1971world; @cohen1995unexpected] was originally used 
+to model the growth of human populations. The model is $P(t+1) = F(P(t),r,K,s)= P(t)[1+r(K-P(t)) \left\{ 1-\exp (-sP(t))\right\}]$, where
+$r, K, s$ are positive parameters. $r$ and $K$ represent the growth rate and carrying 
+capacity, respectively.
+the usual extinction equilibrium is $P_e=0$. The 
+positive equilibrium is $P_e=P^\star=1-rK\left\{ 1-\exp (-sK)\right\}$. $P^\star$
+is stable when $r<r_{bf}$ and unstable beyond than bifurcation point, where 
+$r_{bf} = \frac{2}{K[1-\exp (-sK)]}$. The model shows undercompensatory dynamics when
+$0<r<r_c$, where $r_c = \frac{1}{K[1-\exp (-sK)]}$. It shows 
+overcompensatory dynamics when $r_c<r<r_{bf}$.
 
 \clearpage
 
