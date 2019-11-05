@@ -338,7 +338,7 @@ monotonic transformation to the $v(t)$ so that the resulting numbers were
 distributed according to a gamma distribution with parameters $k=2$
 and $\theta=1$, and we used those values for the $\tilde{f}_a(t)$. Because
 the $u(t)$ and $v(t)$ were uniformly distributed, the inverse 
-cummulative distribution functions of the desired beta and
+cumulative distribution functions of the desired beta and
 gamma distributions were the transformations. Because these
 were monotonic transformations, the Spearman correlation of 
 $s_e(t)$ and $\tilde{f}_a(t)$ was the same as that of 
@@ -480,7 +480,7 @@ the interval $(0,1)$. To obtain the values $\epsilon_i(t)$, the $u_i(t)$ were
 transformed so that the resulting numbers were
 normally distributed with mean $0$ and standard deviation $\sigma$ (Table \ref{tab_model_summary}), 
 for all $i$. This was 
-accomplished with the inverse cummulative distribution function of the normal distribution
+accomplished with the inverse cumulative distribution function of the normal distribution
 with mean $0$ and standard deviation $\sigma$. Because this was a monotonic transformation,
 the Spearman correlation between $\epsilon_i(t)$ and $\epsilon_j(t)$ was the same 
 as that between $u_i(t)$ and $u_j(t)$; likewise partial Spearman correlations were the same. 
@@ -587,13 +587,12 @@ and \ref{SM-fig_extrisk_allmodel_globaldisp} suggest the hypothesis that the
 opposite effects of tail association on extinction risk correspond to the domains
 in which models exhibit under- versus overcompensatory dynamics. This was 
 approximately, but not exactly, true. Careful inspection of Figs 
-\ref{SM-fig_risk_local_disp_verhulst_r_vary_scl_0.6} - \ref{SM-fig_risk_local_disp_abrewer_r_vary_scl_0.6} and Figs \ref{SM-fig_risk_global_disp_verhulst_r_vary_scl_0.6} - \ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6}  
-and the $r_c$ values of 
-Table \ref{tab_model_summary} reveals that, for the Velhurst and Austin-Brewer models,
+\ref{SM-fig_risk_local_disp_verhulst_r_vary_scl_0.6} - \ref{SM-fig_risk_local_disp_abrewer_r_vary_scl_0.6} and Figs \ref{SM-fig_risk_global_disp_verhulst_r_vary_scl_0.6} - \ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6} 
+and the $r_c$ values of Table \ref{tab_model_summary} reveals that, for the Velhurst and Austin-Brewer models,
 the switch occurs at a value of $r$ less than $r_c$ for these models. For the example
 case of $d=0$, plots of extinction risk versus $r$ (Fig. \ref{fig_extrisk_d0}) seem to indicate that,
 for the Ricker, Hassell, and Pennycuick models, left-tail association accentuates and
-left-tail association mitigates extinction risk for undercompensatory dynamics ($r<r_c$),
+right-tail association mitigates extinction risk for undercompensatory dynamics ($r<r_c$),
 whereas the reverse occurs for overcompensatory dynamics ($r>r_c$). Fig. \ref{fig_extrisk_d0}
 reveals a similar reversal for the Maynard Smith, Velhurst and Austin-Brewer models; but 
 it occurs at a value of $r$ close to but distinguishable from $r_c$.
@@ -642,7 +641,7 @@ some event categories and even specific events can now be attributed to
 human-induced climate change [@ummenhofer2017extreme]. We here provide a fuller 
 explanation of how such changes may modify the asymmetry of tail association of 
 weather variables measured in different places, and thereby influence metapopulation
-extinction risk through the mechansms we explored in this paper. 
+extinction risk through the mechanisms we explored in this paper. 
 If $X_i(t)$ denotes the value of an environmental variable (e.g., a summer maximum 
 temperature, or winter minimum temperature, spring rainfall, etc.) 
 in location $i$ in year $t$,
@@ -693,8 +692,8 @@ changing through time, it may also cause changes through time in the
 Pearson correlation of these quantities, even while the values
 of rank-based correlations such as Spearman and Kendall may be unchanging.
 Essentially, in such a case, associations between $X_i(t)$ and $X_j(t)$
-would be unchanging through time even through Pearson correlation
-appears to inducate a change in association, which is instead a change 
+would be unchanging through time even though Pearson correlation
+appears to indicate a change in association, which is instead a change 
 in marginal distributions.
 Perhaps unfortunately, the Pearson correlation,
 which is the most commonly used measure of association of two variables,
@@ -702,7 +701,7 @@ depends on both marginal information and association information.
 It is possible that recently observed changes in environmental
 (e.g., @Black2018) and biological (e.g., @Koenig2016) synchrony 
 are, at least in part, just another feature of 
-already-studied changes in distributional characteristics of  
+already-studied changes in distributional characteristics of 
 variables, rather than reflecting true changes in association.
 Rank-based methods are linked to a well-developed suite of statistical
 approaches related to the *copula* concept of statistics. Copulas and related ideas
@@ -804,8 +803,7 @@ patches (Hanski 1994; Tilman et al. 1994; Lindenmayer et al. 1995; McCarthy
 In our opinion, additional research would be worthwhile on the 
 impact of tail associations on growth rates and 
 extinction risk under additional modelling scenarios not considered
-in this paper.   
-First, we considered a model with positive association between 
+in this paper. First, we considered a model with positive association between 
 egg and adult vital rates,
 corresponding to similar impacts of an environmental variable on 
 eggs and adults. Negative associations between vital rates

@@ -2829,7 +2829,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 
 <!--# Algorithm to generate extreme tail association  \label{extr_tail_dep}-->
 Bivarite environmental noise with extreme left-tail association (as in Fig. 
-\ref{fig_intro_cop}A) was generated using an algorithm originally presented 
+\ref{MT-fig_intro_cop}A) was generated using an algorithm originally presented 
 by @Ghosh_copula (their Appendix S10), presented again here for convenience.
 If $T$ time steps of noise were desired, step 1 was to generate a $T$ by $2$
 matrix, $M$, of independent random numbers, each standard-normally distributed. 
@@ -2839,30 +2839,28 @@ of the row was replaced by the negative of the absolute value of the first eleme
 of the row, including the first element itself. For the other rows, every 
 element in the row was replaced by its own absolute value. For noise
 with extreme right-tail association (as in Fig. 
-\ref{fig_intro_cop}D), take the negative of the entire matrix. For
-both types of noise, every entry was transformed by the cummulative distribution
+\ref{MT-fig_intro_cop}D), take the negative of the entire matrix. For
+both types of noise, every entry was transformed by the cumulative distribution
 function of a standard normal distribution, to make each column uniformly
 distributed.
 
 <!--Spearman correlation of the extreme-tail-associated noise-->
 The Spearman correlation of the extreme left- or right-tail associated 
-noise was $0.875$, up to sampling variation.
-<!--***DAN: fill this in-->
-
+noise was `r srho_common`, up to sampling variation.
 <!--moderate tail association noise-->
-Bivarite environmental noise with moderate left-tail association (as in Fig. 
-\ref{fig_intro_cop}B) was generated using a 2-dimensional Clayton copula. The statistical
+Bivarite environmental noise with moderate left-tail association (as in Fig. \ref{MT-fig_intro_cop}B) was 
+generated using a 2-dimensional Clayton copula. The statistical
 theory of copulas has been introduced systematically in several texts 
 (e.g., @nelsen2006_copula; @joe2014_dependence), and was briefly 
 introduced by @Genest2007. Short, conceptual introductions aimed at ecological
-audiences were provided by sections within the papers of @Anderson2018 and  
-@Ghosh_copula. A 2-dimensional Clayton copula is equivalent to a particular bivariate 
+audiences were provided by sections within the papers of @Anderson2018 and @Ghosh_copula. A
+2-dimensional Clayton copula is equivalent to a particular bivariate 
 probability density function with marginal distributions which are 
 uniform on the interval $(0,1)$. The points on Fig. 
-\ref{fig_intro_cop}B were independent draws from the associated random variable.
+\ref{MT-fig_intro_cop}B were independent draws from the associated random variable.
 The functions `claytonCopula` and `rCopula` from the `copula` package for the 
 R programming language were used. The parameter of the Clayton family was
-chosen so that the Spearman correlation was $0.875$, the same as that of the
+chosen so that the Spearman correlation was `r srho_common`, the same as that of the
 extreme left-tail associated noise. This was accomplished with the `iRho`
 function of the `copula` package. Noise with moderate right-tail
 association was generated in a similar way but using the 2-dimensional 
@@ -2880,7 +2878,7 @@ of the row was replaced by the negative of the absolute value of the first eleme
 of the row, including the first element itself. For the other rows, every 
 element in the row was replaced by its own absolute value. For noise
 with extreme right-tail association, take the negative of the entire matrix. For
-both types of noise, every entry was transformed by the cummulative distribution
+both types of noise, every entry was transformed by the cumulative distribution
 function of a standard normal distribution, to make each column uniformly
 distributed. 
 Multivariate moderately tail associated noise of dimension $n$
@@ -2966,7 +2964,7 @@ $r, K, s$ are positive parameters. $r$ and $K$ represent the growth rate and car
 capacity, respectively.
 the usual extinction equilibrium is $P_e=0$. The 
 positive equilibrium is $P_e=P^\star=1-rK\left\{ 1-\exp (-sK)\right\}$. $P^\star$
-is stable when $r<r_{bf}$ and unstable beyond than bifurcation point, where 
+is stable when $r<r_{bf}$ and unstable beyond the bifurcation point, where 
 $r_{bf} = \frac{2}{K[1-\exp (-sK)]}$. The model shows undercompensatory dynamics when
 $0<r<r_c$, where $r_c = \frac{1}{K[1-\exp (-sK)]}$. It shows 
 overcompensatory dynamics when $r_c<r<r_{bf}$.
