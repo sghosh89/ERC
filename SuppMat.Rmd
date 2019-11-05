@@ -2847,6 +2847,8 @@ distributed.
 <!--Spearman correlation of the extreme-tail-associated noise-->
 The Spearman correlation of the extreme left- or right-tail associated 
 noise was `r srho_common`, up to sampling variation.
+<!--***DAN: Dan to fill this in with a derivation of this fact-->
+
 <!--moderate tail association noise-->
 Bivarite environmental noise with moderate left-tail association (as in Fig. \ref{MT-fig_intro_cop}B) was 
 generated using a 2-dimensional Clayton copula. The statistical
@@ -2865,6 +2867,11 @@ extreme left-tail associated noise. This was accomplished with the `iRho`
 function of the `copula` package. Noise with moderate right-tail
 association was generated in a similar way but using the 2-dimensional 
 survival Clayton copula.
+<!--***DAN: Shyamolina, in response to your comment in the pdf, what you
+did is mathematically equivalent to this, so OK to say it this way. I added a 
+bit of explanation of what that survival Clayon is. Please delete this
+comment once you have read it.-->
+The survival Clayton copula is a rotation of the Clayton copula by 180 degrees.
 
 <!--Multivariate extreme tail association-->
 Multivariate noise with extreme left-tail association was generated using a
