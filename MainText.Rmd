@@ -1,6 +1,6 @@
 ---
 title: "Tail associations and their impact on extinction risk"
-author: "Shyamolina Ghosh, Daniel Reuman"
+author: "Shyamolina Ghosh, Daniel C. Reuman"
 date: ""
 geometry: "left=1in,right=1in,top=1in,bottom=1in"
 output: 
@@ -56,14 +56,14 @@ variable measured in different locations, i.e., associations that
 occur between values in the left or right tails of the distributions 
 of the variable that occur in the locations. 
 Two positively associated variables can be principally "left-tail associated" (i.e., more 
-correlated when they take low than high values) or "right-tail associated"
+correlated when they take low values than when they take high values) or "right-tail associated"
 (more correlated when they take high than low values), even with the same
 overall correlation coefficient in both cases. We tested whether the nature of 
 spatial tail associations of environmental variables can influence metapopulation 
-extinction risk. For instance, if low values of a variable reduce the growth 
+extinction risk. For instance, if low values of an environmental variable reduce the growth 
 rates of local
 populations, one may expect that left-tail associations increase
-metapopulation extinction risks because then environmental catastrophes are
+metapopulation extinction risks because then environmental "catastrophes" are
 spatially synchronized, presumably reducing the potential for rescue effects.
 We also tested, in the context of non-spatial stage-structured matrix models, 
 whether tail associations between stage-specific vital rates may
@@ -75,7 +75,7 @@ showing undercompensatory density dependence, left-tail associations in environm
 variables typically accentuated
 and right-tail associations mitigated extinction risk; whereas the 
 reverse was usually true for models showing overcompensatory density dependence.
-For the non-spatial, stage structured models we considered, left-tail associations 
+For the non-spatial, stage-structured models we considered, left-tail associations 
 between vital rates did accentuate extinction risk compared to right-tail
 associations, but the effect was small. 
 Tail associations and their asymmetries are taken into account in assessing risks
@@ -86,6 +86,7 @@ provide an initial demonstration of a new mechanism influencing extinction risks
 and, in our view, should help motivate more comprehensive
 study of the mechanism and its importance for real populations in future work.
 
+\vspace{12pt}
 \noindent \textbf{\textit{Keywords:}} extinction risk, extreme events, tail association, density-dependent model, copula
 
 \newpage
@@ -111,7 +112,7 @@ can be associated with changes through time in the overall variance of
 climate signals, and can directly contribute to changes in the symmetry or the 
 skewness of distributions of climate signals through time 
 [@hansen2012perception]. All such changes have the potential to influence 
-populations, including their risk of extirpation from an area 
+populations, including through risks of species extinction or extirpation from an area 
 [@GarciaCarerras2013; @Vasseuretal2014].
 For instance, @frederiksen2008demographic used $43$ years of ring-recovery data 
 to examine the demographic impact of ECEs on European shags 
@@ -251,15 +252,17 @@ used population models. We intentionally use a simulation approach and simple mo
 for both Q1 and Q2 instead of attempting mathematical 
 analysis and/or using models that are more realistic, 
 because our intention here is to provide an initial exploration only of 
-the potential mechanisms, outlined above, which suggest that
-asymmetries of tail association may make a difference for extinction risks. 
+the potential mechanisms outlined above. 
 By so doing we hope to open these potentially practically important questions to 
-wider examination by other researchers. Though tail associations are used
+wider examination by other researchers, using a variety of models and perspectives. 
+Though tail associations are used
 to assess risks in fields such as finance and hydrology 
 [@alexander2008market; @li2013; @chen2011flood; @Goswami2018], to our
 knowledge asymmetric tail associations have rarely been assessed for their
-importance for extinction risks of populations and species (but see @Ghosh_copula). 
-Our questions are an important step for understanding
+importance for extinction risks of populations and species (but see @Ghosh_copula),
+and our essential goal is to advance the idea that tail associations may
+also be important in this context. 
+Our questions are also an important step for understanding
 the potential influence of ECEs on extinction risks if ECEs are related to
 tail associations in environmental variables. 
 
@@ -279,14 +282,14 @@ extreme left, moderate left, moderate right, extreme right-->
 \begin{figure*}[!h]
 \begin{center}
 \includegraphics[width=15 cm]{./Results/introfig_copula.pdf}
-\caption{Two stochastic quantities can have same Spearman 
+\caption{Two stochastic quantities can have the same Spearman 
 correlation, but different degrees of tail association: 
 (A) extreme left-tail association, (B) moderate left-tail association, (C) 
 moderate right-tail association, and (D) extreme right-tail association.
 In all cases, Spearman's $\rho$ was the same, $\rho =$ `r srho_common`,
 up to sampling variance (the sample correlation for each dataset is displayed
 on its panel). The extreme left-tail (respectively, right-tail) dependent 
-case is perfectly correlated below (respectively, above) the threshold of 0.
+case is perfectly correlated below (respectively, above) the threshold of $1/2$.
 See Methods for information on how bivariate noise was generated with
 asymmetric tail associations.
 \label{fig_intro_cop}}
@@ -397,7 +400,7 @@ of association between variables have been recommended, as such
 approaches are not influenced by the marginal distributions of
 the quantities (e.g., @Genest2007). Marginal distributions contain no information
 about association between variables, as each marginal pertains to
-only one of the variables.
+only one of the variables. These ideas are revisited in the Discussion.
 
 <!--FIG : schematic diagram for partial spearman correlation, adapted from BIVAN-->
 \begin{figure*}[!h]
@@ -407,7 +410,9 @@ only one of the variables.
 for any band to describe how the strength of association between $u$ and $v$
 varies from one part of the two distributions to another. Diagonal lines 
 show two bands, the data in the right/upper band showing
-stronger association than those in the left/lower band. This figure was reproduced
+stronger association than those in the left/lower band. Each band is bounded by
+the lines $x+y=2l_b$ and $x+y=2u_b$ described in Methods (for values of $l_b$ and $u_b$
+that depend on the band to be used). This figure was reproduced
 largely following Fig. 7 of Ghosh \emph{et al.} (2019).
 \label{PartialSpearmanFig}}
 \end{center}
@@ -511,21 +516,6 @@ fixed values of $r$, one producing under- and one overcompensatory dynamics.
 For $d=0$ we also plotted extinction risk as a function of $r$. All code for 
 this project is available at https://github.com/sghosh89/ERC.
 
-<!--
-We plotted extinction risks along the y-axis
-for both left tail and right tail associated noises 
-against the varying range of $r$ along x-axis when no dispersal ($d=0$) was considered.
-We excluded the possibility of dispersal to avoid any rescue effect among patches. 
-For each model with extreme (or moderate) left- and right-tail associated noises, we calculated 
-2.5$^{th}$ and 97.5$^{th}$ quantiles
-of 10000 simulations with the probability of computed
-extinction risks at each $r$. We compared $r_c$ and the value of $r$ at which 
-95\% CI of extinction risks from both noises overlapped
-with each other. This could give us an idea of how extinction risks affected by the model parameter 
-$r$ that controlled the underlying dynamics of the model, i.e., undercompensatory 
-or overcompensatory.
--->
-
 # Results\label{Results}
 
 <!--Q1 : age-structured model results-->
@@ -542,13 +532,12 @@ asymmetry of tail associations, and answer Q1. Though differences were significa
 bands in Fig. \ref{fig_extrisk_agestr}, which are very narrow, did not overlap),
 they were also small, corresponding to only a few percentage points of additional extinction
 risk after 25 years. A potential reason for this outcome is elaborated in the Discussion.
-<!--discussion later: add Tuljapurkar's approximation stuff-->
 
 <!--Q2 : metapopulation results-->
-For our metapopulation simulations, for low values of $r$, left-tail
+For our metapopulation simulations, for low values of $r$ (close to $r_{min}$), left-tail
 associations of environmental noises accentuated extinction risks, and right-tail associations
-mitigated them; but the reverse was true for high values of $r$ in the range
-$(r_{min},r_{bf})$. Thus 
+mitigated them; but the reverse was true for high values of $r$ (close to
+$r_{bf}$). Thus 
 density dependent models can either produce similar results, regarding the influence of 
 tail associations on extinction risk, as the density-independent models of @Ghosh_copula, or
 opposite results, depending on the nature of density dependence. 
@@ -613,7 +602,7 @@ extinction risk of metapopulations was actually mitigated compared
 to when "beneficial" environmental events were 
 spatially correlated by the same amount. This was probably because the correlated 
 beneficial events caused populations to exceed carrying capacity, and 
-to subsequently crash, across large areas. In contrast 
+to subsequently crash, across all or most habitat patches. In contrast 
 to the metapopulation case, our results 
 suggest that asymmetry of tail associations between vital rates
 in a stage-structured, non-spatial stochastic model may be of limited 
@@ -635,18 +624,18 @@ If $X_i(t)$ denotes the value of an environmental variable (e.g., a summer maxim
 temperature, or winter minimum temperature, spring rainfall, etc.) 
 in location $i$ in year $t$,
 @ummenhofer2017extreme provide a diagram of how ECEs may be increasing in frequency 
-and intensity due to changes in the distribution of $X_i(t)$ such as changes
+and intensity, linked to changes in the distribution of $X_i(t)$ such as changes
 in the mean, variance, or skewness of this distribution. Although changes in 
 the correlation between $X_i(t)$ and $X_j(t)$ are increasingly documented, 
 and may also be a consequence of climate change (e.g., @Black2018),
 we are unaware of any studies examining the extent to which tail associations
 between $X_i(t)$ and $X_j(t)$, and asymmetries of tail association, may be 
-changing. Documented changes in correlation between $X_i(t)$ and $X_j(t)$
+changing. However, documented changes in correlation between $X_i(t)$ and $X_j(t)$
 may be due partly or wholly to changes in tail associations. If ECEs are becoming
 more spatially extensive, as seems likely given that they are becoming
 more intense [@ummenhofer2017extreme], then the conditional probability that both of
-$X_i(t)$ and $X_j(t)$ are influenced by an ECE given that one of them is so
-influenced should be increasing. This should contribute to increased association
+$X_i(t)$ and $X_j(t)$ are influenced by an ECE, given that one of them is so
+influenced, should be increasing. This should contribute to increased association
 of the two variables in one of their tails (which tail depends on the type of 
 ECE and what the variable $X$ is). A study of changes through time in 
 tail associations of weather variables would be straightforward and 
@@ -686,12 +675,13 @@ appears to indicate a change in association, which is instead a change
 in marginal distributions.
 Perhaps unfortunately, the Pearson correlation,
 which is the most commonly used measure of association of two variables,
-depends on both marginal information and association information.
-It is possible that recently observed changes in environmental
+depends not only on association information, but also on the marginals.
+For this reason, it is possible that recently observed changes in environmental
 (e.g., @Black2018) and biological (e.g., @Koenig2016) synchrony 
 are, at least in part, just another feature of 
 already-studied changes in distributional characteristics of 
-variables, rather than reflecting true changes in association.
+variables, rather than reflecting true changes in association (these studies
+used Pearson correlations).
 Rank-based methods are linked to a well-developed suite of statistical
 approaches related to the *copula* concept of statistics. Copulas and related ideas
 can be used to formally separate the information in the joint 
@@ -704,7 +694,7 @@ to improve our understanding of ecology
 Rank-based methods such as the Spearman and partial Spearman correlations
 which we have used are closely related to copula approaches, and @Ghosh_copula,
 @Genest2007 and others have recommended copula and rank approaches when the 
-goal is to understand associations between variables, and how such 
+goal is to understand associations between variables, including how such 
 associations may be changing.
 
 <!--Tuljapurkar approximation-->
@@ -814,6 +804,11 @@ neither of these assumptions holds. Connecting the ideas of tail association tha
 we have developed in this study with the ideas on the geography of synchrony
 of @walteretal2017 seems like a promising future direction.
 
+# Acknowledgments
+
+\noindent The authors were partly supported by US National Science Foundation
+grant 1714195 and the James S. McDonnell Foundation. 
+
  <!--FIG : age structure model results : linear, nonlinear-->
 \begin{figure*}[!h]
 \textbf{ \hspace{5.4 cm} (A) \hspace{4 cm} (B)} \\
@@ -832,7 +827,7 @@ were higher when associations between vital rates were stronger in the left comp
 the right tails of the rates, but only slightly so. Results are for the linear
 version of the model ($\Omega = \infty$; A, C) and for the nonlinear model with density
 dependence in the fecundity rate ($\Omega = 100$; B, D). Results show cases of moderate
-(A, B) and extreme (C, D) asymmetry of tail association. The solid line is the estimated extinction risk, and the area of shading, which is barely visible because it is very narrow, shows 95\% confidence intervals for extinction risk.\label{fig_extrisk_agestr}}
+(A, B) and extreme (C, D) asymmetry of tail association. The solid line is the estimated extinction risk, and the area of shading, which is barely visible because it is very narrow, shows 95\% confidence intervals for extinction risk. LT=left tail, RT=right tail.\label{fig_extrisk_agestr}}
 \end{center}
 \end{figure*}
 
@@ -848,7 +843,8 @@ Extinction risks are for a 25-year time horizon. Confidence intervals for extinc
 risk are not plotted, to provide a clearer plot. But 
 because 10000 simulations were
 done for each extinction risk estimate, confidence intervals
-were very narrow, as in Fig. \ref{fig_extrisk_agestr}.\label{fig_extrisk_allmodel_localdisp}}
+were very narrow, as in Fig. \ref{fig_extrisk_agestr}. LT=left tail, RT=right 
+tail. \label{fig_extrisk_allmodel_localdisp}}
 \end{center}
 \end{figure*}
 
@@ -870,7 +866,7 @@ our six metapopulation models (Methods, Table \ref{tab_model_summary}).
 Extinction risks are for a 25-year time horizon. Vertical lines show $r_c$,
 the transition from under- to overcompensatory dynamics of the deterministic, one-patch
 version of the model. Error bars show 95\% confidence intervals of extinction risk.
-\label{fig_extrisk_d0}}
+LT=left tail, RT=right tail. \label{fig_extrisk_d0}}
 \end{center}
 \end{figure*}
 
@@ -881,7 +877,7 @@ library(dplyr)
 dt<-readRDS("./Results/tab_model_summary.RDS")
 knitr::kable(dt, escape=F,
              format="latex",digits=3, align="c",table.env='table*',
-             caption = "Summary of the six density-dependent stochastic metapopulation models we used. The population growth rate in habitat patch $i$ at time $t$, $\\lambda_i(t)$ (second column), is $P_i(t+1)/P_i(t)$, and defines how the model works within each patch. Here $P_i(t)$ is the population in patch $i$ at time $t$. The growth rate depends on model parameters, $P_i(t)$, and the environment $\\epsilon_i(t)$ in patch $i$ at time $t$. $\\epsilon_i(t)$ was normally distributed with mean $0$ and standard deviation $\\sigma$, and values were generated independently across times. $P_e$ is the equilibrium of the deterministic, one-patch version of the model. $r_{min}$ is the smallest $r$, given fixed values of the other parameters, for which $P_e$ was non-negative. $r_c$ is the value of $r$ for which a transition occurs from under- to overcompensatory dynamics (see main text). $r_{bf}$ is the value of $r$ for which a transition occurs from a stable to an unstable equilbrium (a bifurcation; see main text). We used $r$ such that $r_{min}<r<r_{bf}$. Dispersal between patches was also implemented (see main text). Formulas are given for $P_e$ but specific values which pertain for the listed parameters are given for $r_{min}$, $r_c$ and $r_{bf}$. See Appendix \\ref{SM-model_stability} for the formulas that gave these values.\\label{tab_model_summary}",
+             caption = "Summary of the six density-dependent stochastic metapopulation models we used. The population growth rate in habitat patch $i$ at time $t$, $\\lambda_i(t)$ (second column), is $P_i(t+1)/P_i(t)$, and defines how the model works within each patch. Here $P_i(t)$ is the population in patch $i$ at time $t$. The growth rate depends on model parameters, $P_i(t)$, and the environment $\\epsilon_i(t)$ in patch $i$ at time $t$. $\\epsilon_i(t)$ was normally distributed with mean $0$ and standard deviation $\\sigma$, and values were generated independently across times. $P_e$ is the equilibrium of the deterministic, one-patch version of the model. $r_{min}$ is the smallest $r$, given fixed values of the other parameters, for which $P_e$ was non-negative. $r_c$ is the value of $r$ for which a transition occurs from under- to overcompensatory dynamics (see main text). $r_{bf}$ is the value of $r$ for which a transition occurs from a stable to an unstable equilbrium (a bifurcation; see main text). For extinction-risk simulations, we used $r$ such that $r_{min}<r<r_{bf}$. Dispersal between patches was also implemented (see main text). Formulas are given for $P_e$ but specific values which pertain for the listed parameters are given for $r_{min}$, $r_c$ and $r_{bf}$. See Appendix \\ref{SM-model_stability} for the formulas that gave these values.\\label{tab_model_summary}",
              booktabs=T, linesep = "\\addlinespace"
              )%>%column_spec(c(1,3,5,6,7),width="1.4 cm")%>%kable_styling(latex_options = "basic",position = "center")%>%column_spec(2, width = "3.8 cm")
 ```
