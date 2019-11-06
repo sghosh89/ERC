@@ -466,18 +466,6 @@ analytically, making downstream analyses difficult for that model. Second, for
 the Varley model and for the portions of parameter space we explored, 
 varying $r$ produced no transition from under- to overcompensatory dynamics.
 
-<!--***DAN: By the way, Shyamolina, these are not Hopf bifuractions - those cannot happen
-with univariate models like these. These are called period-doubling bifucations.
-
-***Shya: I also mentioned Hopf bifurcation in Appendix S2. I leave as it is, when you checked that 
-we need to modify from hopf to period-doubling.
-
-If $r$ became too high and exceeded $r_{bf}$ - the parameter value responsible for Hopf-bifurcation -
-model equilibrium $P_e$ became unstable. Beyond the Hopf-bifurcation point, the model showed sustained
-oscillation and eventually led to chaos with increasing $r$. Appendix \ref{SM-model_stability}
-summarized the stability analysis of each model in their deterministic form.
--->
-
 We simulated our metapopulation models using environmental noises $\epsilon_i(t)$ (Table \ref{tab_model_summary}), 
 independent through time, that were generated to have the same overall associations 
 between all patches and in all simulations (Spearman's $\rho$ again `r srho_common`, up to sampling variance), 

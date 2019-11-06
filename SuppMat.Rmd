@@ -2843,11 +2843,9 @@ with extreme right-tail association (as in Fig.
 both types of noise, every entry was transformed by the cumulative distribution
 function of a standard normal distribution, to make each column uniformly
 distributed.
-
-<!--Spearman correlation of the extreme-tail-associated noise-->
 The Spearman correlation of the extreme left- or right-tail associated 
-noise was `r srho_common`, up to sampling variation.
-<!--***DAN: Dan to fill this in with a derivation of this fact-->
+noise was `r srho_common`, up to sampling variation. A derivation
+of this fact is presented below.
 
 <!--moderate tail association noise-->
 Bivarite environmental noise with moderate left-tail association (as in Fig. \ref{MT-fig_intro_cop}B) was 
@@ -2890,6 +2888,95 @@ function of a standard normal distribution, to make each column uniformly
 distributed. 
 Multivariate moderately tail associated noise of dimension $n$
 was generated using $n$-dimensional Clayton or survival Clayton copulas. 
+
+<!--derivation of the fact that Spearman is 0.875 for the extreme tail dependent noise-->
+We now present a derivation of the fact that, up to sampling variance,
+the Spearman correlation of our extreme tail associated noise was 
+$0.875$. Let $u_i$, $v_i$ be the ranks of a sample of noise, $i=1,\ldots,N$.
+Assuming that $N$ is divisible by $4$ makes the presentation of the 
+derivation simpler, so we adopt that assumption. We show the derivation for the left-tail
+associated noise, the right-tail case being similar. Then 
+\vspace{-10pt}
+\begin{equation}
+\rho=\frac{\sum_{i=1}^N (u_i - \mean(u_i))(v_i-\mean(v_i))}{(N-1)\sqrt{\var(u_i)\var(v_i)}}.
+\end{equation}
+\noindent However, it is straightforward to see that $\mean(u_i) = \mean(v_i)=(N+1)/2$,
+which we henceforth call $\mu$. It is also straightforward to see
+that $\var(u_i)=\var(v_i)=\frac{\sum_{i=1}^N (i-\mu)^2}{N-1}$, since 
+the set consisting of the $u_i$ is the same as the set consisting of the 
+$v_i$, and is also the same as the set consisting of the numbers $1,\ldots,N$. 
+Therefore,
+\vspace{-10pt}
+\begin{equation}
+\rho=\frac{\sum_{i=1}^N (u_i-\mu)(v_i-\mu)}{\sum_{i=1}^N (i-\mu)^2}.
+\end{equation}
+\noindent We can reindex the $u_i$ and $v_i$ so that $u_i=v_i=i$ for $i=1,\ldots,N/2$.
+This uses the fact that we are working with the left-tail associated noise.
+Then we have 
+\vspace{-20pt}
+\begin{align}
+\rho &= \frac{\sum_{i=1}^{N/2} (i-\mu)^2 +\sum_{i=N/2+1}^N (u_i-\mu)(v_i-\mu)}{\sum_{i=1}^N (i-\mu)^2} \\
+&= \frac{1}{2}+\frac{\sum_{i=N/2+1}^N (u_i-\mu)(v_i-\mu)}{\sum_{i=1}^N (i-\mu)^2}.\label{eq:rho1}
+\end{align}
+\noindent We define $\mu_2 = \mean_{i=N/2+1}^N(u_i)=\mean_{i=N/2+1}^N(i)$. It is straightforward
+to show that this is $3N/4+1/2$. Then the numerator of the right term in 
+(\ref{eq:rho1}) can be rearranged as
+\vspace{-20pt}
+\begin{align}
+\sum_{i=N/2+1}^N (u_i-\mu)(v_i-\mu) &= \sum_{i=N/2+1}^N (u_i-\mu_2+\mu_2-\mu)(v_i-\mu_2+\mu_2-\mu) \\
+&= \sum_{i=N/2+1}^N \left( (u_i-\mu_2)(v_i-\mu_2)+(u_i-\mu_2)(\mu_2-\mu)
+  +(v_i-\mu_2)(\mu_2-\mu)+(\mu_2-\mu)^2 \right) \\
+&= \sum_{i=N/2+1}^N (u_i-\mu_2)(v_i-\mu_2) + \frac{N}{2}(\mu_2-\mu)^2 \\
+&= \sum_{i=N/2+1}^N (u_i-\mu_2)(v_i-\mu_2) + \frac{N^3}{32}.
+\end{align}
+\noindent The denominator of the right term in (\ref{eq:rho1}) can be rearranged as
+\vspace{-20pt}
+\begin{align}
+\sum_{i=1}^N (i-\mu)^2 &= \sum_{i=1}^N (i^2-2\mu i +\mu^2) \\
+&= \sum_{i=1}^N i^2 - 2\mu\sum_{i=1}^N i +N\mu^2.
+\end{align}
+\noindent Applying Faulhaber's formula to simplify the first term, this is
+\vspace{-20pt}
+\begin{align}
+\sum_{i=1}^N (i-\mu)^2 &= \frac{N(N+1)(2N+1)}{6}-2\mu\frac{N(N+1)}{2}+N\mu^2 \label{eq:rho2}\\
+&= \frac{N(N+1)(N-1)}{12},\label{eq:rho3}
+\end{align}
+\noindent where we have omitted the simple algebra leading from (\ref{eq:rho2}) 
+to (\ref{eq:rho3}). Plugging in our expressions for the numerator and denominator,
+(\ref{eq:rho1}) becomes
+\vspace{-20pt}
+\begin{align}
+\rho &= \frac{1}{2}+\frac{\sum_{i=N/2+1}^N (u_i-\mu)(v_i-\mu)}{\sum_{i=1}^N (i-\mu)^2} \\
+&= \frac{1}{2}+\frac{\sum_{i=N/2+1}^N (u_i-\mu_2)(v_i-\mu_2) + \frac{N^3}{32}}{\frac{N(N+1)(N-1)}{12}} \\
+&= \frac{1}{2}+\frac{12\sum_{i=N/2+1}^N (u_i-\mu_2)(v_i-\mu_2)}{N(N+1)(N-1)}+
+\frac{3N^3}{8N(N+1)(N-1)} \label{eq:rho4}
+\end{align}
+\noindent The second term of (\ref{eq:rho4}) is proportional to the covariance 
+$\cov_{i=N/2+1}^N (u_i,v_i)$. To see this, note that
+\vspace{-20pt}
+\begin{align}
+\cov_{i=N/2+1}^N (u_i,v_i) &= \frac{\sum_{i=N/2+1}^N(u_i-\mu_2)(v_i-\mu_2)}{(N/2-1)
+\frac{\sum_{i=N/2+1}^N (i-\mu_2)^2}{N/2-1}} \\
+&= \frac{\sum_{i=N/2+1}^N(u_i-\mu_2)(v_i-\mu_2)}{\sum_{i=N/2+1}^N (i-\mu_2)^2}.\label{eq:rho5}
+\end{align}
+\noindent But it is straightforward to show that
+\vspace{-10pt}
+\begin{equation}
+\sum_{i=N/2+1}^N (i-\mu_2)^2 = \frac{N(N+2)(N-2)}{96}.
+\end{equation}
+\noindent Plugging this into (\ref{eq:rho5}), we get
+\vspace{-20pt}
+\begin{align}
+\cov_{i=N/2+1}^N (u_i,v_i) &= \frac{96\sum_{i=N/2+1}^N(u_i-\mu_2)(v_i-\mu_2)}{N(N+2)(N-2)}.
+\end{align}
+\noindent Therefore the middle term of (\ref{eq:rho4}) equals
+\vspace{-10pt}
+\begin{equation}
+\frac{12\sum_{i=N/2+1}^N (u_i-\mu_2)(v_i-\mu_2)}{N(N+1)(N-1)} = \cov_{i=N/2+1}^N (u_i,v_i) \left( \frac{N(N+2)(N-2)}{8N(N+1)(N-1)} \right).
+\end{equation}
+\noindent The limit of this as $N \rightarrow \infty$ is $0$ because the covariance
+goes to 0. Thus the limit of (\ref{eq:rho4}) as $N \rightarrow \infty$
+is $7/8=0.875$, as originally claimed.
 
 # Stability analysis of deterministic metapopulation models  \label{model_stability}
 
