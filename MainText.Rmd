@@ -16,7 +16,7 @@ link-citations: True
 urlcolor : blue
 indent : True
 
-csl: TheAmericanNaturalist.csl
+csl: ecosphere.csl
 bibliography: Ref_extrisk.bib
 ---
 
