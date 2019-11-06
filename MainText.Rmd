@@ -166,13 +166,8 @@ If two positively associated variables are more associated in their larger
 values than in their smaller values, they are 
 said to have stronger "right-tail" or "upper-tail" association 
 (Figure \ref{fig_intro_cop}C, D). A precise definition of a measure of tail 
-association is given in Methods.
-<!--**DAN: You suggested we replace this with \nameref{Methods}. I do not care
-one way or the other. You decide, we either do this for all such links or 
-for none. Please decide yourself and then search through and make it that
-way systematically across the ms. I point out though, links between pdfs will
-not work.-->
-Figure \ref{fig_intro_cop} shows that two variables can have a wide 
+association is given in Methods. Figure \ref{fig_intro_cop} shows 
+that two variables can have a wide 
 range of patterns of tail association, from extreme left- to extreme right-tail
 association, with the same overall correlation. So tail association
 is a distinct concept from correlation itself, and may have distinct ecological
@@ -301,7 +296,7 @@ asymmetric tail associations.
 # Methods\label{Methods}
 
 <!--stochastic matrix model : age-structured-->
-To investigate Q1 from the \nameref{Introduction},
+To investigate Q1 from the Introduction,
 we considered a simple stochastic age-structured model
 with two age classes, 
 \begin{equation}
@@ -345,15 +340,7 @@ distributed according to a gamma distribution with parameters $k=2$
 and $\theta=1$, and we used those values for the $\tilde{f}_a(t)$. Because
 the $u(t)$ and $v(t)$ were uniformly distributed, the inverse 
 cumulative distribution functions of the desired beta and
-gamma distributions were the transformations. 
-<!--***DAN: Shyamolina, you asked if I was talking about qbeta and qgamma here. 
-Yes, but we do not need to say that - these are very standard functions in R. Anyone
-who would be using R will know them, anyone not using R won't care that these
-are the names of the functions in R. We just have to give what the mathematical
-name is, which is "inverse 
-cumulative distribution functions". Thanks for correcting my spelling of cumulative. 
-Please delete this comment once you have read it.-->
-Because these
+gamma distributions were the transformations. Because these
 were monotonic transformations, the Spearman correlation of 
 $s_e(t)$ and $\tilde{f}_a(t)$ was the same as that of 
 $u(t)$ and $v(t)$. The quantities $(u(t),v(t))$ for $t=1,\ldots,T$ were
@@ -427,7 +414,7 @@ largely following Fig. 7 of Ghosh \emph{et al.} (2019).
 \end{figure*}
 
 <!--density-dependence metapopulation model-->
-To investigate Q2 from the \nameref{Introduction}, we considered spatialized, stochastic versions
+To investigate Q2 from the Introduction, we considered spatialized, stochastic versions
 of six density dependent population models, the Ricker, Hassell, Maynard Smith, Pennycuick, Verhulst, 
 and Austin-Brewer models.
 All models took the general form $\vec{P} (t+1) = D \lambda(t) \vec{P}(t)$,
@@ -483,12 +470,7 @@ transformed so that the resulting numbers were
 normally distributed with mean $0$ and standard deviation $\sigma$ (Table \ref{tab_model_summary}), 
 for all $i$. This was 
 accomplished with the inverse cumulative distribution function of the normal distribution
-with mean $0$ and standard deviation $\sigma$. 
-<!--***DAN: Shyamolina, you made a comment here in the pdf. I understand what you are saying.
-What you did was mathematically equivalent to what I have written here, so it is OK we described it this way.-->
-<!--***DAN: Shyamolina, in future please make comments in the Rmd, not attached to a pdf - that 
-keeps everything in one place and makes it possible to reply to your comments more easily.-->
-Because this was a monotonic transformation,
+with mean $0$ and standard deviation $\sigma$. Because this was a monotonic transformation,
 the Spearman correlation between $\epsilon_i(t)$ and $\epsilon_j(t)$ was the same 
 as that between $u_i(t)$ and $u_j(t)$; likewise partial Spearman correlations were the same. 
 The quantities $(u_1(t),\ldots,u_n(t))$
@@ -508,7 +490,7 @@ Estimates of extinction risk were plotted together with 95\% confidence interval
 based on a binomial distribution.
 
 <!--test hypothesis from Q2 : ext risk with density-dependence metapopulation model with r from different regime-->
-To answer (Q2) of the \nameref{Introduction}, 
+To answer (Q2) of the Introduction, 
 we estimated extinction risk for each metapopulation model, using each form of tail 
 association for the environmental noise,
 using values of $r$ that included under- and overcompensatory dynamics,
@@ -580,7 +562,7 @@ essentially all the dispersal rates, $d$, that we considered. However,
 using a value of $r$ on the high end of the range $(r_{min},r_{bf})$,
 extinction risks were ordered oppositely (right panels of Figs 
 \ref{fig_extrisk_allmodel_localdisp} and \ref{SM-fig_extrisk_allmodel_globaldisp}). 
-These results help address Q2 from the \nameref{Introduction}.
+These results help address Q2 from the Introduction.
 Intermediate values of $r$ are shown in Figs. \ref{SM-fig_ricker_risk_local_disp_scl_1} - 
 \ref{SM-fig_risk_local_disp_abrewer_r_vary_scl_0.6} for local dispersal and 
 Figs. \ref{SM-fig_ricker_risk_global_disp_scl_1} - 
@@ -747,12 +729,7 @@ fecundity and survival rates of the life stages of the population.
 For such a model, Tuljapurkar's approximation expresses the long-term stochastic 
 growth rate as a function of the variances and covariances of the entries
 of $M$ and of the eigenvalues and eigenvectors of the expected value of 
-$M$. 
-<!--***DAN: Shyamolina, I did not put it as a formula because that would have 
-required a lot more text - we would have to define all the terms. We don't
-actually need to know the specific dependence, just the fact that the growth
-rate depends on the variances and covariances. -->
-None of these quantities depends on tail associations between matrix entries.
+$M$. None of these quantities depends on tail associations between matrix entries.
 Thus, whenever Tuljapurkar's approximation is a good
 approximation, the long-term stochastic growth rate should not depend sensitively
 on tail association. @Lande2003 provides reasoning supporting a claim that 
