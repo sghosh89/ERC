@@ -11,7 +11,7 @@ analyses can be reproduced and the paper and supporting information recompiled (
 ## How to compile
 Knit makefile.Rmd using R markdown. If all dependencies are in place (see next section) 
 this should re-compute all analyses of the paper, resulting in three pdfs: 
-**Paper.pdf** (the main text of the paper), **SupportingInformation.pdf** (the 
+**MainText.pdf** (the main text of the paper), **SuppMat.pdf** (the 
 supporting information file for the paper), and **makefile.pdf** (notes on the 
 compilation process - can be useful for error mitigation in the event of failure).
 
@@ -20,7 +20,7 @@ Subsequent knits, if any,
 can be faster because packages will be installed (see below) and because intermediate 
 results are cached.
 
-If you try to knit Paper.Rmd or SupportingInformation.Rmd directly, you may have some 
+If you try to knit MainText.Rmd or SuppMat.Rmd directly, you may have some 
 success, but cross-document references and other features will fail so this is not recommended.
 
 To compile the documents from the command line, use the following: Rscript -e "library(knitr); knit('makefile.Rmd')".
