@@ -2,6 +2,8 @@
 
 Shyamolina Ghosh, University of Kansas 
 
+Lawrence W. Sheppard, University of Kansas
+
 Daniel C. Reuman, University of Kansas
 
 ## Introduction

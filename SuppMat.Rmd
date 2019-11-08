@@ -1,6 +1,6 @@
 ---
 title: "Supporting information: Tail associations and their impact on extinction risk"
-author: "Shyamolina Ghosh, Daniel Reuman"
+author: "Shyamolina Ghosh, Lawrence W. Sheppard, Daniel C. Reuman"
 date: ""
 geometry: "left=1in,right=1in,top=1in,bottom=1in"
 
@@ -2757,7 +2757,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Velhurst]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Velhurst model. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Verhulst]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Verhulst model. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
@@ -2812,7 +2812,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_global_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, global dispersal, Velhurst]{Analogous to Fig. \ref{fig_risk_local_disp_verhulst_r_vary_scl_0.6} but for global dispersal between habitat patches. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, global dispersal, Verhulst]{Analogous to Fig. \ref{fig_risk_local_disp_verhulst_r_vary_scl_0.6} but for global dispersal between habitat patches. \label{fig_risk_global_disp_verhulst_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
@@ -2894,9 +2894,10 @@ derivation simpler, so we adopt that assumption. We show the derivation for the 
 associated noise, the right-tail case being similar. Then we have
 \vspace{-10pt}
 \begin{equation}
-\rho=\frac{\sum_{i=1}^N (x_i - \mean(x_i))(y_i-\mean(y_i))}{(N-1)\sqrt{\var(x_i)\var(y_i)}}.
+\rho=\frac{\sum_{i=1}^N (x_i - \mean(x_i))(y_i-\mean(y_i))}{(N-1)\sqrt{\var(x_i)\var(y_i)}},
 \end{equation}
-\noindent However, it is straightforward to see that $\mean(x_i) = \mean(y_i)=(N+1)/2$,
+\noindent where $\var$, here and throughout, is the sample variance, with Bessel's correction 
+(denominator $N-1$). However, it is straightforward to see that $\mean(x_i) = \mean(y_i)=(N+1)/2$,
 which we henceforth call $\mu$. It is also straightforward to see
 that $\var(x_i)=\var(y_i)=\frac{\sum_{i=1}^N (i-\mu)^2}{N-1}$, since 
 the set consisting of the $x_i$ is the same as the set consisting of the 
@@ -2948,7 +2949,8 @@ to (\ref{eq:rho3}). Plugging in our expressions for the numerator and denominato
 \frac{3N^3}{8N(N+1)(N-1)} \label{eq:rho4}
 \end{align}
 \noindent The second term of (\ref{eq:rho4}) is proportional to the covariance 
-$\cov_{i=N/2+1}^N (x_i,y_i)$. To see this, note that
+$\cov_{i=N/2+1}^N (x_i,y_i)$ (again using $N-1$ in the denominator, here and throughout). 
+To see this, note that
 \vspace{-20pt}
 \begin{align}
 \cov_{i=N/2+1}^N (x_i,y_i) &= \frac{\sum_{i=N/2+1}^N(x_i-\mu_2)(y_i-\mu_2)}{(N/2-1)
@@ -3037,7 +3039,7 @@ $r$ must be greater than $r_{min} = 1+\exp(-a)$. The transition point $r_c$ (fro
 overcompensatory dynamics) and the bifurcation point $r_{bf}$ were obtained
 by numerical solution of ${F}'=0$ and ${F}'=-1$ at $P_e=P^{\star}$, respectively.
 
-**The Verhulst model.** The Velhurst model 
+**The Verhulst model.** The Verhulst model 
 [@cohen1995unexpected; @may1976bifurcations] is a discrete-time 
 representation of logistic growth, and can be written 
 as $P(t+1) = F(P(t),r,K) =P(t)[1+r(1-P(t)/K)]$, with $r>0$ and $K>0$ being growth rate and 
