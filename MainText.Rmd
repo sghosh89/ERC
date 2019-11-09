@@ -89,7 +89,7 @@ and, in our view, should help motivate more comprehensive
 study of the mechanism and its importance for real populations in future work.
 
 \vspace{12pt}
-\noindent \textbf{\textit{Keywords:}} extinction risk, extreme events, tail association, density-dependent model, copula
+\noindent \textbf{\textit{Keywords:}} extinction risk, extreme events, tail association, density-dependent model, copula, mathematical ecology
 
 \newpage
 
