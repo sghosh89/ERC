@@ -599,7 +599,7 @@ both scenarios. This was presumably because the first of these scenarios reduces
 potential for rescue effects. For the density-dependent metapopulation 
 models we considered, the same 
 result held, typically, but not always, for undercompensatory model dynamics. However,
-for overcompensatory dynamics, the oposite result held, again typically, but not always: 
+for overcompensatory dynamics, the opposite result held, again typically, but not always: 
 when "harmful" events were correlated across space,
 extinction risk of metapopulations was actually mitigated compared 
 to when "beneficial" environmental events were 
@@ -695,13 +695,13 @@ which we have used are closely related to copula approaches, and @Ghosh_copula,
 goal is to understand associations between variables, including how such 
 associations may be changing. We recognize that the Pearson correlation
 of $X_i(t)$ and $X_j(t)$, and changes through time in that correlation, 
-will still be and appropriate and important quantity to study 
+will still be an appropriate and important quantity to study 
 for many applications. For instance, in cases for which $X_i$ has a linear 
 or approximately linear influence on some aspect of the ecosystem
 at location $i$, Pearson correlations of the ecological impacts at locations 
 $i$ and $j$, which may be of fundamental interest, will relate to 
-Pearson correlations between $X_i$ and $X_j$. But in many cases the
-ecological impact of $X_i$ and $X_j$ will be a nonlinear or unknown monotonic functions of 
+Pearson correlations between $X_i$ and $X_j$. But in many cases, the
+ecological impact of $X_i$ and $X_j$ will be a nonlinear or unknown monotonic function of 
 the values of $X_i$ and $X_j$. So studying rank-based correlations
 may be more informative, ecologically as well as providing the mathematical advantages
 listed above. 
@@ -742,7 +742,7 @@ of Tuljapurkar [@tulja1982; @tulja1990] for the long-term stochastic growth rate
 The long-term stochastic growth rate is an important quantity in demography
 [@Caswell2000] and population viability analysis for conservation 
 [@MorrisDoak2002], and it factors prominently into
-extintion risk estimates for density-independent age- or 
+extinction risk estimates for density-independent age- or 
 stage-structured population models 
 [@Lande1988], $\vec{P}(t+1)=M(t)\vec{P}(t)$. Here $\vec{P}(t)$ is the 
 age- or stage-structured population and $M$ is a matrix-valued stationary stochastic 
