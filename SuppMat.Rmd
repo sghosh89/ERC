@@ -2828,7 +2828,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 # Generating noise with asymmetric tail associations  \label{makenoise}
 
 <!--# Algorithm to generate extreme tail association  \label{extr_tail_dep}-->
-Bivarite environmental noise with extreme left-tail association (as in Fig. 
+Bivariate environmental noise with extreme left-tail association (as in Fig. 
 \ref{MT-fig_intro_cop}A) was generated using an algorithm originally presented 
 by @Ghosh_copula (their Appendix S10), presented again here for convenience.
 If $T$ time steps of noise were desired, step 1 was to generate a $T$ by $2$
@@ -2848,7 +2848,7 @@ noise was `r srho_common`, up to sampling variation. A derivation
 of this fact is presented below.
 
 <!--moderate tail association noise-->
-Bivarite environmental noise with moderate left-tail association (as in Fig. \ref{MT-fig_intro_cop}B) was 
+Bivariate environmental noise with moderate left-tail association (as in Fig. \ref{MT-fig_intro_cop}B) was 
 generated using a 2-dimensional Clayton copula. The statistical
 theory of copulas has been introduced systematically in several texts 
 (e.g., @nelsen2006_copula; @joe2014_dependence), and was briefly 
@@ -2856,7 +2856,7 @@ introduced by @Genest2007. Short, conceptual introductions aimed at ecological
 audiences were provided by sections within the papers of @Anderson2018 and @Ghosh_copula. A
 2-dimensional Clayton copula is equivalent to a particular bivariate 
 probability density function with marginal distributions which are 
-uniform on the interval $(0,1)$. The points on Fig. 
+uniform on the interval $(0,1)$. The points in Fig. 
 \ref{MT-fig_intro_cop}B were independent draws from the associated random variable.
 The functions `claytonCopula` and `rCopula` from the `copula` package for the 
 R programming language were used. The parameter of the Clayton family was
@@ -2869,7 +2869,7 @@ of the Clayton copula by 180 degrees.
 
 <!--Multivariate extreme tail association-->
 Multivariate noise with extreme left-tail association was generated using a
-very simlar algorithm to the bivariate case,
+very similar algorithm to the bivariate case,
 as follows. If $T$ time steps of noise of dimension $n$ were desired,
 step 1 was to generate a $T$ by $n$
 matrix, $M$, of independent random numbers, each standard-normally distributed.
