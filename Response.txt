@@ -1,0 +1,123 @@
+********************************
+Reviewer #1 (Comments to the Author):
+
+Summary of article
+This manuscript investigates the effect of asymmetries in tail associations (increased correlation at either extreme low or high values of a population or environmental variable) on extinction risk for populations in stage-structured demographic models and in spatial metapopulations. It extends the little previous ecological work on asymmetric tail associations in spatial metapopulations by including density-dependence and introduces them in stage structured models. The authors find that spatial left-tail associations substantially increase extinction risk in metapopulations, possibly due to lower chance of rescue for populations with low growth rates. They find these asymmetries in vital rate tail associations impact extinction risk very little in stage-structured non-spatial models.
+
+Overarching thoughts
+The overall concepts of what asymmetric tail associations are and why they are important ecologically are clearly communicated, with the use of conceptual figures such as Fig 1.
+
+The inclusion of two kinds of asymmetric tail associations – those between vital rates within a population and spatial tail associations in a metapopulation – illustrate that the type of asymmetric tail association matters to determining their role in extinction risk.
+
+The use of several forms of density dependence in the spatial metapopulation model demonstrates the degree to which effect sizes are not dependent on a specific density dependence formulation, but a broader feature of asymmetric tail associations across metapopulation model structures.
+
+
+***Shya: Thanks for the positive feedback! We feel happy that our communication has made it clear about the usefulness of asymmetric tail associations in estimating extinction risk for the stage-structured demographic model and meta-populations. 
+
+I suggest only a few clarifications:
+
+Specific comments
+L164-175: Has this particular formulation been analyzed in detail in a classic text? Cite it to guide the reader to more resources on the behavior of this model more generally.
+
+***Shya: The formulation [Eq. 1] is quite common in population-demography modeling [Caswell; Moris & Doak] where vital rates are found to be time-dependent and contains stochasticity (due to random environmental noise) in population projection matrix. (see L168-171)
+
+L222-224: Cite introduction or thorough analyses of these models to direct the reader to more resources. Or add those citations to Table 1 and reference it here for brevity.
+
+***Shya: These models are adapted from Cohen(1995) - now mentioned in L227. Details of each model are discussed in Appendix S2.
+
+********************************
+Reviewer #2 (Comments to the Author):
+
+Brief summary: This paper examined the effects of “tail associations” of ecological variables on the extinction risk of metapopulations and stage-structured populations using nonlinear population models. The results show that the effect of tail associations between fecundity and juvenile survival is minor, while that between patches that a metapopulation occupies increases or decreases extinction risk, depending on the domain of different compensatory dynamics. This work is one of the earliest studies that examine how copula structure in ecological variables influence population persistence. The authors investigated this problem using a variety of models, showing the general importance of tail associations of ecological variables on population persistence. Because copula structure in ecological variables should be ubiquitous in nature and ongoing climate change is likely altering correlation structure between variables, the problem investigated in this paper is of interest to the readers of ESA journals.
+
+***Shya: Many thanks for the positive feedback and constructive suggestions! We are happy that we have got the attention in estimating extinction risk using copula to model "tail-associations" between ecological/ environmental variables. For specific response, please see below.
+
+General comments
+1.      The title seems a bit cryptic to readers who are not a statistician. I would suggest that title be modified to clarify it is about the tails of the distributions of ecological variables.
+
+***Shya: I could think of a few alternative titles:
+(i) Tail associations between ecological variables and their impact on extinction risk
+(ii) Tail associations between ecological variables could affect the extinction risk
+(iii) Tail associations between ecological variables, extreme events and their impact on extinction risk
+
+2.      A conceptual schematic diagram early in the introduction will greatly help readers understand the main idea quickly and smoothly follow the text. In the current form, it is relatively hard to follow. Figure 1 does help, but a figure showing the idea in a more concrete way using tangible examples would make it much easier for readers to absorb the idea early on in the paper. It also would be helpful to see an example from finance or other fields that are somewhat analogous to ecological situations.
+
+***Shya: I think Fig. 1 is the most simplified pedagogical fig. we've ever had in our all copula-related papers. 
+So, as of now I have no idea what extra info does the 2nd reviewer ask for? Copula related paper from finance or other fields are already cited in the paper in L156-157.
+
+
+3.      The amount of analyses for metapopulations and age-structured populations seems quite unbalanced. Why is this so? Obviously, the paper would greatly increase its value by including more analyses for stage-structured populations, but then the paper may become too long to fit in the required length for Ecosphere. Would it be more beneficial to focus only on metapopulations in this paper and expand on the stage-structured population part in a separate paper to more deeply examine Tuljapurkar’s approximation?
+
+***Shya: This is our first attempt to introduce the general impact of asymmetric tail-association (using copula) on the extinction risk - be it on the stage-structured model or on the spatial metapopulation models. We agree that further studies are needed as mentioned in the Discussion to examine why those effects are less severe in stage-structured population model compared to the metapopulation - probably we will address that in detail in our 
+subsequent papers (I'm not sure about this statement - but I could not think of a better response :P).
+
+
+4.      The order of appearance of the metapopulation problem and the age-structured population problem keeps switching throughout the paper. For readability, the order should be consistent.
+
+***Shya: Ok, I will read the paper again, and comment on this later.
+
+
+5.      Whether variables have tail associations can be altered by transformation; e.g., variables may have no tail association in one way but show any of the tail associations discussed in this paper in another. How should researchers who want to use the approached introduced in this paper deal with this? Should they look for a transformation that can give one of such tail associations as long as it is ecologically meaningful in a given system? I suppose so, but this is not mentioned in the paper. Also, the interpretation that certain variables are “bad” or “good” depends on how it is formulated or transformed. It could be that, if a “bad” variable is associated with a “good” variable in their right tails, for example, their effects cancel each other and leave no overall effect, which would be also an interesting result. This may be related to the discussion about negative associations between Line 411 and 423, but it does not clearly come across. Maybe these are discussed in the Ghosh et al. paper in BioRxiv, but it is not yet published in a peer reviewed journal. These aspects should be worth mentioning in this paper for clarification of the method.
+
+***Shya: I have several comments about this criticism:
+(i) Reviewer2 has misunderstood us here. Transformation (Linear) does not alter the nature of tail-association, i.e., stronger left tail association remains left-tail dominated, so as for right tail.
+(ii) After reading his own story of "good" or "bad" variable - now I'm confused. I think "good" or "bad" notion of variable has nothing to do with the transformation - it is their underlying nature that how they affect the population-size with time. Also, I don't agree that a right tail (or left-tail) association between two contradictory variable (i.e. negatively correlated) nullify the effect on population-extinction risk.
+(iii) Our BIVAN paper is now accepted and in press, though not updated in BioRxiv, I am not sure whether I should upload the accepted version in BioRxiv or not because of copyright agreement with Elsevier.
+
+
+6.      Figure 5 presents cases with d = 0 only and in the appendix different values of d are considered only for global dispersal. Would the results qualitatively hold when different values of d for local dispersal is considered?
+
+
+***Shya: I personally believe the results should hold, in general, even when d>0 (because d=0 is more stringent case). My goal is to show the crossover happened solely because of the change in dynamical regime, so setting d=0 means there will be no rescue-effect on extinction risk due to metapopulation dispersal. (But still I will check my first statement - I will write a toy code using my saved data)
+
+
+7.      In general, the text in certain parts can be much tightened for readability and clarity.
+
+Minor comment
+•       Line 97-105. It is too abstract to follow in the current form until the reader read the last sentence.
+•       Line 100, insert “same” in between “the” and “variable” for clarity.
+
+***Shya: okay, I've rephrased this para.
+
+•       As I mentioned above, Q1 and Q2 appear in an opposite order from what I expected from the introduction so far.
+
+***Shya: see point 4.
+
+
+•       Line 299. Because simulation studies can increase the number of replicates relatively easily and usually use a large number of replicates, statistical significance does not mean much in most of cases, including this one.
+
+***Shya: Here Reviewer2 is talking about Fig. 3. I've no response for this :(
+
+
+•       Line 357-9. Rewrite the sentence. The paper did not show “how such (climatic) changes modify the asymmetry of tail association of weather variables measured in different places.” It showed only whether the latter part of the sentence happens.
+
+***Shya: I am more or less agreed with the reviewer here, but I don't rewrite the sentence. I leave it for DAN.
+
+
+•       In the second paragraph in Discussion, X’s are used to refer to generic random variables, but it appeared rather abruptly as the letter was not used to denote variables in the paper up to that point in the main text. It would be helpful to give the definition parenthetically in the text. Do i and j refer to different weather variables, to different ecological variable, or also to different patches?
+
+***Shya: Agreed. As far as I understand, X's could be time series of two environmental/ ecological variables (i.e. for two vital rates  i, j for stage-structured model) from same location or metapopulation time series from two sites i, j (in case of metapopulation model). I'm not sure though, so I did not edit that para in text, I will do that after DAN comments.
+
+
+•       The paragraph starting from Line 372 is very long and winding. This needs to be tightened substantially (to 2/3 to ½ of the current length, which is 1.5 pages).
+
+***Shya: I leave it for DAN. I agree that the para is too long but the contents are useful, may be we could split the para into multiple ones.
+
+
+•       Line 419-421. This sentence is very confusing. Using “/” and “(respectively)” makes it almost intractable.
+
+***Shya: Agreed and modified in the text. 
+
+
+•       Line 424-450. I suggest that the sentence starting with “Although” should come after “…with asymmetric tail associations” in Line 445 for a better flow. As a connection, add a sentence like “This result is partly consistent with the prediction from Tuljapurkar’s approximation” before “The long-term stochastic growth rate… (Line 431)”.
+
+***Shya: I leave it for DAN's judgement.
+
+
+•       Line 459-460. Please give a brief definition of “the geography of synchrony,” and clarify what “synchrony was found to have a prominent geography…” means here.
+
+***Shya: modified in the text but please check. 
+
+Please see also the attached file.
+
+********************************

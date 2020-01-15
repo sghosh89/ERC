@@ -314,10 +314,13 @@ with two age classes,
 \noindent where $E(t)$ and $A(t)$ are the numbers or population densities of eggs 
 and adults, respectively, at time $t$. We chose a very simple model
 because our goal was to carry out an initial evaluation, only, of 
-the realism of a potential mechanism. The stochastic vital rates $s_e(t)$ and $f_a(t)$
-were selected, independently across times, as follows. 
-The egg survival rate $s_e(t)$ was drawn from a beta distribution with parameters
-$\alpha=3$ and $\beta=2$. 
+the realism of a potential mechanism. The formulation (\ref{eq_age_str}) is quite common 
+in population-demography modeling [@Caswell2000; @MorrisDoak2002] where vital rates 
+are found to be time-dependent and contains stochasticity (due to random 
+environmental noise) in population projection matrix. The stochastic vital 
+rates $s_e(t)$ and $f_a(t)$ in Eq. \ref{eq_age_str} were selected, independently 
+across times, as follows. The egg survival rate $s_e(t)$ was 
+drawn from a beta distribution with parameters $\alpha=3$ and $\beta=2$. 
 Adult fecundity was $f_a(t)=\tilde{f}_a(t)\exp(-A(t)/\Omega)$, where $\tilde{f}_a(t)$
 was drawn from a gamma distribution with shape and scale parameters $k=2$
 and $\theta=1$, respectively, 
@@ -426,7 +429,7 @@ largely following Fig. 7 of Ghosh \emph{et al.} (2019).
 <!--density-dependence metapopulation model-->
 To investigate Q2 from the Introduction, we considered spatialized, stochastic versions
 of six density dependent population models, the Ricker, Hassell, Maynard Smith, Pennycuick, Verhulst, 
-and Austin-Brewer models.
+and Austin-Brewer models - as adapted from @cohen1995unexpected.
 All models took the general form $\vec{P} (t+1) = D \lambda(t) \vec{P}(t)$,
 where $\vec{P}(t)$ is a vector of population densities, 
 the $i^{\text{th}}$ component $P_i(t)$ representing
@@ -724,7 +727,7 @@ among vital rates $r_1$, $r_2$, and $r_3$. Values of $r_1$ near
 an upper limit may be strongly associated with,
 for instance, $r_2$, whereas lower values of $r_1$ may not be strongly
 associated with $r_2$ because reductions/increases in $r_1$ can
-then be traded off against increases/reductions (respectively) in either 
+then be traded off against increases/reductions in either 
 $r_2$ or $r_3$. It is possible that tail associations in negatively 
 related vital rates produce different outcomes for extinction risk
 from what we have observed by studying positively associated vital rates.
@@ -777,10 +780,11 @@ were all equally mutually accessible through dispersal.
 Furthermore, associations between environmental variables in different
 patches were assumed to be spatially homogeneous. In real metapopulations,
 neither of these assumptions holds. Several recent studies, reviewed and synthesized
-by @walteretal2017, have explored geographic variation in the synchrony of environmental
-and population variables; @walteretal2017 explored the mechanisms, consequences
-and ecological importance of the geography of synchrony. For instance, synchrony was found to 
-have a prominent geography which can help provide inferences about the causes
+by @walteretal2017, have explored geographic variation in the spatial synchrony of environmental
+and population variables (known as "geography of synchrony"); @walteretal2017 explored the 
+mechanisms, consequences and ecological importance of this geography of synchrony. For instance, 
+synchrony was found to have a prominent geography (i.e. a distinctive spatial pattern) which can 
+help provide inferences about the causes
 of synchrony and about organism ecology. Two among many research questions that 
 could be explored that blend the geography of synchrony with tail associations
 include: 1) what is the nature of the geography of tail associations of 
