@@ -54,7 +54,14 @@ subsequent papers (I'm not sure about this statement - but I could not think of 
 
 4.      The order of appearance of the metapopulation problem and the age-structured population problem keeps switching throughout the paper. For readability, the order should be consistent.
 
-***Shya: Ok, I will read the paper again, and comment on this later.
+***Shya: Ok, If we assume the accepted order would be first Stage-structured model (Addressing Q1...) and then metapopulation model (addressing Q2...), then I found the reverse order as follows:
+
+In the Introduction: we first explained metapop (para started with "There are also reasons to hypothesize that asymmetry of tail association in environmental...") and then stage structured model (para started with "Extinction risk is also very commonly estimated for age-structured models such as....")
+
+In the Discussion: we first explained the first topic as metapop results and 
+then as a second topic stage-structured results (in brief compared to first topic).
+Currently, I do not change anything in the maintext, I can rearrange the para but I am afraid in doing so, may be I 
+would break the continuation. So, I am leaving for DAN.
 
 
 5.      Whether variables have tail associations can be altered by transformation; e.g., variables may have no tail association in one way but show any of the tail associations discussed in this paper in another. How should researchers who want to use the approached introduced in this paper deal with this? Should they look for a transformation that can give one of such tail associations as long as it is ecologically meaningful in a given system? I suppose so, but this is not mentioned in the paper. Also, the interpretation that certain variables are “bad” or “good” depends on how it is formulated or transformed. It could be that, if a “bad” variable is associated with a “good” variable in their right tails, for example, their effects cancel each other and leave no overall effect, which would be also an interesting result. This may be related to the discussion about negative associations between Line 411 and 423, but it does not clearly come across. Maybe these are discussed in the Ghosh et al. paper in BioRxiv, but it is not yet published in a peer reviewed journal. These aspects should be worth mentioning in this paper for clarification of the method.
@@ -68,7 +75,7 @@ subsequent papers (I'm not sure about this statement - but I could not think of 
 6.      Figure 5 presents cases with d = 0 only and in the appendix different values of d are considered only for global dispersal. Would the results qualitatively hold when different values of d for local dispersal is considered?
 
 
-***Shya: I personally believe the results should hold, in general, even when d>0 (because d=0 is more stringent case). My goal is to show the crossover happened solely because of the change in dynamical regime, so setting d=0 means there will be no rescue-effect on extinction risk due to metapopulation dispersal. (But still I will check my first statement - I will write a toy code using my saved data)
+***Shya: I personally believe the results should hold, in general, even when d>0 (because d=0 is more stringent case). My goal is to show the crossover happened solely because of the change in dynamical regime, so setting d=0 means there will be no rescue-effect on extinction risk due to metapopulation dispersal. (ok, I checked the simulation result with d=0.3 for local and global dispersal for ricker and hassell, the crossover is around the same r_c, I am attaching the pdfs in my mail).
 
 
 7.      In general, the text in certain parts can be much tightened for readability and clarity.

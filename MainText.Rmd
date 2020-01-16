@@ -183,7 +183,9 @@ Asymmetric tail associations have also been documented between numerous ecologic
 variables and between environmental and ecological variables [@Ghosh_copula].
 
 <!--ECEs probably produce tail associations-->
-There are reasons to hypothesize that ECEs may produce asymmetric tail 
+
+<!--***DAN wrote this-->
+<!--There are reasons to hypothesize that ECEs may produce asymmetric tail 
 associations between climatic variables
 measured in different locations. For instance, suppose a single ECE is associated
 with spatially widespread, large values 
@@ -194,7 +196,20 @@ be stronger right-tail association, through time, between measurements of the cl
 made in different locations.
 For example, rainstorms which deposit exceptionally large amounts of rain
 may do so over large areas. But periods with less rain may experience
-scattered showers only, which may be much less correlated across locales.
+scattered showers only, which may be much less correlated across locales.-->
+
+<!--***Shya: I rephrased the following para-->
+There are reasons to hypothesize that different locations when influenced by single ECEs may 
+show asymmetric tail associations through time. This asymmetry arises because a single 
+ECE is associated with spatially widespread, large values 
+of some climatic variable whereas small values of the same
+variable are associated, instead, with local weather, which can differ from location
+to location, rather than with ECEs. For example, rainstorms which deposit 
+exceptionally large amounts of rain may do so over large areas. But periods with 
+less rain may experience scattered showers only, which may be much 
+less correlated across locales. The result could
+be stronger right-tail association, through time, between measurements of rainfall
+occurred in different locations.
 
 There are also reasons to hypothesize that asymmetry of tail association in 
 environmental variables may influence extinction risks for metapopulations.
