@@ -1,3 +1,11 @@
+Dear editors,
+
+Thank you for the attention and expertise you used in assessing, for Ecosphere, our paper "Tail associations and their impact on extinction risk" (this was the old title, we will now be changing it in response to a referee request - see below). Thank you also for the generally very positive reviews. We have responded to all referee comments through changes to the manuscript, and below. We find the paper is improved and we hope you now find it ready for formal acceptance to Ecosphere. Our responses to comments are preceeded by ">>>" to make them easy to find. Thank you again for an enjoyable and helpful review process.
+
+Yours,
+Shyamolina Ghosh, Lawrence Sheppard and Dan Reuman
+
+
 ********************************
 Reviewer #1 (Comments to the Author):
 
@@ -7,50 +15,50 @@ This manuscript investigates the effect of asymmetries in tail associations (inc
 Overarching thoughts
 The overall concepts of what asymmetric tail associations are and why they are important ecologically are clearly communicated, with the use of conceptual figures such as Fig 1.
 
+>>>Thank you for the positive feedback!
+
 The inclusion of two kinds of asymmetric tail associations – those between vital rates within a population and spatial tail associations in a metapopulation – illustrate that the type of asymmetric tail association matters to determining their role in extinction risk.
 
 The use of several forms of density dependence in the spatial metapopulation model demonstrates the degree to which effect sizes are not dependent on a specific density dependence formulation, but a broader feature of asymmetric tail associations across metapopulation model structures.
 
-
-***Shya: Thanks for the positive feedback! We feel happy that our communication has made it clear about the usefulness of asymmetric tail associations in estimating extinction risk for the stage-structured demographic model and meta-populations. 
+>>>Correct. Thank you for the positive feedback.
 
 I suggest only a few clarifications:
 
 Specific comments
 L164-175: Has this particular formulation been analyzed in detail in a classic text? Cite it to guide the reader to more resources on the behavior of this model more generally.
 
-***Shya: The formulation [Eq. 1] is quite common in population-demography modeling [Caswell; Moris & Doak] where vital rates are found to be time-dependent and contains stochasticity (due to random environmental noise) in population projection matrix. (see L168-171)
+>>>Models of this form (i.e., stochastic matrix models, of which this is an example) are very common in demography, evolutionary ecology, and quantitative conservation biology. As the referee requests, we have added references to the classic books of Caswell and Morris & Doak.
 
 L222-224: Cite introduction or thorough analyses of these models to direct the reader to more resources. Or add those citations to Table 1 and reference it here for brevity.
 
-***Shya: These models are adapted from Cohen(1995) - now mentioned in L227. Details of each model are discussed in Appendix S2.
+>>>Thank you for raising this point, as it spurred us to add clarity about where these models come from. These models are all described by Cohen (1995), who also cites the original sources for each model. Details of each model are also given in Appendix S2. These facts are now mentioned at the point in the text to which the referee refers. Thanks again.
+
 
 ********************************
 Reviewer #2 (Comments to the Author):
 
 Brief summary: This paper examined the effects of “tail associations” of ecological variables on the extinction risk of metapopulations and stage-structured populations using nonlinear population models. The results show that the effect of tail associations between fecundity and juvenile survival is minor, while that between patches that a metapopulation occupies increases or decreases extinction risk, depending on the domain of different compensatory dynamics. This work is one of the earliest studies that examine how copula structure in ecological variables influence population persistence. The authors investigated this problem using a variety of models, showing the general importance of tail associations of ecological variables on population persistence. Because copula structure in ecological variables should be ubiquitous in nature and ongoing climate change is likely altering correlation structure between variables, the problem investigated in this paper is of interest to the readers of ESA journals.
 
-***Shya: Many thanks for the positive feedback and constructive suggestions! We are happy that we have got the attention in estimating extinction risk using copula to model "tail-associations" between ecological/ environmental variables. For specific response, please see below.
+>>>Thank you for the positive feedback!
 
 General comments
 1.      The title seems a bit cryptic to readers who are not a statistician. I would suggest that title be modified to clarify it is about the tails of the distributions of ecological variables.
 
-***Shya: I could think of a few alternative titles:
-(i) Tail associations between ecological variables and their impact on extinction risk
-(ii) Tail associations between ecological variables could affect the extinction risk
-(iii) Tail associations between ecological variables, extreme events and their impact on extinction risk
+>>>Thank you for the suggestion. We changed the title as suggested.
 
 2.      A conceptual schematic diagram early in the introduction will greatly help readers understand the main idea quickly and smoothly follow the text. In the current form, it is relatively hard to follow. Figure 1 does help, but a figure showing the idea in a more concrete way using tangible examples would make it much easier for readers to absorb the idea early on in the paper. It also would be helpful to see an example from finance or other fields that are somewhat analogous to ecological situations.
 
 ***Shya: I think Fig. 1 is the most simplified pedagogical fig. we've ever had in our all copula-related papers. 
 So, as of now I have no idea what extra info does the 2nd reviewer ask for? Copula related paper from finance or other fields are already cited in the paper in L156-157.
-
+***DAN: I do not think we can dodge this - we have to do SOME or even MOST of what the refere says, or he/she will simply say, if the paper is sent back to him/her, "they did not do what I asked for, so REJECT". Of the different suggestions, I think we should make some effort at this one and at 4 below. I will write a justification below for not doing 3. Please think more about such a figure, ASAP. Please think of an *additional* figure, to come right after the curent Fig. 1 The current Fig. 1 explains what tail dependence is. But I think what the referee wants is a figure explaining, conceptually, how tail dependence could cause accentuated extinction risk. I think he/she wants a conceptual figure showing the main idea. I think the figure should be associated with, and cited from, the Intro paras beginning "There are also reasons to hypothesize..." and "Extinction risk is also very commonly estimated..." I agree with the referee that we can produce a good conceptual figure illustrating this main idea. I know you can do this. Please think about it Monday and come to me Tuesday with a hand-drawn sketch of a figure that we can discuss before you then create the figure on Tuesday. Please do not come back to me saying you do not know how to do this - you can do this, I know you can. And time is getting a little tight, and I have other things I have to do on Monday, so this has to be done by you! I am sure you can do a good job.
+***DAN: Part of the reason we need to move efficiently on this is they only gave us three weeks, and we may also have to convert to Word, which you know can be labor intensive. Can you please look on the Ecosphere website and find out if they need final submissions to be in Word or if they can take latex? Even if they can take latex, we may want to convery to Word. If there is any evidence that they prefer Word, we will want to convert to Word to avoid them introducing a million errors trying to do latex when they do not really know how.
 
 3.      The amount of analyses for metapopulations and age-structured populations seems quite unbalanced. Why is this so? Obviously, the paper would greatly increase its value by including more analyses for stage-structured populations, but then the paper may become too long to fit in the required length for Ecosphere. Would it be more beneficial to focus only on metapopulations in this paper and expand on the stage-structured population part in a separate paper to more deeply examine Tuljapurkar’s approximation?
 
-***Shya: This is our first attempt to introduce the general impact of asymmetric tail-association (using copula) on the extinction risk - be it on the stage-structured model or on the spatial metapopulation models. We agree that further studies are needed as mentioned in the Discussion to examine why those effects are less severe in stage-structured population model compared to the metapopulation - probably we will address that in detail in our 
-subsequent papers (I'm not sure about this statement - but I could not think of a better response :P).
+>>>This is a first attempt to understand the impact of asymmetric tail associations on extinction risk, and as such we intentionally used a simple approach, using simulations instead of attempting mathematical analyses, and using simple models, in order to assess if the ideas have merit. We believe this could turn into a broad topic, which many researchers should investigate. Our intention was to provide an initial exploration of some potential mechanisms, and in so doing, hopefully to open what could be a practically important topic (e.g., for conservation) to exploration by other researchers. With regard to mathematical analysis of stochastic matrix models, we are journeymen only, not true experts. We believe attempting to carry out an analytic approach ourselves, e.g., using Tuljapurkars approximation, as the referee suggests, would actually slow down the scientfic progress of the field relative to what progress may be possible if stochastic matrix model experts see our curent results and decide to start from the ideas we have posited and then to carry out an appropriate mathematical analysis that would test the generality of our matrix model results (and related models such as integral projection models, which are becoming more and more common and which require even more sophistication to mathematically analyze). We agree with the referee that a systematic, analytic treatment of stochastic matrix models with asymmetric tail associations between vital rates is a worthy goal, but we think the best/fastest way to achieve this is to publish our current result, in hopes of stimulating some appropriate experts to carry out such an analysis. Carving our matrix models results out of the current paper and then undertaking a more systematic explortion ourselves, for possible later publication, does not get these potentially practically important ideas out there as fast. Finally, we do not see such a serious imbalance - to us the two components somewhat, but not dramatically different in the extent of their coverage, not so much for us to want to slow the transmission to the research community of what could be practically important ideas. Certainly our matrix modelling results are enough to raise the possibility that tail associations in vital rates may influence extinction risk, but to suggest that this effect may be minor; and transmitting this idea was our goal. A truly systematic exploration of that idea, using analysis, will require a real expert in the field. 
 
+***DAN: Dan will edit and shorten the above.
 
 4.      The order of appearance of the metapopulation problem and the age-structured population problem keeps switching throughout the paper. For readability, the order should be consistent.
 
@@ -63,8 +71,12 @@ then as a second topic stage-structured results (in brief compared to first topi
 Currently, I do not change anything in the maintext, I can rearrange the para but I am afraid in doing so, may be I 
 would break the continuation. So, I am leaving for DAN.
 
+***DAN: OK I will do this
 
-5.      Whether variables have tail associations can be altered by transformation; e.g., variables may have no tail association in one way but show any of the tail associations discussed in this paper in another. How should researchers who want to use the approached introduced in this paper deal with this? Should they look for a transformation that can give one of such tail associations as long as it is ecologically meaningful in a given system? I suppose so, but this is not mentioned in the paper. Also, the interpretation that certain variables are “bad” or “good” depends on how it is formulated or transformed. It could be that, if a “bad” variable is associated with a “good” variable in their right tails, for example, their effects cancel each other and leave no overall effect, which would be also an interesting result. This may be related to the discussion about negative associations between Line 411 and 423, but it does not clearly come across. Maybe these are discussed in the Ghosh et al. paper in BioRxiv, but it is not yet published in a peer reviewed journal. These aspects should be worth mentioning in this paper for clarification of the method.
+5.      Whether variables have tail associations can be altered by transformation; e.g., variables may have no tail association in one way but show any of the tail associations discussed in this paper in another. How should researchers who want to use the approached introduced in this paper deal with this? Should they look for a transformation that can give one of such tail associations as long as it is ecologically meaningful in a given system? I suppose so, but this is not mentioned in the paper. 
+
+
+Also, the interpretation that certain variables are “bad” or “good” depends on how it is formulated or transformed. It could be that, if a “bad” variable is associated with a “good” variable in their right tails, for example, their effects cancel each other and leave no overall effect, which would be also an interesting result. This may be related to the discussion about negative associations between Line 411 and 423, but it does not clearly come across. Maybe these are discussed in the Ghosh et al. paper in BioRxiv, but it is not yet published in a peer reviewed journal. These aspects should be worth mentioning in this paper for clarification of the method.
 
 ***Shya: I have several comments about this criticism:
 (i) Reviewer2 has misunderstood us here. Transformation (Linear) does not alter the nature of tail-association, i.e., stronger left tail association remains left-tail dominated, so as for right tail.

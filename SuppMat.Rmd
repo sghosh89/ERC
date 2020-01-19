@@ -1,5 +1,5 @@
 ---
-title: "Supporting information: Tail associations and their impact on extinction risk"
+title: "Supporting information: Tail associations in ecological variables and their impact on extinction risk"
 author: "Shyamolina Ghosh, Lawrence W. Sheppard, Daniel C. Reuman"
 date: ""
 fontsize: 12pt

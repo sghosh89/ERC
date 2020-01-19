@@ -1,5 +1,5 @@
 ---
-title: "Tail associations and their impact on extinction risk"
+title: "Tail associations in ecological variables and their impact on extinction risk"
 author: "Shyamolina Ghosh, Lawrence W. Sheppard, Daniel C. Reuman"
 date: ""
 fontsize: 12pt
@@ -329,10 +329,7 @@ with two age classes,
 \noindent where $E(t)$ and $A(t)$ are the numbers or population densities of eggs 
 and adults, respectively, at time $t$. We chose a very simple model
 because our goal was to carry out an initial evaluation, only, of 
-the realism of a potential mechanism. The formulation (\ref{eq_age_str}) is quite common 
-in population-demography modeling [@Caswell2000; @MorrisDoak2002] where vital rates 
-are found to be time-dependent and contains stochasticity (due to random 
-environmental noise) in population projection matrix. The stochastic vital 
+the realism of a potential mechanism. The stochastic vital 
 rates $s_e(t)$ and $f_a(t)$ in Eq. \ref{eq_age_str} were selected, independently 
 across times, as follows. The egg survival rate $s_e(t)$ was 
 drawn from a beta distribution with parameters $\alpha=3$ and $\beta=2$. 
@@ -343,7 +340,10 @@ and $\Omega$ is a density dependence parameter. Taking $\Omega=\infty$ made
 $\exp(-A(t)/\Omega)=1$ so that the model did not include density dependence
 (it was then a standard stochastic matrix model). Finite, positive values of 
 $\Omega$ made the model nonlinear, with density dependence in the adult
-fecundity rate.  
+fecundity rate. Stochastic matrix models are very commonly used in
+evolutionary ecology and quantitative conservation biology, so our model
+is an example of a very widely used category of models. See, for instance,
+the classic books of @Caswell2000, and @MorrisDoak2002.
 
 The stochastic quantities $s_e(t)$ and $\tilde{f}_a(t)$ were generated 
 to have the same overall association (Spearman's $\rho$ equal to $0.875$,
@@ -444,7 +444,10 @@ largely following Fig. 7 of Ghosh \emph{et al.} (2019).
 <!--density-dependence metapopulation model-->
 To investigate Q2 from the Introduction, we considered spatialized, stochastic versions
 of six density dependent population models, the Ricker, Hassell, Maynard Smith, Pennycuick, Verhulst, 
-and Austin-Brewer models - as adapted from @cohen1995unexpected.
+and Austin-Brewer models. These models were all described by @cohen1995unexpected. 
+The models are also listed in Table \ref{tab_model_summary}, and 
+are analyzed in detail in Appendix \ref{SM-model_stability}, where 
+references for the models are also provided.
 All models took the general form $\vec{P} (t+1) = D \lambda(t) \vec{P}(t)$,
 where $\vec{P}(t)$ is a vector of population densities, 
 the $i^{\text{th}}$ component $P_i(t)$ representing
