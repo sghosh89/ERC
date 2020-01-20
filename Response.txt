@@ -56,76 +56,69 @@ So, as of now I have no idea what extra info does the 2nd reviewer ask for? Copu
 
 3.      The amount of analyses for metapopulations and age-structured populations seems quite unbalanced. Why is this so? Obviously, the paper would greatly increase its value by including more analyses for stage-structured populations, but then the paper may become too long to fit in the required length for Ecosphere. Would it be more beneficial to focus only on metapopulations in this paper and expand on the stage-structured population part in a separate paper to more deeply examine Tuljapurkar’s approximation?
 
->>>This is a first attempt to understand the impact of asymmetric tail associations on extinction risk, and as such we intentionally used a simple approach, using simulations instead of attempting mathematical analyses, and using simple models, in order to assess if the ideas have merit. We believe this could turn into a broad topic, which many researchers should investigate. Our intention was to provide an initial exploration of some potential mechanisms, and in so doing, hopefully to open what could be a practically important topic (e.g., for conservation) to exploration by other researchers. With regard to mathematical analysis of stochastic matrix models, we are journeymen only, not true experts. We believe attempting to carry out an analytic approach ourselves, e.g., using Tuljapurkars approximation, as the referee suggests, would actually slow down the scientfic progress of the field relative to what progress may be possible if stochastic matrix model experts see our curent results and decide to start from the ideas we have posited and then to carry out an appropriate mathematical analysis that would test the generality of our matrix model results (and related models such as integral projection models, which are becoming more and more common and which require even more sophistication to mathematically analyze). We agree with the referee that a systematic, analytic treatment of stochastic matrix models with asymmetric tail associations between vital rates is a worthy goal, but we think the best/fastest way to achieve this is to publish our current result, in hopes of stimulating some appropriate experts to carry out such an analysis. Carving our matrix models results out of the current paper and then undertaking a more systematic explortion ourselves, for possible later publication, does not get these potentially practically important ideas out there as fast. Finally, we do not see such a serious imbalance - to us the two components somewhat, but not dramatically different in the extent of their coverage, not so much for us to want to slow the transmission to the research community of what could be practically important ideas. Certainly our matrix modelling results are enough to raise the possibility that tail associations in vital rates may influence extinction risk, but to suggest that this effect may be minor; and transmitting this idea was our goal. A truly systematic exploration of that idea, using analysis, will require a real expert in the field. 
-
-***DAN: Dan will edit and shorten the above.
-
+>>>Thank you for asking these questions. First, this is an initial attempt to understand the impact of asymmetric tail associations on extinction risk, and as such we intentionally used a simple approach for a rapid assessment of whether the basic ideas have merit. Based on our results, we believe this could turn into a broad topic, which many researchers should investigate. Our intention was to provide an initial exploration of the mechanisms rapidly, and in so doing, hopefully to open what could be a practically important topic (for conservation) to consideration by other researchers, as quickly and broadly as possible. With regard to extensive mathematical analyses (e.g. using Tuljapurkar's approaximation) of stochastic matrix models, which the referee suggests, we are journeymen only, not true experts. Mathematical analysis of stochastic matrix models is a deep field. So we believe carving our matrix model results out of the current paper and then undertaking a more systematic explortion ourselves, for possible later publication, does not get these potentially practically important ideas out there as fast and risks the possibility that we will not be able to do the analyses as well as some of our readers.
+  Second, for stochastic matrix models, our initial explorations suggested that probably the effects of tail association in that context are minor, so we went no further. In contrast, for metapopulation models, our initial explorations (with the Ricker model) showed a likely strong effect, so we went further with additional models. So what the referee perceives as imbalance is actually just a rational attempt to explore promising ideas further and to simply identify other ideas as less promising, to help future researchers choose what to work on.  
+  Finally, we do not see as much of an imbalance as the referee suggests. To us, the two components are treated with slightly different throroughness, but not markedly so, and for good reasons (see above). Our matrix modelling results are certainly enough to make the points we wanted to make, i.e., an initial assessment that the influence of tail associations on extinction risk in this context seems likely to be minor.
+  
 4.      The order of appearance of the metapopulation problem and the age-structured population problem keeps switching throughout the paper. For readability, the order should be consistent.
 
-***Shya: Ok, If we assume the accepted order would be first Stage-structured model (Addressing Q1...) and then metapopulation model (addressing Q2...), then I found the reverse order as follows:
-
-In the Introduction: we first explained metapop (para started with "There are also reasons to hypothesize that asymmetry of tail association in environmental...") and then stage structured model (para started with "Extinction risk is also very commonly estimated for age-structured models such as....")
-
-In the Discussion: we first explained the first topic as metapop results and 
-then as a second topic stage-structured results (in brief compared to first topic).
-Currently, I do not change anything in the maintext, I can rearrange the para but I am afraid in doing so, may be I 
-would break the continuation. So, I am leaving for DAN.
-
-***DAN: OK I will do this
+>>>Thanks for raising this point. We have edited to enforce consistency of this ordering throughout the manuscript.
 
 5.      Whether variables have tail associations can be altered by transformation; e.g., variables may have no tail association in one way but show any of the tail associations discussed in this paper in another. How should researchers who want to use the approached introduced in this paper deal with this? Should they look for a transformation that can give one of such tail associations as long as it is ecologically meaningful in a given system? I suppose so, but this is not mentioned in the paper. 
 
+>>>The referee is mistaken here, transformation does not alter tail associations as we have defined them based on data ranks. This is a standard way of defining tail associations and copula approaches to the study of dependencies, justified by the Ghosh et al paper (which, by the way, has now been formally accepted at Advances in Ecological Research, and is in press) and by Genest & Favre, 2007, J Hydol Eng, "Everything you always wanted to know about copula modelling but were afraid to ask". We have added an explanation of this fact in the Discussion, and made some related points here that will help readers in future applications of our ideas.
+
+***DAN: Don't forget to add the explanation.
 
 Also, the interpretation that certain variables are “bad” or “good” depends on how it is formulated or transformed. It could be that, if a “bad” variable is associated with a “good” variable in their right tails, for example, their effects cancel each other and leave no overall effect, which would be also an interesting result. This may be related to the discussion about negative associations between Line 411 and 423, but it does not clearly come across. Maybe these are discussed in the Ghosh et al. paper in BioRxiv, but it is not yet published in a peer reviewed journal. These aspects should be worth mentioning in this paper for clarification of the method.
 
-***Shya: I have several comments about this criticism:
-(i) Reviewer2 has misunderstood us here. Transformation (Linear) does not alter the nature of tail-association, i.e., stronger left tail association remains left-tail dominated, so as for right tail.
-(ii) After reading his own story of "good" or "bad" variable - now I'm confused. I think "good" or "bad" notion of variable has nothing to do with the transformation - it is their underlying nature that how they affect the population-size with time. Also, I don't agree that a right tail (or left-tail) association between two contradictory variable (i.e. negatively correlated) nullify the effect on population-extinction risk.
-(iii) Our BIVAN paper is now accepted and in press, though not updated in BioRxiv, I am not sure whether I should upload the accepted version in BioRxiv or not because of copyright agreement with Elsevier.
-
+>>>The Ghosh et al paper is now formally accepted. The version on the BioRxiv is essentially the same as the final, accepted version. In spite of thinking for a quite a long time about what the referee may have meant by the above comment, we confess we are not sure, so we do not know what to do about this comment. In our model formulations, variables are never "good" or "bad" but are instead assumed to fluctuate, taking values in some years which are "good" for the population (by which we mean they promote increased reproduction or increased survival in that location, in that year), and values in other years which are "bad" (in the opposite sense). Aside from an apparent desire to have us make some additional point (I'm afriad we cannot understand what point), the referee does not appear to be criticizing anything we actually do say. So we suggest proceeding with this text as it is. As we said, the Ghosh et al paper is now accepted, and is already available online on the BioRxiv, and many important related points are made there. So readers looking to base some of their own research on the points made in the current manuscript can also use the Ghosh et al paper as an additional background resource before getting started.  
 
 6.      Figure 5 presents cases with d = 0 only and in the appendix different values of d are considered only for global dispersal. Would the results qualitatively hold when different values of d for local dispersal is considered?
 
-
-***Shya: I personally believe the results should hold, in general, even when d>0 (because d=0 is more stringent case). My goal is to show the crossover happened solely because of the change in dynamical regime, so setting d=0 means there will be no rescue-effect on extinction risk due to metapopulation dispersal. (ok, I checked the simulation result with d=0.3 for local and global dispersal for ricker and hassell, the crossover is around the same r_c, I am attaching the pdfs in my mail).
-
+>>>If we understand correctly what the referee is saying here, he/she seems to be mistaken. Figs S2-S7 show results for each model for a whole range of d, for local dispersal. These figures are referenced at the end of the second-to-last paragraph of Results, and in the last paragraph of Results. It can be determined through examination of Figs S2-S13 that yes, results will qualitatively hold for nonzero d for the types of dispersal we considered (local and global). A statement to this effect has been added to the last paragraph of Results.
 
 7.      In general, the text in certain parts can be much tightened for readability and clarity.
 
+>>>In the course of doing other edits we went through the entire text again and tightened where possible.
+
+***DAN: make sure to do this
+
 Minor comment
 •       Line 97-105. It is too abstract to follow in the current form until the reader read the last sentence.
+
+>>>We reworded the paragraph.
+
 •       Line 100, insert “same” in between “the” and “variable” for clarity.
 
-***Shya: okay, I've rephrased this para.
+>>>Done.
 
 •       As I mentioned above, Q1 and Q2 appear in an opposite order from what I expected from the introduction so far.
 
-***Shya: see point 4.
-
+>>>We have fixed this ordering issue throughout the manuscript, see our response to point 4 above.
 
 •       Line 299. Because simulation studies can increase the number of replicates relatively easily and usually use a large number of replicates, statistical significance does not mean much in most of cases, including this one.
 
-***Shya: Here Reviewer2 is talking about Fig. 3. I've no response for this :(
-
+>>>Thank you, we take the referee's point here and have eliminated the statement about significance.
 
 •       Line 357-9. Rewrite the sentence. The paper did not show “how such (climatic) changes modify the asymmetry of tail association of weather variables measured in different places.” It showed only whether the latter part of the sentence happens.
 
-***Shya: I am more or less agreed with the reviewer here, but I don't rewrite the sentence. I leave it for DAN.
-
+>>>The sentence the referee mentions was the topic sentence of the paragraph. The first part of that sentence was what the argument of the paragraph is about. So yes, we did do this, it was accomplished not in the Results of the paper (which is what the referee seems to have expected), but instead was accomplished at this point in the manuscript, in this very paragraph. We apologize, however, that this was unclear! So we reworded to make it clearer. We also worked on this whole paragraph, and the following one, to make them clearer. 
 
 •       In the second paragraph in Discussion, X’s are used to refer to generic random variables, but it appeared rather abruptly as the letter was not used to denote variables in the paper up to that point in the main text. It would be helpful to give the definition parenthetically in the text. Do i and j refer to different weather variables, to different ecological variable, or also to different patches?
 
-***Shya: Agreed. As far as I understand, X's could be time series of two environmental/ ecological variables (i.e. for two vital rates  i, j for stage-structured model) from same location or metapopulation time series from two sites i, j (in case of metapopulation model). I'm not sure though, so I did not edit that para in text, I will do that after DAN comments.
-
+>>>We apologize for this omission! We have now added the definition. We have also clarified the rest of this paragraph.
 
 •       The paragraph starting from Line 372 is very long and winding. This needs to be tightened substantially (to 2/3 to ½ of the current length, which is 1.5 pages).
 
-***Shya: I leave it for DAN. I agree that the para is too long but the contents are useful, may be we could split the para into multiple ones.
-
+>>>We split the paragraph into two and shortened, as the referee requesrs.
 
 •       Line 419-421. This sentence is very confusing. Using “/” and “(respectively)” makes it almost intractable.
 
 ***Shya: Agreed and modified in the text. 
+
+
+
 
 
 •       Line 424-450. I suggest that the sentence starting with “Although” should come after “…with asymmetric tail associations” in Line 445 for a better flow. As a connection, add a sentence like “This result is partly consistent with the prediction from Tuljapurkar’s approximation” before “The long-term stochastic growth rate… (Line 431)”.
@@ -135,8 +128,10 @@ Minor comment
 
 •       Line 459-460. Please give a brief definition of “the geography of synchrony,” and clarify what “synchrony was found to have a prominent geography…” means here.
 
-***Shya: modified in the text but please check. 
+>>>Done, and the clarity is improved. Thanks.
 
 Please see also the attached file.
+
+***DAN: Shyamolina, did you look carefully through the attached file mentioned above to see if it had any additional comments, not represented above?
 
 ********************************

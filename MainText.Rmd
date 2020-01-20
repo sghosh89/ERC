@@ -40,14 +40,6 @@ seed<-101
 
 \noindent \emph{Correspondence:} Daniel Reuman, 2101 Constant Ave, Lawrence, KS, 66047, reuman@ku.edu, 626 560 7084. 
 
-<!--
-Alternative titles
-1) Tail associations in environmental variables and extinction risk
-2) The influence of correlations in the extremes on extinction risk
-3) Tail associations in environmental variables and their impact on extinction risk
-4) Asymmetric tail association in extreme climatic events affects population-extinction risk
--->
-
 \newpage
 
 \noindent \textbf{ABSTRACT} 
@@ -55,33 +47,35 @@ Alternative titles
 
 \noindent Extreme climatic events are becoming more frequent and more intense
 due to climate change. Furthermore, there is reason to believe extreme 
-climatic events may modify "tail associations" between values of an environmental 
-variable measured in different locations, i.e., associations that 
+climatic events may modify "tail associations" between distinct population vital rates,
+or between values of an environmental 
+variable measured in different locations. "Tail associations" between two variables are associations that 
 occur between values in the left or right tails of the distributions 
-of the variable that occur in the locations. 
+of the variables. 
 Two positively associated variables can be principally "left-tail associated" (i.e., more 
 correlated when they take low values than when they take high values) or "right-tail associated"
 (more correlated when they take high than low values), even with the same
-overall correlation coefficient in both cases. We tested whether the nature of 
+overall correlation coefficient in both cases. 
+We tested, in the context of non-spatial stage-structured matrix models, 
+whether tail associations between stage-specific vital rates may
+influence extinction risk.
+We also tested whether the nature of 
 spatial tail associations of environmental variables can influence metapopulation 
 extinction risk. For instance, if low values of an environmental variable reduce the growth 
 rates of local
 populations, one may expect that left-tail associations increase
 metapopulation extinction risks because then environmental "catastrophes" are
 spatially synchronized, presumably reducing the potential for rescue effects.
-We also tested, in the context of non-spatial stage-structured matrix models, 
-whether tail associations between stage-specific vital rates may
-influence extinction risk. 
-We showed that density dependence interacts with the
-propensity for tail associations to influence metapopulation extinction risk: for 
-population models
-showing undercompensatory density dependence, left-tail associations in environmental 
-variables typically accentuated
-and right-tail associations mitigated extinction risk; whereas the 
-reverse was usually true for models showing overcompensatory density dependence.
 For the non-spatial, stage-structured models we considered, left-tail associations 
 between vital rates did accentuate extinction risk compared to right-tail
 associations, but the effect was small. 
+In contrast, we showed that density dependence interacts with tail associations 
+to influence metapopulation extinction risk substantially: for 
+population models
+showing undercompensatory density dependence, left-tail associations in environmental 
+variables often strongly accentuated
+and right-tail associations mitigated extinction risk; whereas the 
+reverse was usually true for models showing overcompensatory density dependence.
 Tail associations and their asymmetries are taken into account in assessing risks
 in finance and other fields, but to our knowledge our study is one of the first
 to consider how tail associations influence population extinction risk. 
@@ -182,34 +176,39 @@ measured in different places [@Serinaldi2008; @li2013; @She2018; @Goswami2018].
 Asymmetric tail associations have also been documented between numerous ecological
 variables and between environmental and ecological variables [@Ghosh_copula].
 
+Extinction risk is very commonly estimated for age-structured models 
+such as stochastic matrix models [@MorrisDoak2002; @Caswell2000] and 
+integral projection models
+[@Merowetal2014]. For such models, extinction risk depends, in part, on the long-term
+population growth rate, a population parameter which in turn 
+depends on the means, variances and covariances of population vital rates such 
+as the survival and fecundity rates of age classes. Extinction risks may,
+*a priori*, also depend on possible asymmetries of tail association between
+population vital rates. For instance, it seems reasonable to imagine
+a case in which both adult fecundity and juvenile survival rates in a population 
+depend on an environmental variable such as spring rainfall in similar ways, but 
+only when that variable takes low values. When rainfall takes
+typical or high values, fecundity and survival may be limited instead 
+by different, unrelated factors. This could produce left-tail dependence between these 
+vital rates, possibly resulting in different extinction risk for the model
+compared to a case in which vital rates were symmetrically associated in 
+their tails but otherwise statistically similar. 
+
 <!--ECEs probably produce tail associations-->
-
-<!--***DAN wrote this-->
-<!--There are reasons to hypothesize that ECEs may produce asymmetric tail 
+There are reasons to hypothesize that ECEs may produce asymmetric tail 
 associations between climatic variables
-measured in different locations. For instance, suppose a single ECE is associated
-with spatially widespread, large values 
-of some climatic variable. Also suppose that small values of the
-variable are associated, instead, with local weather, which can differ from location
-to location, rather than with ECEs. The result could
-be stronger right-tail association, through time, between measurements of the climatic variable
-made in different locations.
-For example, rainstorms which deposit exceptionally large amounts of rain
-may do so over large areas. But periods with less rain may experience
-scattered showers only, which may be much less correlated across locales.-->
-
-<!--***Shya: I rephrased the following para-->
-There are reasons to hypothesize that different locations when influenced by single ECEs may 
-show asymmetric tail associations through time. This asymmetry arises because a single 
-ECE is associated with spatially widespread, large values 
-of some climatic variable whereas small values of the same
-variable are associated, instead, with local weather, which can differ from location
-to location, rather than with ECEs. For example, rainstorms which deposit 
-exceptionally large amounts of rain may do so over large areas. But periods with 
-less rain may experience scattered showers only, which may be much 
-less correlated across locales. The result could
-be stronger right-tail association, through time, between measurements of rainfall
-occurred in different locations.
+measured in different locations. The idea, here, is based on the reasonable assumption 
+that ECEs are both more intense and spatially more extensive than non-extreme 
+climatic events. For clarity, we explain the idea using the example case
+of extreme rain events. Suppose a single extreme rain event is associated
+with spatially widespread large precipitation values, i.e., not only does it rain a lot
+in each locale, but it does so for many locales across a large area. Also suppose that smaller local
+precipitation measurements are associated, instead, with local, non-extreme weather 
+which can differ from location to location, rather than with a single extreme rain event.
+The result could be stronger right-tail association, through time, between measurements of precipitation
+made in different locations: large precipation measurements are coherent across space, since 
+they are all attributable to a single event; whereas small values are less spatially correlated
+because they come from a multiplicity of distinct local events.
 
 There are also reasons to hypothesize that asymmetry of tail association in 
 environmental variables may influence extinction risks for metapopulations.
@@ -231,24 +230,6 @@ risk than if "bonanzas" (i.e., extremely good years) are widely synchronized, ev
 if overall (non-tail-specific) levels of environmental synchrony are the same
 in both these scenarios. The present study extends tests of this idea to metapopulation
 models incorporating density dependence. 
-
-Extinction risk is also very commonly estimated for age-structured models 
-such as stochastic matrix models [@MorrisDoak2002; @Caswell2000] and 
-integral projection models
-[@Merowetal2014]. For such models, extinction risk depends, in part, on the long-term
-population growth rate, a population parameter which in turn 
-depends on the means, variances and covariances of population vital rates such 
-as the survival and fecundity rates of age classes. Extinction risks may,
-*a priori*, also depend on possible asymmetries of tail association between
-population vital rates. For instance, it seems reasonable to imagine
-a case in which both adult fecundity and juvenile survival rates 
-depend on an environmental variable such as spring rainfall in similar ways, but 
-only when that variable takes low values. When rainfall takes
-typical or high values, fecundity and survival may be limited instead 
-by different factors. This could produce left-tail dependence between these 
-vital rates, possibly resulting in different extinction risk for the model
-compared to a case in which vital rates were symmetrically associated in 
-their tails but otherwise statistically similar. 
 
 <!--objectives, last para of intro-->
 In this paper, we will explore the potential for asymmetric tail associations to 
@@ -554,10 +535,9 @@ to density-independent version, extinction risk differences across tail associat
 scenarios were similar for the two versions. Because the same Spearman correlation (up to sampling
 variance) was used in all simulations, the differences between lines in the panels
 of Fig. \ref{fig_extrisk_agestr} are attributable solely to the changes we made in the
-asymmetry of tail associations, and answer Q1. Though differences were significant (confidence
-bands in Fig. \ref{fig_extrisk_agestr}, which are very narrow, did not overlap),
-they were also small, corresponding to only a few percentage points of additional extinction
-risk after 25 years. A potential reason for this outcome is elaborated in the Discussion.
+asymmetry of tail associations, and answer Q1. Differences were small, corresponding 
+only to a few percentage points of additional extinction risk after 25 years. A 
+potential reason for this outcome is elaborated in the Discussion.
 
 <!--Q2 : metapopulation results-->
 For our metapopulation simulations, for low values of $r$ (close to $r_{min}$), left-tail
@@ -593,18 +573,29 @@ in which models exhibit under- versus overcompensatory dynamics. This was
 approximately, but not exactly, true. Careful inspection of Figs 
 \ref{SM-fig_risk_local_disp_verhulst_r_vary_scl_0.6} - \ref{SM-fig_risk_local_disp_abrewer_r_vary_scl_0.6} and Figs \ref{SM-fig_risk_global_disp_verhulst_r_vary_scl_0.6} - \ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6} 
 and the $r_c$ values of Table \ref{tab_model_summary} reveals that, for the Verhulst and Austin-Brewer models,
-the switch occurs at a value of $r$ less than $r_c$ for these models. For the example
+the switch occurs at a value of $r$ less than $r_c$. For the example
 case of $d=0$, plots of extinction risk versus $r$ (Fig. \ref{fig_extrisk_d0}) seem to indicate that,
 for the Ricker, Hassell, and Pennycuick models, left-tail association accentuates and
 right-tail association mitigates extinction risk for undercompensatory dynamics ($r<r_c$),
 whereas the reverse occurs for overcompensatory dynamics ($r>r_c$). Fig. \ref{fig_extrisk_d0}
 reveals a similar reversal for the Maynard Smith, Verhulst and Austin-Brewer models; but 
-it occurs at a value of $r$ close to but distinguishable from $r_c$.
+it occurs at a value of $r$ close to but distinguishable from $r_c$. Inspection of Figs
+\ref{SM-fig_ricker_risk_local_disp_scl_1}-\ref{SM-fig_risk_global_disp_abrewer_r_vary_scl_0.6}
+shows that a qualitatively similar conclusion holds for nonzero $d$, for both local and global
+dispersal.
 
 # Discussion\label{Discussion}
 
 <!--summary results:-->
-Our results combined with earlier results 
+Our results 
+suggest that asymmetry of tail associations between vital rates
+in a stage-structured, non-spatial stochastic model may be of limited 
+importance for extinction risk. In our stage-structured, non-spatial model, extinction 
+risk was only weakly influenced by asymmetry of tail associations
+between vital rates. Our results provide suggestive, rather
+than definitive evidence, here, because we considered 
+only one model (but see below). 
+In contrast, our metapopulation results 
 show that asymmetries in tail associations between environmental variables in
 different locations can have a substantial influence on metapopulation extinction risk,
 for density-dependent as well as for density-independent 
@@ -628,111 +619,14 @@ extinction risk of metapopulations was actually mitigated compared
 to when "beneficial" environmental events were 
 spatially correlated by the same amount. This was probably because the correlated 
 beneficial events caused populations to exceed carrying capacity, and 
-to subsequently crash, across all or most habitat patches. In contrast 
-to the metapopulation case, our results 
-suggest that asymmetry of tail associations between vital rates
-in a stage-structured, non-spatial stochastic model may be of limited 
-importance for extinction risk. In our stage-structured, non-spatial model, extinction 
-risk was only weakly influenced by asymmetry of tail associations
-between vital rates. Our results provide suggestive, rather
-than definitive evidence, here, because we considered 
-only one model (but see below). 
-
-<!--linking back to ECEs-->
-Extensive evidence now exists that ECEs have become more frequent and more intense
-over the last several decades, and substantial progress has recently been made so that
-some event categories and even specific events can now be attributed to
-human-induced climate change [@ummenhofer2017extreme]. We here provide a fuller 
-explanation of how such changes may modify the asymmetry of tail association of 
-weather variables measured in different places, and thereby influence metapopulation
-extinction risk through the mechanisms we explored in this paper. 
-Although changes in 
-the correlation between $X_i(t)$ and $X_j(t)$ are increasingly documented, 
-and may also be a consequence of climate change (e.g., @Black2018),
-we are unaware of any studies examining the extent to which tail associations
-between $X_i(t)$ and $X_j(t)$, and asymmetries of tail association, may be 
-changing. However, documented changes in correlation between $X_i(t)$ and $X_j(t)$
-may be due partly or wholly to changes in tail associations. If ECEs are becoming
-more spatially extensive, as seems likely given that they are becoming
-more intense [@ummenhofer2017extreme], then the conditional probability that both of
-$X_i(t)$ and $X_j(t)$ are influenced by an ECE, given that one of them is so
-influenced, should be increasing. This should contribute to increased association
-of the two variables in one of their tails (which tail depends on the type of 
-ECE and what the variable $X$ is). A study of changes through time in 
-tail associations of weather variables would be straightforward and 
-potentially important given the mechanisms we have explored.
-<!--***DAN: Shyamolina, another aspect of an exploration you may do on the 
-the geography of tail association may be to look at how tail association 
-may be changing. This relates to ECEs, so may help better justify the work
-to a funder. You had proposed to look at geography of tail association in 
-NDVI, and that makes good sense. You could also look at how tail association
-is changing in NDVI (the records are about 35 years long, so you could just
-about do this). Even better (because data are better), you could get weather
-station records (lots of these can be downloaded, over 1000 stations
-have been operating for over a century continuously in North America) and 
-look at how tail associations are changing in those data.-->
-
-<!--copulas and rank methods-->
-It is known that the distributions $X_i(t)$ are changing, both in
-mean and variance, and possibly in other ways, depending on what
-environmental variable $X$ represents.
-Studying associations between $X_i(t)$ and $X_j(t)$ using standard 
-methods such as Pearson correlation
-may be complicated by these changes; rank-based and related 
-measures of association such as 
-we have used may be more appropriate for some applications.
-If $f$ is a strictly monotonic, increasing transformation, then the Spearman
-(or Kendall) correlation of $f(X_i(t))$ and $f(X_j(t))$ is the same as the
-Spearman (or Kendall) correlation of $X_i(t)$ and $X_j(t)$. However, the Pearson
-correlation of $f(X_i(t))$ and $f(X_j(t))$ may differ substantially
-from the Pearson correlation of $X_i(t)$ and $X_j(t)$. 
-Relatedly, if the marginal distributions of $X_i(t)$ and $X_j(t)$ are
-changing through time, it may also cause changes through time in the 
-Pearson correlation of these quantities, even while the values
-of rank-based correlations such as Spearman and Kendall may be unchanging.
-Essentially, in such a case, associations between $X_i(t)$ and $X_j(t)$
-would be unchanging through time even though Pearson correlation
-appears to indicate a change in association, which is instead a change 
-in marginal distributions.
-Perhaps unfortunately, the Pearson correlation,
-which is the most commonly used measure of association of two variables,
-depends not only on association information, but also on the marginals.
-For this reason, it is possible that recently observed changes in environmental
-(e.g., @Black2018) and biological (e.g., @Koenig2016) synchrony 
-are, at least in part, just another feature of 
-already-studied changes in distributional characteristics of 
-variables, rather than reflecting true changes in association as would be measured
-using rank-based methods (these studies used Pearson correlations).
-Rank-based methods are linked to a well-developed suite of statistical
-approaches related to the *copula* concept of statistics. Copulas and related ideas
-can be used to formally separate the information in the joint 
-distribution of $X_i$ and $X_j$ into the information that pertains
-to the marginal distributions of these two variables, and the information
-that pertains solely to their association. 
-@Ghosh_copula argued generally for the potential of copulas and related ideas
-to improve our understanding of ecology 
-(see also @Popovic2018; @Valpine2014; @Anderson2018).
-Rank-based methods such as the Spearman and partial Spearman correlations
-which we have used are closely related to copula approaches, and @Ghosh_copula,
-@Genest2007 and others have recommended copula and rank approaches when the 
-goal is to understand associations between variables, including how such 
-associations may be changing. We recognize that the Pearson correlation
-of $X_i(t)$ and $X_j(t)$, and changes through time in that correlation, 
-will still be an appropriate and important quantity to study 
-for many applications. For instance, in cases for which $X_i$ has a linear 
-or approximately linear influence on some aspect of the ecosystem
-at location $i$, Pearson correlations of the ecological impacts at locations 
-$i$ and $j$, which may be of fundamental interest, will relate to 
-Pearson correlations between $X_i$ and $X_j$. But in many cases, the
-ecological impact of $X_i$ and $X_j$ will be a nonlinear or unknown monotonic function of 
-the values of $X_i$ and $X_j$. So studying rank-based correlations
-may be more informative, ecologically as well as providing the mathematical advantages
-listed above. 
+to subsequently crash, across all or most habitat patches. 
 
 <!--future ideas start here-->
-Our results suggest some new lines of research on the 
-impact of tail associations on growth rates and 
-extinction risks. First, we considered a model with positive association between 
+Our initial exploration for stage-structured models suggested limited influence of 
+tail associations between vital rates on extinction risk, but some
+additional lines of inquiry might be worth exploring as part of an effort to
+understand how general our results are.
+First, we considered a model with positive association between 
 egg and adult vital rates,
 corresponding to similar impacts of an environmental variable on 
 eggs and adults. Negative associations between vital rates
@@ -748,20 +642,15 @@ associated with $r_2$ because reductions/increases in $r_1$ can
 then be traded off against increases/reductions in either 
 $r_2$ or $r_3$. It is possible that tail associations in negatively 
 related vital rates produce different outcomes for extinction risk
-from what we have observed by studying positively associated vital rates.
+from what we observed by studying positively associated vital rates.
 
 <!--Tuljapurkar approximation-->
 A second topic of research that our work suggests has to do with Tuljapurkar's
-approximation of the long-term stochastic growth rate.
-Our results suggest that tail associations and asymmetries of tail associations
+well-known approximation of the long-term stochastic growth rate [@tulja1982; @tulja1990].
+It may be possible to obtain a better understanding, using Tuljapurkar's
+approximation, of our result that asymmetries of tail association
 may have limited influence on the extinction risk of 
-stage-structured, non-spatial models. Although we believe more research is 
-certainly still needed
-as to whether this conclusion holds more generally than the model we considered, 
-if it does hold 
-generally, it may be possible to obtain a better understanding of 
-the result using the well-known approximation
-of Tuljapurkar [@tulja1982; @tulja1990] for the long-term stochastic growth rate.
+stage-structured, non-spatial models.
 The long-term stochastic growth rate is an important quantity in demography
 [@Caswell2000] and population viability analysis for conservation 
 [@MorrisDoak2002], and it factors prominently into
@@ -781,13 +670,101 @@ on tail association. @Lande2003 provides reasoning supporting a claim that
 Tuljapurkar's approximation
 is "likely to be accurate in many cases," (p. 60) though we are unaware of the extent
 to which accuracy of the approximation has been tested for scenarios with
-asymmetric tail associations. It seems worth explicitly exploring the accuracy of 
+asymmetric tail associations. It seems potentially worth exploring the accuracy of 
 Tuljapurkar's approximation under scenarios of tail association in the vital rates
 and relating results to the effects of tail associations on the long-term
 stochastic growth rate and extinction risks.
 We note that the above reasoning pertains only to density-independent models,
 and says nothing about our results for the density-dependent version of our
 stage-structured model. 
+
+<!--linking back to ECEs - this para about the metapop case-->
+Extensive evidence now exists that ECEs have become more frequent and more intense
+over the last several decades, and substantial progress has recently been made so that
+some event categories and even specific events can now be attributed to
+human-induced climate change [@ummenhofer2017extreme]. We now provide an  
+explanation of how such changes may modify the asymmetry of tail association of 
+weather variables measured in different places. Such modification may thereby influence metapopulation
+extinction risk through the mechanisms explored earlier in this paper. 
+Let $X_i(t)$ and $X_j(t)$ denote the values of some weather variable as measured in fixed 
+locations $i$ and $j$ at time $t$. Although changes in 
+the correlation, through time, between $X_i(t)$ and $X_j(t)$ are increasingly documented, 
+and may also be a consequence of climate change (e.g., @Black2018),
+we are unaware of any studies examining the extent to which tail associations
+between $X_i(t)$ and $X_j(t)$, and asymmetries of tail association, may be 
+changing. If ECEs are becoming
+more spatially extensive, as seems likely given that they are becoming
+more intense [@ummenhofer2017extreme], then the conditional probability that both of
+$X_i(t)$ and $X_j(t)$ are influenced by an ECE, given that one of them is so
+influenced, should be increasing. That is, since ECEs are spatially bigger, it is now
+more likely that a single weather event
+influences both locations $i$ and $j$ given that it influences one of them. 
+This should contribute to increased association
+of the two variables in one of their tails (which tail depends on the type of 
+ECE and what the variable $X$ is). A study of changes through time in 
+tail associations of weather variables would be straightforward and 
+potentially important given the mechanisms we have explored. 
+<!--***DAN: Shyamolina, another aspect of an exploration you may do on the 
+the geography of tail association may be to look at how tail association 
+may be changing. This relates to ECEs, so may help better justify the work
+to a funder. You had proposed to look at geography of tail association in 
+NDVI, and that makes good sense. You could also look at how tail association
+is changing in NDVI (the records are about 35 years long, so you could just
+about do this). Even better (because data are better), you could get weather
+station records (lots of these can be downloaded, over 1000 stations
+have been operating for over a century continuously in North America) and 
+look at how tail associations are changing in those data.-->
+
+<!--copulas and rank methods-->
+It is known that the distributions $X_i(t)$ are changing, in
+mean, variance, and possibly other ways, depending on what
+environmental variable $X$ represents.
+Studying associations between $X_i(t)$ and $X_j(t)$ using standard 
+methods such as Pearson correlation
+may be complicated by these changes; rank-based 
+measures of association such as 
+we have used may be more appropriate for some applications.
+If $f$ is a strictly monotonic, increasing transformation, then the Spearman
+(or Kendall) correlation of $f(X_i(t))$ and $f(X_j(t))$ is the same as the
+Spearman (or Kendall) correlation of $X_i(t)$ and $X_j(t)$. However, the Pearson
+correlation of $f(X_i(t))$ and $f(X_j(t))$ may differ substantially
+from the Pearson correlation of $X_i(t)$ and $X_j(t)$. 
+Relatedly, if the marginal distributions of $X_i(t)$ and $X_j(t)$ are
+changing through time, it may also cause changes through time in the 
+Pearson correlation of these quantities, even while the values
+of rank-based correlations such as Spearman and Kendall may be unchanging.
+Essentially, in such a case, associations between $X_i(t)$ and $X_j(t)$
+would be unchanging through time even though Pearson correlation
+appears to indicate a change, which is instead a change 
+in marginal distributions. Perhaps unfortunately, the Pearson correlation,
+which is the most commonly used measure of association of two variables,
+depends not only on association information, but also on the marginals.
+For this reason, it is possible that recently observed changes in environmental
+(e.g., @Black2018) and biological (e.g., @Koenig2016) synchrony 
+are, at least in part, just another feature of 
+already-studied changes in distributional characteristics of 
+variables, rather than reflecting true changes in association as would be measured
+using rank-based methods.
+
+Rank-based methods are linked to a well-developed suite of statistical
+approaches related to the *copula* concept of statistics. Copulas and related ideas
+can be used to formally separate the information in the joint 
+distribution of $X_i$ and $X_j$ into the information that pertains
+to the marginal distributions of these variables, and the information
+that pertains solely to their association. 
+@Ghosh_copula argued generally for the potential of copulas 
+to improve our understanding of ecology 
+(see also @Popovic2018; @Valpine2014; @Anderson2018).
+Rank-based methods such as the Spearman and partial Spearman correlations
+we used are closely related to copulas, and @Ghosh_copula,
+@Genest2007 and others have recommended copula and rank approaches when the 
+goal is to understand associations between variables. We recognize that the Pearson correlation
+of $X_i(t)$ and $X_j(t)$, and changes through time in that correlation, 
+will still be useful for many applications. But to understand potential 
+changes in the association 
+of $X_i(t)$ and $X_j(t)$, unconfounded by changes in their marginal distributions,
+it is necessary to use rank-based or copula methods [@Ghosh_copula,
+@Genest2007].
 
 <!--relate things to the geography of synchrony-->
 Finally, our results suggest that combining
@@ -799,9 +776,10 @@ Furthermore, associations between environmental variables in different
 patches were assumed to be spatially homogeneous. In real metapopulations,
 neither of these assumptions holds. Several recent studies, reviewed and synthesized
 by @walteretal2017, have explored geographic variation in the spatial synchrony of environmental
-and population variables (known as "geography of synchrony"); @walteretal2017 explored the 
-mechanisms, consequences and ecological importance of this geography of synchrony. For instance, 
-synchrony was found to have a prominent geography (i.e. a distinctive spatial pattern) which can 
+and population variables. @walteretal2017 coined such variation the 
+"geography of synchrony", and explored its 
+mechanisms, consequences and ecological importance. For instance, 
+synchrony in several systems was found to have prominent geographic variation, which can 
 help provide inferences about the causes
 of synchrony and about organism ecology. Two among many research questions that 
 could be explored that blend the geography of synchrony with tail associations
@@ -850,7 +828,7 @@ were higher when associations between vital rates were stronger in the left comp
 the right tails of the rates, but only slightly so. Results are for the linear
 version of the model ($\Omega = \infty$; A, C) and for the nonlinear model with density
 dependence in the fecundity rate ($\Omega = 100$; B, D). Results show cases of moderate
-(A, B) and extreme (C, D) asymmetry of tail association. The solid line is the estimated extinction risk, and the area of shading, which is barely visible because it is very narrow, shows 95\% confidence intervals for extinction risk. LT=left tail, RT=right tail.\label{fig_extrisk_agestr}}
+(A, B) and extreme (C, D) asymmetry of tail association. The solid line is the estimated extinction risk, and the area of shading, which is barely visible because it is very narrow, shows 95\% confidence intervals for extinction risk based on the number of simulations done. LT=left tail, RT=right tail.\label{fig_extrisk_agestr}}
 \end{center}
 \end{figure*}
 
