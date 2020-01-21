@@ -237,7 +237,7 @@ influence extinction risk in populations and metapopulations. Specifically,
 we will address the following sets of questions. Q1) Can the nature of tail associations
 between vital rates in an age-structured population model influence
 extinction risk for the model, and to what extent? Q2) Does the nature
-of tail associations between measurements of an environmental variable in different
+of tail associations between measurements of an environmental variable made in different
 locations influence the extinction risk of a density-dependent metapopulation model
 that depends on the environmental variable? How does the nature of the density
 dependence mediate this influence? Will density dependence reverse or reproduce
@@ -250,7 +250,7 @@ relative to right-tail dependence, even when the overall correlation is kept fix
 For Q2, we simulate spatial extensions of several simple and commonly
 used population models. We intentionally use a simulation approach and simple models
 for both Q1 and Q2 instead of attempting mathematical 
-analysis and/or using models that are more realistic, 
+analysis and/or using models that are more realistic and complex, 
 because our intention here is to provide an initial exploration only of 
 the potential mechanisms outlined above. 
 By so doing we hope to open these potentially practically important questions to 
