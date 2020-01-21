@@ -111,20 +111,15 @@ Minor comment
 
 •       The paragraph starting from Line 372 is very long and winding. This needs to be tightened substantially (to 2/3 to ½ of the current length, which is 1.5 pages).
 
->>>We split the paragraph into two and shortened, as the referee requesrs.
+>>>We split the paragraph into two and shortened, as the referee requests.
 
 •       Line 419-421. This sentence is very confusing. Using “/” and “(respectively)” makes it almost intractable.
 
-***Shya: Agreed and modified in the text. 
-
-
-
-
+>>>We revised, as requested.
 
 •       Line 424-450. I suggest that the sentence starting with “Although” should come after “…with asymmetric tail associations” in Line 445 for a better flow. As a connection, add a sentence like “This result is partly consistent with the prediction from Tuljapurkar’s approximation” before “The long-term stochastic growth rate… (Line 431)”.
 
-***Shya: I leave it for DAN's judgement.
-
+>>>In the course of performing other edits, we revised this paragraph so the comment no longer applies.
 
 •       Line 459-460. Please give a brief definition of “the geography of synchrony,” and clarify what “synchrony was found to have a prominent geography…” means here.
 

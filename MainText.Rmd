@@ -636,11 +636,10 @@ life history trade-offs, e.g. between survival and reproduction
 (e.g, @Lande2003, p. 59). Asymmetric tail associations may occur
 in such a context if, for instance, there is a three way trade-off
 among vital rates $r_1$, $r_2$, and $r_3$. Values of $r_1$ near
-an upper limit may be strongly associated with,
-for instance, $r_2$, whereas lower values of $r_1$ may not be strongly
-associated with $r_2$ because reductions/increases in $r_1$ can
-then be traded off against increases/reductions in either 
-$r_2$ or $r_3$. It is possible that tail associations in negatively 
+an upper limit may be strongly associated with $r_2$, whereas lower 
+values of $r_1$ may not be strongly
+associated with $r_2$ because $r_1$ trades off against both 
+$r_2$ and $r_3$. It is possible that tail associations in negatively 
 related vital rates produce different outcomes for extinction risk
 from what we observed by studying positively associated vital rates.
 
@@ -671,8 +670,8 @@ Tuljapurkar's approximation
 is "likely to be accurate in many cases," (p. 60) though we are unaware of the extent
 to which accuracy of the approximation has been tested for scenarios with
 asymmetric tail associations. It seems potentially worth exploring the accuracy of 
-Tuljapurkar's approximation under scenarios of tail association in the vital rates
-and relating results to the effects of tail associations on the long-term
+Tuljapurkar's approximation under scenarios of tail association in the vital rates;
+and then relating results to the effects of tail associations on the long-term
 stochastic growth rate and extinction risks.
 We note that the above reasoning pertains only to density-independent models,
 and says nothing about our results for the density-dependent version of our
