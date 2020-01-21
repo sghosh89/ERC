@@ -259,8 +259,8 @@ Though tail associations are used
 to assess risks in fields such as finance and hydrology 
 [@alexander2008market; @li2013; @chen2011flood; @Goswami2018], to our
 knowledge asymmetric tail associations have rarely been assessed for their
-importance for extinction risks of populations and species (but see @Ghosh_copula),
-and our essential goal is to advance the idea that tail associations may
+importance for extinction risks of populations and species (but see @Ghosh_copula).
+Our essential goal is to advance the idea that tail associations may
 also be important in this context. 
 Our questions are also an important step for understanding
 the potential influence of ECEs on extinction risks if ECEs are related to
@@ -367,9 +367,9 @@ but we have instead used the transformed variables $s_e(t)$ and $\tilde{f}_a(t)$
 in our model. In what sense are $s_e(t)$ and $\tilde{f}_a(t)$ asymmetrically
 tail associated? Given two boundary quantities $l_b$ and $u_b$ such
 that $0 \leq l_b < u_b \leq 1$, and letting $x(t)$ be the rank of 
-$u(t)$ in the set $\{u(t) | t=1,\ldots,T\}$ and letting 
+$u(t)$ in the set $\{u(t) | t=1,\ldots,T\}$, divided by $T+1$, and letting 
 $y(t)$ be the rank of 
-$v(t)$ in the set $\{v(t) | i=1,\ldots,T\}$ (smallest elements
+$v(t)$ in the set $\{v(t) | i=1,\ldots,T\}$, divided by $T+1$ (smallest elements
 are here defined to have rank 1),
 consider the portions of the 
 lines $x+y = 2l_b$ and $x+y=2u_b$ which lie within the unit square
@@ -384,7 +384,7 @@ over the $t$ such that $x(t)+y(t) > 2l_b$ and $x(t)+y(t)<2u_b$. The variance, $\
 here and throughout, is the sample variance, with Bessel's correction (denominator $T-1$).
 The partial Spearman correlation is the component of the Spearman
 correlation of $u$ and $v$ which can be attributed to the points
-for which the ranks, $x$ and $y$, lie between the boundary lines
+for which the normalized ranks, $x$ and $y$, lie between the boundary lines
 we defined in
 the unit square (Fig. \ref{PartialSpearmanFig}). 
 The quantity $\cor_{0,0.5}(u,v)-\cor_{0.5,1}(u,v)$ 
@@ -417,7 +417,7 @@ show two bands, the data in the right/upper band showing
 stronger association than those in the left/lower band. Each band is bounded by
 the lines $x+y=2l_b$ and $x+y=2u_b$ described in Methods (for values of $l_b$ and $u_b$
 that depend on the band to be used). This figure was reproduced
-largely following Fig. 7 of Ghosh \emph{et al.} (2019).
+largely following Fig. 7 of Ghosh \emph{et al.} (2020).
 \label{PartialSpearmanFig}}
 \end{center}
 \end{figure*}
@@ -428,7 +428,7 @@ of six density dependent population models, the Ricker, Hassell, Maynard Smith, 
 and Austin-Brewer models. These models were all described by @cohen1995unexpected. 
 The models are also listed in Table \ref{tab_model_summary}, and 
 are analyzed in detail in Appendix \ref{SM-model_stability}, where 
-references for the models are also provided.
+original references for the models are also provided.
 All models took the general form $\vec{P} (t+1) = D \lambda(t) \vec{P}(t)$,
 where $\vec{P}(t)$ is a vector of population densities, 
 the $i^{\text{th}}$ component $P_i(t)$ representing
@@ -499,7 +499,10 @@ The whole metapopulation was considered to have gone extinct if all patches were
 at time step $25$.
 Extinction risk was the fraction of 10000 metapopulations that went extinct. 
 Estimates of extinction risk were plotted together with 95\% confidence intervals
-based on a binomial distribution.
+based on a binomial distribution. Though these confidence intervals have limited
+utility because they can be made arbitrarily narrow by increasing the number of simulations,
+they are nonetheless presented to illustrate the confidence achieved with the number of 
+simulations we performed.
 
 <!--test hypothesis from Q2 : ext risk with density-dependence metapopulation model with r from different regime-->
 To answer (Q2) of the Introduction, 
@@ -517,9 +520,9 @@ $r$ used spanned 95\% of the interval ($r_{min},r_{bf}$). For details, see Appen
 \ref{SM-model_stability}. The range of $r$ encompassed $r_c$, so included 
 a transition from under- to overcompensatory dynamics. For each value of $r$
 used within the range, we calculated extinction risk as indicated above.
-Dispersal parameter values $d= 0,0.1,0.2,..0.5$ were also used in different 
-simulations. We plotted extinction risk as a function of $d$ for two
-fixed values of $r$, one producing under- and one overcompensatory dynamics.
+Dispersal parameter values $d= 0,0.1,0.2,\ldots,0.5$ were also used in different 
+simulations. We plotted extinction risk as a function of $d$ for several
+fixed values of $r$, some producing under- and some overcompensatory dynamics.
 For $d=0$ we also plotted extinction risk as a function of $r$. All code for 
 this project is available at https://github.com/sghosh89/ERC.
 
@@ -531,7 +534,7 @@ associations between the vital rates $s_e$ and $f_a$ were principally for low va
 of these vital rates (left-tail association), and were lower when associations
 were principally for higher values; but the effect was minor for this model (Fig. \ref{fig_extrisk_agestr}).
 Though extinction risks were overall higher for the density-dependent version of our model compared
-to density-independent version, extinction risk differences across tail association 
+to the density-independent version, extinction risk differences across tail association 
 scenarios were similar for the two versions. Because the same Spearman correlation (up to sampling
 variance) was used in all simulations, the differences between lines in the panels
 of Fig. \ref{fig_extrisk_agestr} are attributable solely to the changes we made in the
@@ -622,7 +625,7 @@ beneficial events caused populations to exceed carrying capacity, and
 to subsequently crash, across all or most habitat patches. 
 
 <!--future ideas start here-->
-Our initial exploration for stage-structured models suggested limited influence of 
+Our exploration for stage-structured models suggested limited influence of 
 tail associations between vital rates on extinction risk, but some
 additional lines of inquiry might be worth exploring as part of an effort to
 understand how general our results are.
@@ -681,7 +684,7 @@ stage-structured model.
 Extensive evidence now exists that ECEs have become more frequent and more intense
 over the last several decades, and substantial progress has recently been made so that
 some event categories and even specific events can now be attributed to
-human-induced climate change [@ummenhofer2017extreme]. We now provide an  
+human-induced climate change [@ummenhofer2017extreme]. We now provide an
 explanation of how such changes may modify the asymmetry of tail association of 
 weather variables measured in different places. Such modification may thereby influence metapopulation
 extinction risk through the mechanisms explored earlier in this paper. 
@@ -743,7 +746,7 @@ For this reason, it is possible that recently observed changes in environmental
 are, at least in part, just another feature of 
 already-studied changes in distributional characteristics of 
 variables, rather than reflecting true changes in association as would be measured
-using rank-based methods.
+using rank-based correlation methods.
 
 Rank-based methods are linked to a well-developed suite of statistical
 approaches related to the *copula* concept of statistics. Copulas and related ideas
@@ -762,7 +765,7 @@ of $X_i(t)$ and $X_j(t)$, and changes through time in that correlation,
 will still be useful for many applications. But to understand potential 
 changes in the association 
 of $X_i(t)$ and $X_j(t)$, unconfounded by changes in their marginal distributions,
-it is necessary to use rank-based or copula methods [@Ghosh_copula,
+it is necessary to use rank-based or copula methods [@Ghosh_copula;
 @Genest2007].
 
 <!--relate things to the geography of synchrony-->
