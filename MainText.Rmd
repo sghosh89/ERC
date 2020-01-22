@@ -191,8 +191,8 @@ only when that variable takes low values. When rainfall takes
 typical or high values, fecundity and survival may be limited instead 
 by different, unrelated factors. This could produce left-tail dependence between these 
 vital rates, possibly resulting in different extinction risk for the model
-compared to a case in which vital rates were symmetrically associated in 
-their tails but otherwise statistically similar. 
+compared to a case in which vital rates are symmetrically associated in 
+their tails or right-tail associated but otherwise statistically similar (Fig. \ref{VitalRatePedagogFig}). 
 
 <!--ECEs probably produce tail associations-->
 There are reasons to hypothesize that ECEs may produce asymmetric tail 
@@ -228,8 +228,8 @@ population growth model (the Lewontin-Cohen model). In essence, if environmental
 spatially synchronized it should create much greater metapopulation extinction 
 risk than if "bonanzas" (i.e., extremely good years) are widely synchronized, even
 if overall (non-tail-specific) levels of environmental synchrony are the same
-in both these scenarios. The present study extends tests of this idea to metapopulation
-models incorporating density dependence. 
+in both these scenarios (Fig. \ref{MetapopPedagogFig}). The present study extends tests 
+of this idea to metapopulation models incorporating density dependence. 
 
 <!--objectives, last para of intro-->
 In this paper, we will explore the potential for asymmetric tail associations to 
@@ -295,6 +295,26 @@ asymmetric tail associations.
 \label{fig_intro_cop}}
 \end{center}
 \end{figure*}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=25cm]{vitalrate_pedagog_fig.pdf}
+\caption{Left-tail association between vital rates makes it more likely that low values
+of fecundity and survival will happen simultaneously (A), causing both life stages to crash 
+simultaneously. This seems likely to increase extinction risk. In contrast, right-tail association
+between vital rates instead makes it more likely that high values of fecundity and survival will 
+happen simultaneously (B). \label{VitalRatePedagogFig}}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=25cm]{metapop_pedagog_fig.pdf}
+\caption{Under extreme left-tail association of environments between two locations, catastrophes happen 
+simultaneously in both locations (A). Whereas under extreme right-tail association, catastrophes do not happen
+simultaneously, even when overall environmental association is the same in both scenarios (B). \label{MetapopPedagogFig}}
+\end{center}
+\end{figure}
 
 # Methods\label{Methods}
 
