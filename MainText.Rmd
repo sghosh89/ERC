@@ -206,7 +206,7 @@ in each locale, but it does so for many locales across a large area. Also suppos
 precipitation measurements are associated, instead, with local, non-extreme weather 
 which can differ from location to location, rather than with a single extreme rain event.
 The result could be stronger right-tail association, through time, between measurements of precipitation
-made in different locations: large precipation measurements are coherent across space, since 
+made in different locations: large precipitation measurements are coherent across space, since 
 they are all attributable to a single event; whereas small values are less spatially correlated
 because they come from a multiplicity of distinct local events.
 
@@ -389,7 +389,7 @@ tail associated? Given two boundary quantities $l_b$ and $u_b$ such
 that $0 \leq l_b < u_b \leq 1$, and letting $x(t)$ be the rank of 
 $u(t)$ in the set $\{u(t) | t=1,\ldots,T\}$, divided by $T+1$, and letting 
 $y(t)$ be the rank of 
-$v(t)$ in the set $\{v(t) | i=1,\ldots,T\}$, divided by $T+1$ (smallest elements
+$v(t)$ in the set $\{v(t) | t=1,\ldots,T\}$, divided by $T+1$ (smallest elements
 are here defined to have rank 1),
 consider the portions of the 
 lines $x+y = 2l_b$ and $x+y=2u_b$ which lie within the unit square
@@ -485,7 +485,7 @@ analytically, making downstream analyses difficult for that model. Second, for
 the Varley model and for the portions of parameter space we explored, 
 varying $r$ produced no transition from under- to overcompensatory dynamics.
 
-We simulated our metapopulation models using environmental noises $\epsilon_i(t)$ (Table \ref{tab_model_summary}), 
+We simulated our metapopulation models using environmental noises $\varepsilon_i(t)$ (Table \ref{tab_model_summary}), 
 independent through time, that were generated to have the same overall associations 
 between all patches and in all simulations (Spearman's $\rho$ again `r srho_common`, up to sampling variance), 
 but with different degrees and types of asymmetry of tail associations 
@@ -497,13 +497,13 @@ or extreme right-tail association between all pairs of locations (as in Fig. \re
 Pairs $u_i(t)$ and $u_j(t)$ looked like Fig. \ref{fig_intro_cop} and were structured, statistically,
 in the same way as the stochastic quantities $u(t)$ and $v(t)$ used for the non-spatial 
 simulations described above. For any $i$, $u_i(t)$ was again uniformly distributed on 
-the interval $(0,1)$. To obtain the values $\epsilon_i(t)$, the $u_i(t)$ were 
+the interval $(0,1)$. To obtain the values $\varepsilon_i(t)$, the $u_i(t)$ were 
 transformed so that the resulting numbers were
 normally distributed with mean $0$ and standard deviation $\sigma$ (Table \ref{tab_model_summary}), 
 for all $i$. This was 
 accomplished with the inverse cumulative distribution function of the normal distribution
 with mean $0$ and standard deviation $\sigma$. Because this was a monotonic transformation,
-the Spearman correlation between $\epsilon_i(t)$ and $\epsilon_j(t)$ was the same 
+the Spearman correlation between $\varepsilon_i(t)$ and $\varepsilon_j(t)$ was the same 
 as that between $u_i(t)$ and $u_j(t)$; likewise partial Spearman correlations were the same. 
 The quantities $(u_1(t),\ldots,u_n(t))$
 for $t=1,\ldots,T$ were generated as described in Appendix \ref{SM-makenoise}.
@@ -900,7 +900,7 @@ library(dplyr)
 dt<-readRDS("./Results/tab_model_summary.RDS")
 knitr::kable(dt, escape=F,
              format="latex",digits=3, align="c",table.env='table*',
-             caption = "Summary of the six density-dependent stochastic metapopulation models we used. The population growth rate in habitat patch $i$ at time $t$, $\\lambda_i(t)$ (second column), is $P_i(t+1)/P_i(t)$, and defines how the model works within each patch. Here $P_i(t)$ is the population in patch $i$ at time $t$. The growth rate depends on model parameters, $P_i(t)$, and the environment $\\epsilon_i(t)$ in patch $i$ at time $t$. $\\epsilon_i(t)$ was normally distributed with mean $0$ and standard deviation $\\sigma$, and values were generated independently across times. $P_e$ is the equilibrium of the deterministic, one-patch version of the model. $r_{min}$ is the smallest $r$, given fixed values of the other parameters, for which $P_e$ was non-negative. $r_c$ is the value of $r$ for which a transition occurs from under- to overcompensatory dynamics (see main text). $r_{bf}$ is the value of $r$ for which a transition occurs from a stable to an unstable equilbrium (a bifurcation; see main text). For extinction-risk simulations, we used $r$ such that $r_{min}<r<r_{bf}$. Dispersal between patches was also implemented (see main text). Formulas are given for $P_e$ but specific values which pertain for the listed parameters are given for $r_{min}$, $r_c$ and $r_{bf}$. See Appendix \\ref{SM-model_stability} for the formulas that gave these values.\\label{tab_model_summary}",
+             caption = "Summary of the six density-dependent stochastic metapopulation models we used. The population growth rate in habitat patch $i$ at time $t$, $\\lambda_i(t)$ (second column), is $P_i(t+1)/P_i(t)$, and defines how the model works within each patch. Here $P_i(t)$ is the population in patch $i$ at time $t$. The growth rate depends on model parameters, $P_i(t)$, and the environment $\\varepsilon_i(t)$ in patch $i$ at time $t$. $\\varepsilon_i(t)$ was normally distributed with mean $0$ and standard deviation $\\sigma$, and values were generated independently across times. $P_e$ is the equilibrium of the deterministic, one-patch version of the model. $r_{min}$ is the smallest $r$, given fixed values of the other parameters, for which $P_e$ was non-negative. $r_c$ is the value of $r$ for which a transition occurs from under- to overcompensatory dynamics (see main text). $r_{bf}$ is the value of $r$ for which a transition occurs from a stable to an unstable equilbrium (a bifurcation; see main text). For extinction-risk simulations, we used $r$ such that $r_{min}<r<r_{bf}$. Dispersal between patches was also implemented (see main text). Formulas are given for $P_e$ but specific values which pertain for the listed parameters are given for $r_{min}$, $r_c$ and $r_{bf}$. See Appendix \\ref{SM-model_stability} for the formulas that gave these values.\\label{tab_model_summary}",
              booktabs=T, linesep = "\\addlinespace"
              )%>%column_spec(c(1,3,5,6,7),width="1.4 cm")%>%kable_styling(latex_options = "basic",position = "center")%>%column_spec(2, width = "3.8 cm")
 ```
