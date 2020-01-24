@@ -656,7 +656,7 @@ eggs and adults. Negative associations between vital rates
 can occur as well, and the impacts of tail associations should be considered
 in that context as well. Negative associations relate to
 life history trade-offs, e.g. between survival and reproduction 
-(e.g, @Lande2003, p. 59). Asymmetric tail associations may occur
+(e.g., @Lande2003, p. 59). Asymmetric tail associations may occur
 in such a context if, for instance, there is a three way trade-off
 among vital rates $r_1$, $r_2$, and $r_3$. Values of $r_1$ near
 an upper limit may be strongly associated with $r_2$, whereas lower 
