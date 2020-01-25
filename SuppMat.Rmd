@@ -3009,7 +3009,7 @@ if $1<r<2$. Thus $r_{min}=0$, $r_c=1$, and $r_{bf}=2$.
 
 **The Hassell model.** The Hassell model [@hassell1975density; @may1976bifurcations] was 
 developed to help understand the dynamics of insect populations, and as a model of contest versus scramble 
-instraspecific competition. The model
+intraspecific competition. The model
 can be written $P(t+1) = F(P(t),r,a,b)=rP(t)/(1+aP(t))^b$. Here $r>0$ is the intrinsic growth rate and
 $a$ and $b$ are positive parameters. If $b=1$, the Hassell model reduces to the
 Beverton-Holt model [@beverton2012dynamics] used in fisheries. The Hassell model is a representation
