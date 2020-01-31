@@ -776,7 +776,7 @@ to the marginal distributions of these variables, and the information
 that pertains solely to their association. 
 @Ghosh_copula argued generally for the potential of copulas 
 to improve our understanding of ecology 
-(see also @Popovic2018; @Valpine2014; @Anderson2018).
+(see also @Popovic2019; @Valpine2014; @Anderson2018).
 Rank-based methods such as the Spearman and partial Spearman correlations
 we used are closely related to copulas, and @Ghosh_copula,
 @Genest2007 and others have recommended copula and rank approaches when the 
