@@ -370,7 +370,7 @@ gamma distributions were the transformations. Because these
 were monotonic transformations, the Spearman correlation of 
 $s_e(t)$ and $\tilde{f}_a(t)$ was the same as that of 
 $u(t)$ and $v(t)$. The quantities $(u(t),v(t))$ for $t=1,\ldots,T$ were
-generated as described in Appendix \ref{SM-makenoise}.
+generated as described in Appendix, section \ref{SM-makenoise}.
 
 <!--calculation of ext risk with age-structured model-->
 To calculate extinction risk for a given $\Omega$ and choice of tail dependence, 
@@ -447,7 +447,7 @@ To investigate Q2 from the Introduction, we considered spatialized, stochastic v
 of six density dependent population models, the Ricker, Hassell, Maynard Smith, Pennycuick, Verhulst, 
 and Austin-Brewer models. These models were all described by @cohen1995unexpected. 
 The models are also listed in Table \ref{tab_model_summary}, and 
-are analyzed in detail in Appendix \ref{SM-model_stability}, where 
+are analyzed in detail in Appendix, section \ref{SM-model_stability}, where 
 original references for the models are also provided.
 All models took the general form $\vec{P} (t+1) = D \lambda(t) \vec{P}(t)$,
 where $\vec{P}(t)$ is a vector of population densities, 
@@ -471,7 +471,7 @@ range, while keeping the other parameters fixed at selected values,
 caused the  deterministic, one-patch versions of the models to transition from dynamics
 showing an undercompensatory (i.e., monotonic) approach to an equilibrium; to
 dynamics showing an overcompensatory (i.e., oscillatory) approach to an equilibrium. 
-The transition value of $r$ was denoted $r_c$. Appendix \ref{SM-model_stability}
+The transition value of $r$ was denoted $r_c$. Appendix, section \ref{SM-model_stability}
 summarizes stability analyses of the models.
 Whereas @cohen1995unexpected
 was interested in studying chaotic model behavior and therefore chose parameters
@@ -506,7 +506,7 @@ with mean $0$ and standard deviation $\sigma$. Because this was a monotonic tran
 the Spearman correlation between $\varepsilon_i(t)$ and $\varepsilon_j(t)$ was the same 
 as that between $u_i(t)$ and $u_j(t)$; likewise partial Spearman correlations were the same. 
 The quantities $(u_1(t),\ldots,u_n(t))$
-for $t=1,\ldots,T$ were generated as described in Appendix \ref{SM-makenoise}.
+for $t=1,\ldots,T$ were generated as described in Appendix, section \ref{SM-makenoise}.
 
 To calculate extinction risk for a given metapopulation model, given parameters,
 and a given choice of tail association,
@@ -536,7 +536,7 @@ results for under- and overcompensatory model regimes.
 Defining $r_\text{min}$ as the minimum value of $r$ 
 for which $P_e$ was non-negative; and defining
 $r_\text{bf}$ as the value of $r$ at which a bifurcation occurs, the range of
-$r$ used spanned 95\% of the interval ($r_\text{min},r_\text{bf}$). For details, see Appendix 
+$r$ used spanned 95\% of the interval ($r_\text{min},r_\text{bf}$). For details, see Appendix, section 
 \ref{SM-model_stability}. The range of $r$ encompassed $r_c$, so included 
 a transition from under- to overcompensatory dynamics. For each value of $r$
 used within the range, we calculated extinction risk as indicated above.
@@ -900,7 +900,7 @@ library(dplyr)
 dt<-readRDS("./Results/tab_model_summary.RDS")
 knitr::kable(dt, escape=F,
              format="latex",digits=3, align="c",table.env='table*',
-             caption = "Summary of the six density-dependent stochastic metapopulation models we used. The population growth rate in habitat patch $i$ at time $t$, $\\lambda_i(t)$ (second column), is $P_i(t+1)/P_i(t)$, and defines how the model works within each patch. Here $P_i(t)$ is the population in patch $i$ at time $t$. The growth rate depends on model parameters, $P_i(t)$, and the environment $\\varepsilon_i(t)$ in patch $i$ at time $t$. $\\varepsilon_i(t)$ was normally distributed with mean $0$ and standard deviation $\\sigma$, and values were generated independently across times. $P_e$ is the equilibrium of the deterministic, one-patch version of the model. $r_\\text{min}$ is the smallest $r$, given fixed values of the other parameters, for which $P_e$ was non-negative. $r_c$ is the value of $r$ for which a transition occurs from under- to overcompensatory dynamics (see main text). $r_\\text{bf}$ is the value of $r$ for which a transition occurs from a stable to an unstable equilibrium (a bifurcation; see main text). For extinction-risk simulations, we used $r$ such that $r_\\text{min}<r<r_\\text{bf}$. Dispersal between patches was also implemented (see main text). Formulas are given for $P_e$ but specific values which pertain for the listed parameters are given for $r_\\text{min}$, $r_c$ and $r_\\text{bf}$. See Appendix \\ref{SM-model_stability} for the formulas that gave these values.\\label{tab_model_summary}",
+             caption = "Summary of the six density-dependent stochastic metapopulation models we used. The population growth rate in habitat patch $i$ at time $t$, $\\lambda_i(t)$ (second column), is $P_i(t+1)/P_i(t)$, and defines how the model works within each patch. Here $P_i(t)$ is the population in patch $i$ at time $t$. The growth rate depends on model parameters, $P_i(t)$, and the environment $\\varepsilon_i(t)$ in patch $i$ at time $t$. $\\varepsilon_i(t)$ was normally distributed with mean $0$ and standard deviation $\\sigma$, and values were generated independently across times. $P_e$ is the equilibrium of the deterministic, one-patch version of the model. $r_\\text{min}$ is the smallest $r$, given fixed values of the other parameters, for which $P_e$ was non-negative. $r_c$ is the value of $r$ for which a transition occurs from under- to overcompensatory dynamics (see main text). $r_\\text{bf}$ is the value of $r$ for which a transition occurs from a stable to an unstable equilibrium (a bifurcation; see main text). For extinction-risk simulations, we used $r$ such that $r_\\text{min}<r<r_\\text{bf}$. Dispersal between patches was also implemented (see main text). Formulas are given for $P_e$ but specific values which pertain for the listed parameters are given for $r_\\text{min}$, $r_c$ and $r_\\text{bf}$. See Appendix, section \\ref{SM-model_stability} for the formulas that gave these values.\\label{tab_model_summary}",
              booktabs=T, linesep = "\\addlinespace"
              )%>%column_spec(c(1,3,5,6,7),width="1.4 cm")%>%kable_styling(latex_options = "basic",position = "center")%>%column_spec(2, width = "3.8 cm")
 ```
