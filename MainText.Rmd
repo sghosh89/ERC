@@ -337,7 +337,7 @@ drawn from a beta distribution with parameters $\alpha=3$ and $\beta=2$.
 Adult fecundity was $f_a(t)=\tilde{f}_a(t)\exp(-A(t)/\Omega)$, where $\tilde{f}_a(t)$
 was drawn from a gamma distribution with shape and scale parameters $k=2$
 and $\theta=1$, respectively, 
-and $\Omega$ is a density dependence parameter. Taking $\Omega=\infty$ made
+and $\Omega$ is a density dependence parameter. Allowing $\Omega$ to tend to $\infty$
 $\exp(-A(t)/\Omega)=1$ so that the model did not include density dependence
 (it was then a standard stochastic matrix model). Finite, positive values of 
 $\Omega$ made the model nonlinear, with density dependence in the adult
@@ -396,7 +396,7 @@ lines $x+y = 2l_b$ and $x+y=2u_b$ which lie within the unit square
 (Fig. \ref{PartialSpearmanFig}). 
 We can then define the *partial Spearman correlation*,
 \begin{equation}
-\cor_{l_b,u_b}(u,v) = \frac{\sum (x(t)-\mean(x))(y(t)-\mean(y))}{(n-1)\sqrt{\var(x) \var(y)}},\label{PartialSpearmanEq}
+\cor_{l_b,u_b}(u,v) = \frac{\sum (x(t)-\mean(x))(y(t)-\mean(y))}{(T-1)\sqrt{\var(x) \var(y)}},\label{PartialSpearmanEq}
 \end{equation}
 \noindent where sample means and variances in this equation
 are computed using all the data but the sum is computed only
@@ -533,10 +533,10 @@ as indicated above. We chose values of $r$ within a range, the
 range specified as follows. The second part of Q2 (about how density dependence mediates the
 influence of asymmetric tail associations on extinction risk) was addressed by comparing
 results for under- and overcompensatory model regimes.
-Defining $r_{min}$ as the minimum value of $r$ 
+Defining $r_\text{min}$ as the minimum value of $r$ 
 for which $P_e$ was non-negative; and defining
-$r_{bf}$ as the value of $r$ at which a bifurcation occurs, the range of
-$r$ used spanned 95\% of the interval ($r_{min},r_{bf}$). For details, see Appendix 
+$r_\text{bf}$ as the value of $r$ at which a bifurcation occurs, the range of
+$r$ used spanned 95\% of the interval ($r_\text{min},r_\text{bf}$). For details, see Appendix 
 \ref{SM-model_stability}. The range of $r$ encompassed $r_c$, so included 
 a transition from under- to overcompensatory dynamics. For each value of $r$
 used within the range, we calculated extinction risk as indicated above.
@@ -563,21 +563,21 @@ only to a few percentage points of additional extinction risk after 25 years. A
 potential reason for this outcome is elaborated in the Discussion.
 
 <!--Q2 : metapopulation results-->
-For our metapopulation simulations, for low values of $r$ (close to $r_{min}$), left-tail
+For our metapopulation simulations, for low values of $r$ (close to $r_\text{min}$), left-tail
 associations of environmental noises accentuated extinction risks, and right-tail associations
 mitigated them; but the reverse was true for high values of $r$ (close to
-$r_{bf}$). Thus 
+$r_\text{bf}$). Thus 
 density dependent models can either produce similar results, regarding the influence of 
 tail associations on extinction risk, as the density-independent models of @Ghosh_copula, or
 opposite results, depending on the nature of density dependence. 
 For each model of Table \ref{tab_model_summary}, using a value of $r$ on
-the low end of the range $(r_{min},r_{bf})$, extinction risk was highest
+the low end of the range $(r_\text{min},r_\text{bf})$, extinction risk was highest
 for extreme left-tail associated noise, lowest for extreme right-tail associated
 noise, and was intermediate for the moderate tail association scenarios, for
 both local (Fig. \ref{fig_extrisk_allmodel_localdisp}, left panels) and global 
 (Fig. \ref{SM-fig_extrisk_allmodel_globaldisp}, left panels) dispersal, and for 
 essentially all the dispersal rates, $d$, that we considered. However, 
-using a value of $r$ on the high end of the range $(r_{min},r_{bf})$,
+using a value of $r$ on the high end of the range $(r_\text{min},r_\text{bf})$,
 extinction risks were ordered oppositely (right panels of Figs 
 \ref{fig_extrisk_allmodel_localdisp} and \ref{SM-fig_extrisk_allmodel_globaldisp}). 
 These results help address Q2 from the Introduction.
@@ -588,7 +588,7 @@ Figs. \ref{SM-fig_ricker_risk_global_disp_scl_1} -
 habitat patches. 
 
 Because the deterministic, one-patch versions of our models showed undercompensatory
-dynamics for $r<r_c$ (and therefore for $r$ on the left end of the range $(r_{min},r_{bf})$),
+dynamics for $r<r_c$ (and therefore for $r$ on the left end of the range $(r_\text{min},r_\text{bf})$),
 and showed overcompensatory dynamics for $r>r_c$, Figs \ref{fig_extrisk_allmodel_localdisp}
 and \ref{SM-fig_extrisk_allmodel_globaldisp} suggest the hypothesis that the
 opposite effects of tail association on extinction risk correspond to the domains
@@ -848,7 +848,7 @@ grant 1714195 and the James S. McDonnell Foundation.
 \caption{Extinction risk versus time for our stochastic, age-structured model. Risks
 were higher when associations between vital rates were stronger in the left compared to
 the right tails of the rates, but only slightly so. Results are for the linear
-version of the model ($\Omega = \infty$; A, C) and for the nonlinear model with density
+version of the model ($\Omega \rightarrow \infty$; A, C) and for the nonlinear model with density
 dependence in the fecundity rate ($\Omega = 100$; B, D). Results show cases of moderate
 (A, B) and extreme (C, D) asymmetry of tail association. The solid line is the estimated extinction risk, and the area of shading, which is barely visible because it is very narrow, shows 95\% confidence intervals for extinction risk based on the number of simulations done. LT=left tail, RT=right tail.\label{fig_extrisk_agestr}}
 \end{center}
@@ -900,7 +900,7 @@ library(dplyr)
 dt<-readRDS("./Results/tab_model_summary.RDS")
 knitr::kable(dt, escape=F,
              format="latex",digits=3, align="c",table.env='table*',
-             caption = "Summary of the six density-dependent stochastic metapopulation models we used. The population growth rate in habitat patch $i$ at time $t$, $\\lambda_i(t)$ (second column), is $P_i(t+1)/P_i(t)$, and defines how the model works within each patch. Here $P_i(t)$ is the population in patch $i$ at time $t$. The growth rate depends on model parameters, $P_i(t)$, and the environment $\\varepsilon_i(t)$ in patch $i$ at time $t$. $\\varepsilon_i(t)$ was normally distributed with mean $0$ and standard deviation $\\sigma$, and values were generated independently across times. $P_e$ is the equilibrium of the deterministic, one-patch version of the model. $r_{min}$ is the smallest $r$, given fixed values of the other parameters, for which $P_e$ was non-negative. $r_c$ is the value of $r$ for which a transition occurs from under- to overcompensatory dynamics (see main text). $r_{bf}$ is the value of $r$ for which a transition occurs from a stable to an unstable equilibrium (a bifurcation; see main text). For extinction-risk simulations, we used $r$ such that $r_{min}<r<r_{bf}$. Dispersal between patches was also implemented (see main text). Formulas are given for $P_e$ but specific values which pertain for the listed parameters are given for $r_{min}$, $r_c$ and $r_{bf}$. See Appendix \\ref{SM-model_stability} for the formulas that gave these values.\\label{tab_model_summary}",
+             caption = "Summary of the six density-dependent stochastic metapopulation models we used. The population growth rate in habitat patch $i$ at time $t$, $\\lambda_i(t)$ (second column), is $P_i(t+1)/P_i(t)$, and defines how the model works within each patch. Here $P_i(t)$ is the population in patch $i$ at time $t$. The growth rate depends on model parameters, $P_i(t)$, and the environment $\\varepsilon_i(t)$ in patch $i$ at time $t$. $\\varepsilon_i(t)$ was normally distributed with mean $0$ and standard deviation $\\sigma$, and values were generated independently across times. $P_e$ is the equilibrium of the deterministic, one-patch version of the model. $r_\\text{min}$ is the smallest $r$, given fixed values of the other parameters, for which $P_e$ was non-negative. $r_c$ is the value of $r$ for which a transition occurs from under- to overcompensatory dynamics (see main text). $r_\\text{bf}$ is the value of $r$ for which a transition occurs from a stable to an unstable equilibrium (a bifurcation; see main text). For extinction-risk simulations, we used $r$ such that $r_\\text{min}<r<r_\\text{bf}$. Dispersal between patches was also implemented (see main text). Formulas are given for $P_e$ but specific values which pertain for the listed parameters are given for $r_\\text{min}$, $r_c$ and $r_\\text{bf}$. See Appendix \\ref{SM-model_stability} for the formulas that gave these values.\\label{tab_model_summary}",
              booktabs=T, linesep = "\\addlinespace"
              )%>%column_spec(c(1,3,5,6,7),width="1.4 cm")%>%kable_styling(latex_options = "basic",position = "center")%>%column_spec(2, width = "3.8 cm")
 ```

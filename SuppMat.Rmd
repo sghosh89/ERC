@@ -199,7 +199,11 @@ lines(t,x$erA,col="red",type="l")
 x<-xR
 polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(0,0,1,0.3), border = NA)
 lines(t,x$erA,col="blue",type="l")
-legend(x=-2,y=1.05, c("moderate LT","moderate RT", expression(paste(Omega,"= ", infinity))), lty=c(1,1, NA),  
+legend(x=-2,y=1.05, c("moderate LT","moderate RT", 
+                      #expression(paste(Omega,"%->%", infinity))
+                      expression(symbol('\127') *symbol('\256')* symbol('\245'))
+                      ), 
+       lty=c(1,1, NA),  
        col=c('red', 'blue', NA), horiz=F, bty='n', cex=1.5, x.intersp = 0.2
        #, seg.len = 1
        )
@@ -346,10 +350,11 @@ lines(t,x$erA,col="red",type="l")
 x<-xR
 polygon(c(rev(t), t), c(rev(x$CI0.975), x$CI0.025), col = rgb(0,0,1,0.3), border = NA)
 lines(t,x$erA,col="blue",type="l")
-legend(x=-2,y=1.05, c("extreme LT","extreme RT", expression(paste(Omega,"= ", infinity))), lty=c(1,1, NA),  
+legend(x=-2,y=1.05, c("extreme LT","extreme RT", expression(symbol('\127') *symbol('\256')* symbol('\245'))), 
+       lty=c(1,1, NA),  
        col=c('red', 'blue', NA), horiz=F, bty='n', cex=1.5, x.intersp = 0.2
        #, seg.len = 1
-       )
+       ) 
 par(op)
 dev.off()
 ```
@@ -2668,7 +2673,7 @@ dt4<-tibble("$P_{e}$" = c("K",
                         "K"
 ))
 
-dt4_2<-tibble("$r_{min}$" = c("0",
+dt4_2<-tibble("$r_\\text{min}$" = c("0",
                         "1",
                         "1",
                         "1.90",
@@ -2684,7 +2689,7 @@ dt5<-tibble("$r_{c}$" = c(rc_ricker,
                         rc_abrewer
 ))
 
-dt6<-tibble("$r_{bf}$" = c(r_bf_ricker,
+dt6<-tibble("$r_\\text{bf}$" = c(r_bf_ricker,
                            r_bf_hassell,
                            r_bf_msmith,
                            r_bf_pennycuick,
@@ -2723,7 +2728,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/ricker_scl_1/ricker_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Ricker]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Ricker model.\label{fig_ricker_risk_local_disp_scl_1}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Ricker]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Ricker model. Local dispersal.\label{fig_ricker_risk_local_disp_scl_1}}
 \end{center}
 \end{figure}
 
@@ -2732,7 +2737,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/hassell_scl_1/hassell_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Hassell]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Hassell model. \label{fig_hassell_risk_local_disp_scl_1}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Hassell]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Hassell model. Local dispersal.\label{fig_hassell_risk_local_disp_scl_1}}
 \end{center}
 \end{figure}
 
@@ -2741,7 +2746,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/msmith_scl_0.8/msmith_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Maynard Smith]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Maynard Smith model. \label{fig_msmith_risk_local_disp_scl_0.8}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Maynard Smith]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Maynard Smith model. Local dispersal.\label{fig_msmith_risk_local_disp_scl_0.8}}
 \end{center}
 \end{figure}
 
@@ -2750,7 +2755,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=15 cm]{./Results/pennycuick_scl_1/pennycuick_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Pennycuick]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Pennycuick model. \label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Pennycuick]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Pennycuick model. Local dispersal.\label{fig_risk_local_disp_pennycuick_r_vary_scl_1}}
 \end{center}
 \end{figure}
 
@@ -2759,7 +2764,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/verhulst_scl_0.6/verhulst_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Verhulst]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Verhulst model. \label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Verhulst]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Verhulst model. Local dispersal.\label{fig_risk_local_disp_verhulst_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
@@ -2768,7 +2773,7 @@ saveRDS(dt,"./Results/tab_model_summary.RDS")
 \begin{center}
 \includegraphics[width=12 cm]{./Results/common_legend_extreme_and_moderate_noise.pdf}\\
 \includegraphics[width=12 cm]{./Results/austinbrewer_scl_0.6/abrewer_ext_risk_local_disp_extreme_and_moderate_noise.pdf}\\
-\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Austin-Brewer]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Austin-Brewer model. \label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
+\caption[Extinction risk v. tail association, $d$ and $r$: metapopulations, local dispersal, Austin-Brewer]{Analogous to Fig. \ref{MT-fig_extrisk_allmodel_localdisp} in the main text, but considering more values of $r$ and only the Austin-Brewer model. Local dispersal.\label{fig_risk_local_disp_abrewer_r_vary_scl_0.6}}
 \end{center}
 \end{figure}
 
@@ -3005,7 +3010,7 @@ $\exp(r) > 1$ for a positive $r$. Depending on $r$,
 the other equilibrium, $P_e = K$, can be stable or unstable, since ${F}' = (1-r)$. 
 Specifically, $P_e=K$ is stable if $|1-r|<1$, i.e., $0<r<2$. 
 The model shows undercompesatory dynamics if $0<r<1$ and overcompensatory dynamics
-if $1<r<2$. Thus $r_{min}=0$, $r_c=1$, and $r_{bf}=2$.
+if $1<r<2$. Thus $r_\text{min}=0$, $r_c=1$, and $r_\text{bf}=2$.
 
 **The Hassell model.** The Hassell model [@hassell1975density; @may1976bifurcations] was 
 developed to help understand the dynamics of insect populations, and as a model of contest versus scramble 
@@ -3017,19 +3022,19 @@ of contest competition if $b \sim 1$, and scramble competition if $b$ is large.
 Like the Ricker model, the Hassell model also has two equilibria, $P_e =0$ 
 (the trivial extinction equilibrium) and $P_e = P^\star =(r^{1/b}-1)/a$. 
 For $P_e = P^\star$, the model shows undercompensatory dymamics if $1<r<[b/(b-1)]^b$ 
-and overcompensatory dynamics if $[b/(b-1)]^b<r<[b/(b-2)]^b$, so $r_{min}=1$, 
-$r_c = [b/(b-1)]^b$, and $r_{bf}=[b/(b-2)]^b$.
+and overcompensatory dynamics if $[b/(b-1)]^b<r<[b/(b-2)]^b$, so $r_\text{min}=1$, 
+$r_c = [b/(b-1)]^b$, and $r_\text{bf}=[b/(b-2)]^b$.
 
 **The Maynard Smith model.** The Maynard Smith 
 model [@cohen1995unexpected; @maynard1978models; @may1976bifurcations] is
 $P(t+1)=F(P(t),r,a,b)=rP(t)/[1+(aP(t))^b]$. Here $r>0$ is the growth rate and $a, b$ are 
 positive parameters. The equilibria are $P_e=0$ (the extinction equilibrium) 
 and $P_e = P^\star=\frac{1}{a}(r-1)^{1/b}$.
-For a positive equilibrium value of $P^\star$, $r$ must be greater than $1$, so $r_{min}=1$. 
+For a positive equilibrium value of $P^\star$, $r$ must be greater than $1$, so $r_\text{min}=1$. 
 Then $P^\star$ will 
 be a stable equilibrium and the model will show undercompensatory dynamics if $1<r<r_c=b/(b-1)$;
 the model will show overcompensatory dymamics $r_c<r<b/(b-2)$.
-$P^\star$ will become unstable for $r>r_{bf}=b/(b-2)$. 
+$P^\star$ will become unstable for $r>r_\text{bf}=b/(b-2)$. 
 
 **The Pennycuick model.** The Pennycuick model [@pennycuick1968computer; @may1976bifurcations] 
 is $P(t+1)=F(P(t),r,a,b)=rP(t)/[1+\exp \left\{-a(1-P(t)/b)\right\}]$, where 
@@ -3037,8 +3042,8 @@ $r>0$ is the intrinsic growth rate and $a$ and $b$ are positive parameters. Mode
 equilibria are 
 $P_e=0$ (the extinction equilibrium) and $P_e=P^\star=\frac{b}{a}[a+\ln{(r-1)}]$. For 
 a positive equilibrium population 
-$r$ must be greater than $r_{min} = 1+\exp(-a)$. The transition point $r_c$ (from under- to 
-overcompensatory dynamics) and the bifurcation point $r_{bf}$ were obtained
+$r$ must be greater than $r_\text{min} = 1+\exp(-a)$. The transition point $r_c$ (from under- to 
+overcompensatory dynamics) and the bifurcation point $r_\text{bf}$ were obtained
 by numerical solution of ${F}'=0$ and ${F}'=-1$ at $P_e=P^{\star}$, respectively.
 
 **The Verhulst model.** The Verhulst model 
@@ -3048,8 +3053,8 @@ as $P(t+1) = F(P(t),r,K) =P(t)[1+r(1-P(t)/K)]$, with $r>0$ and $K>0$ being growt
 carrying capacity parameters, respectively. 
 The model equilibrium $P_e=0$ is always unstable whereas the equilibrium 
 $P_e=K$ is stable below the bifurcation 
-point $r_{bf}=2$. The model shows undercompensatory dynamics for $0<r<r_c=1$
-and overcompensatory dynamics for $r_c<r<r_{bf}$.
+point $r_\text{bf}=2$. The model shows undercompensatory dynamics for $0<r<r_c=1$
+and overcompensatory dynamics for $r_c<r<r_\text{bf}$.
 
 **The Austin-Brewer model.** The Austin-Brewer model 
 [@austin1971world; @cohen1995unexpected] was originally used 
@@ -3058,10 +3063,10 @@ $r, K, s$ are positive parameters. $r$ and $K$ represent the growth rate and car
 capacity, respectively.
 the usual extinction equilibrium is $P_e=0$. The 
 positive equilibrium is $P_e=P^\star=1-rK\left\{ 1-\exp (-sK)\right\}$. $P^\star$
-is stable when $r<r_{bf}$ and unstable beyond the bifurcation point, where 
-$r_{bf} = \frac{2}{K[1-\exp (-sK)]}$. The model shows undercompensatory dynamics when
+is stable when $r<r_\text{bf}$ and unstable beyond the bifurcation point, where 
+$r_\text{bf} = \frac{2}{K[1-\exp (-sK)]}$. The model shows undercompensatory dynamics when
 $0<r<r_c$, where $r_c = \frac{1}{K[1-\exp (-sK)]}$. It shows 
-overcompensatory dynamics when $r_c<r<r_{bf}$.
+overcompensatory dynamics when $r_c<r<r_\text{bf}$.
 
 \clearpage
 
