@@ -337,7 +337,7 @@ drawn from a beta distribution with parameters $\alpha=3$ and $\beta=2$.
 Adult fecundity was $f_a(t)=\tilde{f}_a(t)\exp(-A(t)/\Omega)$, where $\tilde{f}_a(t)$
 was drawn from a gamma distribution with shape and scale parameters $k=2$
 and $\theta=1$, respectively, 
-and $\Omega$ is a density dependence parameter. Allowing $\Omega$ to tend to $\infty$
+and $\Omega$ is a density dependence parameter. Allowing $\Omega$ to tend to $\infty$,
 $\exp(-A(t)/\Omega)=1$ so that the model did not include density dependence
 (it was then a standard stochastic matrix model). Finite, positive values of 
 $\Omega$ made the model nonlinear, with density dependence in the adult
