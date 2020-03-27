@@ -1,7 +1,9 @@
 ---
 title: "Tail associations in ecological variables and their impact on extinction risk"
-author: "Shyamolina Ghosh, Lawrence W. Sheppard, Daniel C. Reuman"
-date: ""
+author:
+ - Shyamolina Ghosh\textsuperscript{1}, Lawrence W. Sheppard\textsuperscript{1}, Daniel C. Reuman\textsuperscript{1,2,\dag}
+ - \textsuperscript{1}Department of Ecology and Evolutionary Biology and Kansas Biological Survey, University of Kansas, Lawrence, KS, 66045, USA; \textsuperscript{2}Laboratory of Populations, Rockefeller University, 1230 York Ave., New York, NY 10065, USA
+date: '\textsuperscript{\dag}Correspondence: Daniel Reuman, 2101 Constant Ave, Lawrence, KS, 66047, reuman@ku.edu, 626 560 7084'
 fontsize: 12pt
 geometry: "left=1in,right=1in,top=1in,bottom=1in"
 output: 
@@ -30,15 +32,16 @@ options(scipen = 1, digits = 3) #This option round all numbers appeared in the i
 seed<-101
 ```
 
-\noindent \emph{Affiliations:}
+<!--\noindent \emph{Affiliations:}
 
 \noindent Ghosh: Department of Ecology and Evolutionary Biology and Kansas Biological Survey, University of Kansas, Lawrence, KS, 66045, USA
 
 \noindent Sheppard: Department of Ecology and Evolutionary Biology and Kansas Biological Survey, University of Kansas, Lawrence, KS, 66045, USA
 
-\noindent Reuman: Department of Ecology and Evolutionary Biology and Kansas Biological Survey, University of Kansas, Lawrence, KS, 66047, USA; Laboratory of Populations, Rockefeller University, 1230 York Ave, New York, NY, 10065, USA
+\noindent Reuman: Department of Ecology and Evolutionary Biology and Kansas Biological Survey, University of Kansas, Lawrence, KS, 66045, USA; Laboratory of Populations, Rockefeller University, 1230 York Ave, New York, NY, 10065, USA
 
 \noindent \emph{Correspondence:} Daniel Reuman, 2101 Constant Ave, Lawrence, KS, 66047, reuman@ku.edu, 626 560 7084. 
+-->
 
 \newpage
 
@@ -830,7 +833,8 @@ patches (Hanski 1994; Tilman et al. 1994; Lindenmayer et al. 1995; McCarthy
 # Acknowledgments
 
 \noindent The authors were partly supported by US National Science Foundation
-grant 1714195 and the James S. McDonnell Foundation. 
+grant 1714195 and the James S. McDonnell Foundation, and the California Department of Fish 
+and Wildlife Delta Science Program. 
 
  <!--FIG : age structure model results : linear, nonlinear-->
 \begin{figure*}[!h]
