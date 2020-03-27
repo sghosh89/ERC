@@ -83,9 +83,11 @@ of various parts of the document. Some of these can be useful for diagnosing pro
 ## Acknowlegements :
 The authors were partly funded by 
 US National Science Foundation grant 1714195 and the James S McDonnell 
-Foundation. Any opinions, findings, and conclusions or recommendations expressed in this 
+Foundation, and the California Department of Fish 
+and Wildlife Delta Science Program.  Any opinions, findings, and conclusions or recommendations expressed in this 
 material are those of the author(s) and do not necessarily reflect the views of the National 
-Science Foundation or the McDonnell Foundation.
+Science Foundation or the McDonnell Foundation or the California Department of Fish 
+and Wildlife Delta Science Program.
 
 
 
