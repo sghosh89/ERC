@@ -3005,7 +3005,7 @@ management. The model is
 $P(t+1)=F(P(t),r,K)=P(t) \exp[r(1-P(t)/K)]$, where $r>0$ is the intrinsic 
 growth rate and $K>0$ is the carrying capacity of the population. There are two equilibrium 
 states, $P_e = 0$ and $P_e = K$.
-The equilibrium $P_e = 0$ is unstable, since ${F}' = \exp(r)$ for that equilibtrium, and 
+The equilibrium $P_e = 0$ is unstable, since ${F}' = \exp(r)$ for that equilibrium, and 
 $\exp(r) > 1$ for a positive $r$. Depending on $r$, 
 the other equilibrium, $P_e = K$, can be stable or unstable, since ${F}' = (1-r)$. 
 Specifically, $P_e=K$ is stable if $|1-r|<1$, i.e., $0<r<2$. 
